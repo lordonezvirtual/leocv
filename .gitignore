@@ -1,0 +1,10 @@
+# Ignorar archivos del sistema y temporales
+.DS_Store
+Thumbs.db
+desktop.ini
+*.tmp
+*.log
+__pycache__/
+*.pyc
+.vscode/
+.idea/

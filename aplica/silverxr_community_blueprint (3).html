@@ -1,0 +1,977 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  <title>SilverXR Community — Ecosistema de Metahabilidades y Nueva Longevidad</title>
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            silver: {
+              50: '#f8fafc',
+              100: '#f1f5f9',
+              200: '#e2e8f0',
+              300: '#cbd5e1',
+              400: '#94a3b8',
+              500: '#64748b',
+              600: '#475569',
+              700: '#334155',
+              800: '#1e293b',
+              900: '#0f172a',
+            },
+            cyanXR: {
+              400: '#22d3ee',
+              500: '#06b6d4',
+              600: '#0891b2',
+            },
+            amberSilver: {
+              400: '#fbbf24',
+              500: '#f59e0b',
+              600: '#d97706',
+            },
+            emeraldSilver: {
+              400: '#34d399',
+              500: '#10b981',
+              600: '#059669',
+            }
+          },
+          fontFamily: {
+            sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+  
+  <!-- Google Fonts: Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .glass-nav {
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+    }
+    .custom-scroll::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    .custom-scroll::-webkit-scrollbar-thumb {
+      background-color: rgba(148, 163, 184, 0.4);
+      border-radius: 9999px;
+    }
+    .badge-glow {
+      box-shadow: 0 0 15px -3px rgba(6, 182, 212, 0.4);
+    }
+  </style>
+</head>
+
+<body class="bg-slate-900 text-slate-100 min-h-screen antialiased flex flex-col selection:bg-cyan-500 selection:text-slate-900 pb-20 md:pb-8">
+
+  <!-- Floating Toast Notification System (No alert) -->
+  <div id="toastNotification" class="fixed top-5 right-5 z-50 transform translate-y-[-150%] opacity-0 transition-all duration-300 pointer-events-none flex items-center gap-3 bg-slate-800/95 border border-cyan-500/40 text-slate-100 px-4 py-3 rounded-2xl shadow-2xl max-w-sm backdrop-blur-xl">
+    <div id="toastIcon" class="w-8 h-8 rounded-xl bg-cyan-500/20 text-cyan-400 flex items-center justify-center font-bold text-lg">💡</div>
+    <div>
+      <h4 id="toastTitle" class="text-xs font-bold uppercase tracking-wider text-cyan-400">Notificación</h4>
+      <p id="toastMessage" class="text-xs text-slate-300 mt-0.5">Acción realizada con éxito.</p>
+    </div>
+  </div>
+
+  <!-- Top Sticky Navigation Bar -->
+  <header class="sticky top-0 z-40 glass-nav bg-slate-900/80 border-b border-slate-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      
+      <!-- Brand Identity -->
+      <div class="flex items-center space-x-3">
+        <div class="w-10 h-10 rounded-2xl bg-gradient-to-tr from-cyan-600 via-indigo-600 to-amber-500 flex items-center justify-center p-0.5 shadow-lg shadow-cyan-500/20">
+          <div class="w-full h-full bg-slate-950 rounded-[14px] flex items-center justify-center">
+            <span class="text-transparent bg-clip-text bg-gradient-to-tr from-cyan-400 to-amber-300 font-extrabold text-lg tracking-tighter">S<span class="text-cyan-400">XR</span></span>
+          </div>
+        </div>
+        <div>
+          <div class="flex items-center gap-2">
+            <span class="font-extrabold text-base tracking-tight text-white">Silver<span class="text-cyan-400 font-black">XR</span> Hub</span>
+            <span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-cyan-500/10 text-cyan-400 border border-cyan-500/30">Ecosistema 50+</span>
+          </div>
+          <p class="text-[10px] text-slate-400 hidden sm:block">Metahabilidades · Setup XREAL · Longevidad Integral</p>
+        </div>
+      </div>
+
+      <!-- Quick Action Navigation (Tabs) for Desktop -->
+      <nav class="hidden md:flex items-center space-x-1 text-xs font-semibold">
+        <button onclick="switchTab('arquitectura')" class="nav-btn active px-3.5 py-2 rounded-xl transition text-cyan-400 bg-slate-800 border border-cyan-500/30" data-tab="arquitectura">
+          🏛️ Ecosistema & Visión
+        </button>
+        <button onclick="switchTab('hardware')" class="nav-btn px-3.5 py-2 rounded-xl transition text-slate-300 hover:text-white hover:bg-slate-800/60" data-tab="hardware">
+          👓 Setup XREAL Portable
+        </button>
+        <button onclick="switchTab('metahabilidades')" class="nav-btn px-3.5 py-2 rounded-xl transition text-slate-300 hover:text-white hover:bg-slate-800/60" data-tab="metahabilidades">
+          🧠 Metahabilidades & IA
+        </button>
+        <button onclick="switchTab('conexion')" class="nav-btn px-3.5 py-2 rounded-xl transition text-slate-300 hover:text-white hover:bg-slate-800/60" data-tab="conexion">
+          🤝 B2B & Redes de Valor
+        </button>
+        <button onclick="switchTab('calculadora')" class="nav-btn px-3.5 py-2 rounded-xl transition text-slate-300 hover:text-white hover:bg-slate-800/60" data-tab="calculadora">
+          💰 Simulador Silver ROI
+        </button>
+      </nav>
+
+      <!-- CTA Action Button -->
+      <div class="flex items-center gap-2">
+        <button onclick="openModal('onboardingGuide')" class="px-3.5 py-2 rounded-xl bg-gradient-to-r from-cyan-500 to-indigo-600 hover:from-cyan-400 hover:to-indigo-500 text-slate-950 font-bold text-xs tracking-tight shadow-lg shadow-cyan-500/20 active:scale-95 transition flex items-center gap-1.5">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"/></svg>
+          <span>Guía de Lanzamiento</span>
+        </button>
+      </div>
+
+    </div>
+  </header>
+
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 pb-12 flex-1 w-full space-y-8">
+
+    <!-- Hero Value Statement Card -->
+    <div class="relative overflow-hidden rounded-3xl bg-gradient-to-br from-slate-900 via-slate-800 to-indigo-950 p-6 sm:p-8 border border-slate-700/60 shadow-2xl">
+      <!-- Glow ambient lights -->
+      <div class="absolute -top-24 -right-24 w-72 h-72 bg-cyan-500/20 rounded-full blur-3xl pointer-events-none"></div>
+      <div class="absolute -bottom-24 -left-24 w-72 h-72 bg-amber-500/15 rounded-full blur-3xl pointer-events-none"></div>
+
+      <div class="relative z-10 max-w-4xl space-y-4">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-800/80 border border-slate-700 text-xs text-slate-300">
+          <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+          <span>Modelo de Alto Impacto para la Economía Plateada (50+ a 80+)</span>
+        </div>
+
+        <h1 class="text-2xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-white leading-tight">
+          Comunidad de Nueva Longevidad: <br class="hidden sm:inline">
+          <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-indigo-300 to-amber-300">
+            Metahabilidades, Setup XREAL y Redes de Alto Valor
+          </span>
+        </h1>
+
+        <p class="text-sm sm:text-base text-slate-300 leading-relaxed font-normal">
+          Diseña una comunidad de <strong>aprendizaje continuo (lifelong learning)</strong>, trabajo colaborativo y conexión corporativa para la generación con mayor sabiduría acumulada de la historia. Convertimos la experiencia en valor mediante computación espacial liviana, salud mental-cognitiva y reinvención financiera.
+        </p>
+
+        <!-- Dynamic Value Pills -->
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-2">
+          <div class="bg-slate-900/60 border border-slate-700/80 rounded-2xl p-3">
+            <span class="text-xs font-semibold text-cyan-400 block">Oficina Multipantalla</span>
+            <span class="text-xs text-slate-400">3 pantallas en el bolsillo con XREAL Air / Ultra</span>
+          </div>
+          <div class="bg-slate-900/60 border border-slate-700/80 rounded-2xl p-3">
+            <span class="text-xs font-semibold text-amber-400 block">Salud Mental Activa</span>
+            <span class="text-xs text-slate-400">Neuroestimulación intermodal y flujo inmersivo</span>
+          </div>
+          <div class="bg-slate-900/60 border border-slate-700/80 rounded-2xl p-3">
+            <span class="text-xs font-semibold text-emerald-400 block">Salud Financiera 100 Años</span>
+            <span class="text-xs text-slate-400">Consultoría fraccional y monetización de legado</span>
+          </div>
+          <div class="bg-slate-900/60 border border-slate-700/80 rounded-2xl p-3">
+            <span class="text-xs font-semibold text-indigo-400 block">Conexión Empresarial</span>
+            <span class="text-xs text-slate-400">Advisory squads y mentoring intergeneracional</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- TAB 1: ARQUITECTURA DEL ECOSISTEMA Y COMUNIDAD -->
+    <section id="tab-arquitectura" class="tab-content space-y-6">
+      <div class="flex items-center justify-between">
+        <div>
+          <h2 class="text-xl sm:text-2xl font-bold text-white tracking-tight flex items-center gap-2">
+            <span>🏛️</span> Arquitectura de Comunidad: Los 5 Pilares de la Nueva Longevidad
+          </h2>
+          <p class="text-xs sm:text-sm text-slate-400 mt-1">Cómo estructurar una comunidad sin paternalismos, anclada en el prestigio, el empoderamiento y el protagonismo.</p>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+        
+        <!-- Pilar 1 -->
+        <div class="bg-slate-800/70 border border-slate-700 rounded-3xl p-5 space-y-3 hover:border-cyan-500/50 transition">
+          <div class="w-10 h-10 rounded-xl bg-cyan-500/10 text-cyan-400 flex items-center justify-center font-bold text-lg border border-cyan-500/30">
+            01
+          </div>
+          <h3 class="text-base font-bold text-white">Narrativa: "Sabiduría Productiva", no Geriatría</h3>
+          <p class="text-xs text-slate-300 leading-relaxed">
+            La nueva longevidad rechaza la etiqueta del "abuelo dependiente". Tu comunidad debe posicionarse como un <strong>club de alto rendimiento para prosumidores plateados</strong>: líderes que quieren estar en la cresta de la ola tecnológica con confort y elegancia.
+          </p>
+          <ul class="text-[11px] text-slate-400 space-y-1.5 list-disc list-inside">
+            <li>Identidad de pertenencia: <em>Fellows SilverXR</em>.</li>
+            <li>Enfoque de <em>Segunda Curva Profesional</em>.</li>
+            <li>Tecnología como amplificador de libertad y autonomía.</li>
+          </ul>
+        </div>
+
+        <!-- Pilar 2 -->
+        <div class="bg-slate-800/70 border border-slate-700 rounded-3xl p-5 space-y-3 hover:border-amber-500/50 transition">
+          <div class="w-10 h-10 rounded-xl bg-amber-500/10 text-amber-400 flex items-center justify-center font-bold text-lg border border-amber-500/30">
+            02
+          </div>
+          <h3 class="text-base font-bold text-white">Rituales de Comunidad & Espacios de Coworking</h3>
+          <p class="text-xs text-slate-300 leading-relaxed">
+            Una comunidad vive por sus rituales sincrónicos y asincrónicos. La presencia en XR permite romper la soledad geográfica sin el cansancio de las videollamadas planas.
+          </p>
+          <ul class="text-[11px] text-slate-400 space-y-1.5 list-disc list-inside">
+            <li><strong>Café Inmersivo Semanal:</strong> 45 min en salas espaciales comentando tendencias.</li>
+            <li><strong>Sprint de Coworking Silencioso:</strong> Trabajo enfocado con setup XREAL simultáneo.</li>
+            <li><strong>Círculos de Maestría (Mastermind):</strong> 6 personas para resolver retos de negocio.</li>
+          </ul>
+        </div>
+
+        <!-- Pilar 3 -->
+        <div class="bg-slate-800/70 border border-slate-700 rounded-3xl p-5 space-y-3 hover:border-emerald-500/50 transition">
+          <div class="w-10 h-10 rounded-xl bg-emerald-500/10 text-emerald-400 flex items-center justify-center font-bold text-lg border border-emerald-500/30">
+            03
+          </div>
+          <h3 class="text-base font-bold text-white">Gobernanza y Roles de Valor</h3>
+          <p class="text-xs text-slate-300 leading-relaxed">
+            Permite que los miembros más experimentados asuman roles de liderazgo activo dentro de la comunidad, retroalimentando su sentido de propósito y pertenencia.
+          </p>
+          <ul class="text-[11px] text-slate-400 space-y-1.5 list-disc list-inside">
+            <li><strong>Mentores de Onboarding:</strong> Miembros senior que asisten a recién llegados en su configuración.</li>
+            <li><strong>Curadores de Conocimiento:</strong> Resumen de papers y tendencias de IA/XR aplicadas.</li>
+            <li><strong>Embajadores Territoriales:</strong> Encuentros híbridos en ciudades clave.</li>
+          </ul>
+        </div>
+
+      </div>
+
+      <!-- Estrategia de Triada Holística -->
+      <div class="bg-gradient-to-r from-slate-900 via-indigo-950/40 to-slate-900 border border-indigo-500/30 rounded-3xl p-6 space-y-4">
+        <span class="text-xs font-bold uppercase tracking-wider text-indigo-400">La Tríada de Bienestar en la Nueva Longevidad</span>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 pt-1">
+          
+          <div class="bg-slate-800/80 p-4 rounded-2xl border border-slate-700/80 space-y-2">
+            <div class="text-xl">🧘‍♂️ Salud Mental & Cognitiva</div>
+            <h4 class="font-bold text-sm text-slate-200">Reserva Cognitiva Activa</h4>
+            <p class="text-xs text-slate-400 leading-relaxed">
+              El aprendizaje de entornos espaciales y herramientas de IA genera sinaptogénesis vigorosa. Combate el aislamiento, regula ritmos circadianos con pausas ergonómicas y previene el deterioro neurocognitivo mediante retos intelectuales con sentido.
+            </p>
+          </div>
+
+          <div class="bg-slate-800/80 p-4 rounded-2xl border border-slate-700/80 space-y-2">
+            <div class="text-xl">📈 Salud Financiera 100 Años</div>
+            <h4 class="font-bold text-sm text-slate-200">Longevidad Económica</h4>
+            <p class="text-xs text-slate-400 leading-relaxed">
+              Vivir hasta los 90 o 100 años hace inviable un retiro pasivo a los 60. La comunidad capacita en <em>advisory fraccional</em>, directorios corporativos, angel investing plateado y creación de microempresas basadas en conocimiento acumulado.
+            </p>
+          </div>
+
+          <div class="bg-slate-800/80 p-4 rounded-2xl border border-slate-700/80 space-y-2">
+            <div class="text-xl">🌐 Conexión & Redes de Valor</div>
+            <h4 class="font-bold text-sm text-slate-200">Ecosistema Intergeneracional</h4>
+            <p class="text-xs text-slate-400 leading-relaxed">
+              Cerrar la brecha generacional conectando a la experiencia plateada con startups jóvenes, corporaciones en búsqueda de madurez de juicio y ecosistemas de innovación tecnológica donde el criterio humano es indispensable.
+            </p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 2: HARDWARE XREAL & SETUP PORTABLE MULTIPANTALLA -->
+    <section id="tab-hardware" class="tab-content hidden space-y-6">
+      <div class="flex items-center justify-between">
+        <div>
+          <h2 class="text-xl sm:text-2xl font-bold text-white tracking-tight flex items-center gap-2">
+            <span>👓</span> El Setup Portable Multipantalla con Gafas XREAL
+          </h2>
+          <p class="text-xs sm:text-sm text-slate-400 mt-1">Cómo configurar una oficina móvil ergonómica, liviana y de cero fricción para clientes de 50+.</p>
+        </div>
+      </div>
+
+      <!-- XREAL Device Breakdown -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        
+        <!-- Left: Interactive Setup Anatomy -->
+        <div class="lg:col-span-7 bg-slate-800/80 border border-slate-700 rounded-3xl p-6 space-y-5">
+          <div class="flex items-center justify-between border-b border-slate-700/80 pb-3">
+            <span class="text-xs font-bold uppercase tracking-wider text-cyan-400">Anatomía del Kit Móvil Recomendado</span>
+            <span class="text-xs text-slate-400">Peso Total: &lt; 420 gramos</span>
+          </div>
+
+          <!-- Component Items -->
+          <div class="space-y-3">
+            
+            <div class="p-3.5 rounded-2xl bg-slate-900/70 border border-cyan-500/30 flex items-start justify-between">
+              <div class="flex items-start space-x-3">
+                <div class="p-2 rounded-xl bg-cyan-500/20 text-cyan-400 text-lg">🕶️</div>
+                <div>
+                  <h4 class="font-bold text-sm text-white">XREAL Air 2 / Air 2 Pro o XREAL Ultra</h4>
+                  <p class="text-xs text-slate-300 mt-0.5">Pantalla micro-OLED Sony de 1080p por ojo. Equivalente a 120"-330" virtual. Solo 72g en el rostro (sin el peso agobiante de cascos cerrados VR).</p>
+                  <div class="flex flex-wrap gap-2 mt-2">
+                    <span class="text-[10px] px-2 py-0.5 rounded-md bg-slate-800 text-cyan-300 border border-slate-700">Filtro Electrocrómico (Pro)</span>
+                    <span class="text-[10px] px-2 py-0.5 rounded-md bg-slate-800 text-cyan-300 border border-slate-700">Audio Espacial Direccional</span>
+                    <span class="text-[10px] px-2 py-0.5 rounded-md bg-slate-800 text-amber-300 border border-slate-700">Inserto Graduado Oftalmológico</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="p-3.5 rounded-2xl bg-slate-900/70 border border-indigo-500/30 flex items-start justify-between">
+              <div class="flex items-start space-x-3">
+                <div class="p-2 rounded-xl bg-indigo-500/20 text-indigo-400 text-lg">📱</div>
+                <div>
+                  <h4 class="font-bold text-sm text-white">XREAL Beam Pro o Smartphone Flagship</h4>
+                  <p class="text-xs text-slate-300 mt-0.5">Dispositivo host con Android 14 espacial y doble puerto USB-C (para cargar y proyectar a la vez). Doble cámara 3D para capturar fotos y recuerdos volumétricos para la familia o trabajo.</p>
+                  <div class="flex flex-wrap gap-2 mt-2">
+                    <span class="text-[10px] px-2 py-0.5 rounded-md bg-slate-800 text-indigo-300 border border-slate-700">NebulaOS Espacial</span>
+                    <span class="text-[10px] px-2 py-0.5 rounded-md bg-slate-800 text-indigo-300 border border-slate-700">3DoF / 6DoF Estable (Anclado en el espacio)</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="p-3.5 rounded-2xl bg-slate-900/70 border border-amber-500/30 flex items-start justify-between">
+              <div class="flex items-start space-x-3">
+                <div class="p-2 rounded-xl bg-amber-500/20 text-amber-400 text-lg">⌨️</div>
+                <div>
+                  <h4 class="font-bold text-sm text-white">Teclado Plegable Bluetooth + Ratón Ergonométrico</h4>
+                  <p class="text-xs text-slate-300 mt-0.5">Teclado plegable tri-fold que cabe en el bolsillo de la camisa. Ratón ergonómico ultraliviano o trackball para evitar molestias articulares o artritis leve en la muñeca.</p>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Por qué supera a las laptops para Seniors -->
+          <div class="bg-cyan-950/30 border border-cyan-500/30 rounded-2xl p-4 space-y-2">
+            <h5 class="text-xs font-bold text-cyan-300 uppercase tracking-wide flex items-center gap-1.5">
+              <span>💎</span> Ventajas Ergonómicas Críticas para la Generación 50+
+            </h5>
+            <p class="text-xs text-slate-300 leading-relaxed">
+              1. <strong>Postura Cervical Neutra:</strong> En lugar de inclinar el cuello hacia abajo viendo una laptop o tablet, el usuario mantiene la cabeza erguida, proyectando las pantallas virtuales al nivel exacto de sus ojos.<br>
+              2. <strong>Privacidad Absoluta:</strong> En trenes, cafeterías, aeropuertos o clínicas, nadie a su alrededor puede ver los documentos confidenciales, estados de cuenta o proyectos.<br>
+              3. <strong>Escalamiento de Tipografía Gigante:</strong> Capacidad de agrandar pantallas a 200 pulgadas con texto ultra legile sin forzar la vista (solución idónea para presbicia).
+            </p>
+          </div>
+        </div>
+
+        <!-- Right: Interactive Multi-screen Simulator Widget -->
+        <div class="lg:col-span-5 bg-slate-800/80 border border-slate-700 rounded-3xl p-6 flex flex-col justify-between space-y-5">
+          <div>
+            <span class="text-xs font-bold uppercase tracking-wider text-amber-400">Simulador de Experiencia Espacial</span>
+            <h3 class="text-lg font-bold text-white mt-1">Disposición de 3 Pantallas Virtuales</h3>
+            <p class="text-xs text-slate-400 mt-1">Selecciona una configuración típica de productividad para ver cómo el usuario senior opera en su campo visual.</p>
+          </div>
+
+          <!-- Screen Mode Selector -->
+          <div class="grid grid-cols-3 gap-2">
+            <button onclick="setScreenLayout('consultoria')" id="btn-consultoria" class="screen-btn active py-2 px-2 rounded-xl text-[11px] font-bold bg-cyan-600 text-white border border-cyan-400 transition">
+              💼 Consultoría
+            </button>
+            <button onclick="setScreenLayout('educacion')" id="btn-educacion" class="screen-btn py-2 px-2 rounded-xl text-[11px] font-bold bg-slate-900 text-slate-300 border border-slate-700 transition">
+              🎓 Aprendizaje
+            </button>
+            <button onclick="setScreenLayout('inversion')" id="btn-inversion" class="screen-btn py-2 px-2 rounded-xl text-[11px] font-bold bg-slate-900 text-slate-300 border border-slate-700 transition">
+              📊 Finanzas
+            </button>
+          </div>
+
+          <!-- Visual Spatial Stage -->
+          <div class="relative w-full h-56 bg-slate-950 rounded-2xl border border-slate-700/80 overflow-hidden flex items-center justify-center p-3">
+            <!-- Simulated User Glasses Horizon -->
+            <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-cyan-900/20 via-slate-950 to-slate-950 pointer-events-none"></div>
+
+            <!-- Visual Screens Trio -->
+            <div class="relative z-10 flex items-center justify-center gap-2 w-full">
+              <!-- Left Screen -->
+              <div id="screenLeft" class="w-1/3 h-36 rounded-xl bg-slate-900/90 border border-cyan-500/40 p-2 shadow-lg transform -rotate-y-12 transition-all duration-300 flex flex-col justify-between">
+                <div class="flex items-center justify-between border-b border-slate-800 pb-1">
+                  <span id="screenLeftTag" class="text-[9px] font-bold text-cyan-400">Canal IA</span>
+                  <span class="w-1.5 h-1.5 rounded-full bg-cyan-400"></span>
+                </div>
+                <div id="screenLeftBody" class="text-[10px] text-slate-300 font-mono">
+                  Prompting Copilot:<br>
+                  "Sintetiza la auditoría de gestión..."
+                </div>
+                <div class="text-[8px] text-slate-500 text-right">Pantalla Izq (30°)</div>
+              </div>
+
+              <!-- Center Screen -->
+              <div id="screenCenter" class="w-2/5 h-44 rounded-xl bg-slate-900 border-2 border-amber-400/80 p-2.5 shadow-2xl scale-105 transition-all duration-300 flex flex-col justify-between">
+                <div class="flex items-center justify-between border-b border-slate-800 pb-1">
+                  <span id="screenCenterTag" class="text-[10px] font-bold text-amber-300">Documento Principal</span>
+                  <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+                </div>
+                <div id="screenCenterBody" class="text-[11px] text-slate-200 font-sans leading-tight">
+                  Estrategia Corporativa 2026: Diagnóstico de Gobierno y Sucesión.
+                </div>
+                <div class="text-[9px] text-amber-400/80 font-bold text-center bg-slate-950/60 rounded py-0.5">Campo Foveal Central (120")</div>
+              </div>
+
+              <!-- Right Screen -->
+              <div id="screenRight" class="w-1/3 h-36 rounded-xl bg-slate-900/90 border border-cyan-500/40 p-2 shadow-lg transform rotate-y-12 transition-all duration-300 flex flex-col justify-between">
+                <div class="flex items-center justify-between border-b border-slate-800 pb-1">
+                  <span id="screenRightTag" class="text-[9px] font-bold text-indigo-300">Comunidad / Zoom</span>
+                  <span class="w-1.5 h-1.5 rounded-full bg-indigo-400"></span>
+                </div>
+                <div id="screenRightBody" class="text-[10px] text-slate-300">
+                  Sala de Advisory:<br>
+                  3 Consejeros Senior conectados en vivo.
+                </div>
+                <div class="text-[8px] text-slate-500 text-right">Pantalla Der (30°)</div>
+              </div>
+            </div>
+
+            <!-- Anchor Marker -->
+            <div class="absolute bottom-2 flex items-center gap-1.5 text-[9px] text-slate-400 bg-slate-900/80 px-2.5 py-0.5 rounded-full border border-slate-800">
+              <span class="w-1.5 h-1.5 rounded-full bg-cyan-400"></span>
+              <span>Anclaje Espacial 3DoF (La pantalla permanece fija donde miras)</span>
+            </div>
+          </div>
+
+          <div id="screenDescText" class="text-xs text-slate-300 bg-slate-900/60 p-3 rounded-xl border border-slate-800">
+            <strong>Configuración Consultoría:</strong> El consultor senior redacta su dictamen al centro mientras dialoga con modelos de IA a la izquierda y supervisa la reunión de junta a la derecha sin cambiar de ventana.
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- TAB 3: METAHABILIDADES, LIFELONG LEARNING & REINVENCIÓN -->
+    <section id="tab-metahabilidades" class="tab-content hidden space-y-6">
+      <div class="flex items-center justify-between">
+        <div>
+          <h2 class="text-xl sm:text-2xl font-bold text-white tracking-tight flex items-center gap-2">
+            <span>🧠</span> Plataforma de Metahabilidades & Reinvención
+          </h2>
+          <p class="text-xs sm:text-sm text-slate-400 mt-1">El currículo de habilidades maestras no perecederas amplificado con Inteligencia Artificial y XR.</p>
+        </div>
+      </div>
+
+      <!-- Comparison Matrix: Hard skills vs Metahabilidades en Longevidad -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        
+        <!-- Metahabilidades Core -->
+        <div class="bg-slate-800/70 border border-slate-700 rounded-3xl p-6 space-y-4">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-bold uppercase tracking-wider text-cyan-400">Las 5 Metahabilidades de la Economía Plateada</span>
+            <span class="text-[10px] bg-cyan-500/10 text-cyan-300 px-2 py-0.5 rounded-full border border-cyan-500/30">Inmunes a la obsolescencia</span>
+          </div>
+
+          <div class="space-y-3">
+            <div class="p-3 rounded-2xl bg-slate-900/60 border border-slate-800 flex items-start gap-3">
+              <span class="p-2 rounded-xl bg-cyan-500/20 text-cyan-400 font-bold text-sm">01</span>
+              <div>
+                <h4 class="font-bold text-sm text-white">Juicio Estratégico & Pensamiento Bayesiano</h4>
+                <p class="text-xs text-slate-300 mt-0.5">Capacidad de ponderar riesgos complejos basados en décadas de experiencia acumulada que ninguna IA novata puede simular.</p>
+              </div>
+            </div>
+
+            <div class="p-3 rounded-2xl bg-slate-900/60 border border-slate-800 flex items-start gap-3">
+              <span class="p-2 rounded-xl bg-indigo-500/20 text-indigo-400 font-bold text-sm">02</span>
+              <div>
+                <h4 class="font-bold text-sm text-white">Copilotaje & Orquestación de IA Generativa</h4>
+                <p class="text-xs text-slate-300 mt-0.5">En vez de competir con la IA, el senior aprende a redactar prompts de alto nivel de abstracción y dirigir agentes autónomos como si fueran su equipo de analistas.</p>
+              </div>
+            </div>
+
+            <div class="p-3 rounded-2xl bg-slate-900/60 border border-slate-800 flex items-start gap-3">
+              <span class="p-2 rounded-xl bg-amber-500/20 text-amber-400 font-bold text-sm">03</span>
+              <div>
+                <h4 class="font-bold text-sm text-white">Comunicación Intergeneracional Empática</h4>
+                <p class="text-xs text-slate-300 mt-0.5">Habilidad de conectar con equipos sub-30, decodificando valores contemporáneos sin renunciar a la profundidad y templanza.</p>
+              </div>
+            </div>
+
+            <div class="p-3 rounded-2xl bg-slate-900/60 border border-slate-800 flex items-start gap-3">
+              <span class="p-2 rounded-xl bg-emerald-500/20 text-emerald-400 font-bold text-sm">04</span>
+              <div>
+                <h4 class="font-bold text-sm text-white">Agilidad de Desaprendizaje (Learnability)</h4>
+                <p class="text-xs text-slate-300 mt-0.5">Soltar modelos mentales obsoletos de la era industrial para abrazar flujos de trabajo descentralizados y espaciales.</p>
+              </div>
+            </div>
+
+            <div class="p-3 rounded-2xl bg-slate-900/60 border border-slate-800 flex items-start gap-3">
+              <span class="p-2 rounded-xl bg-rose-500/20 text-rose-400 font-bold text-sm">05</span>
+              <div>
+                <h4 class="font-bold text-sm text-white">Autocuidado de Reserva Neurocognitiva</h4>
+                <p class="text-xs text-slate-300 mt-0.5">Gestión de la fatiga visual, higiene del sueño, nutrición cerebral y ritmos circadianos durante el trabajo digital.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Rutas de Reinvención Profesional -->
+        <div class="bg-slate-800/70 border border-slate-700 rounded-3xl p-6 space-y-4 flex flex-col justify-between">
+          <div class="space-y-3">
+            <span class="text-xs font-bold uppercase tracking-wider text-amber-400">Rutas de Reinvención Profesional (Segunda Curva)</span>
+            <h3 class="text-lg font-bold text-white">¿En qué se transforman los profesionales de 50+?</h3>
+
+            <div class="grid grid-cols-1 gap-3 pt-1">
+              
+              <div class="p-3.5 rounded-2xl bg-slate-900/80 border border-slate-700 space-y-1">
+                <span class="text-xs font-bold text-cyan-300">A. De Empleado a "Fractional Executive" (C-Level Fraccional)</span>
+                <p class="text-xs text-slate-400">Trabaja 10-15 horas semanales para 2 o 3 startups como CFO, CMO o Chief People Officer fraccional desde su setup XREAL.</p>
+              </div>
+
+              <div class="p-3.5 rounded-2xl bg-slate-900/80 border border-slate-700 space-y-1">
+                <span class="text-xs font-bold text-amber-300">B. Miembro de Consejos Consultivos & Advisory Boards</span>
+                <p class="text-xs text-slate-400">Aporta gobernanza, mitigación de riesgos y red de contactos a empresas familiares en proceso de sucesión.</p>
+              </div>
+
+              <div class="p-3.5 rounded-2xl bg-slate-900/80 border border-slate-700 space-y-1">
+                <span class="text-xs font-bold text-emerald-300">C. Creador de Contenido & Mentoría de Nicho en XR</span>
+                <p class="text-xs text-slate-400">Monetiza su know-how específico (minería, agro, banca, medicina) a través de masterclasses inmersivas y cohortes reducidas.</p>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- Micro-Certificaciones Badge Banner -->
+          <div class="p-4 rounded-2xl bg-gradient-to-r from-cyan-950/40 via-slate-900 to-indigo-950/40 border border-cyan-500/30 flex items-center gap-3">
+            <div class="text-2xl">🎖️</div>
+            <div>
+              <h5 class="text-xs font-bold text-white">Credenciales Verificables "Silver Certified"</h5>
+              <p class="text-[11px] text-slate-300">La comunidad entrega micro-certificaciones basadas en proyectos reales (ej. "Prompt Engineer Senior para Directorios").</p>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- TAB 4: CONEXIÓN EMPRESARIAL, B2B & REDES DE VALOR -->
+    <section id="tab-conexion" class="tab-content hidden space-y-6">
+      <div class="flex items-center justify-between">
+        <div>
+          <h2 class="text-xl sm:text-2xl font-bold text-white tracking-tight flex items-center gap-2">
+            <span>🤝</span> Espacios de Conexión Empresarial & Redes de Valor B2B
+          </h2>
+          <p class="text-xs sm:text-sm text-slate-400 mt-1">Cómo crear puentes de monetización directa entre las empresas y los miembros de tu comunidad.</p>
+        </div>
+      </div>
+
+      <!-- Business Models for the Community -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+        
+        <div class="bg-slate-800/70 border border-slate-700 rounded-3xl p-5 space-y-3">
+          <div class="w-10 h-10 rounded-xl bg-cyan-500/10 text-cyan-400 flex items-center justify-center font-bold text-xl">
+            🏢
+          </div>
+          <h3 class="text-base font-bold text-white">Advisory Squads Inmersivos para Startups</h3>
+          <p class="text-xs text-slate-300 leading-relaxed">
+            Las startups tecnológicas suelen tener fundadores jóvenes con gran habilidad técnica pero sin experiencia en ventas complejas B2B, gobierno corporativo o finanzas.
+          </p>
+          <div class="p-3 rounded-xl bg-slate-900/70 text-[11px] text-slate-400 border border-slate-800">
+            <strong>Mecánica:</strong> Emparejamiento de una startup con un escuadrón de 2 consejeros plateados para sesiones quincenales en salas de colaboración XR.
+          </div>
+        </div>
+
+        <div class="bg-slate-800/70 border border-slate-700 rounded-3xl p-5 space-y-3">
+          <div class="w-10 h-10 rounded-xl bg-amber-500/10 text-amber-400 flex items-center justify-center font-bold text-xl">
+            🔄
+          </div>
+          <h3 class="text-base font-bold text-white">Programas de "Reverse Mentoring"</h3>
+          <p class="text-xs text-slate-300 leading-relaxed">
+            Las corporaciones tradicionales sufren de fuga de memoria institucional. Vendemos a empresas programas corporativos donde ejecutivos de 55+ mentorizan a jóvenes talentos en resiliencia y negociación, mientras los jóvenes capacitan a los seniors en tendencias emergentes.
+          </p>
+          <div class="p-3 rounded-xl bg-slate-900/70 text-[11px] text-slate-400 border border-slate-800">
+            <strong>Mecánica:</strong> Contrato B2B anual financiado por áreas de Gestión de Talento y Diversidad/Inclusión (DEI) corporativa.
+          </div>
+        </div>
+
+        <div class="bg-slate-800/70 border border-slate-700 rounded-3xl p-5 space-y-3">
+          <div class="w-10 h-10 rounded-xl bg-emerald-500/10 text-emerald-400 flex items-center justify-center font-bold text-xl">
+            🌐
+          </div>
+          <h3 class="text-base font-bold text-white">Marketplace de Talento Plateado On-Demand</h3>
+          <p class="text-xs text-slate-300 leading-relaxed">
+            Directorio exclusivo donde corporaciones pueden contratar horas de auditoría, mediación de conflictos o peritajes estratégicos ejecutados por miembros certificados de la comunidad con su kit móvil multipantalla.
+          </p>
+          <div class="p-3 rounded-xl bg-slate-900/70 text-[11px] text-slate-400 border border-slate-800">
+            <strong>Monetización:</strong> Comisión por colocación (15-20%) o fee mensual de suscripción a la base de consultores.
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Roadmap de Alianzas Corporativas Estratégicas -->
+      <div class="bg-slate-800/80 border border-slate-700 rounded-3xl p-6 space-y-4">
+        <h4 class="text-sm font-bold uppercase tracking-wider text-cyan-400">Alianzas Estratégicas Clave para Escalar la Comunidad</h4>
+        <div class="grid grid-cols-1 sm:grid-cols-4 gap-3 text-xs">
+          
+          <div class="bg-slate-900/60 p-3.5 rounded-2xl border border-slate-800 space-y-1.5">
+            <span class="font-bold text-white block">1. Cajas de Compensación / Aseguradoras</span>
+            <p class="text-slate-400 text-[11px]">Interesadas en salud mental activa y reducción de siniestros por depresión en jubilados.</p>
+          </div>
+
+          <div class="bg-slate-900/60 p-3.5 rounded-2xl border border-slate-800 space-y-1.5">
+            <span class="font-bold text-white block">2. Firmas de Outplacement Senior</span>
+            <p class="text-slate-400 text-[11px]">Ofrecen tu kit y comunidad como programa de transición a ejecutivos desvinculados.</p>
+          </div>
+
+          <div class="bg-slate-900/60 p-3.5 rounded-2xl border border-slate-800 space-y-1.5">
+            <span class="font-bold text-white block">3. Fabricantes y Telcos (XREAL / Operadores)</span>
+            <p class="text-slate-400 text-[11px]">Subsidio de hardware o venta paquetizada de gafas XREAL Beam Pro con conectividad 5G.</p>
+          </div>
+
+          <div class="bg-slate-900/60 p-3.5 rounded-2xl border border-slate-800 space-y-1.5">
+            <span class="font-bold text-white block">4. Escuelas de Negocios y Alumni 50+</span>
+            <p class="text-slate-400 text-[11px]">Comunidad de exalumnos que buscan actualizarse en tecnología sin sentirse novatos.</p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 5: SIMULADOR DE MONETIZACIÓN & SILVER ROI -->
+    <section id="tab-calculadora" class="tab-content hidden space-y-6">
+      <div class="flex items-center justify-between">
+        <div>
+          <h2 class="text-xl sm:text-2xl font-bold text-white tracking-tight flex items-center gap-2">
+            <span>💰</span> Simulador Interactivo de Salud Financiera & Silver ROI
+          </h2>
+          <p class="text-xs sm:text-sm text-slate-400 mt-1">Calcula el potencial de ingresos de un profesional senior que se reinventa como consultor fraccional con su setup XR.</p>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        
+        <!-- Controls Column -->
+        <div class="lg:col-span-6 bg-slate-800/80 border border-slate-700 rounded-3xl p-6 space-y-5">
+          <h3 class="text-sm font-bold uppercase tracking-wider text-cyan-400">Variables del Profesional Senior</h3>
+
+          <!-- Slider 1: Horas semanales deseadas -->
+          <div class="space-y-1.5">
+            <div class="flex justify-between text-xs font-semibold">
+              <span class="text-slate-300">Dedicación Semanal (Horas):</span>
+              <span id="hoursLabel" class="text-cyan-400 font-mono text-sm font-bold">12 hrs/sem</span>
+            </div>
+            <input id="hoursSlider" type="range" min="4" max="30" value="12" step="1" class="w-full accent-cyan-400 h-2 bg-slate-700 rounded-lg cursor-pointer">
+            <div class="flex justify-between text-[10px] text-slate-500">
+              <span>Ritmo ligero (4h)</span>
+              <span>Medio tiempo (15h)</span>
+              <span>Intensivo (30h)</span>
+            </div>
+          </div>
+
+          <!-- Slider 2: Tarifa por hora de consultoría -->
+          <div class="space-y-1.5">
+            <div class="flex justify-between text-xs font-semibold">
+              <span class="text-slate-300">Valor de tu Hora Experta (USD):</span>
+              <span id="rateLabel" class="text-amber-400 font-mono text-sm font-bold">$75 USD/hr</span>
+            </div>
+            <input id="rateSlider" type="range" min="30" max="250" value="75" step="5" class="w-full accent-amber-400 h-2 bg-slate-700 rounded-lg cursor-pointer">
+            <div class="flex justify-between text-[10px] text-slate-500">
+              <span>$30 (Mentoría base)</span>
+              <span>$100 (Asesoría C-Level)</span>
+              <span>$250+ (Auditoría Top)</span>
+            </div>
+          </div>
+
+          <!-- Slider 3: Clientes o Empresas simultáneas -->
+          <div class="space-y-1.5">
+            <div class="flex justify-between text-xs font-semibold">
+              <span class="text-slate-300">Clientes Simultáneos en Retainer:</span>
+              <span id="clientsLabel" class="text-emerald-400 font-mono text-sm font-bold">2 clientes</span>
+            </div>
+            <input id="clientsSlider" type="range" min="1" max="5" value="2" step="1" class="w-full accent-emerald-400 h-2 bg-slate-700 rounded-lg cursor-pointer">
+          </div>
+
+          <div class="p-3.5 rounded-2xl bg-slate-900/80 border border-slate-700 text-xs text-slate-300 space-y-1">
+            <span class="font-bold text-cyan-300 block">💡 Supuestos del Modelo:</span>
+            <p class="text-[11px] text-slate-400 leading-normal">
+              El consultor utiliza el setup XREAL multipantalla con IA generativa, lo que le permite entregar en 1 hora el equivalente al trabajo de 3 horas tradicionales, manteniendo alta satisfacción y sin agotamiento físico.
+            </p>
+          </div>
+        </div>
+
+        <!-- Results Display Column -->
+        <div class="lg:col-span-6 bg-gradient-to-br from-slate-900 to-slate-800 border border-slate-700 rounded-3xl p-6 flex flex-col justify-between space-y-6">
+          <div>
+            <span class="text-xs font-bold uppercase tracking-wider text-emerald-400">Proyección de Ingresos & Retorno</span>
+            <h4 class="text-xl font-extrabold text-white mt-1">Impacto Financiero de la Reinversión Plateada</h4>
+          </div>
+
+          <!-- Big Stat Cards -->
+          <div class="grid grid-cols-2 gap-4">
+            <div class="p-4 rounded-2xl bg-slate-950/80 border border-emerald-500/40 space-y-1">
+              <span class="text-[11px] text-slate-400 font-medium">Ingreso Mensual Estimado</span>
+              <div id="monthlyIncome" class="text-2xl sm:text-3xl font-black text-emerald-400 font-mono">$3,600</div>
+              <span class="text-[10px] text-slate-500">USD netos por mes</span>
+            </div>
+
+            <div class="p-4 rounded-2xl bg-slate-950/80 border border-cyan-500/40 space-y-1">
+              <span class="text-[11px] text-slate-400 font-medium">Ingreso Anual Proyectado</span>
+              <div id="annualIncome" class="text-2xl sm:text-3xl font-black text-cyan-400 font-mono">$43,200</div>
+              <span class="text-[10px] text-slate-500">USD / año adicional</span>
+            </div>
+          </div>
+
+          <!-- Payback of Setup Hardware -->
+          <div class="p-4 rounded-2xl bg-slate-950/70 border border-slate-800 space-y-2">
+            <div class="flex justify-between text-xs">
+              <span class="text-slate-300 font-semibold">Amortización Kit XREAL (~$850 USD):</span>
+              <span id="paybackDays" class="text-amber-300 font-bold font-mono">Recuperado en ~7 días</span>
+            </div>
+            <div class="w-full h-2 bg-slate-800 rounded-full overflow-hidden">
+              <div class="h-full bg-gradient-to-r from-cyan-400 to-emerald-400 w-full"></div>
+            </div>
+            <p class="text-[11px] text-slate-400">
+              Con solo una semana de asesorías el hardware queda 100% amortizado. El resto se convierte en flujo de caja líquido para preservar tu autonomía económica durante los próximos 20 a 30 años.
+            </p>
+          </div>
+
+          <button onclick="triggerToast('¡Plan financiero guardado!', 'Tus métricas fueron exportadas a tu plan de negocio.');" class="w-full py-3 rounded-2xl bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold text-xs border border-slate-600 transition flex items-center justify-center gap-2">
+            <svg class="w-4 h-4 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4"/></svg>
+            <span>Guardar Plan de Longevidad Financiera</span>
+          </button>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Bottom Quick Bar for Mobile Screens -->
+  <div class="md:hidden fixed bottom-0 inset-x-0 z-40 bg-slate-900/95 border-t border-slate-800 px-2 py-2 flex justify-around items-center backdrop-blur-xl">
+    <button onclick="switchTab('arquitectura')" class="mobile-nav-btn active flex flex-col items-center p-1 text-cyan-400 text-[10px] font-bold" data-tab="arquitectura">
+      <span class="text-base">🏛️</span>
+      <span>Visión</span>
+    </button>
+    <button onclick="switchTab('hardware')" class="mobile-nav-btn flex flex-col items-center p-1 text-slate-400 text-[10px] font-medium" data-tab="hardware">
+      <span class="text-base">👓</span>
+      <span>XREAL</span>
+    </button>
+    <button onclick="switchTab('metahabilidades')" class="mobile-nav-btn flex flex-col items-center p-1 text-slate-400 text-[10px] font-medium" data-tab="metahabilidades">
+      <span class="text-base">🧠</span>
+      <span>Habilidades</span>
+    </button>
+    <button onclick="switchTab('conexion')" class="mobile-nav-btn flex flex-col items-center p-1 text-slate-400 text-[10px] font-medium" data-tab="conexion">
+      <span class="text-base">🤝</span>
+      <span>B2B</span>
+    </button>
+    <button onclick="switchTab('calculadora')" class="mobile-nav-btn flex flex-col items-center p-1 text-slate-400 text-[10px] font-medium" data-tab="calculadora">
+      <span class="text-base">💰</span>
+      <span>ROI</span>
+    </button>
+  </div>
+
+  <!-- Launch Guide Modal (No alert used) -->
+  <div id="onboardingGuide" class="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-md hidden items-center justify-center p-4">
+    <div class="bg-slate-900 border border-slate-700 rounded-3xl max-w-2xl w-full p-6 sm:p-8 space-y-5 max-h-[90vh] overflow-y-auto custom-scroll shadow-2xl">
+      <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+        <div class="flex items-center gap-2">
+          <span class="text-2xl">🚀</span>
+          <h3 class="text-lg font-bold text-white">Plan de Lanzamiento en 4 Fases (90 Días)</h3>
+        </div>
+        <button onclick="closeModal('onboardingGuide')" class="text-slate-400 hover:text-white p-2 text-xl font-bold">✕</button>
+      </div>
+
+      <div class="space-y-4 text-xs">
+        
+        <div class="p-3.5 rounded-2xl bg-slate-800/80 border-l-4 border-cyan-500 space-y-1">
+          <span class="font-bold text-cyan-300 text-sm">Fase 1 (Días 1 a 20): El "Alpha Squad" de 15 Pioneros</span>
+          <p class="text-slate-300 leading-relaxed">
+            Recluta a 15 exdirectivos, consultores o profesores eméritos de 50+. Facilítales el kit XREAL Air 2 + Beam Pro configurado. Realiza un <em>Onboarding de Concierge</em>: videollamada personalizada para ajustar insertos ópticos y enseñar gestos espaciales básicos.
+          </p>
+        </div>
+
+        <div class="p-3.5 rounded-2xl bg-slate-800/80 border-l-4 border-amber-500 space-y-1">
+          <span class="font-bold text-amber-300 text-sm">Fase 2 (Días 21 a 45): Bootcamp de Metahabilidades & IA</span>
+          <p class="text-slate-300 leading-relaxed">
+            4 semanas de masterclasses inmersivas: prompting avanzado, pensamiento estratégico con asistentes inteligentes, y oratoria en salas colaborativas virtuales (Immersed / Spacial). Cada miembro produce su primer entregable con su setup multipantalla.
+          </p>
+        </div>
+
+        <div class="p-3.5 rounded-2xl bg-slate-800/80 border-l-4 border-emerald-500 space-y-1">
+          <span class="font-bold text-emerald-300 text-sm">Fase 3 (Días 46 a 70): El "Demo Day Plateado" B2B</span>
+          <p class="text-slate-300 leading-relaxed">
+            Invita a CEOs de 20 startups y medianas empresas a una sesión de emparejamiento. Los miembros senior presentan soluciones a retos de negocio en directo desde su oficina portátil XREAL, demostrando agilidad y juicio maduro.
+          </p>
+        </div>
+
+        <div class="p-3.5 rounded-2xl bg-slate-800/80 border-l-4 border-indigo-500 space-y-1">
+          <span class="font-bold text-indigo-300 text-sm">Fase 4 (Días 71 a 90): Club de Suscripción & Escala</span>
+          <p class="text-slate-300 leading-relaxed">
+            Apertura de la membresía ($49 - $99 USD/mes) que incluye acceso al coworking espacial, círculos de inversión, biblioteca de prompts, bolsa de trabajo B2B y soporte técnico continuo.
+          </p>
+        </div>
+
+      </div>
+
+      <div class="pt-2 flex justify-end">
+        <button onclick="closeModal('onboardingGuide')" class="px-5 py-2.5 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold text-xs tracking-tight shadow-lg shadow-cyan-500/20 transition">
+          Entendido, empezar ahora
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Tab switching logic
+    function switchTab(tabId) {
+      // Hide all tabs
+      document.querySelectorAll('.tab-content').forEach(el => {
+        el.classList.add('hidden');
+      });
+
+      // Show targeted tab
+      const target = document.getElementById('tab-' + tabId);
+      if (target) {
+        target.classList.remove('hidden');
+      }
+
+      // Update desktop nav buttons
+      document.querySelectorAll('.nav-btn').forEach(btn => {
+        if (btn.getAttribute('data-tab') === tabId) {
+          btn.className = 'nav-btn active px-3.5 py-2 rounded-xl transition text-cyan-400 bg-slate-800 border border-cyan-500/30';
+        } else {
+          btn.className = 'nav-btn px-3.5 py-2 rounded-xl transition text-slate-300 hover:text-white hover:bg-slate-800/60';
+        }
+      });
+
+      // Update mobile nav buttons
+      document.querySelectorAll('.mobile-nav-btn').forEach(btn => {
+        if (btn.getAttribute('data-tab') === tabId) {
+          btn.className = 'mobile-nav-btn active flex flex-col items-center p-1 text-cyan-400 text-[10px] font-bold';
+        } else {
+          btn.className = 'mobile-nav-btn flex flex-col items-center p-1 text-slate-400 text-[10px] font-medium';
+        }
+      });
+
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // Modal Control Functions
+    function openModal(id) {
+      const modal = document.getElementById(id);
+      if (modal) {
+        modal.classList.remove('hidden');
+        modal.classList.add('flex');
+      }
+    }
+
+    function closeModal(id) {
+      const modal = document.getElementById(id);
+      if (modal) {
+        modal.classList.remove('flex');
+        modal.classList.add('hidden');
+      }
+    }
+
+    // Interactive Toast Notification
+    function triggerToast(title, message) {
+      const toast = document.getElementById('toastNotification');
+      document.getElementById('toastTitle').textContent = title;
+      document.getElementById('toastMessage').textContent = message;
+
+      toast.classList.remove('translate-y-[-150%]', 'opacity-0');
+      toast.classList.add('translate-y-0', 'opacity-100');
+
+      setTimeout(() => {
+        toast.classList.remove('translate-y-0', 'opacity-100');
+        toast.classList.add('translate-y-[-150%]', 'opacity-0');
+      }, 3500);
+    }
+
+    // Screen Layout Modes for Hardware Simulator
+    function setScreenLayout(mode) {
+      const leftTag = document.getElementById('screenLeftTag');
+      const leftBody = document.getElementById('screenLeftBody');
+      const centerTag = document.getElementById('screenCenterTag');
+      const centerBody = document.getElementById('screenCenterBody');
+      const rightTag = document.getElementById('screenRightTag');
+      const rightBody = document.getElementById('screenRightBody');
+      const desc = document.getElementById('screenDescText');
+
+      // Reset button styles
+      document.querySelectorAll('.screen-btn').forEach(btn => {
+        btn.className = 'screen-btn py-2 px-2 rounded-xl text-[11px] font-bold bg-slate-900 text-slate-300 border border-slate-700 transition';
+      });
+
+      const activeBtn = document.getElementById('btn-' + mode);
+      if (activeBtn) {
+        activeBtn.className = 'screen-btn active py-2 px-2 rounded-xl text-[11px] font-bold bg-cyan-600 text-white border border-cyan-400 transition';
+      }
+
+      if (mode === 'consultoria') {
+        leftTag.textContent = 'Copilot IA';
+        leftBody.innerHTML = 'Prompting Claude / GPT:<br>"Sintetiza la auditoría de gobierno corporativo..."';
+        centerTag.textContent = 'Documento Principal';
+        centerBody.textContent = 'Dictamen Estratégico para la Junta Directiva (Pantalla Central de 150").';
+        rightTag.textContent = 'Comunidad / Advisory';
+        rightBody.textContent = 'Sala de Consejeros Senior conectados en vivo con audio espacial.';
+        desc.innerHTML = '<strong>Modo Consultoría Fraccional:</strong> El senior redacta sin cambiar de ventana con tipografía ampliada que no fatiga los ojos.';
+      } else if (mode === 'educacion') {
+        leftTag.textContent = 'Notas & Resúmenes';
+        leftBody.innerHTML = 'Mindmap dinámico generado en tiempo real con conceptos clave.';
+        centerTag.textContent = 'Masterclass Inmersiva';
+        centerBody.textContent = 'Video espacial 3D o conferencia de expertos en tendencias 2026.';
+        rightTag.textContent = 'Chat de Cohorte';
+        rightBody.textContent = 'Intercambio de preguntas con otros fellows de la comunidad 50+.';
+        desc.innerHTML = '<strong>Modo Lifelong Learning:</strong> Absorbe conocimientos complejos manteniendo las notas y el canal de debate simultáneamente visibles.';
+      } else if (mode === 'inversion') {
+        leftTag.textContent = 'Mercados & Renta';
+        leftBody.innerHTML = 'Cotizaciones de bonos, activos de longevidad e índices globales.';
+        centerTag.textContent = 'Portafolio Personal';
+        centerBody.textContent = 'Panel de diversificación patrimonial para horizonte de 100 años.';
+        rightTag.textContent = 'Tesis de Inversión';
+        rightBody.textContent = 'Evaluación de startups plateadas con socios del club de inversores.';
+        desc.innerHTML = '<strong>Modo Salud Financiera:</strong> Monitoreo tranquilo y privado de activos patrimoniales en cualquier rincón del mundo.';
+      }
+    }
+
+    // Financial ROI Simulator Calculator
+    const hoursSlider = document.getElementById('hoursSlider');
+    const rateSlider = document.getElementById('rateSlider');
+    const clientsSlider = document.getElementById('clientsSlider');
+
+    const hoursLabel = document.getElementById('hoursLabel');
+    const rateLabel = document.getElementById('rateLabel');
+    const clientsLabel = document.getElementById('clientsLabel');
+
+    const monthlyIncome = document.getElementById('monthlyIncome');
+    const annualIncome = document.getElementById('annualIncome');
+    const paybackDays = document.getElementById('paybackDays');
+
+    function calculateROI() {
+      const hours = parseInt(hoursSlider.value, 10);
+      const rate = parseInt(rateSlider.value, 10);
+      const clients = parseInt(clientsSlider.value, 10);
+
+      hoursLabel.textContent = `${hours} hrs/sem`;
+      rateLabel.textContent = `$${rate} USD/hr`;
+      clientsLabel.textContent = `${clients} cliente${clients > 1 ? 's' : ''}`;
+
+      // Weekly calculation: total hours * rate
+      const weekly = hours * rate;
+      const monthly = Math.round(weekly * 4.2);
+      const annual = monthly * 12;
+
+      monthlyIncome.textContent = `$${monthly.toLocaleString('en-US')}`;
+      annualIncome.textContent = `$${annual.toLocaleString('en-US')}`;
+
+      // Hardware setup cost estimate = $850 USD
+      const dailyEarning = weekly / 5;
+      const days = Math.max(1, Math.ceil(850 / (dailyEarning || 1)));
+      paybackDays.textContent = `Recuperado en ~${days} días de trabajo`;
+    }
+
+    hoursSlider.addEventListener('input', calculateROI);
+    rateSlider.addEventListener('input', calculateROI);
+    clientsSlider.addEventListener('input', calculateROI);
+
+    // Initial calculation on load
+    window.addEventListener('DOMContentLoaded', () => {
+      calculateROI();
+    });
+  </script>
+</body>
+</html>

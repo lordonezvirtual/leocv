@@ -1,0 +1,1572 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ecosistema Silver Economy & IA | Edentia & Leonardo Senior Advisory</title>
+  
+  <!-- Fonts: Plus Jakarta Sans & Space Grotesk -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- FontAwesome Icons 6.5.1 -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            heading: ['"Space Grotesk"', 'sans-serif'],
+          },
+          colors: {
+            silverbrand: {
+              50: '#F8FAFC',
+              100: '#F1F5F9',
+              200: '#E2E8F0',
+              300: '#CBD5E1',
+              400: '#94A3B8',
+              500: '#64748B',
+              600: '#475569',
+              700: '#334155',
+              800: '#1E293B',
+              900: '#0F172A',
+              950: '#020617'
+            },
+            accent: {
+              emerald: '#059669',
+              teal: '#0D9488',
+              amber: '#D97706',
+              violet: '#7C3AED',
+              blue: '#2563EB',
+              rose: '#E11D48'
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    html { font-size: 16px; }
+    html.text-large { font-size: 18px; }
+    html.text-xlarge { font-size: 20px; }
+    
+    .glass-nav {
+      background: rgba(255, 255, 255, 0.94);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+    }
+    .dark .glass-nav {
+      background: rgba(15, 23, 42, 0.94);
+    }
+
+    .custom-card {
+      transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.25s ease;
+    }
+    .custom-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 16px 30px -10px rgba(15, 23, 42, 0.12);
+    }
+
+    ::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #f1f5f9;
+    }
+    .dark ::-webkit-scrollbar-track {
+      background: #0f172a;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #cbd5e1;
+      border-radius: 9999px;
+    }
+    .dark ::-webkit-scrollbar-thumb {
+      background: #334155;
+    }
+  </style>
+</head>
+<body class="bg-silverbrand-50 text-slate-800 dark:bg-silverbrand-950 dark:text-slate-100 font-sans antialiased min-h-screen flex flex-col selection:bg-teal-500 selection:text-white transition-colors duration-200">
+
+  <header class="sticky top-0 z-50 glass-nav border-b border-slate-200 dark:border-slate-800 transition-colors">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+      
+      <!-- Brand Logo -->
+      <a href="#inicio" class="flex items-center gap-3.5 group">
+        <div class="w-11 h-11 rounded-2xl bg-gradient-to-tr from-accent-teal via-accent-blue to-accent-violet flex items-center justify-center text-white text-xl font-bold shadow-md shadow-teal-500/20 group-hover:scale-105 transition-transform">
+          <i class="fa-solid fa-infinity"></i>
+        </div>
+        <div>
+          <div class="flex items-center gap-2">
+            <span class="font-heading font-extrabold text-xl tracking-tight text-slate-900 dark:text-white">SILVER<span class="text-accent-teal">·AI</span> HUB</span>
+            <span class="hidden sm:inline-block px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-teal-100 text-teal-800 dark:bg-teal-950/70 dark:text-teal-300 border border-teal-200 dark:border-teal-800">Edentia & Leonardo Senior</span>
+          </div>
+          <p class="text-xs text-slate-500 dark:text-slate-400 font-medium">Nueva Longevidad, Reskilling & Modelos de Negocio</p>
+        </div>
+      </a>
+
+      <!-- Desktop Navigation Menu -->
+      <nav class="hidden xl:flex items-center gap-1 text-xs font-bold text-slate-600 dark:text-slate-300">
+        <a href="#video-masterclass" class="px-3 py-2 rounded-xl hover:text-accent-teal hover:bg-slate-100 dark:hover:bg-slate-800 transition">Análisis Video</a>
+        <a href="#metodologia" class="px-3 py-2 rounded-xl hover:text-accent-teal hover:bg-slate-100 dark:hover:bg-slate-800 transition">Metodología S.C.A.L.E.</a>
+        <a href="#habit-stacking" class="px-3 py-2 rounded-xl hover:text-accent-teal hover:bg-slate-100 dark:hover:bg-slate-800 transition">Anclaje de Hábitos</a>
+        <a href="#simulador-ia" class="px-3 py-2 rounded-xl hover:text-accent-teal hover:bg-slate-100 dark:hover:bg-slate-800 transition">Simulador Silver</a>
+        <a href="#modelos-negocio" class="px-3 py-2 rounded-xl hover:text-accent-teal hover:bg-slate-100 dark:hover:bg-slate-800 transition">4 Canvas de Negocio</a>
+        <a href="#catalogo-20" class="px-3 py-2 rounded-xl hover:text-accent-teal hover:bg-slate-100 dark:hover:bg-slate-800 transition">20 Oportunidades</a>
+        <a href="#playbook-consultoria" class="px-3 py-2 rounded-xl hover:text-accent-teal hover:bg-slate-100 dark:hover:bg-slate-800 transition">Edentia & Leonardo</a>
+      </nav>
+
+      <!-- Accessibility Font Controls and Dark Mode Switch -->
+      <div class="flex items-center gap-2">
+        <!-- Font sizing controls -->
+        <div class="hidden md:flex items-center bg-slate-100 dark:bg-slate-800 p-1 rounded-xl border border-slate-200 dark:border-slate-700" title="Ajustar tamaño de lectura">
+          <button id="font-decrease" class="px-2 py-1 text-xs font-bold rounded-lg text-slate-600 dark:text-slate-300 hover:bg-white dark:hover:bg-slate-700 transition" aria-label="Texto pequeño">A-</button>
+          <button id="font-normal" class="px-2 py-1 text-xs font-bold rounded-lg bg-white dark:bg-slate-700 text-slate-900 dark:text-white shadow-xs" aria-label="Texto normal">A</button>
+          <button id="font-increase" class="px-2 py-1 text-xs font-bold rounded-lg text-slate-600 dark:text-slate-300 hover:bg-white dark:hover:bg-slate-700 transition" aria-label="Texto grande">A+</button>
+        </div>
+
+        <!-- Dark/Light Mode Switcher -->
+        <button id="themeToggleBtn" type="button" aria-label="Cambiar tema claro/oscuro" class="p-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-600 dark:text-amber-400 border border-slate-200 dark:border-slate-700 transition">
+          <i class="fa-solid fa-sun dark:hidden"></i>
+          <i class="fa-solid fa-moon hidden dark:block"></i>
+        </button>
+
+        <!-- Mobile Drawer Toggle Button -->
+        <button id="mobileMenuBtn" class="xl:hidden p-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300">
+          <i class="fa-solid fa-bars"></i>
+        </button>
+      </div>
+
+    </div>
+
+    <!-- Mobile Dropdown Navigation -->
+    <div id="mobileDropdown" class="hidden xl:hidden px-4 pt-2 pb-5 bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 space-y-1.5 text-sm font-semibold">
+      <a href="#video-masterclass" class="block px-3 py-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200">Análisis Video Masterclass</a>
+      <a href="#metodologia" class="block px-3 py-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200">Metodología S.C.A.L.E. & Reskilling</a>
+      <a href="#habit-stacking" class="block px-3 py-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200">Generador Anclaje de Hábitos</a>
+      <a href="#simulador-ia" class="block px-3 py-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200">Simulador Silver IA</a>
+      <a href="#modelos-negocio" class="block px-3 py-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200">4 Modelos de Negocio (Canvas)</a>
+      <a href="#catalogo-20" class="block px-3 py-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200">Catálogo 20 Oportunidades</a>
+      <a href="#playbook-consultoria" class="block px-3 py-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 text-accent-teal font-bold">Playbook Edentia & Leonardo IA</a>
+    </div>
+  </header>
+  <main class="flex-grow">
+    <section id="inicio" class="relative overflow-hidden pt-16 pb-20 lg:pt-24 lg:pb-28 border-b border-slate-200 dark:border-slate-800 bg-gradient-to-b from-teal-50/40 via-white to-slate-50 dark:from-slate-950 dark:via-slate-900 dark:to-slate-950">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <div class="grid lg:grid-cols-12 gap-12 items-center">
+          <div class="lg:col-span-7 space-y-6">
+            <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-teal-100/80 dark:bg-teal-950/70 border border-teal-200 dark:border-teal-800 text-teal-900 dark:text-teal-300 text-xs font-bold">
+              <span class="w-2 h-2 rounded-full bg-accent-teal animate-pulse"></span>
+              <span>Economía Plateada + Arquitectura de IA Estratégica</span>
+            </div>
+
+            <h1 class="font-heading text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-slate-900 dark:text-white leading-[1.12]">
+              La Revolución de la <br class="hidden sm:inline">
+              <span class="bg-gradient-to-r from-accent-teal via-accent-blue to-accent-violet bg-clip-text text-transparent">Nueva Longevidad & la IA</span>
+            </h1>
+
+            <p class="text-base sm:text-lg text-slate-600 dark:text-slate-300 leading-relaxed max-w-2xl font-normal">
+              La cohorte de más de 50 años comanda el <strong>40% del consumo mundial</strong>. Si la ciencia nos proyecta 100 años de vida, los 50 son solo la mitad del partido: 30 a 40 años más de capacidad creativa, productiva y de monetización mediante el apalancamiento de la Inteligencia Artificial.
+            </p>
+
+            <div class="flex flex-wrap gap-4 pt-2">
+              <a href="#modelos-negocio" class="px-6 py-3.5 rounded-2xl bg-accent-teal text-white font-bold text-sm shadow-lg shadow-teal-500/25 hover:bg-teal-700 transition flex items-center gap-2">
+                <i class="fa-solid fa-cubes"></i>
+                <span>Explorar 4 Modelos de Negocio</span>
+              </a>
+              <a href="#catalogo-20" class="px-6 py-3.5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-700 text-slate-800 dark:text-slate-200 font-bold text-sm hover:bg-slate-50 dark:hover:bg-slate-800 transition flex items-center gap-2 shadow-xs">
+                <i class="fa-solid fa-list-check text-accent-teal"></i>
+                <span>Ver 20 Oportunidades</span>
+              </a>
+            </div>
+          </div>
+
+          <!-- Highlight Metric Cards -->
+          <div class="lg:col-span-5 grid grid-cols-2 gap-4">
+            <div class="p-6 rounded-3xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-xs flex flex-col justify-between">
+              <div class="w-10 h-10 rounded-xl bg-teal-100 dark:bg-teal-950 text-accent-teal flex items-center justify-center font-bold text-lg mb-3">
+                <i class="fa-solid fa-earth-americas"></i>
+              </div>
+              <div class="text-3xl sm:text-4xl font-extrabold font-heading text-slate-900 dark:text-white">40%</div>
+              <div class="text-xs font-semibold text-slate-500 dark:text-slate-400 mt-1">Del consumo mundial es comandado por la generación silver (+50).</div>
+            </div>
+
+            <div class="p-6 rounded-3xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-xs flex flex-col justify-between">
+              <div class="w-10 h-10 rounded-xl bg-blue-100 dark:bg-blue-950 text-accent-blue flex items-center justify-center font-bold text-lg mb-3">
+                <i class="fa-solid fa-calendar-plus"></i>
+              </div>
+              <div class="text-3xl sm:text-4xl font-extrabold font-heading text-accent-blue">+30 Años</div>
+              <div class="text-xs font-semibold text-slate-500 dark:text-slate-400 mt-1">De vida activa, creativa y productiva adicional post-corporativa.</div>
+            </div>
+
+            <div class="p-6 rounded-3xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-xs flex flex-col justify-between">
+              <div class="w-10 h-10 rounded-xl bg-amber-100 dark:bg-amber-950 text-accent-amber flex items-center justify-center font-bold text-lg mb-3">
+                <i class="fa-solid fa-chart-pie"></i>
+              </div>
+              <div class="text-3xl sm:text-4xl font-extrabold font-heading text-accent-amber">37%</div>
+              <div class="text-xs font-semibold text-slate-500 dark:text-slate-400 mt-1">Proyección de participación del gasto en LatAm para la próxima década.</div>
+            </div>
+
+            <div class="p-6 rounded-3xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-xs flex flex-col justify-between">
+              <div class="w-10 h-10 rounded-xl bg-violet-100 dark:bg-violet-950 text-accent-violet flex items-center justify-center font-bold text-lg mb-3">
+                <i class="fa-solid fa-brain"></i>
+              </div>
+              <div class="text-3xl sm:text-4xl font-extrabold font-heading text-accent-violet">0 Código</div>
+              <div class="text-xs font-semibold text-slate-500 dark:text-slate-400 mt-1">Enfoque en criterio, auditoría de agentes y comandos por voz natural.</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+    <section id="video-masterclass" class="py-20 bg-white dark:bg-slate-900/50 border-b border-slate-200 dark:border-slate-800">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4">
+          <div>
+            <span class="px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300">
+              Desglose Audiovisual Exhaustivo
+            </span>
+            <h2 class="font-heading text-3xl sm:text-4xl font-bold text-slate-900 dark:text-white mt-2">
+              Masterclass: Capital Humano 360° #35 con Liliana Parodi
+            </h2>
+            <p class="text-slate-600 dark:text-slate-300 text-sm sm:text-base mt-1">
+              Registro fidedigno en orden cronológico con marcas de tiempo, datos macroeconómicos y citas textuales.
+            </p>
+          </div>
+          <a href="https://youtu.be/G8neH3zlvmg" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 text-xs font-bold text-rose-600 dark:text-rose-400 bg-rose-50 dark:bg-rose-950/40 px-4 py-2.5 rounded-xl border border-rose-200 dark:border-rose-900/50 hover:bg-rose-100 transition self-start md:self-auto">
+            <i class="fa-brands fa-youtube text-base"></i>
+            <span>Ver Video Original (38:39)</span>
+          </a>
+        </div>
+
+        <!-- Timestamps Cards Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          
+          <div class="p-6 rounded-2xl bg-slate-50 dark:bg-slate-800/70 border border-slate-200 dark:border-slate-700 custom-card">
+            <div class="flex items-center justify-between mb-3">
+              <span class="font-mono text-xs font-bold px-2.5 py-1 rounded-lg bg-teal-100 text-teal-800 dark:bg-teal-950 dark:text-teal-300">
+                00:00:00 - 00:01:44
+              </span>
+              <span class="text-[11px] font-bold text-slate-400 uppercase">Sinergia</span>
+            </div>
+            <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2">Intercambio Intergeneracional & Mito Juvenil</h3>
+            <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
+              La experiencia acumulada de los perfiles senior complementa el dinamismo de los jóvenes. Se desarticula la creencia histórica de que solo los jóvenes impulsan la economía.
+            </p>
+            <div class="mt-4 pt-3 border-t border-slate-200 dark:border-slate-700 text-xs italic text-slate-700 dark:text-slate-300">
+              "Ellos necesitan de mi experiencia y yo aprendo de ellos, pero no todos los silver están dispuestos a aprender."
+            </div>
+          </div>
+
+          <div class="p-6 rounded-2xl bg-slate-50 dark:bg-slate-800/70 border border-slate-200 dark:border-slate-700 custom-card">
+            <div class="flex items-center justify-between mb-3">
+              <span class="font-mono text-xs font-bold px-2.5 py-1 rounded-lg bg-blue-100 text-blue-800 dark:bg-blue-950 dark:text-blue-300">
+                00:01:45 - 00:03:15
+              </span>
+              <span class="text-[11px] font-bold text-slate-400 uppercase">Psicología</span>
+            </div>
+            <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2">Pérdida del Respaldo Corporativo & Rutina</h3>
+            <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
+              Pertenecer a una corporación otorga identidad automática ("Soy X de Empresa Y"). Al desvincularse, surge el desafío de forjar una marca personal y autogenerar rutinas productivas.
+            </p>
+            <div class="mt-4 pt-3 border-t border-slate-200 dark:border-slate-700 text-xs italic text-slate-700 dark:text-slate-300">
+              "Tener una pertenencia da identidad; cuando la perdés y tenés que reformularla sobre la tuya propia, es todo un rediseño."
+            </div>
+          </div>
+
+          <div class="p-6 rounded-2xl bg-slate-50 dark:bg-slate-800/70 border border-slate-200 dark:border-slate-700 custom-card">
+            <div class="flex items-center justify-between mb-3">
+              <span class="font-mono text-xs font-bold px-2.5 py-1 rounded-lg bg-amber-100 text-amber-800 dark:bg-amber-950 dark:text-amber-300">
+                00:03:16 - 00:04:47
+              </span>
+              <span class="text-[11px] font-bold text-slate-400 uppercase">Mentalidad</span>
+            </div>
+            <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2">La «Cazadora de Oportunidades»</h3>
+            <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
+              Originar de un contexto vulnerable obligó a Parodi a tomar turnos de fines de semana, noches y micros sin sesgos de jerarquía. Tras salir del empleo formal, descubre que aún restan 40 años por delante.
+            </p>
+            <div class="mt-4 pt-3 border-t border-slate-200 dark:border-slate-700 text-xs italic text-slate-700 dark:text-slate-300">
+              "Termina esa etapa y decís: 'Acá quedan como 40 años más para adelante, ni pienso quedarme quieta'."
+            </div>
+          </div>
+
+          <div class="p-6 rounded-2xl bg-slate-50 dark:bg-slate-800/70 border border-slate-200 dark:border-slate-700 custom-card">
+            <div class="flex items-center justify-between mb-3">
+              <span class="font-mono text-xs font-bold px-2.5 py-1 rounded-lg bg-violet-100 text-violet-800 dark:bg-violet-950 dark:text-violet-300">
+                00:04:48 - 00:07:04
+              </span>
+              <span class="text-[11px] font-bold text-slate-400 uppercase">Demografía</span>
+            </div>
+            <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2">Los 100 Años & El Rol de Juglar</h3>
+            <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
+              Citando la tesis del Dr. Alexandre Kalache sobre vivir un siglo, los 50 son la mitad exacta de la vida. Parodi asume el rol de "juglar", llevando los datos a foros de inversión y directorios empresariales.
+            </p>
+            <div class="mt-4 pt-3 border-t border-slate-200 dark:border-slate-700 text-xs italic text-slate-700 dark:text-slate-300">
+              "Se aumentaron 30 años de expectativa de vida productiva, creativa y de consumo: somos un negocio."
+            </div>
+          </div>
+
+          <div class="p-6 rounded-2xl bg-slate-50 dark:bg-slate-800/70 border border-slate-200 dark:border-slate-700 custom-card">
+            <div class="flex items-center justify-between mb-3">
+              <span class="font-mono text-xs font-bold px-2.5 py-1 rounded-lg bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300">
+                00:07:05 - 00:10:30
+              </span>
+              <span class="text-[11px] font-bold text-slate-400 uppercase">Mercado</span>
+            </div>
+            <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2">40% del Consumo Mundial Inadvertido</h3>
+            <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
+              El 40% del gasto global pertenece a mayores de 50 años. En Argentina y LatAm representan el 28% actual camino al 37% en 10 años, pero las marcas siguen diseñando solo para sub-35.
+            </p>
+            <div class="mt-4 pt-3 border-t border-slate-200 dark:border-slate-700 text-xs italic text-slate-700 dark:text-slate-300">
+              "El marketing y los inversores no nos miran; el capital está acá y hay un mercado gigante desatendido."
+            </div>
+          </div>
+
+          <div class="p-6 rounded-2xl bg-slate-50 dark:bg-slate-800/70 border border-slate-200 dark:border-slate-700 custom-card">
+            <div class="flex items-center justify-between mb-3">
+              <span class="font-mono text-xs font-bold px-2.5 py-1 rounded-lg bg-rose-100 text-rose-800 dark:bg-rose-950 dark:text-rose-300">
+                00:34:45 - 00:38:39
+              </span>
+              <span class="text-[11px] font-bold text-slate-400 uppercase">Estrategia</span>
+            </div>
+            <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2">Estrategia, Casos & Salto al Streaming</h3>
+            <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
+              Revisión del postulado "No es magia, es estrategia". Casos reales: docente de 72 años, taxista de 77 e inversor de peluquería. Parodi traslada su experiencia televisiva a dirigir streaming digital.
+            </p>
+            <div class="mt-4 pt-3 border-t border-slate-200 dark:border-slate-700 text-xs italic text-slate-700 dark:text-slate-300">
+              "Como dicen en España: a ver si las empresas espabilan un poco."
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Pros and Cons Executive Summary Table -->
+        <div class="mt-12 bg-slate-50 dark:bg-slate-800/40 rounded-3xl p-6 sm:p-8 border border-slate-200 dark:border-slate-800">
+          <h3 class="font-heading text-xl font-bold text-slate-900 dark:text-white mb-6 flex items-center gap-2">
+            <i class="fa-solid fa-scale-balanced text-accent-teal"></i>
+            <span>Balance Crítico de la Economía Silver (12 Pros y Contras Clave)</span>
+          </h3>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-xs sm:text-sm">
+            <!-- Pros -->
+            <div class="space-y-3">
+              <div class="text-xs font-bold uppercase tracking-wider text-emerald-600 dark:text-emerald-400 flex items-center gap-2">
+                <i class="fa-solid fa-circle-check"></i>
+                <span>6 Oportunidades & Fortalezas (Pros)</span>
+              </div>
+              <ul class="space-y-2 text-slate-600 dark:text-slate-300">
+                <li class="p-3 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 flex items-start gap-2">
+                  <strong class="text-slate-800 dark:text-white">1. Solvencia patrimonial:</strong> Cuentan con liquidez, inmuebles propios y menor endeudamiento que las generaciones iniciales.
+                </li>
+                <li class="p-3 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 flex items-start gap-2">
+                  <strong class="text-slate-800 dark:text-white">2. Criterio directivo:</strong> Madurez probada en manejo de crisis, toma de decisiones complejas e inteligencia emocional.
+                </li>
+                <li class="p-3 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 flex items-start gap-2">
+                  <strong class="text-slate-800 dark:text-white">3. Sinergia intergeneracional:</strong> Complementariedad virtuosa entre visión contextual senior y destreza digital junior.
+                </li>
+                <li class="p-3 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 flex items-start gap-2">
+                  <strong class="text-slate-800 dark:text-white">4. Océano azul de consumo:</strong> Servicios educativos, turismo cultural, finanzas seguras y bienestar funcional desatendidos.
+                </li>
+                <li class="p-3 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 flex items-start gap-2">
+                  <strong class="text-slate-800 dark:text-white">5. Disponibilidad horaria:</strong> Mayor flexibilidad para consultoría fraccional, docencia y microemprendimiento.
+                </li>
+                <li class="p-3 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 flex items-start gap-2">
+                  <strong class="text-slate-800 dark:text-white">6. Alivio previsional:</strong> La continuidad productiva voluntaria equilibra las tensiones de los fondos de retiro estatales.
+                </li>
+              </ul>
+            </div>
+
+            <!-- Contras -->
+            <div class="space-y-3">
+              <div class="text-xs font-bold uppercase tracking-wider text-rose-600 dark:text-rose-400 flex items-center gap-2">
+                <i class="fa-solid fa-triangle-exclamation"></i>
+                <span>6 Fricciones & Desafíos (Contras)</span>
+              </div>
+              <ul class="space-y-2 text-slate-600 dark:text-slate-300">
+                <li class="p-3 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 flex items-start gap-2">
+                  <strong class="text-slate-800 dark:text-white">1. Edadismo corporativo:</strong> Prejuicios y algoritmos de selección que descartan candidatos automáticamente por encima de los 45 años.
+                </li>
+                <li class="p-3 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 flex items-start gap-2">
+                  <strong class="text-slate-800 dark:text-white">2. Resistencia al desaprendizaje:</strong> Dificultad psicológica para asumir una posición de aprendiz principiante ante tecnologías emergentes.
+                </li>
+                <li class="p-3 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 flex items-start gap-2">
+                  <strong class="text-slate-800 dark:text-white">3. Duelo de identidad:</strong> Sufrimiento derivado de perder el cargo formal y estatus otorgado por la gran empresa.
+                </li>
+                <li class="p-3 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 flex items-start gap-2">
+                  <strong class="text-slate-800 dark:text-white">4. Fricción ergonómica digital:</strong> Aplicaciones móviles con tipografía diminuta, contrastes deficientes y flujos que generan frustración.
+                </li>
+                <li class="p-3 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 flex items-start gap-2">
+                  <strong class="text-slate-800 dark:text-white">5. Velocidad de obsolescencia:</strong> La aceleración de la IA desborda los esquemas pedagógicos tradicionales de memorización.
+                </li>
+                <li class="p-3 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 flex items-start gap-2">
+                  <strong class="text-slate-800 dark:text-white">6. Incompatibilidad normativa:</strong> Leyes de seguridad social obsoletas que penalizan o suspenden la jubilación si se factura legalmente.
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+    <section id="metodologia" class="py-20 bg-slate-50 dark:bg-slate-950 border-b border-slate-200 dark:border-slate-800">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <div class="text-center max-w-3xl mx-auto mb-16">
+          <span class="px-3.5 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-teal-100 text-teal-800 dark:bg-teal-950/80 dark:text-teal-300">
+            Andragogía & Ciencia de Hábitos
+          </span>
+          <h2 class="font-heading text-3xl sm:text-4xl font-bold text-slate-900 dark:text-white mt-2">
+            Metodología S.C.A.L.E. para Perfiles +50
+          </h2>
+          <p class="text-slate-600 dark:text-slate-300 text-sm sm:text-base mt-2">
+            Cómo eliminar la parálisis tecnológica, reducir los cuellos de botella cognitivos y apalancar el criterio senior como director de agentes inteligentes.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-5 gap-4">
+          
+          <div class="p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 custom-card">
+            <div class="w-10 h-10 rounded-xl bg-teal-100 text-accent-teal dark:bg-teal-950 flex items-center justify-center font-bold text-lg mb-3">S</div>
+            <h3 class="font-bold text-base text-slate-900 dark:text-white">Scaffolding</h3>
+            <p class="text-xs text-slate-500 font-semibold mb-2">Andamiaje sin Fricción</p>
+            <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
+              Inicio 100% por voz y lenguaje natural. Cero consolas, parámetros complejos o configuración cruda que genere ansiedad tecnológica.
+            </p>
+          </div>
+
+          <div class="p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 custom-card">
+            <div class="w-10 h-10 rounded-xl bg-blue-100 text-accent-blue dark:bg-blue-950 flex items-center justify-center font-bold text-lg mb-3">C</div>
+            <h3 class="font-bold text-base text-slate-900 dark:text-white">Criterio</h3>
+            <p class="text-xs text-slate-500 font-semibold mb-2">Criterio sobre Código</p>
+            <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
+              El senior no programa: actúa como Director de Proyecto y Auditor Ético. Evalúa alucinaciones, valida riesgos y refina requisitos.
+            </p>
+          </div>
+
+          <div class="p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 custom-card">
+            <div class="w-10 h-10 rounded-xl bg-amber-100 text-accent-amber dark:bg-amber-950 flex items-center justify-center font-bold text-lg mb-3">A</div>
+            <h3 class="font-bold text-base text-slate-900 dark:text-white">Aumento</h3>
+            <p class="text-xs text-slate-500 font-semibold mb-2">Descarga Cognitiva</p>
+            <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
+              Enfocado en resolver tareas que consumen tiempo en menos de 15 minutos: resúmenes de contratos, redacción formal y análisis financiero.
+            </p>
+          </div>
+
+          <div class="p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 custom-card">
+            <div class="w-10 h-10 rounded-xl bg-violet-100 text-accent-violet dark:bg-violet-950 flex items-center justify-center font-bold text-lg mb-3">L</div>
+            <h3 class="font-bold text-base text-slate-900 dark:text-white">Logros</h3>
+            <p class="text-xs text-slate-500 font-semibold mb-2">Micro-Victorias</p>
+            <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
+              Cada sesión finaliza con un activo tangible: un informe listo, una propuesta comercial terminada o un asistente configurado para su uso personal.
+            </p>
+          </div>
+
+          <div class="p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 custom-card">
+            <div class="w-10 h-10 rounded-xl bg-rose-100 text-accent-rose dark:bg-rose-950 flex items-center justify-center font-bold text-lg mb-3">E</div>
+            <h3 class="font-bold text-base text-slate-900 dark:text-white">Ecosistema</h3>
+            <p class="text-xs text-slate-500 font-semibold mb-2">Comunidad & Soporte</p>
+            <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
+              Círculos cerrados de pares (Peer Circles) y mentoría intergeneracional para compartir prompts seguros y eliminar el aislamiento.
+            </p>
+          </div>
+
+        </div>
+
+        <!-- Matriz de Reskilling en 4 Niveles -->
+        <div class="mt-12 bg-white dark:bg-slate-900 rounded-3xl p-6 sm:p-8 border border-slate-200 dark:border-slate-800 shadow-xs">
+          <h3 class="font-heading text-xl font-bold text-slate-900 dark:text-white mb-4 flex items-center gap-2">
+            <i class="fa-solid fa-stairs text-accent-blue"></i>
+            <span>Matriz de Progresión de Reskilling (De Explorador a Mentor Silver)</span>
+          </h3>
+
+          <div class="grid grid-cols-1 md:grid-cols-4 gap-4 text-xs">
+            <div class="p-4 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700 flex flex-col justify-between">
+              <div>
+                <span class="font-bold text-accent-teal uppercase text-[10px] tracking-wider">Nivel 1 (5 min/día)</span>
+                <h4 class="font-bold text-sm text-slate-900 dark:text-white mt-1">Explorador de Confianza</h4>
+                <p class="mt-1.5 text-slate-600 dark:text-slate-300">Superar el miedo a equivocarse o desconfigurar el teléfono; dictado por voz y preguntas cotidianas.</p>
+              </div>
+              <div class="mt-3 pt-2 border-t border-slate-200 dark:border-slate-700 font-semibold text-slate-500">
+                Entregable: Resumen diario de noticias sin teclear.
+              </div>
+            </div>
+
+            <div class="p-4 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700 flex flex-col justify-between">
+              <div>
+                <span class="font-bold text-accent-blue uppercase text-[10px] tracking-wider">Nivel 2 (15 min/día)</span>
+                <h4 class="font-bold text-sm text-slate-900 dark:text-white mt-1">Asistente Personal</h4>
+                <p class="mt-1.5 text-slate-600 dark:text-slate-300">Análisis de extractos bancarios en PDF, detección de mensajes de fraude y redacción formal.</p>
+              </div>
+              <div class="mt-3 pt-2 border-t border-slate-200 dark:border-slate-700 font-semibold text-slate-500">
+                Entregable: Auditoría de cobros y comisiones pensionales.
+              </div>
+            </div>
+
+            <div class="p-4 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700 flex flex-col justify-between">
+              <div>
+                <span class="font-bold text-accent-amber uppercase text-[10px] tracking-wider">Nivel 3 (30 min/día)</span>
+                <h4 class="font-bold text-sm text-slate-900 dark:text-white mt-1">Creador & Analista</h4>
+                <p class="mt-1.5 text-slate-600 dark:text-slate-300">Sistematización de experiencia en propuestas de consultoría independiente o libros de memorias.</p>
+              </div>
+              <div class="mt-3 pt-2 border-t border-slate-200 dark:border-slate-700 font-semibold text-slate-500">
+                Entregable: Capítulo de legado o propuesta de honorarios.
+              </div>
+            </div>
+
+            <div class="p-4 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700 flex flex-col justify-between">
+              <div>
+                <span class="font-bold text-accent-violet uppercase text-[10px] tracking-wider">Nivel 4 (Comunitario)</span>
+                <h4 class="font-bold text-sm text-slate-900 dark:text-white mt-1">Mentor Silver</h4>
+                <p class="mt-1.5 text-slate-600 dark:text-slate-300">Liderar círculos de pares, auditar ética de algoritmos en directorios y guiar a jóvenes en gestión de crisis.</p>
+              </div>
+              <div class="mt-3 pt-2 border-t border-slate-200 dark:border-slate-700 font-semibold text-slate-500">
+                Entregable: Asesoría fraccional remunerada a empresas.
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+    <section id="habit-stacking" class="py-20 bg-white dark:bg-slate-900/50 border-b border-slate-200 dark:border-slate-800">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <div class="grid lg:grid-cols-12 gap-10 items-center">
+          <!-- Copy -->
+          <div class="lg:col-span-5 space-y-4">
+            <span class="px-3.5 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-amber-100 text-amber-800 dark:bg-amber-950/80 dark:text-amber-300">
+              Transformación de Hábitos (BJ Fogg)
+            </span>
+            <h2 class="font-heading text-3xl font-bold text-slate-900 dark:text-white">
+              Generador de Anclaje de Hábitos con IA
+            </h2>
+            <p class="text-slate-600 dark:text-slate-300 text-sm sm:text-base leading-relaxed">
+              No intentes crear hábitos desde cero. Vincula una micro-acción de IA a una rutina que ya realizas automáticamente desde hace décadas.
+            </p>
+            <div class="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-xs text-slate-700 dark:text-slate-300">
+              <strong class="text-slate-900 dark:text-white block mb-1">Ecuación Conductual:</strong>
+              <code>[Hábito Existente] + [Micro-Acción de IA &lt; 2 min] = [Recompensa Inmediata]</code>
+            </div>
+          </div>
+
+          <!-- Interactive Configurator -->
+          <div class="lg:col-span-7 bg-slate-50 dark:bg-slate-800/80 p-6 sm:p-8 rounded-3xl border border-slate-200 dark:border-slate-700 shadow-sm space-y-5">
+            <div>
+              <label class="block text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-2">
+                1. Selecciona tu Hábito Consolidado Actual:
+              </label>
+              <select id="habitTriggerSelect" class="w-full p-3.5 rounded-xl bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-700 text-slate-800 dark:text-slate-200 text-sm font-medium focus:ring-2 focus:ring-teal-500 focus:outline-hidden" onchange="updateHabitStacking()">
+                <option value="cafe">☕ Mientras tomo mi café matutino (7:30 AM)</option>
+                <option value="extracto">📑 Cuando recibo el extracto bancario o recibo pensional por email</option>
+                <option value="reunion">🗣️ Apenas finalizo una llamada importante con un cliente o colega</option>
+                <option value="caminata">🚶 Al cruzar la puerta de regreso de mi caminata diaria</option>
+              </select>
+            </div>
+
+            <div>
+              <label class="block text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-2">
+                2. Selecciona tu Especialidad Profesional:
+              </label>
+              <div class="grid grid-cols-3 gap-2">
+                <button type="button" onclick="setHabitRole('finanzas')" id="btn-role-finanzas" class="habit-role-btn p-2.5 rounded-xl border border-teal-500 bg-teal-50 dark:bg-teal-950/60 text-xs font-bold text-teal-900 dark:text-teal-200 text-center transition">
+                  Finanzas / Cuentas
+                </button>
+                <button type="button" onclick="setHabitRole('consultoria')" id="btn-role-consultoria" class="habit-role-btn p-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-xs font-bold text-slate-700 dark:text-slate-300 text-center transition hover:bg-slate-100">
+                  Consultoría Senior
+                </button>
+                <button type="button" onclick="setHabitRole('legado')" id="btn-role-legado" class="habit-role-btn p-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-xs font-bold text-slate-700 dark:text-slate-300 text-center transition hover:bg-slate-100">
+                  Legado & Redacción
+                </button>
+              </div>
+            </div>
+
+            <!-- Stacking Prompt Output Box -->
+            <div class="p-5 rounded-2xl bg-silverbrand-900 text-white space-y-3">
+              <div class="flex items-center justify-between">
+                <span class="text-[11px] font-mono text-teal-400 font-bold uppercase tracking-widest">Tarjeta de Anclaje Diario</span>
+                <button onclick="copyCurrentHabitPrompt()" class="text-xs text-slate-300 hover:text-white flex items-center gap-1.5 bg-slate-800 px-3 py-1.5 rounded-lg border border-slate-700 transition">
+                  <i class="fa-regular fa-copy"></i>
+                  <span>Copiar Prompt</span>
+                </button>
+              </div>
+
+              <div class="text-xs text-slate-300">
+                Tu compromiso diario: <span id="habitStatementText" class="font-bold text-amber-300">"Apenas tome mi café matutino, abriré el asistente por voz y diré..."</span>
+              </div>
+
+              <div id="habitPromptBox" class="p-3.5 rounded-xl bg-black/40 border border-white/10 font-mono text-xs text-teal-200/90 leading-relaxed">
+                "Actúa como mi analista financiero sénior. Extrae los 3 cobros más altos de este resumen bancario y dime en 2 oraciones si coinciden con mi patrón de gasto habitual."
+              </div>
+
+              <div class="text-xs text-slate-400 flex items-center gap-2">
+                <i class="fa-solid fa-gift text-accent-teal"></i>
+                <span id="habitRewardText">Recompensa: 15 minutos ahorrados y tranquilidad mental asegurada.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+    <section id="simulador-ia" class="py-20 bg-slate-50 dark:bg-slate-950 border-b border-slate-200 dark:border-slate-800">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <div class="text-center max-w-3xl mx-auto mb-12">
+          <span class="px-3.5 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-teal-100 text-teal-800 dark:bg-teal-950/80 dark:text-teal-300">
+            Playground Práctico
+          </span>
+          <h2 class="font-heading text-3xl sm:text-4xl font-bold text-slate-900 dark:text-white mt-2">
+            Simulador de Interacción Silver IA "Atenea"
+          </h2>
+          <p class="text-slate-600 dark:text-slate-300 text-sm sm:text-base mt-2">
+            Experimenta una interfaz de copiloto adaptada: tipografía legible, respuestas sin jerga técnica y asistencia orientada al criterio y seguridad.
+          </p>
+        </div>
+
+        <div class="max-w-4xl mx-auto bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-md overflow-hidden flex flex-col min-h-[520px]">
+          <!-- Header -->
+          <div class="p-4 sm:p-5 bg-slate-50 dark:bg-slate-800/80 border-b border-slate-200 dark:border-slate-700 flex items-center justify-between flex-wrap gap-3">
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-2xl bg-accent-teal text-white flex items-center justify-center font-bold">
+                <i class="fa-solid fa-feather"></i>
+              </div>
+              <div>
+                <div class="text-sm font-bold text-slate-900 dark:text-white">Copiloto Atenea (Modo Silver)</div>
+                <div class="text-xs text-emerald-600 dark:text-emerald-400 font-medium flex items-center gap-1.5">
+                  <span class="w-2 h-2 rounded-full bg-accent-teal animate-pulse"></span>
+                  <span>Protección Anti-Fraude & Andragogía Activa</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="flex items-center gap-2">
+              <span class="text-xs text-slate-500 font-medium hidden sm:inline">Caso guiado:</span>
+              <select id="simScenarioSelect" onchange="loadSimScenario(this.value)" class="text-xs font-semibold p-2 rounded-xl bg-white dark:bg-slate-700 border border-slate-300 dark:border-slate-600 text-slate-800 dark:text-slate-200">
+                <option value="pension">📊 Explicar extracto pensional</option>
+                <option value="fraude">🛡️ Analizar mensaje sospechoso (Anti-fraude)</option>
+                <option value="memoria">📖 Estructurar memoria de vida</option>
+                <option value="consultoria">💼 Convertir experiencia en propuesta</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Chat Conversation Log -->
+          <div id="simChatBox" class="p-6 space-y-4 flex-1 overflow-y-auto bg-slate-50/50 dark:bg-slate-950/30 text-sm sm:text-base">
+            <div class="flex items-start gap-3">
+              <div class="w-8 h-8 rounded-xl bg-teal-100 dark:bg-teal-950 text-accent-teal flex items-center justify-center shrink-0 text-xs font-bold">IA</div>
+              <div class="bg-white dark:bg-slate-800 p-4 rounded-2xl rounded-tl-none border border-slate-200 dark:border-slate-700 max-w-xl text-slate-800 dark:text-slate-200 space-y-2">
+                <p>Hola. Soy Atenea, tu asistente configurada para responderte en lenguaje claro, respetuoso y sin tecnicismos innecesarios.</p>
+                <p class="text-xs text-slate-500 dark:text-slate-400">Selecciona uno de los casos guiados arriba o escribe tu consulta directamente.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Input Controls -->
+          <div class="p-4 bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 space-y-3">
+            <div class="flex items-center gap-2">
+              <input type="text" id="simUserInput" placeholder="Escribe tu consulta o presiona el micrófono..." class="flex-1 p-3.5 rounded-2xl border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white placeholder-slate-400 focus:outline-hidden focus:ring-2 focus:ring-teal-500 text-sm sm:text-base" onkeydown="if(event.key==='Enter') sendSimMessage()">
+              
+              <button onclick="simulateVoiceInput()" id="simMicBtn" class="w-12 h-12 rounded-2xl bg-amber-100 dark:bg-amber-950 text-accent-amber hover:bg-amber-200 dark:hover:bg-amber-900/50 flex items-center justify-center text-lg transition-colors shrink-0" title="Dictar por voz (Simulado)">
+                <i class="fa-solid fa-microphone"></i>
+              </button>
+
+              <button onclick="sendSimMessage()" class="w-12 h-12 rounded-2xl bg-accent-teal text-white hover:bg-teal-700 flex items-center justify-center text-lg transition-colors shrink-0" title="Enviar mensaje">
+                <i class="fa-solid fa-paper-plane"></i>
+              </button>
+            </div>
+            <div class="flex items-center justify-between text-xs text-slate-400 px-2">
+              <span>💡 Consejo: Dictar por voz reduce la fatiga visual y agiliza el flujo de trabajo.</span>
+              <button onclick="clearSimChat()" class="hover:text-slate-600 dark:hover:text-slate-300 underline">Reiniciar conversación</button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+    <section id="modelos-negocio" class="py-20 bg-white dark:bg-slate-900/50 border-b border-slate-200 dark:border-slate-800">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <div class="text-center max-w-3xl mx-auto mb-12">
+          <span class="px-3.5 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-blue-100 text-blue-800 dark:bg-blue-950/80 dark:text-blue-300">
+            Arquitectura Comercial & Canvas
+          </span>
+          <h2 class="font-heading text-3xl sm:text-4xl font-bold text-slate-900 dark:text-white mt-2">
+            4 Propuestas de Negocio de Alto Impacto
+          </h2>
+          <p class="text-slate-600 dark:text-slate-300 text-sm sm:text-base mt-2">
+            Modelos de negocio estructurados integralmente para capitalizar la longevidad productiva, la captura de conocimiento y la asistencia por IA.
+          </p>
+        </div>
+
+        <!-- Proposal Tab Switcher -->
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 mb-8">
+          <button onclick="switchProposal(0)" id="prop-tab-0" class="prop-tab-btn active p-4 rounded-2xl border-2 border-teal-500 bg-teal-50 dark:bg-teal-950/60 text-left transition">
+            <span class="text-xs font-bold text-accent-teal block mb-1">Propuesta 1 (B2B Corporativo)</span>
+            <span class="font-heading font-bold text-sm sm:text-base text-slate-900 dark:text-white block">SilverBrain Engine</span>
+            <span class="text-xs text-slate-500">Memoria y RAG Senior</span>
+          </button>
+
+          <button onclick="switchProposal(1)" id="prop-tab-1" class="prop-tab-btn p-4 rounded-2xl border-2 border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 text-left transition hover:border-slate-300">
+            <span class="text-xs font-bold text-slate-500 block mb-1">Propuesta 2 (Marketplace)</span>
+            <span class="font-heading font-bold text-sm sm:text-base text-slate-900 dark:text-white block">SeniorBoard On-Demand</span>
+            <span class="text-xs text-slate-500">Asesoría Fraccional + IA</span>
+          </button>
+
+          <button onclick="switchProposal(2)" id="prop-tab-2" class="prop-tab-btn p-4 rounded-2xl border-2 border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 text-left transition hover:border-slate-300">
+            <span class="text-xs font-bold text-slate-500 block mb-1">Propuesta 3 (B2C / B2B2C)</span>
+            <span class="font-heading font-bold text-sm sm:text-base text-slate-900 dark:text-white block">SilverLife AI Suite</span>
+            <span class="text-xs text-slate-500">Salud, Voz & Anti-Fraude</span>
+          </button>
+
+          <button onclick="switchProposal(3)" id="prop-tab-3" class="prop-tab-btn p-4 rounded-2xl border-2 border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 text-left transition hover:border-slate-300">
+            <span class="text-xs font-bold text-slate-500 block mb-1">Propuesta 4 (EdTech & Studio)</span>
+            <span class="font-heading font-bold text-sm sm:text-base text-slate-900 dark:text-white block">NextChapter Academy</span>
+            <span class="text-xs text-slate-500">Micro-SaaS & Libros de Vida</span>
+          </button>
+        </div>
+
+        <!-- Dynamic Proposal Content Display -->
+        <div id="proposalContentCard" class="bg-white dark:bg-slate-900 rounded-3xl p-6 sm:p-10 border border-slate-200 dark:border-slate-800 shadow-md space-y-8">
+          <!-- Rendered via JS -->
+        </div>
+
+      </div>
+    </section>
+    <section id="catalogo-20" class="py-20 bg-slate-50 dark:bg-slate-950 border-b border-slate-200 dark:border-slate-800">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <div class="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-4">
+          <div>
+            <span class="px-3.5 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-violet-100 text-violet-800 dark:bg-violet-950/80 dark:text-violet-300">
+              Radar de Innovación Sectorial
+            </span>
+            <h2 class="font-heading text-3xl sm:text-4xl font-bold text-slate-900 dark:text-white mt-2">
+              Catálogo de 20 Oportunidades en la Economía Silver
+            </h2>
+            <p class="text-slate-600 dark:text-slate-300 text-sm sm:text-base mt-1">
+              Filtra por modelo de monetización, segmento de mercado o busca por palabras clave.
+            </p>
+          </div>
+
+          <!-- Search and Filters -->
+          <div class="flex flex-wrap items-center gap-2">
+            <input type="text" id="oppSearchInput" placeholder="Buscar oportunidad..." oninput="filterOpportunities()" class="p-2.5 px-4 rounded-xl text-xs bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-700 text-slate-900 dark:text-white focus:outline-hidden focus:ring-2 focus:ring-teal-500">
+            <select id="oppCategoryFilter" onchange="filterOpportunities()" class="p-2.5 rounded-xl text-xs bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-700 text-slate-900 dark:text-white font-semibold">
+              <option value="all">Todos los sectores (20)</option>
+              <option value="B2B">B2B Corporativo</option>
+              <option value="B2C">B2C & Cuidadores</option>
+              <option value="Salud">Salud & Longevidad</option>
+              <option value="EdTech">EdTech & Reskilling</option>
+              <option value="Comunidad">Comunidad & Hábitat</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- 20 Grid Container -->
+        <div id="opportunitiesGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+          <!-- Rendered via JS -->
+        </div>
+
+      </div>
+    </section>
+    <section id="playbook-consultoria" class="py-20 bg-white dark:bg-slate-900/50 border-b border-slate-200 dark:border-slate-800">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <div class="text-center max-w-3xl mx-auto mb-16">
+          <span class="px-3.5 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-teal-100 text-teal-800 dark:bg-teal-950/80 dark:text-teal-300">
+            Estrategia de Monetización & Alto Ticket
+          </span>
+          <h2 class="font-heading text-3xl sm:text-4xl font-bold text-slate-900 dark:text-white mt-2">
+            Playbook: Edentia & Consultor Senior Leonardo
+          </h2>
+          <p class="text-slate-600 dark:text-slate-300 text-sm sm:text-base mt-2">
+            Estructuración de paquetes comerciales, discursos de venta ante comités de dirección y tarifas consultivas.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          
+          <!-- Column 1: Edentia Strategy -->
+          <div class="bg-slate-50 dark:bg-slate-800/80 p-8 rounded-3xl border border-slate-200 dark:border-slate-700 shadow-xs space-y-6">
+            <div class="flex items-center gap-3">
+              <div class="w-12 h-12 rounded-2xl bg-teal-100 text-accent-teal dark:bg-teal-950 flex items-center justify-center text-xl font-bold">
+                <i class="fa-solid fa-building-shield"></i>
+              </div>
+              <div>
+                <h3 class="font-heading text-xl font-bold text-slate-900 dark:text-white">Para Edentia: Unidad Silver Tech</h3>
+                <span class="text-xs text-teal-600 dark:text-teal-400 font-semibold">Líneas de Ingreso Empresarial</span>
+              </div>
+            </div>
+
+            <div class="space-y-3 text-xs sm:text-sm text-slate-600 dark:text-slate-300">
+              <div class="p-4 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700">
+                <strong class="text-slate-900 dark:text-white block font-bold mb-1">1. Edentia Silver Tech Academy (B2C & B2B2C)</strong>
+                Bootcamps de 6 semanas sobre "IA como Amplificador de Criterio". Precio: $350 - $750 USD por participante + membresía continua de $40 USD/mes.
+              </div>
+              <div class="p-4 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700">
+                <strong class="text-slate-900 dark:text-white block font-bold mb-1">2. Certificación & Auditoría «Silver UX» (B2B)</strong>
+                Servicio de auditoría de accesibilidad cognitiva, contraste visual y flujos conversacionales por voz para bancos, clínicas y aseguradoras. Ticket: $5,000 - $12,000 USD por app.
+              </div>
+              <div class="p-4 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700">
+                <strong class="text-slate-900 dark:text-white block font-bold mb-1">3. Programa Corporativo de Pre-Retiro Activo (B2B)</strong>
+                Paquetes de desvinculación activa para empresas: capacitar a ejecutivos en su último año de empleo para estructurar consultorías digitales independientes. Ticket: $8,000 - $20,000 USD por cohorte.
+              </div>
+            </div>
+
+            <button onclick="copyConsultingText('edentia')" class="w-full py-3 rounded-xl bg-white dark:bg-slate-900 hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-800 dark:text-slate-200 font-bold text-xs flex items-center justify-center gap-2 border border-slate-300 dark:border-slate-700 transition">
+              <i class="fa-regular fa-copy text-accent-teal"></i>
+              <span>Copiar Propuesta Comercial de Edentia</span>
+            </button>
+          </div>
+
+          <!-- Column 2: Leonardo Senior Consultant -->
+          <div class="bg-slate-50 dark:bg-slate-800/80 p-8 rounded-3xl border border-slate-200 dark:border-slate-700 shadow-xs space-y-6">
+            <div class="flex items-center gap-3">
+              <div class="w-12 h-12 rounded-2xl bg-blue-100 text-accent-blue dark:bg-blue-950 flex items-center justify-center text-xl font-bold">
+                <i class="fa-solid fa-user-tie"></i>
+              </div>
+              <div>
+                <h3 class="font-heading text-xl font-bold text-slate-900 dark:text-white">Para Leonardo: Consultor Senior de IA</h3>
+                <span class="text-xs text-accent-blue font-semibold">Posicionamiento & Honorarios de Alto Ticket</span>
+              </div>
+            </div>
+
+            <div class="space-y-3 text-xs sm:text-sm text-slate-600 dark:text-slate-300">
+              <div class="p-4 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700">
+                <strong class="text-slate-900 dark:text-white block font-bold mb-1">1. Gobernanza & Criterio por encima del Código</strong>
+                No vendas "implementación de scripts". Vende <em>mitigación de riesgos, gobernanza algorítmica y orquestación estratégica</em> ante directores generales y comités corporativos.
+              </div>
+              <div class="p-4 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700">
+                <strong class="text-slate-900 dark:text-white block font-bold mb-1">2. Producto Estrella: «Sistemas RAG de Captura de Sabiduría»</strong>
+                Despliegue de pipelines de captura para preservar el know-how tácito de ingenieros y directores que se jubilan. Honorarios: $15,000 – $35,000 USD por proyecto + soporte mensual.
+              </div>
+              <div class="p-4 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700">
+                <strong class="text-slate-900 dark:text-white block font-bold mb-1">3. Servicio VIP: «Executive AI Enablement» 1 a 1</strong>
+                Mentoría confidencial privada para presidentes y dueños de empresas familiares (+55 años) para configurar su copiloto ejecutivo seguro. Retainer: $3,000 – $6,000 USD mensuales.
+              </div>
+            </div>
+
+            <button onclick="copyConsultingText('leonardo')" class="w-full py-3 rounded-xl bg-accent-blue hover:bg-blue-700 text-white font-bold text-xs flex items-center justify-center gap-2 shadow-md shadow-blue-500/20 transition">
+              <i class="fa-regular fa-copy"></i>
+              <span>Copiar Oferta Consultiva de Leonardo</span>
+            </button>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+    <section class="py-20 bg-slate-50 dark:bg-slate-950 border-b border-slate-200 dark:border-slate-800">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <div class="grid lg:grid-cols-12 gap-12 items-start">
+          <!-- Glossary -->
+          <div class="lg:col-span-6 space-y-4">
+            <h3 class="font-heading text-2xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
+              <i class="fa-solid fa-book-bookmark text-accent-teal"></i>
+              <span>Glosario Técnico de la Economía Silver</span>
+            </h3>
+            
+            <div class="space-y-3 text-xs sm:text-sm">
+              <div class="p-4 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
+                <span class="font-bold text-accent-teal block mb-0.5">Economía Silver (Economía Plateada):</span>
+                Conjunto de actividades económicas y oportunidades de negocio orientadas a satisfacer las demandas y activar la capacidad productiva de personas mayores de 50 años.
+              </div>
+              <div class="p-4 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
+                <span class="font-bold text-accent-teal block mb-0.5">Edadismo (Ageism):</span>
+                Discriminación o exclusión institucional basada en la edad cronológica, visible en algoritmos de contratación laboral y diseño excluyente de software.
+              </div>
+              <div class="p-4 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
+                <span class="font-bold text-accent-teal block mb-0.5">RAG (Retrieval-Augmented Generation):</span>
+                Arquitectura de IA que conecta un modelo de lenguaje a bases de datos vectoriales privadas para responder con base en manuales, heurísticas y documentos de la empresa.
+              </div>
+              <div class="p-4 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
+                <span class="font-bold text-accent-teal block mb-0.5">Tesis de los 100 Años:</span>
+                Postulado gerontológico y demográfico que establece la alta probabilidad de que la cohorte actual supere el siglo de vida, fijando la mediana edad en los 50 años.
+              </div>
+            </div>
+          </div>
+
+          <!-- Simulator -->
+          <div class="lg:col-span-6 bg-white dark:bg-slate-900 p-6 sm:p-8 rounded-3xl border border-slate-200 dark:border-slate-800 space-y-5 shadow-xs">
+            <div class="flex items-center justify-between">
+              <h3 class="font-heading text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
+                <i class="fa-solid fa-calculator text-accent-amber"></i>
+                <span>Simulador de Mercado Silver</span>
+              </h3>
+              <span class="text-xs font-bold text-accent-teal bg-teal-100 dark:bg-teal-950 px-2.5 py-1 rounded-full">Calculadora Rápida</span>
+            </div>
+
+            <div class="space-y-4">
+              <div>
+                <label class="text-xs font-bold text-slate-600 dark:text-slate-300 block mb-1">Población total de tu territorio objetivo:</label>
+                <input id="simPopulation" type="range" min="20000" max="1000000" step="20000" value="200000" class="w-full h-2 bg-slate-200 dark:bg-slate-700 rounded-lg appearance-none cursor-pointer accent-teal-600" oninput="runSilverSimulator()">
+                <div class="flex justify-between text-[11px] text-slate-400 mt-1">
+                  <span>20k</span>
+                  <span id="displayPop" class="font-bold text-accent-teal">200,000 hab.</span>
+                  <span>1M</span>
+                </div>
+              </div>
+
+              <div>
+                <label class="text-xs font-bold text-slate-600 dark:text-slate-300 block mb-1">Porcentaje de población +50 años:</label>
+                <select id="simRatio" class="w-full p-2.5 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 text-xs font-semibold" onchange="runSilverSimulator()">
+                  <option value="0.25">25% (Promedio urbano actual)</option>
+                  <option value="0.33" selected>33% (Ciudades capitales / Argentina / Chile / Uruguay)</option>
+                  <option value="0.45">45% (Proyección demográfica 2040-2050)</option>
+                </select>
+              </div>
+
+              <div>
+                <label class="text-xs font-bold text-slate-600 dark:text-slate-300 block mb-1">Ticket mensual promedio del servicio ($ USD):</label>
+                <input id="simTicket" type="number" value="45" min="10" max="500" class="w-full p-2.5 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 text-xs font-bold" oninput="runSilverSimulator()">
+              </div>
+            </div>
+
+            <div class="grid grid-cols-2 gap-3 pt-3 border-t border-slate-200 dark:border-slate-700">
+              <div class="p-3.5 bg-slate-50 dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700">
+                <span class="text-[11px] text-slate-400 block">Población Silver</span>
+                <span id="simResultSilverPop" class="text-xl font-bold font-heading text-slate-900 dark:text-white">66,000</span>
+              </div>
+              <div class="p-3.5 bg-slate-50 dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700">
+                <span class="text-[11px] text-slate-400 block">Mercado Potencial Anual (1% Captura)</span>
+                <span id="simResultRev" class="text-xl font-bold font-heading text-accent-teal">$356,400 USD</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+  </main>
+  <footer class="bg-white dark:bg-silverbrand-950 border-t border-slate-200 dark:border-slate-800 py-10 transition-colors">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
+      <div class="flex items-center gap-2">
+        <span class="font-bold text-slate-700 dark:text-slate-200">Silver Economy & AI Hub</span>
+        <span>•</span>
+        <span>Investigación estratégica para Edentia & Consultor Senior Leonardo</span>
+      </div>
+      <p>Basado en el análisis de Capital Humano 360° #35 (Liliana Parodi) & Modelos de Longevidad Activa.</p>
+    </div>
+  </footer>
+
+  <!-- Custom Accessible Modal Dialog -->
+  <div id="customModal" class="fixed inset-0 z-50 bg-black/60 backdrop-blur-xs hidden flex items-center justify-center p-4">
+    <div class="bg-white dark:bg-slate-900 rounded-3xl max-w-md w-full p-6 sm:p-8 border border-slate-200 dark:border-slate-800 shadow-2xl space-y-4">
+      <div class="w-12 h-12 rounded-2xl bg-teal-100 dark:bg-teal-950 text-accent-teal flex items-center justify-center text-xl">
+        <i class="fa-solid fa-circle-info"></i>
+      </div>
+      <h3 id="modalTitle" class="font-heading text-xl font-bold text-slate-900 dark:text-white">Notificación</h3>
+      <p id="modalMessage" class="text-slate-600 dark:text-slate-300 text-sm leading-relaxed">Detalle del mensaje.</p>
+      <div class="pt-2">
+        <button onclick="closeCustomModal()" class="w-full py-3 rounded-xl bg-accent-teal text-white font-bold text-xs hover:bg-teal-700 transition">
+          Aceptar
+        </button>
+      </div>
+    </div>
+  </div>
+  <script>
+    /* -------------------------------------------------------------
+       DATABASE: The 4 Full Business Proposals (Business Model Canvas)
+       ------------------------------------------------------------- */
+    const businessProposals = [
+      {
+        id: "silverbrain",
+        name: "SilverBrain Engine",
+        tag: "Propuesta 1 • B2B Corporativo",
+        summary: "Plataforma RAG de Memoria Organizacional y Gestión del Relevo Técnico. Captura el know-how tácito de ejecutivos senior antes de su jubilación mediante agentes conversacionales.",
+        ticket: "$12,000 - $35,000 USD por unidad + $2,500/mes",
+        canvas: {
+          socios: "Gremios industriales (ANDI, COPAL), colegios de ingenieros, firmas de auditoría laboral y departamentos de RR.HH.",
+          actividades: "Entrevistas asistidas por voz, indexación vectorial privada, calibración de agentes RAG y protocolos de seguridad.",
+          propuesta: "Cero fuga de conocimiento crítico al jubilarse los directores senior. Asistente interno que responde dudas complejas con la sabiduría acumulada en 30 años.",
+          relacion: "Acompañamiento cercano (high-touch), reconocimiento y homenaje al legado del ejecutivo saliente.",
+          segmentos: "Grandes empresas industriales, energía, farmacéutica, manufactura pesada y banca tradicional.",
+          recursos: "Servidores seguros locales (on-premise) o nubes privadas, pipelines RAG propietarios, equipo andragógico.",
+          canales: "Venta directa B2B a vicepresidencias de Operaciones, Talento Humano y Transformación Digital.",
+          costos: "Infraestructura de cómputo seguro, honorarios de arquitectos de IA y facilitadores de entrevistas.",
+          ingresos: "Tarifa de implementación (Setup: $15,000 - $35,000 USD) + Suscripción mensual de soporte y gobernanza ($2,500 USD/mes)."
+        }
+      },
+      {
+        id: "seniorboard",
+        name: "SeniorBoard On-Demand",
+        tag: "Propuesta 2 • Marketplace Fraccional",
+        summary: "Red curada que conecta a directores y gerentes jubilados con startups y pymes que requieren gobernanza, equipando al senior con agentes de IA para generar minutas y análisis ejecutivos en minutos.",
+        ticket: "15% - 20% de comisión sobre honorarios de asesoría",
+        canvas: {
+          socios: "Fondos de Venture Capital, aceleradoras, cámaras de comercio y clubes de ex-directivos corporativos.",
+          actividades: "Curaduría y homologación de perfiles senior, capacitación en herramientas de IA, matching algorítmico y facturación.",
+          propuesta: "Para Pymes: Dirección estratégica experimentada a una fracción del costo. Para Seniors: Monetización de 10-15 hrs/semana sin burocracia.",
+          relacion: "Comunidad de prestigio, eventos cerrados de networking y soporte técnico continuo.",
+          segmentos: "Demanda: Startups Serie A y empresas familiares. Oferta: Ex-directores de finanzas, operaciones y comercial (+55 años).",
+          recursos: "Plataforma web de matching, agentes de IA propietarios para redacción de informes y banco de talento directivo.",
+          canales: "Alianzas institucionales con fondos de inversión, eventos de gobernanza corporativa y referidos.",
+          costos: "Desarrollo de plataforma, marketing B2B, soporte legal y compliance tributario.",
+          ingresos: "Take-rate del 15% al 20% por hora/proyecto facturado + Membresía Pro ($50 USD/mes para el asesor con IA ilimitada)."
+        }
+      },
+      {
+        id: "silverlife",
+        name: "SilverLife AI Suite",
+        tag: "Propuesta 3 • B2C & Salud Familiar",
+        summary: "Asistente doméstico 100% por voz o WhatsApp que acompaña al adulto mayor en medicación, salud preventiva, detección de fraudes telefónicos y bienestar, enviando resúmenes de tranquilidad a los hijos.",
+        ticket: "$25 - $45 USD/mes por familia",
+        canvas: {
+          socios: "Aseguradoras de salud, cadenas de farmacias barriales, asociaciones de cuidadores y geriatras.",
+          actividades: "Procesamiento de lenguaje natural pausado por voz, algoritmos de detección de phishing y alertas de hidratación/medicación.",
+          propuesta: "Autonomía y seguridad para el adulto mayor en casa; tranquilidad absoluta para los hijos mediante reportes ejecutivos no invasivos.",
+          relacion: "Empatía radical, soporte por voz sin interfaces saturadas y protocolo de guardia humana para emergencias.",
+          segmentos: "Adultos de 65 a 85 años y sus hijos (35 a 55 años) con solvencia económica que costean el servicio.",
+          recursos: "Motor de voz neural adaptado a modismos locales, base de datos de interacciones farmacológicas y cumplimiento HIPAA.",
+          canales: "Pauta digital a hijos en redes sociales, acuerdos con clínicas de telemedicina y programas preventivos de seguros.",
+          costos: "Costos de inferencia de voz/texto, soporte telefónico humano 24/7 y adquisición de usuarios.",
+          ingresos: "Suscripción B2C ($29 a $49 USD mensuales) o convenios B2B2C con aseguradoras ($8 USD/mes por afiliado preventivo)."
+        }
+      },
+      {
+        id: "nextchapter",
+        name: "NextChapter Academy & Studio",
+        tag: "Propuesta 4 • EdTech & Creación de Legado",
+        summary: "Estudio híbrido de consultoría que acompaña a profesionales en etapa de jubilación a empaquetar su conocimiento en libros publicados en Amazon, cursos digitales y marcas personales monetizables con IA.",
+        ticket: "$1,200 - $3,500 USD por programa integral",
+        canvas: {
+          socios: "Editoriales independientes, Amazon KDP, universidades y organizadores de congresos ejecutivos.",
+          actividades: "Entrevistas guiadas para estructurar libros, generación editorial con IA, diseño de marca personal y montaje de cursos.",
+          propuesta: "Resuelve el vacío de propósito tras el retiro: transforma una vida de trabajo en un libro impreso y una marca de consultor respetada.",
+          relacion: "Acompañamiento VIP personalizado en grupos reducidos de máximo 6 profesionales maduros.",
+          segmentos: "Profesionales retirados con pensiones medias/altas, ex-profesores universitarios y autores en potencia.",
+          recursos: "Metodología propietaria de destilación de biografías, editores humanos certificados y plantillas no-code.",
+          canales: "Talleres presenciales en clubes sociales, eventos de la 'Segunda Mitad de la Vida' y referidos de ex-alumnos.",
+          costos: "Honorarios de editores y directores de proyecto, licencias de software de diseño y logística de graduación.",
+          ingresos: "Programa intensivo 'Tu Legado en Libro' ($1,500 - $2,500 USD) + Servicio Agencia 'Done-for-You' ($4,500 USD)."
+        }
+      }
+    ];
+
+    /* -------------------------------------------------------------
+       DATABASE: The 20 Business Opportunities Catalog
+       ------------------------------------------------------------- */
+    const opportunitiesData = [
+      { id: 1, cat: "B2B", title: "Interim Management & Advisory On-Demand", desc: "Conectar directores retirados con startups para liderazgo fraccional y gobernanza.", mon: "Comisión de marketplace 15%" },
+      { id: 2, cat: "EdTech", title: "Agencia de Reskilling IA para Colegios Profesionales", desc: "Formación especializada para gremios de abogados, contadores y médicos maduros.", mon: "Contratos corporativos B2B" },
+      { id: 3, cat: "B2B", title: "Servicio de Captura de Memoria Organizacional", desc: "Bases vectoriales y agentes RAG que rescatan el know-how de técnicos senior.", mon: "Ticket alto: $15k - $30k USD" },
+      { id: 4, cat: "B2B", title: "Auditoría y Certificación Silver UX", desc: "Optimizar portales bancarios y e-commerce para accesibilidad visual y cognitiva senior.", mon: "Fee de auditoría por aplicación" },
+      { id: 5, cat: "EdTech", title: "Micro-Franquicias Digitales Turnkey", desc: "Micro-negocios digitales basados en IA empaquetados listos para ser operados por seniors.", mon: "Licenciamiento + setup inicial" },
+      { id: 6, cat: "EdTech", title: "Hub de Rediseño de Segunda Carrera (+50)", desc: "Coaching y reempaque de trayectoria laboral hacia roles de asesoría moderna.", mon: "Programa por cohorte $800 USD" },
+      { id: 7, cat: "B2C", title: "Educación Financiera y Prevención de Estafas", desc: "Talleres de protección patrimonial y gestión de carteras seguras sin jerga técnica.", mon: "Suscripción mensual $25 USD" },
+      { id: 8, cat: "Comunidad", title: "Workations Silver & Co-Living Productivo", desc: "Retiros de viaje para nómadas digitales senior que combinan ocio y networking.", mon: "Paquetes turísticos cerrados" },
+      { id: 9, cat: "Salud", title: "Asistente de Salud y Longevidad por Voz", desc: "Monitoreo conversacional no invasivo de medicamentos, citas y nutrición.", mon: "Suscripción B2C pagada por hijos" },
+      { id: 10, cat: "EdTech", title: "Aprendizaje Intergeneracional Invertido", desc: "Jóvenes enseñan herramientas digitales y seniors transfieren criterio y negociación.", mon: "Membresía comunitaria" },
+      { id: 11, cat: "B2C", title: "Estudio de Biografías Familiares con IA", desc: "Entrevistas orales transformadas en libros impresos encuadernados para la familia.", mon: "Cobro por proyecto $1,200 USD" },
+      { id: 12, cat: "Salud", title: "Gimnasia Cognitiva con Realidad Aumentada", desc: "Visores XR livianos para mantenimiento de reflejos y prevención de deterioro neuro.", mon: "SaaS clínico para centros de día" },
+      { id: 13, cat: "B2B", title: "Voluntariado Profesional Remunerado", desc: "Consultoría senior para ONGs y entes multilaterales financiada por cooperación.", mon: "Honorarios de gestión" },
+      { id: 14, cat: "Comunidad", title: "Servicio de Downsizing y Hogar Accesible", desc: "Acompañamiento a adultos en mudanzas a espacios compactos con domótica adaptada.", mon: "Servicio llave en mano" },
+      { id: 15, cat: "Comunidad", title: "Clubes de Debate Intelectual en Streaming", desc: "Plataformas en vivo de filosofía, historia y ciencia para el ocio intelectual senior.", mon: "Suscripción mensual $19 USD" },
+      { id: 16, cat: "EdTech", title: "Agencia de Representación de Silver Creators", desc: "Producción audiovisual y monetización para seniors con experiencia en pódcasts y redes.", mon: "Reparto de ingresos de patrocinios" },
+      { id: 17, cat: "Comunidad", title: "Plataforma de Vivienda Compartida (Cohousing)", desc: "Facilitador legal e inmobiliario para comunidades residenciales de adultos autárquicos.", mon: "Comisión por estructuración" },
+      { id: 18, cat: "Salud", title: "Seguros Dinámicos Vinculados a Wearables", desc: "Pólizas de salud que descuentan primas al cumplir metas de movilidad y fuerza muscular.", mon: "B2B Brokerage con aseguradoras" },
+      { id: 19, cat: "Salud", title: "Sensores de Caída y Seguridad sin Cámaras", desc: "Radares de ondas milimétricas en el hogar que detectan emergencias respetando intimidad.", mon: "Venta de hardware + monitoreo" },
+      { id: 20, cat: "Comunidad", title: "Cafés y Espacios de Coworking Silver", desc: "Tercer lugar urbano con acústica amigable, iluminación ergonómica y agenda cultural.", mon: "Consumo + membresía de club" }
+    ];
+    const habitMatrix = {
+      cafe: {
+        trigger: "Apenas tome mi primer café matutino",
+        finanzas: { prompt: "Actúa como mi analista financiero sénior. Extrae los 3 cobros más altos de este resumen bancario y dime en 2 oraciones si coinciden con mi patrón de gasto habitual.", reward: "15 minutos ahorrados y control financiero sin esfuerzo." },
+        consultoria: { prompt: "Actúa como mi estratega directivo. Revisa mi agenda de hoy y redacta 3 preguntas de alto impacto para la primera llamada de negocios.", reward: "Claridad mental ejecutiva antes de arrancar." },
+        legado: { prompt: "Resume en 150 palabras el artículo que te adjunto, destacando 2 ideas principales para conversar con mis colegas o nietos.", reward: "Actualización intelectual sin fatiga visual." }
+      },
+      extracto: {
+        trigger: "Apenas me llegue la notificación del extracto bancario o pensión por correo",
+        finanzas: { prompt: "Analiza esta tabla de cobros de seguro y pensión. Explícame en palabras sencillas si hubo algún incremento imprevisto frente al mes pasado.", reward: "Auditoría de cobros bancarios sin estrés numérico." },
+        consultoria: { prompt: "Estructura un borrador de cuenta de cobro por mis 12 horas de asesoría de este mes incluyendo el desglose de entregables.", reward: "Cobro profesional resuelto en 1 minuto." },
+        legado: { prompt: "Verifica si este mensaje contiene lenguaje engañoso o indicios de suplantación de identidad para descartarlo con seguridad.", reward: "Ciberseguridad y tranquilidad garantizada." }
+      },
+      reunion: {
+        trigger: "Apenas finalice una reunión o llamada importante de trabajo",
+        finanzas: { prompt: "Dictado por voz: Voy a resumirte los acuerdos económicos de la llamada; organízalos en fecha de desembolso y monto acordado.", reward: "Registro impecable de compromisos." },
+        consultoria: { prompt: "Estructura esta minuta de reunión en 3 puntos: diagnóstico actual, decisión acordada y próximos 2 pasos con responsables.", reward: "Autoridad ejecutiva y respuesta inmediata al cliente." },
+        legado: { prompt: "Redacta un mensaje cálido y formal de agradecimiento a los asistentes reafirmando nuestro compromiso de colaboración.", reward: "Vínculos profesionales fortalecidos." }
+      },
+      caminata: {
+        trigger: "Al cruzar la puerta de regreso de mi caminata diaria de ejercicio",
+        finanzas: { prompt: "Dictado por voz: Anota que gasté $30 USD en la farmacia y categorízalo dentro del presupuesto de salud preventiva.", reward: "Contabilidad al día en 30 segundos." },
+        consultoria: { prompt: "Durante la caminata pensé en una propuesta para un cliente. Te la voy a dictar; conviértela en 3 viñetas de propuesta de valor.", reward: "Ideas espontáneas capturadas y monetizadas." },
+        legado: { prompt: "Tuve un recuerdo de mi juventud con mis padres. Te lo voy a relatar; organízalo como una escena para mi libro de memorias.", reward: "Preservación del legado familiar paso a paso." }
+      }
+    };
+
+    let activeHabitRole = 'finanzas';
+
+    const simScenarios = {
+      pension: {
+        user: "Me llegó un correo de mi fondo de pensión con conceptos como 'tasa de reemplazo' y 'rentabilidad real ponderada'. ¿Qué significa para mi bolsillo?",
+        bot: "Esos términos suelen ser confusos; aquí tienes la explicación sin rodeos:\n\n1. **Tasa de reemplazo:** Es el porcentaje de tu sueldo habitual que recibirás mensualmente como pensión. Si ganabas 100 y tu tasa es 65%, tu pensión mensual será 65.\n2. **Rentabilidad real ponderada:** Es cuánto creció tu capital acumulado descontando la inflación.\n\n¿Deseas que analicemos si tu pensión actual cubre tu canasta de gastos habitual?"
+      },
+      fraude: {
+        user: "Me llegó un WhatsApp que dice: 'Su cuenta bancaria fue bloqueada. Ingrese a este link urgente para validar su contraseña'. ¿Qué debo hacer?",
+        bot: "🚨 **¡Alerta de Phishing / Fraude! NO abras el enlace.**\n\n• Los bancos nunca piden claves ni validaciones de cuenta por enlaces de WhatsApp.\n• Si tuvieras un bloqueo real, el cajero rechazaría tu tarjeta, pero nadie te contactaría pidiendo contraseñas urgentes.\n\n**Acción recomendada:** Bloquea el número y elimina el mensaje. Tu dinero está seguro."
+      },
+      memoria: {
+        user: "Quiero escribir un libro de recuerdos para mis nietos sobre cómo era trabajar en los años 80, pero no sé por dónde empezar.",
+        bot: "¡Excelente iniciativa de legado! Para que sea un proceso placentero, hagámoslo por etapas conversadas:\n\nCuéntame en 2 minutos: ¿Cuál es el primer recuerdo sensorial que te viene de tu primer día de trabajo? (¿El sonido de las máquinas de escribir, el café de la oficina, las personas?).\n\nCon ese relato redactaremos el primer párrafo del prólogo."
+      },
+      consultoria: {
+        user: "Trabajé 25 años en operaciones logísticas. Una empresa mediana me pidió asesoría pero no sé cómo redactar mi propuesta de honorarios.",
+        bot: "Tu trayectoria de 25 años tiene un valor inmenso porque conoces las fallas operativas antes de que ocurran.\n\nEstructuremos una **Propuesta Ejecutiva en 3 fases**:\n1. **Diagnóstico Operativo (Semana 1):** Mapeo de cuellos de botella.\n2. **Plan de Eficiencia (Semanas 2-4):** Reducción de mermas e inventario muerto.\n3. **Acompañamiento:** 2 reuniones mensuales con el comité directivo.\n\n¿Quieres que le asignemos un valor en base al ahorro que le generarás a la empresa?"
+      }
+    };
+    function switchProposal(index) {
+      document.querySelectorAll('.prop-tab-btn').forEach((btn, i) => {
+        if (i === index) {
+          btn.classList.add('active', 'border-teal-500', 'bg-teal-50', 'dark:bg-teal-950/60');
+          btn.classList.remove('border-slate-200', 'dark:border-slate-800', 'bg-white', 'dark:bg-slate-900');
+        } else {
+          btn.classList.remove('active', 'border-teal-500', 'bg-teal-50', 'dark:bg-teal-950/60');
+          btn.classList.add('border-slate-200', 'dark:border-slate-800', 'bg-white', 'dark:bg-slate-900');
+        }
+      });
+
+      const p = businessProposals[index];
+      const container = document.getElementById('proposalContentCard');
+      if (!container) return;
+
+      container.innerHTML = `
+        <div class="flex flex-col md:flex-row md:items-center justify-between pb-6 border-b border-slate-200 dark:border-slate-800 gap-4">
+          <div>
+            <span class="text-xs font-bold uppercase tracking-wider text-accent-teal">${p.tag}</span>
+            <h3 class="font-heading text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white mt-1">${p.name}</h3>
+            <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-300 mt-1 max-w-2xl">${p.summary}</p>
+          </div>
+          <div class="p-4 rounded-2xl bg-teal-50 dark:bg-teal-950/60 border border-teal-200 dark:border-teal-800 text-left md:text-right shrink-0">
+            <span class="text-[10px] uppercase font-bold text-teal-700 dark:text-teal-300 block">Esquema de Precios / Monetización</span>
+            <span class="text-sm sm:text-base font-extrabold text-teal-900 dark:text-white font-heading">${p.ticket}</span>
+          </div>
+        </div>
+
+        <!-- Business Model Canvas Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-5 gap-3 text-xs">
+          
+          <!-- Socios -->
+          <div class="md:row-span-2 p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/70 border border-slate-200 dark:border-slate-700 flex flex-col justify-between">
+            <div>
+              <div class="font-bold text-accent-teal mb-1 flex items-center gap-1.5 uppercase text-[10px] tracking-wider">
+                <i class="fa-solid fa-handshake"></i> 1. Socios Clave
+              </div>
+              <p class="text-slate-600 dark:text-slate-300 leading-relaxed">${p.canvas.socios}</p>
+            </div>
+            <span class="text-[10px] text-slate-400 mt-2">Alianzas de canal</span>
+          </div>
+
+          <!-- Actividades -->
+          <div class="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/70 border border-slate-200 dark:border-slate-700">
+            <div class="font-bold text-accent-teal mb-1 flex items-center gap-1.5 uppercase text-[10px] tracking-wider">
+              <i class="fa-solid fa-gears"></i> 2. Actividades Clave
+            </div>
+            <p class="text-slate-600 dark:text-slate-300 leading-relaxed">${p.canvas.actividades}</p>
+          </div>
+
+          <!-- Propuesta de Valor -->
+          <div class="md:row-span-2 p-5 rounded-2xl bg-gradient-to-b from-teal-50/90 to-blue-50/80 dark:from-teal-950/50 dark:to-blue-950/40 border-2 border-teal-300 dark:border-teal-700 flex flex-col justify-between shadow-xs">
+            <div>
+              <div class="font-extrabold text-teal-800 dark:text-teal-300 mb-2 flex items-center gap-1.5 uppercase text-[11px] tracking-wider">
+                <i class="fa-solid fa-star"></i> 3. Propuesta de Valor
+              </div>
+              <p class="text-slate-800 dark:text-slate-100 font-medium leading-relaxed">${p.canvas.propuesta}</p>
+            </div>
+            <span class="text-[10px] font-bold text-teal-600 dark:text-teal-400 mt-3 pt-2 border-t border-teal-200 dark:border-teal-800">Diferencial Insuperable</span>
+          </div>
+
+          <!-- Relación Clientes -->
+          <div class="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/70 border border-slate-200 dark:border-slate-700">
+            <div class="font-bold text-accent-teal mb-1 flex items-center gap-1.5 uppercase text-[10px] tracking-wider">
+              <i class="fa-solid fa-heart"></i> 4. Relación Clientes
+            </div>
+            <p class="text-slate-600 dark:text-slate-300 leading-relaxed">${p.canvas.relacion}</p>
+          </div>
+
+          <!-- Segmentos -->
+          <div class="md:row-span-2 p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/70 border border-slate-200 dark:border-slate-700 flex flex-col justify-between">
+            <div>
+              <div class="font-bold text-accent-teal mb-1 flex items-center gap-1.5 uppercase text-[10px] tracking-wider">
+                <i class="fa-solid fa-users"></i> 5. Segmentos
+              </div>
+              <p class="text-slate-600 dark:text-slate-300 leading-relaxed">${p.canvas.segmentos}</p>
+            </div>
+            <span class="text-[10px] text-slate-400 mt-2">Audiencia meta</span>
+          </div>
+
+          <!-- Recursos -->
+          <div class="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/70 border border-slate-200 dark:border-slate-700">
+            <div class="font-bold text-accent-teal mb-1 flex items-center gap-1.5 uppercase text-[10px] tracking-wider">
+              <i class="fa-solid fa-microchip"></i> 6. Recursos Clave
+            </div>
+            <p class="text-slate-600 dark:text-slate-300 leading-relaxed">${p.canvas.recursos}</p>
+          </div>
+
+          <!-- Canales -->
+          <div class="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/70 border border-slate-200 dark:border-slate-700">
+            <div class="font-bold text-accent-teal mb-1 flex items-center gap-1.5 uppercase text-[10px] tracking-wider">
+              <i class="fa-solid fa-truck"></i> 7. Canales
+            </div>
+            <p class="text-slate-600 dark:text-slate-300 leading-relaxed">${p.canvas.canales}</p>
+          </div>
+
+          <!-- Estructura de Costos -->
+          <div class="md:col-span-2 p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/70 border border-slate-200 dark:border-slate-700">
+            <div class="font-bold text-rose-600 dark:text-rose-400 mb-1 flex items-center gap-1.5 uppercase text-[10px] tracking-wider">
+              <i class="fa-solid fa-receipt"></i> 8. Estructura de Costos
+            </div>
+            <p class="text-slate-600 dark:text-slate-300 leading-relaxed">${p.canvas.costos}</p>
+          </div>
+
+          <!-- Fuentes de Ingresos -->
+          <div class="md:col-span-3 p-4 rounded-2xl bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-800/80">
+            <div class="font-bold text-emerald-800 dark:text-emerald-300 mb-1 flex items-center gap-1.5 uppercase text-[10px] tracking-wider">
+              <i class="fa-solid fa-money-bill-trend-up"></i> 9. Fuentes de Ingresos
+            </div>
+            <p class="text-emerald-950 dark:text-emerald-200 font-semibold leading-relaxed">${p.canvas.ingresos}</p>
+          </div>
+
+        </div>
+
+        <div class="flex items-center justify-between pt-2 text-xs">
+          <span class="text-slate-400">¿Deseas implementar este Canvas en tu organización?</span>
+          <button onclick="copyCurrentCanvas('${p.name}')" class="font-bold text-accent-teal hover:underline flex items-center gap-1">
+            <i class="fa-regular fa-copy"></i>
+            <span>Copiar Estructura Completa</span>
+          </button>
+        </div>
+      `;
+    }
+
+    function copyCurrentCanvas(name) {
+      const p = businessProposals.find(item => item.name === name);
+      if (!p) return;
+      const text = `BUSINESS MODEL CANVAS: ${p.name}
+PROPUESTA DE VALOR: ${p.canvas.propuesta}
+SEGMENTOS: ${p.canvas.segmentos}
+CANALES: ${p.canvas.canales}
+RELACIÓN CON CLIENTES: ${p.canvas.relacion}
+FUENTES DE INGRESOS: ${p.canvas.ingresos}
+RECURSOS CLAVE: ${p.canvas.recursos}
+ACTIVIDADES CLAVE: ${p.canvas.actividades}
+SOCIOS CLAVE: ${p.canvas.socios}
+ESTRUCTURA DE COSTOS: ${p.canvas.costos}`;
+      safeCopyToClipboard(text, `Canvas de ${p.name} copiado al portapapeles`);
+    }
+    function filterOpportunities() {
+      const search = document.getElementById('oppSearchInput')?.value.toLowerCase() || '';
+      const cat = document.getElementById('oppCategoryFilter')?.value || 'all';
+
+      const filtered = opportunitiesData.filter(item => {
+        const matchesSearch = item.title.toLowerCase().includes(search) || item.desc.toLowerCase().includes(search);
+        const matchesCat = (cat === 'all') || (item.cat === cat);
+        return matchesSearch && matchesCat;
+      });
+
+      renderOpportunities(filtered);
+    }
+
+    function renderOpportunities(list) {
+      const grid = document.getElementById('opportunitiesGrid');
+      if (!grid) return;
+
+      if (list.length === 0) {
+        grid.innerHTML = `<div class="col-span-full py-12 text-center text-slate-400 text-sm">No se encontraron oportunidades con los criterios ingresados.</div>`;
+        return;
+      }
+
+      grid.innerHTML = list.map(op => `
+        <div class="p-5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 flex flex-col justify-between custom-card">
+          <div>
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 font-bold">#${op.id < 10 ? '0' + op.id : op.id}</span>
+              <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full ${getCategoryBadge(op.cat)}">${op.cat}</span>
+            </div>
+            <h4 class="font-heading font-bold text-sm text-slate-900 dark:text-white mt-1 leading-snug">${op.title}</h4>
+            <p class="text-xs text-slate-600 dark:text-slate-300 mt-2 leading-relaxed">${op.desc}</p>
+          </div>
+          <div class="mt-4 pt-3 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between text-[11px]">
+            <span class="text-slate-400">Modelo:</span>
+            <span class="font-bold text-accent-teal">${op.mon}</span>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function getCategoryBadge(cat) {
+      switch(cat) {
+        case 'B2B': return 'bg-blue-100 text-blue-800 dark:bg-blue-950 dark:text-blue-300';
+        case 'B2C': return 'bg-rose-100 text-rose-800 dark:bg-rose-950 dark:text-rose-300';
+        case 'Salud': return 'bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300';
+        case 'EdTech': return 'bg-amber-100 text-amber-800 dark:bg-amber-950 dark:text-amber-300';
+        case 'Comunidad': return 'bg-violet-100 text-violet-800 dark:bg-violet-950 dark:text-violet-300';
+        default: return 'bg-slate-100 text-slate-800';
+      }
+    }
+    function setHabitRole(role) {
+      activeHabitRole = role;
+      document.querySelectorAll('.habit-role-btn').forEach(btn => {
+        btn.classList.remove('border-teal-500', 'bg-teal-50', 'dark:bg-teal-950/60', 'text-teal-900', 'dark:text-teal-200');
+        btn.classList.add('border-slate-200', 'dark:border-slate-700', 'bg-white', 'dark:bg-slate-900', 'text-slate-700', 'dark:text-slate-300');
+      });
+      const activeBtn = document.getElementById(`btn-role-${role}`);
+      if (activeBtn) {
+        activeBtn.classList.add('border-teal-500', 'bg-teal-50', 'dark:bg-teal-950/60', 'text-teal-900', 'dark:text-teal-200');
+        activeBtn.classList.remove('border-slate-200', 'dark:border-slate-700', 'bg-white', 'dark:bg-slate-900');
+      }
+      updateHabitStacking();
+    }
+
+    function updateHabitStacking() {
+      const trigger = document.getElementById('habitTriggerSelect')?.value || 'cafe';
+      const item = habitMatrix[trigger][activeHabitRole];
+
+      const statementEl = document.getElementById('habitStatementText');
+      const promptEl = document.getElementById('habitPromptBox');
+      const rewardEl = document.getElementById('habitRewardText');
+
+      if (statementEl) statementEl.innerText = `"${habitMatrix[trigger].trigger}, abriré el asistente por voz y diré..."`;
+      if (promptEl) promptEl.innerText = `"${item.prompt}"`;
+      if (rewardEl) rewardEl.innerText = `Recompensa: ${item.reward}`;
+    }
+
+    function copyCurrentHabitPrompt() {
+      const promptText = document.getElementById('habitPromptBox')?.innerText.replace(/^"|"$/g, '');
+      if (promptText) {
+        safeCopyToClipboard(promptText, "Prompt de hábito copiado al portapapeles");
+      }
+    }
+    function appendSimMessage(sender, text, isBot = false) {
+      const chatBox = document.getElementById('simChatBox');
+      if (!chatBox) return;
+
+      const wrapper = document.createElement('div');
+      wrapper.className = `flex items-start gap-3 ${isBot ? '' : 'flex-row-reverse'}`;
+
+      const avatar = document.createElement('div');
+      avatar.className = `w-8 h-8 rounded-xl flex items-center justify-center shrink-0 text-xs font-bold ${
+        isBot ? 'bg-teal-100 dark:bg-teal-950 text-accent-teal' : 'bg-accent-blue text-white'
+      }`;
+      avatar.innerText = isBot ? 'IA' : 'Tú';
+
+      const bubble = document.createElement('div');
+      bubble.className = `p-4 rounded-2xl max-w-xl text-sm leading-relaxed border ${
+        isBot 
+          ? 'bg-white dark:bg-slate-800 rounded-tl-none border-slate-200 dark:border-slate-700 text-slate-800 dark:text-slate-200 space-y-2' 
+          : 'bg-accent-blue text-white rounded-tr-none border-blue-600'
+      }`;
+
+      bubble.innerHTML = text.replace(/\n/g, '<br>');
+
+      wrapper.appendChild(avatar);
+      wrapper.appendChild(bubble);
+      chatBox.appendChild(wrapper);
+      chatBox.scrollTop = chatBox.scrollHeight;
+    }
+
+    function sendSimMessage() {
+      const input = document.getElementById('simUserInput');
+      if (!input || !input.value.trim()) return;
+
+      const userText = input.value.trim();
+      appendSimMessage('user', userText, false);
+      input.value = '';
+
+      setTimeout(() => {
+        appendSimMessage('bot', `Recibido con claridad. Como tu copiloto para la longevidad activa, he analizado tu consulta sobre "${userText.substring(0, 35)}...". Mi recomendación estratégica es estructurarlo en 3 pasos simples, protegiendo tus datos confidenciales y priorizando tu tranquilidad. ¿Deseas que preparemos un borrador?`, true);
+      }, 600);
+    }
+
+    function simulateVoiceInput() {
+      const micBtn = document.getElementById('simMicBtn');
+      if (micBtn) {
+        micBtn.classList.add('animate-bounce', 'bg-rose-500', 'text-white');
+      }
+      setTimeout(() => {
+        if (micBtn) {
+          micBtn.classList.remove('animate-bounce', 'bg-rose-500', 'text-white');
+        }
+        const input = document.getElementById('simUserInput');
+        if (input) {
+          input.value = "¿Cómo puedo estructurar una propuesta de consultoría independiente basada en mis 30 años de experiencia?";
+          sendSimMessage();
+        }
+      }, 1000);
+    }
+
+    function loadSimScenario(key) {
+      const sc = simScenarios[key];
+      if (!sc) return;
+      appendSimMessage('user', sc.user, false);
+      setTimeout(() => {
+        appendSimMessage('bot', sc.bot, true);
+      }, 500);
+    }
+
+    function clearSimChat() {
+      const chatBox = document.getElementById('simChatBox');
+      if (chatBox) {
+        chatBox.innerHTML = `
+          <div class="flex items-start gap-3">
+            <div class="w-8 h-8 rounded-xl bg-teal-100 dark:bg-teal-950 text-accent-teal flex items-center justify-center shrink-0 text-xs font-bold">IA</div>
+            <div class="bg-white dark:bg-slate-800 p-4 rounded-2xl rounded-tl-none border border-slate-200 dark:border-slate-700 max-w-xl text-slate-800 dark:text-slate-200 space-y-2">
+              <p>Conversación reiniciada. Estoy a tu disposición con respuestas claras, empáticas y orientadas a resultados.</p>
+            </div>
+          </div>
+        `;
+      }
+    }
+    function runSilverSimulator() {
+      const pop = parseInt(document.getElementById('simPopulation')?.value || '200000');
+      const ratio = parseFloat(document.getElementById('simRatio')?.value || '0.33');
+      const ticket = parseFloat(document.getElementById('simTicket')?.value || '45');
+
+      const displayPop = document.getElementById('displayPop');
+      if (displayPop) displayPop.innerText = `${pop.toLocaleString('es-CO')} hab.`;
+
+      const silverPop = Math.round(pop * ratio);
+      const capturedClients = Math.round(silverPop * 0.01);
+      const annualRev = Math.round(capturedClients * ticket * 12);
+
+      const popResult = document.getElementById('simResultSilverPop');
+      const revResult = document.getElementById('simResultRev');
+
+      if (popResult) popResult.innerText = silverPop.toLocaleString('es-CO');
+      if (revResult) revResult.innerText = `$${annualRev.toLocaleString('en-US')} USD`;
+    }
+
+    function copyConsultingText(type) {
+      let text = "";
+      if (type === 'edentia') {
+        text = `PROPUESTA COMERCIAL - EDENTIA SILVER TECH
+1. Edentia Silver Tech Academy: Programa de 6 semanas enfocado en el uso de IA como amplificador de criterio senior (reskilling para profesionales de +50 años).
+2. Sello y Auditoría Silver UX: Evaluación de accesibilidad cognitiva, contraste visual y flujos conversacionales sin fricción para aplicaciones de banca y salud.
+3. Pre-Retiro Corporativo Activo: Formación para ejecutivos que se jubilan en el empaquetado de su marca personal y consultoría independiente.`;
+      } else {
+        text = `OFERTA CONSULTIVA - LEONARDO CONSULTOR SENIOR DE IA
+1. Posicionamiento: Arquitectura, gobernanza y mitigación de riesgos de IA por encima del código. Interlocución directa con comités directivos.
+2. Producto RAG Organizacional: Captura sistemática de la sabiduría y heurísticas de directores senior antes de su retiro laboral ($15,000 - $35,000 USD).
+3. Executive AI Enablement VIP: Consultoría confidencial 1 a 1 para líderes corporativos y dueños de empresas (+55 años) para su productividad ejecutiva personal.`;
+      }
+      safeCopyToClipboard(text, "Propuesta copiada al portapapeles");
+    }
+
+    function safeCopyToClipboard(text, successMsg) {
+      if (navigator.clipboard && window.isSecureContext) {
+        navigator.clipboard.writeText(text).then(() => {
+          showCustomModal("Copiado Exitoso", successMsg);
+        }).catch(() => {
+          fallbackClipboard(text, successMsg);
+        });
+      } else {
+        fallbackClipboard(text, successMsg);
+      }
+    }
+
+    function fallbackClipboard(text, successMsg) {
+      const textArea = document.createElement("textarea");
+      textArea.value = text;
+      textArea.style.position = "fixed";
+      textArea.style.opacity = "0";
+      document.body.appendChild(textArea);
+      textArea.select();
+      try {
+        document.execCommand('copy');
+        showCustomModal("Copiado Exitoso", successMsg);
+      } catch (err) {
+        showCustomModal("Error", "No se pudo copiar automáticamente. Por favor selecciona el texto manualmente.");
+      }
+      document.body.removeChild(textArea);
+    }
+    function showCustomModal(title, msg) {
+      const modal = document.getElementById('customModal');
+      const titleEl = document.getElementById('modalTitle');
+      const msgEl = document.getElementById('modalMessage');
+      if (modal && titleEl && msgEl) {
+        titleEl.innerText = title;
+        msgEl.innerText = msg;
+        modal.classList.remove('hidden');
+      }
+    }
+
+    function closeCustomModal() {
+      const modal = document.getElementById('customModal');
+      if (modal) modal.classList.add('hidden');
+    }
+
+    const htmlElem = document.documentElement;
+    const fontNormal = document.getElementById('font-normal');
+    const fontDecrease = document.getElementById('font-decrease');
+    const fontIncrease = document.getElementById('font-increase');
+
+    if (fontDecrease) {
+      fontDecrease.addEventListener('click', () => {
+        htmlElem.classList.remove('text-large', 'text-xlarge');
+        updateFontUI('small');
+      });
+    }
+    if (fontNormal) {
+      fontNormal.addEventListener('click', () => {
+        htmlElem.classList.remove('text-large', 'text-xlarge');
+        updateFontUI('normal');
+      });
+    }
+    if (fontIncrease) {
+      fontIncrease.addEventListener('click', () => {
+        if (!htmlElem.classList.contains('text-large') && !htmlElem.classList.contains('text-xlarge')) {
+          htmlElem.classList.add('text-large');
+          updateFontUI('large');
+        } else if (htmlElem.classList.contains('text-large')) {
+          htmlElem.classList.remove('text-large');
+          htmlElem.classList.add('text-xlarge');
+          updateFontUI('xlarge');
+        }
+      });
+    }
+
+    function updateFontUI(state) {
+      [fontDecrease, fontNormal, fontIncrease].forEach(b => {
+        if (b) b.classList.remove('bg-white', 'dark:bg-slate-700', 'shadow-xs');
+      });
+      if (state === 'normal' && fontNormal) fontNormal.classList.add('bg-white', 'dark:bg-slate-700', 'shadow-xs');
+      if (state === 'small' && fontDecrease) fontDecrease.classList.add('bg-white', 'dark:bg-slate-700', 'shadow-xs');
+      if ((state === 'large' || state === 'xlarge') && fontIncrease) fontIncrease.classList.add('bg-white', 'dark:bg-slate-700', 'shadow-xs');
+    }
+
+    const themeToggleBtn = document.getElementById('themeToggleBtn');
+    if (themeToggleBtn) {
+      themeToggleBtn.addEventListener('click', () => {
+        htmlElem.classList.toggle('dark');
+      });
+    }
+
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+    const mobileDropdown = document.getElementById('mobileDropdown');
+    if (mobileMenuBtn && mobileDropdown) {
+      mobileMenuBtn.addEventListener('click', () => {
+        mobileDropdown.classList.toggle('hidden');
+      });
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        htmlElem.classList.add('dark');
+      }
+      switchProposal(0);
+      renderOpportunities(opportunitiesData);
+      updateHabitStacking();
+      runSilverSimulator();
+    });
+  </script>
+</body>
+</html>

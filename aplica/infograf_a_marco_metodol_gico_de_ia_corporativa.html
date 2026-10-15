@@ -1,0 +1,1104 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Marco Metodológico de IA Corporativa & DAMA-DMBOK2</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#f0fdfa',
+                            100: '#ccfbf1',
+                            500: '#06b6d4',
+                            600: '#0891b2',
+                            700: '#0e7490',
+                            900: '#164e63',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #f8fafc;
+            color: #0f172a;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 100%;
+            height: 320px;
+            max-height: 380px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 350px;
+            }
+        }
+        .light-card {
+            background-color: #ffffff;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+        }
+        .light-card-hover:hover {
+            border-color: #0284c7;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -4px rgba(0, 0, 0, 0.04);
+            transform: translateY(-2px);
+            transition: all 0.25s ease-in-out;
+        }
+        .gradient-text {
+            background: linear-gradient(135deg, #0284c7 0%, #4f46e5 50%, #7c3aed 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body class="min-h-screen text-slate-800 antialiased custom-scrollbar">
+
+    <header class="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-slate-200 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex flex-wrap items-center justify-between gap-4">
+            <div class="flex items-center gap-3">
+                <span class="p-2 rounded-xl bg-gradient-to-tr from-cyan-600 to-indigo-600 text-white font-black text-xl shadow-md">
+                    IA
+                </span>
+                <div>
+                    <h1 class="text-lg font-bold tracking-tight text-slate-900 flex items-center gap-2">
+                        Gobernanza de IA Corporativa
+                        <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-cyan-50 text-cyan-700 border border-cyan-200">DAMA-DMBOK2</span>
+                    </h1>
+                    <p class="text-xs text-slate-500">Análisis Comparativo, Arquitectura de 4 Capas & Asistente Predictivo</p>
+                </div>
+            </div>
+            <nav class="flex items-center gap-1 sm:gap-2 text-xs font-medium text-slate-600">
+                <a href="#overview" class="px-3 py-1.5 rounded-lg hover:bg-slate-100 hover:text-cyan-700 transition">Visión General</a>
+                <a href="#recommender" class="px-3 py-1.5 rounded-lg bg-cyan-50 text-cyan-700 font-bold border border-cyan-200 hover:bg-cyan-100 transition">💡 Asistente</a>
+                <a href="#comparison" class="px-3 py-1.5 rounded-lg hover:bg-slate-100 hover:text-cyan-700 transition">Comparativa</a>
+                <a href="#frameworks" class="px-3 py-1.5 rounded-lg hover:bg-slate-100 hover:text-cyan-700 transition">10 Marcos</a>
+                <a href="#layers" class="px-3 py-1.5 rounded-lg hover:bg-slate-100 hover:text-cyan-700 transition">Modelo 4 Capas</a>
+                <a href="#matrix" class="px-3 py-1.5 rounded-lg hover:bg-slate-100 hover:text-cyan-700 transition">Matriz DMBOK2</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-12">
+
+        <section id="overview" class="space-y-6">
+            <div class="p-8 rounded-3xl bg-gradient-to-br from-slate-900 via-indigo-950 to-slate-900 text-white shadow-xl relative overflow-hidden">
+                <div class="max-w-3xl space-y-4 relative z-10">
+                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/20 text-cyan-300 border border-cyan-400/30 text-xs font-medium">
+                        ✦ Convergencia de Datos y Algoritmos Probabilísticos
+                    </div>
+                    <h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight leading-tight text-white">
+                        Estructurando el Caos Algorítmico mediante <span class="gradient-text">Marcos Homólogos</span>
+                    </h2>
+                    <p class="text-slate-300 text-sm sm:text-base leading-relaxed">
+                        Mientras el DAMA-DMBOK2 asegura la integridad del dato estático en reposo y tránsito, los modelos de Inteligencia Artificial exigen una extensión operacional para gobernar el riesgo estocástico, la deriva conceptual (*drift*), la opacidad explicativa y la seguridad adversarial.
+                    </p>
+                </div>
+
+                <div class="mt-6 p-4 rounded-xl bg-white/10 backdrop-blur-md border-l-4 border-cyan-400 text-xs sm:text-sm text-slate-200">
+                    <strong class="text-cyan-300 font-semibold">Tesis Operativa Unificada:</strong> "La gobernanza del dato bajo DMBOK2 representa la <em class="text-white">condición necesaria</em>; la gobernanza y operaciones de IA representan la <em class="text-white">condición suficiente</em> para la viabilidad algorítmica empresarial."
+                </div>
+            </div>
+
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6">
+                <div class="light-card p-5 rounded-2xl border-l-4 border-cyan-600">
+                    <div class="text-xs font-medium text-slate-500">Marcos Evaluados</div>
+                    <div class="text-3xl font-extrabold text-slate-900 mt-1">10 Enfoques</div>
+                    <p class="text-[11px] text-cyan-700 mt-2 font-medium">ISO, NIST, Gartner, CMU SEI, Google, ISACA</p>
+                </div>
+                <div class="light-card p-5 rounded-2xl border-l-4 border-indigo-600">
+                    <div class="text-xs font-medium text-slate-500">Capas de Arquitectura</div>
+                    <div class="text-3xl font-extrabold text-slate-900 mt-1">4 Capas</div>
+                    <p class="text-[11px] text-indigo-700 mt-2 font-medium">Estratégica, Plataforma, Ingeniería, Auditoría</p>
+                </div>
+                <div class="light-card p-5 rounded-2xl border-l-4 border-violet-600">
+                    <div class="text-xs font-medium text-slate-500">Áreas de DMBOK2 Impactadas</div>
+                    <div class="text-3xl font-extrabold text-slate-900 mt-1">11 Áreas</div>
+                    <p class="text-[11px] text-violet-700 mt-2 font-medium">Gobierno, Calidad, Metadatos, Arquitectura</p>
+                </div>
+                <div class="light-card p-5 rounded-2xl border-l-4 border-emerald-600">
+                    <div class="text-xs font-medium text-slate-500">Estándar Certificable</div>
+                    <div class="text-3xl font-extrabold text-slate-900 mt-1">ISO 42001</div>
+                    <p class="text-[11px] text-emerald-700 mt-2 font-medium">Primer AIMS Internacional (Anexo SL)</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="recommender" class="space-y-6">
+            <div class="p-6 sm:p-8 rounded-3xl bg-gradient-to-r from-cyan-900 via-indigo-900 to-slate-900 text-white shadow-xl">
+                <div class="max-w-3xl space-y-3">
+                    <span class="px-3 py-1 rounded-full bg-cyan-400/20 text-cyan-300 border border-cyan-400/30 text-xs font-semibold">
+                        💡 Módulo Inteligente de Selección Metodológica
+                    </span>
+                    <h2 class="text-2xl sm:text-3xl font-extrabold tracking-tight">
+                        Diagnóstico & Recomendador Metodológico
+                    </h2>
+                    <p class="text-slate-300 text-xs sm:text-sm">
+                        Describa su problema, necesidad de negocio o desafío técnico actual. Nuestro motor evaluará el escenario y sugerirá la combinación óptima de metodologías de IA corporativa.
+                    </p>
+                </div>
+
+                <div class="mt-6 space-y-4">
+                    <div>
+                        <label for="problemInput" class="block text-xs font-semibold text-slate-200 mb-2">
+                            Describa el problema o requerimiento corporativo:
+                        </label>
+                        <textarea id="problemInput" rows="3" class="w-full p-4 rounded-xl bg-slate-800/90 border border-slate-700 text-white placeholder-slate-400 text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:border-transparent resize-none" placeholder="Ejemplo: Necesitamos implementar modelos de IA Generativa cumpliendo normativas de privacidad, asegurando auditabilidad externa y evitando ataques de inyección de prompts en producción..."></textarea>
+                    </div>
+
+                    <div class="flex flex-wrap items-center justify-between gap-3">
+                        <div class="flex flex-wrap items-center gap-2">
+                            <span class="text-[11px] text-slate-400 font-medium">Sugerencias rápidas:</span>
+                            <button onclick="setPresetScenario('certificacion')" class="px-2.5 py-1 rounded-lg bg-white/10 hover:bg-white/20 text-[11px] text-cyan-200 border border-white/10 transition">Certificación ISO / Regulatory</button>
+                            <button onclick="setPresetScenario('mlops')" class="px-2.5 py-1 rounded-lg bg-white/10 hover:bg-white/20 text-[11px] text-emerald-200 border border-white/10 transition">MLOps & Deriva de Datos</button>
+                            <button onclick="setPresetScenario('seguridad')" class="px-2.5 py-1 rounded-lg bg-white/10 hover:bg-white/20 text-[11px] text-amber-200 border border-white/10 transition">Seguridad LLM / Firewalls</button>
+                            <button onclick="setPresetScenario('auditoria')" class="px-2.5 py-1 rounded-lg bg-white/10 hover:bg-white/20 text-[11px] text-violet-200 border border-white/10 transition">Auditoría Tercera Línea</button>
+                        </div>
+                        <button onclick="analyzeScenario()" class="w-full sm:w-auto px-6 py-2.5 rounded-xl bg-gradient-to-r from-cyan-500 to-indigo-500 text-slate-950 font-extrabold text-xs hover:brightness-110 shadow-lg shadow-cyan-500/20 transition">
+                            🔍 Evaluar Escenario
+                        </button>
+                    </div>
+                </div>
+
+                <div id="recommendationResults" class="mt-8 hidden space-y-4 pt-6 border-t border-slate-700/80">
+                    <h3 class="text-sm font-bold text-white flex items-center gap-2">
+                        <span>🎯</span> Metodologías Recomendadas para su Escenario:
+                    </h3>
+                    <div id="resultsList" class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs text-slate-800">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="comparison" class="space-y-6">
+            <div class="border-b border-slate-200 pb-4">
+                <h2 class="text-2xl font-bold text-slate-900 flex items-center gap-2">
+                    📊 Análisis Comparativo Multi-Dimensional
+                </h2>
+                <p class="text-slate-600 text-sm mt-1">
+                    Evaluación del alcance operativo, complejidad técnica e intersección directa con las disciplinas DAMA-DMBOK2.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                
+                <div class="light-card p-6 rounded-2xl space-y-4">
+                    <div class="flex items-center justify-between">
+                        <h3 class="text-base font-semibold text-slate-900">Distribución de Enfoque Operativo</h3>
+                        <span class="text-xs px-2.5 py-1 rounded-full bg-slate-100 text-cyan-800 font-mono border border-slate-200">Radar Analysis</span>
+                    </div>
+                    <p class="text-xs text-slate-600">
+                        Cada metodología posee un centro de gravedad distintivo, desde sistemas certificables de gestión hasta ingeniería técnica de modelos y auditoría externa.
+                    </p>
+                    <div class="chart-container">
+                        <canvas id="radarFocusChart"></canvas>
+                    </div>
+                </div>
+
+                <div class="light-card p-6 rounded-2xl space-y-4">
+                    <div class="flex items-center justify-between">
+                        <h3 class="text-base font-semibold text-slate-900">Índice de Rigor Técnico vs Gobernanza</h3>
+                        <span class="text-xs px-2.5 py-1 rounded-full bg-slate-100 text-indigo-800 font-mono border border-slate-200">Horizontal Comparison</span>
+                    </div>
+                    <p class="text-xs text-slate-600">
+                        Puntuación cualitativa de orientación metodológica: desde gobernanza corporativa de alto nivel hasta instrumentación MLOps y código.
+                    </p>
+                    <div class="chart-container">
+                        <canvas id="barRigorChart"></canvas>
+                    </div>
+                </div>
+
+                <div class="light-card p-6 rounded-2xl space-y-4 lg:col-span-2">
+                    <div class="flex items-center justify-between">
+                        <h3 class="text-base font-semibold text-slate-900">Nivel de Solapamiento con Disciplinas DAMA-DMBOK2</h3>
+                        <span class="text-xs px-2.5 py-1 rounded-full bg-slate-100 text-emerald-800 font-mono border border-slate-200">Matrix Stack</span>
+                    </div>
+                    <p class="text-xs text-slate-600">
+                        Proporción de controles y requerimientos en cada metodología que dependen directamente de capacidades preexistentes de Gobierno, Calidad, Metadatos y Seguridad de Datos.
+                    </p>
+                    <div class="chart-container">
+                        <canvas id="stackedDmbokChart"></canvas>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <section id="frameworks" class="space-y-6">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-200 pb-4">
+                <div>
+                    <h2 class="text-2xl font-bold text-slate-900 flex items-center gap-2">
+                        🔬 Catálogo Evaluativo de las 10 Metodologías
+                    </h2>
+                    <p class="text-slate-600 text-sm mt-1">
+                        Filtre y explore cada marco conceptual, emisor, pila de controles y acoplamiento con DMBOK2.
+                    </p>
+                </div>
+                
+                <div class="flex flex-wrap gap-2 text-xs" id="filterContainer">
+                    <button onclick="filterFrameworks('all')" class="filter-btn active px-3 py-1.5 rounded-lg bg-cyan-700 text-white font-bold shadow-sm transition">Todos (10)</button>
+                    <button onclick="filterFrameworks('certificable')" class="filter-btn px-3 py-1.5 rounded-lg bg-white border border-slate-300 text-slate-700 hover:bg-slate-50 transition">Certificable / ISO</button>
+                    <button onclick="filterFrameworks('risk')" class="filter-btn px-3 py-1.5 rounded-lg bg-white border border-slate-300 text-slate-700 hover:bg-slate-50 transition">Riesgo & Seg</button>
+                    <button onclick="filterFrameworks('engineering')" class="filter-btn px-3 py-1.5 rounded-lg bg-white border border-slate-300 text-slate-700 hover:bg-slate-50 transition">Ingeniería & MLOps</button>
+                    <button onclick="filterFrameworks('audit')" class="filter-btn px-3 py-1.5 rounded-lg bg-white border border-slate-300 text-slate-700 hover:bg-slate-50 transition">Auditoría & Ética</button>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="frameworksGrid">
+                
+                <div class="framework-card light-card light-card-hover p-6 rounded-2xl flex flex-col justify-between space-y-4" data-category="certificable">
+                    <div class="space-y-3">
+                        <div class="flex items-center justify-between">
+                            <span class="px-2.5 py-1 rounded-md text-[11px] font-bold bg-cyan-100 text-cyan-800 border border-cyan-200">ISO / IEC</span>
+                            <span class="text-xs text-slate-500">Dic. 2023</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-slate-900">1. ISO/IEC 42001:2023 (AIMS)</h3>
+                        <p class="text-xs text-slate-600 leading-relaxed">
+                            Primer estándar internacional certificable para Sistemas de Gestión de IA. Estructura armonizada ISO (Anexo SL) con ciclo PHVA.
+                        </p>
+                        <div class="space-y-2 text-xs">
+                            <div class="p-2.5 rounded-lg bg-slate-50 border border-slate-200">
+                                <strong class="text-cyan-800 block mb-0.5">Estructura Central:</strong>
+                                10 Cláusulas de Gestión + 38 Controles específicos de IA en Anexo A.
+                            </div>
+                            <div class="p-2.5 rounded-lg bg-slate-50 border border-slate-200">
+                                <strong class="text-indigo-800 block mb-0.5">Conexión DAMA-DMBOK2:</strong>
+                                Grupo A.7 exigiendo representatividad, trazabilidad de procedencia y consentimiento en datos de entrenamiento.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="pt-3 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-500">
+                        <span>Adopción: AWS, Snowflake, KPMG</span>
+                        <span class="text-cyan-700 font-semibold">Madurez: Alta</span>
+                    </div>
+                </div>
+
+                <div class="framework-card light-card light-card-hover p-6 rounded-2xl flex flex-col justify-between space-y-4" data-category="risk">
+                    <div class="space-y-3">
+                        <div class="flex items-center justify-between">
+                            <span class="px-2.5 py-1 rounded-md text-[11px] font-bold bg-indigo-100 text-indigo-800 border border-indigo-200">NIST (EE. UU.)</span>
+                            <span class="text-xs text-slate-500">2023 / GenAI 2024</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-slate-900">2. NIST AI RMF 1.0 & AI 600-1</h3>
+                        <p class="text-xs text-slate-600 leading-relaxed">
+                            Marco flexible no prescriptivo centrado en confiabilidad y resiliencia. Incluye perfil especializado para IA Generativa (NIST AI 600-1).
+                        </p>
+                        <div class="space-y-2 text-xs">
+                            <div class="p-2.5 rounded-lg bg-slate-50 border border-slate-200">
+                                <strong class="text-indigo-800 block mb-0.5">Estructura Central:</strong>
+                                4 Funciones (GOVERN, MAP, MEASURE, MANAGE) y 211 acciones en perfil GenAI.
+                            </div>
+                            <div class="p-2.5 rounded-lg bg-slate-50 border border-slate-200">
+                                <strong class="text-cyan-800 block mb-0.5">Conexión DAMA-DMBOK2:</strong>
+                                Mapeo de inventarios de datos clasificados contra vectores de exposición y pruebas de envenenamiento.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="pt-3 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-500">
+                        <span>Adopción: Banca, EE.UU. Gov, Seguros</span>
+                        <span class="text-indigo-700 font-semibold">Madurez: Muy Alta</span>
+                    </div>
+                </div>
+
+                <div class="framework-card light-card light-card-hover p-6 rounded-2xl flex flex-col justify-between space-y-4" data-category="engineering">
+                    <div class="space-y-3">
+                        <div class="flex items-center justify-between">
+                            <span class="px-2.5 py-1 rounded-md text-[11px] font-bold bg-emerald-100 text-emerald-800 border border-emerald-200">Fraunhofer / RWTH</span>
+                            <span class="text-xs text-slate-500">2020–2021</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-slate-900">3. CRISP-ML(Q)</h3>
+                        <p class="text-xs text-slate-600 leading-relaxed">
+                            Evolución formal de CRISP-DM incorporando Garantía de Calidad (*Quality Assurance*) y monitoreo MLOps en cada fase.
+                        </p>
+                        <div class="space-y-2 text-xs">
+                            <div class="p-2.5 rounded-lg bg-slate-50 border border-slate-200">
+                                <strong class="text-emerald-800 block mb-0.5">Estructura Central:</strong>
+                                6 Etapas iterativas con *Quality Gates* explícitos y bucles de retroalimentación de deriva.
+                            </div>
+                            <div class="p-2.5 rounded-lg bg-slate-50 border border-slate-200">
+                                <strong class="text-cyan-800 block mb-0.5">Conexión DAMA-DMBOK2:</strong>
+                                Conversión de dimensiones de calidad (completitud, validez temporal) en umbrales computables de ingesta.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="pt-3 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-500">
+                        <span>Adopción: Manufactura, Automotriz, Pharma</span>
+                        <span class="text-emerald-700 font-semibold">Madurez: Media-Alta</span>
+                    </div>
+                </div>
+
+                <div class="framework-card light-card light-card-hover p-6 rounded-2xl flex flex-col justify-between space-y-4" data-category="audit">
+                    <div class="space-y-3">
+                        <div class="flex items-center justify-between">
+                            <span class="px-2.5 py-1 rounded-md text-[11px] font-bold bg-violet-100 text-violet-800 border border-violet-200">Microsoft ORA</span>
+                            <span class="text-xs text-slate-500">Versión 2 (2022)</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-slate-900">4. Microsoft RAI Standard v2</h3>
+                        <p class="text-xs text-slate-600 leading-relaxed">
+                            Traducción de principios éticos abstractos en requerimientos operacionales de ingeniería para el desarrollo de productos.
+                        </p>
+                        <div class="space-y-2 text-xs">
+                            <div class="p-2.5 rounded-lg bg-slate-50 border border-slate-200">
+                                <strong class="text-violet-800 block mb-0.5">Estructura Central:</strong>
+                                6 Principios, Evaluaciones de Impacto obligatorias y Criterios de Despliegue Responsable (*Release Criteria*).
+                            </div>
+                            <div class="p-2.5 rounded-lg bg-slate-50 border border-slate-200">
+                                <strong class="text-cyan-800 block mb-0.5">Conexión DAMA-DMBOK2:</strong>
+                                Mando directo sobre Ética de Datos y Gobierno, requiriendo trazabilidad sin sesgos heredados.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="pt-3 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-500">
+                        <span>Adopción: Copilot Ecosystem, Azure AI</span>
+                        <span class="text-violet-700 font-semibold">Madurez: Alta</span>
+                    </div>
+                </div>
+
+                <div class="framework-card light-card light-card-hover p-6 rounded-2xl flex flex-col justify-between space-y-4" data-category="engineering">
+                    <div class="space-y-3">
+                        <div class="flex items-center justify-between">
+                            <span class="px-2.5 py-1 rounded-md text-[11px] font-bold bg-cyan-100 text-cyan-800 border border-cyan-200">CMU SEI</span>
+                            <span class="text-xs text-slate-500">AI-BOK (2019-2024)</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-slate-900">5. CMU SEI AI Engineering</h3>
+                        <p class="text-xs text-slate-600 leading-relaxed">
+                            Disciplina de ingeniería formal para transformar la creación artesanal de IA en sistemas robustos, escalables y seguros.
+                        </p>
+                        <div class="space-y-2 text-xs">
+                            <div class="p-2.5 rounded-lg bg-slate-50 border border-slate-200">
+                                <strong class="text-cyan-800 block mb-0.5">Estructura Central:</strong>
+                                3 Pilares (Human-Centered, Scalable, Robust & Secure) y 11 Prácticas Fundacionales.
+                            </div>
+                            <div class="p-2.5 rounded-lg bg-slate-50 border border-slate-200">
+                                <strong class="text-indigo-800 block mb-0.5">Conexión DAMA-DMBOK2:</strong>
+                                Articulación con Arquitectura de Datos e Interoperabilidad mediante contratos de datos (*data contracts*).
+                            </div>
+                        </div>
+                    </div>
+                    <div class="pt-3 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-500">
+                        <span>Adopción: Defensa, Aeroespacial, Ciberfísicos</span>
+                        <span class="text-cyan-700 font-semibold">Madurez: Alta</span>
+                    </div>
+                </div>
+
+                <div class="framework-card light-card light-card-hover p-6 rounded-2xl flex flex-col justify-between space-y-4" data-category="risk">
+                    <div class="space-y-3">
+                        <div class="flex items-center justify-between">
+                            <span class="px-2.5 py-1 rounded-md text-[11px] font-bold bg-amber-100 text-amber-800 border border-amber-200">Gartner Inc.</span>
+                            <span class="text-xs text-slate-500">Oct. 2022</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-slate-900">6. Gartner AI TRiSM</h3>
+                        <p class="text-xs text-slate-600 leading-relaxed">
+                            Arquitectura empresarial de capacidades de software y gestión para gobernar la confianza, riesgo y seguridad en producción.
+                        </p>
+                        <div class="space-y-2 text-xs">
+                            <div class="p-2.5 rounded-lg bg-slate-50 border border-slate-200">
+                                <strong class="text-amber-800 block mb-0.5">Estructura Central:</strong>
+                                4 Pilares: Explicabilidad/Monitoreo, ModelOps, Securitización de App e Inferencia con Privacidad.
+                            </div>
+                            <div class="p-2.5 rounded-lg bg-slate-50 border border-slate-200">
+                                <strong class="text-cyan-800 block mb-0.5">Conexión DAMA-DMBOK2:</strong>
+                                Salvaguarda el consumo en tiempo real previniendo fugas de secretos a través de salidas del modelo.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="pt-3 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-500">
+                        <span>Adopción: Finanzas, Telecom, Retail</span>
+                        <span class="text-amber-700 font-semibold">Madurez: Alta</span>
+                    </div>
+                </div>
+
+                <div class="framework-card light-card light-card-hover p-6 rounded-2xl flex flex-col justify-between space-y-4" data-category="audit">
+                    <div class="space-y-3">
+                        <div class="flex items-center justify-between">
+                            <span class="px-2.5 py-1 rounded-md text-[11px] font-bold bg-rose-100 text-rose-800 border border-rose-200">ISACA (AAIA)</span>
+                            <span class="text-xs text-slate-500">2024–2026</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-slate-900">7. ISACA AI Audit Framework</h3>
+                        <p class="text-xs text-slate-600 leading-relaxed">
+                            Metodología formal para la tercera línea de defensa corporativa, enfocada en la auditoría independiente de sistemas algorítmicos.
+                        </p>
+                        <div class="space-y-2 text-xs">
+                            <div class="p-2.5 rounded-lg bg-slate-50 border border-slate-200">
+                                <strong class="text-rose-800 block mb-0.5">Estructura Central:</strong>
+                                3 Dominios: Gobernanza & Riesgo (33%), Operaciones (46%), Herramientas de Auditoría (21%).
+                            </div>
+                            <div class="p-2.5 rounded-lg bg-slate-50 border border-slate-200">
+                                <strong class="text-cyan-800 block mb-0.5">Conexión DAMA-DMBOK2:</strong>
+                                Exige evidencias auditables de linaje (*lineage*), catálogos actualizados y bases legales de privacidad.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="pt-3 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-500">
+                        <span>Adopción: Banca Regulada, Big Four</span>
+                        <span class="text-rose-700 font-semibold">Madurez: Alta</span>
+                    </div>
+                </div>
+
+                <div class="framework-card light-card light-card-hover p-6 rounded-2xl flex flex-col justify-between space-y-4" data-category="engineering">
+                    <div class="space-y-3">
+                        <div class="flex items-center justify-between">
+                            <span class="px-2.5 py-1 rounded-md text-[11px] font-bold bg-cyan-100 text-cyan-800 border border-cyan-200">Microsoft Open</span>
+                            <span class="text-xs text-slate-500">2016–2024</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-slate-900">8. Team Data Science Process (TDSP)</h3>
+                        <p class="text-xs text-slate-600 leading-relaxed">
+                            Metodología de ciclo de vida ágil para estructurar la colaboración ágil entre científicos de datos e ingenieros.
+                        </p>
+                        <div class="space-y-2 text-xs">
+                            <div class="p-2.5 rounded-lg bg-slate-50 border border-slate-200">
+                                <strong class="text-cyan-800 block mb-0.5">Estructura Central:</strong>
+                                5 Fases del ciclo de vida, repositorios estandarizados e infraestructura computacional compartida.
+                            </div>
+                            <div class="p-2.5 rounded-lg bg-slate-50 border border-slate-200">
+                                <strong class="text-indigo-800 block mb-0.5">Conexión DAMA-DMBOK2:</strong>
+                                Materializa políticas abstractas de calidad y metadatos en scripts de canalización reproducibles (Git).
+                            </div>
+                        </div>
+                    </div>
+                    <div class="pt-3 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-500">
+                        <span>Adopción: E-commerce, Equipos Data Science</span>
+                        <span class="text-cyan-700 font-semibold">Madurez: Muy Alta</span>
+                    </div>
+                </div>
+
+                <div class="framework-card light-card light-card-hover p-6 rounded-2xl flex flex-col justify-between space-y-4" data-category="risk">
+                    <div class="space-y-3">
+                        <div class="flex items-center justify-between">
+                            <span class="px-2.5 py-1 rounded-md text-[11px] font-bold bg-indigo-100 text-indigo-800 border border-indigo-200">Google</span>
+                            <span class="text-xs text-slate-500">Jun. 2023</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-slate-900">9. Google SAIF & Responsible AI</h3>
+                        <p class="text-xs text-slate-600 leading-relaxed">
+                            Marco de ciberseguridad adaptado a IA (*Zero Trust* y SLSA) complementado con artefactos de transparencia (Data Cards).
+                        </p>
+                        <div class="space-y-2 text-xs">
+                            <div class="p-2.5 rounded-lg bg-slate-50 border border-slate-200">
+                                <strong class="text-indigo-800 block mb-0.5">Estructura Central:</strong>
+                                6 Directrices de mitigación técnica y publicación de *Model Cards* / *Data Cards*.
+                            </div>
+                            <div class="p-2.5 rounded-lg bg-slate-50 border border-slate-200">
+                                <strong class="text-cyan-800 block mb-0.5">Conexión DAMA-DMBOK2:</strong>
+                                *Data Cards* como extensión de los catálogos corporativos enriquecidos con atributos éticos.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="pt-3 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-500">
+                        <span>Adopción: Big Tech, SaaS Cloud</span>
+                        <span class="text-indigo-700 font-semibold">Madurez: Alta</span>
+                    </div>
+                </div>
+
+                <div class="framework-card light-card light-card-hover p-6 rounded-2xl flex flex-col justify-between space-y-4" data-category="audit">
+                    <div class="space-y-3">
+                        <div class="flex items-center justify-between">
+                            <span class="px-2.5 py-1 rounded-md text-[11px] font-bold bg-violet-100 text-violet-800 border border-violet-200">Comisión Europea</span>
+                            <span class="text-xs text-slate-500">Jul. 2020</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-slate-900">10. ALTAI (EU HLEG AI)</h3>
+                        <p class="text-xs text-slate-600 leading-relaxed">
+                            Lista de autoevaluación para operacionalizar la IA Confiable. Base técnica directa del *EU AI Act*.
+                        </p>
+                        <div class="space-y-2 text-xs">
+                            <div class="p-2.5 rounded-lg bg-slate-50 border border-slate-200">
+                                <strong class="text-violet-800 block mb-0.5">Estructura Central:</strong>
+                                7 Requisitos Fundamentales (Agencia humana, solidez técnica, privacidad, equidad, etc.).
+                            </div>
+                            <div class="p-2.5 rounded-lg bg-slate-50 border border-slate-200">
+                                <strong class="text-cyan-800 block mb-0.5">Conexión DAMA-DMBOK2:</strong>
+                                Requiere de manera crítica la trazabilidad y calidad de datos bajo DMBOK2 para validar cumplimiento RGPD.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="pt-3 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-500">
+                        <span>Adopción: Sector Público UE, Salud, Banca</span>
+                        <span class="text-violet-700 font-semibold">Madurez: Media-Alta</span>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <section id="layers" class="space-y-6">
+            <div class="border-b border-slate-200 pb-4">
+                <h2 class="text-2xl font-bold text-slate-900 flex items-center gap-2">
+                    🏗️ Modelo Operacional de Integración Corporativa (4 Capas)
+                </h2>
+                <p class="text-slate-600 text-sm mt-1">
+                    Orquestación estratificada para evitar colisiones operativas, asignando roles, liderazgos y entregables clave.
+                </p>
+            </div>
+
+            <div class="space-y-4">
+                
+                <div class="p-6 rounded-2xl bg-gradient-to-r from-cyan-50 via-white to-slate-50 border border-cyan-200 shadow-sm space-y-4">
+                    <div class="flex flex-wrap items-center justify-between gap-2">
+                        <div class="flex items-center gap-3">
+                            <span class="flex items-center justify-center w-8 h-8 rounded-xl bg-cyan-700 text-white font-black text-sm">C1</span>
+                            <div>
+                                <h3 class="text-base font-bold text-slate-900">Capa 1: Estratégica, Jurídica y Gobierno Ejecutivo</h3>
+                                <p class="text-xs text-slate-500">Apetito al riesgo, política corporativa, cumplimiento regulatorio y supervisión de junta</p>
+                            </div>
+                        </div>
+                        <span class="px-3 py-1 rounded-full bg-cyan-100 text-cyan-800 border border-cyan-200 text-xs font-mono font-semibold">ISO 42001 + NIST GOVERN</span>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs pt-2 border-t border-slate-200">
+                        <div>
+                            <strong class="text-slate-800 block font-semibold mb-1">Liderazgo Corporativo:</strong>
+                            <p class="text-slate-600">Chief AI Officer (CAIO), Chief Data Officer (CDO), General Counsel, Comité de Ética</p>
+                        </div>
+                        <div>
+                            <strong class="text-slate-800 block font-semibold mb-1">Entregables y Artefactos:</strong>
+                            <p class="text-slate-600">Política Corporativa de IA, Inventario Institucional, Declaración de Aplicabilidad (SoA)</p>
+                        </div>
+                        <div>
+                            <strong class="text-cyan-800 block font-semibold mb-1">Sustrato DAMA-DMBOK2:</strong>
+                            <p class="text-slate-600">Gobierno de Datos (Estructuras de decisión y políticas organizacionales)</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="p-6 rounded-2xl bg-gradient-to-r from-indigo-50 via-white to-slate-50 border border-indigo-200 shadow-sm space-y-4">
+                    <div class="flex flex-wrap items-center justify-between gap-2">
+                        <div class="flex items-center gap-3">
+                            <span class="flex items-center justify-center w-8 h-8 rounded-xl bg-indigo-700 text-white font-black text-sm">C2</span>
+                            <div>
+                                <h3 class="text-base font-bold text-slate-900">Capa 2: Seguridad, Riesgo Técnico y Plataforma</h3>
+                                <p class="text-xs text-slate-500">Blindaje adversarial, mitigación GenAI, protección de privacidad y telemetría</p>
+                            </div>
+                        </div>
+                        <span class="px-3 py-1 rounded-full bg-indigo-100 text-indigo-800 border border-indigo-200 text-xs font-mono font-semibold">Gartner TRiSM + Google SAIF + NIST 600-1</span>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs pt-2 border-t border-slate-200">
+                        <div>
+                            <strong class="text-slate-800 block font-semibold mb-1">Liderazgo Corporativo:</strong>
+                            <p class="text-slate-600">CISO, AI SecOps, Arquitectos de Seguridad y Plataforma</p>
+                        </div>
+                        <div>
+                            <strong class="text-slate-800 block font-semibold mb-1">Entregables y Artefactos:</strong>
+                            <p class="text-slate-600">Guardrails para LLMs, Firewalls de IA, Telemetría de Deriva, Plan de Respuesta a Incidentes</p>
+                        </div>
+                        <div>
+                            <strong class="text-indigo-800 block font-semibold mb-1">Sustrato DAMA-DMBOK2:</strong>
+                            <p class="text-slate-600">Seguridad de Datos y Arquitectura de Datos (Controles de acceso y cifrado)</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="p-6 rounded-2xl bg-gradient-to-r from-emerald-50 via-white to-slate-50 border border-emerald-200 shadow-sm space-y-4">
+                    <div class="flex flex-wrap items-center justify-between gap-2">
+                        <div class="flex items-center gap-3">
+                            <span class="flex items-center justify-center w-8 h-8 rounded-xl bg-emerald-700 text-white font-black text-sm">C3</span>
+                            <div>
+                                <h3 class="text-base font-bold text-slate-900">Capa 3: Desarrollo, Calidad e Ingeniería de Modelos</h3>
+                                <p class="text-xs text-slate-500">Ciclo de vida ágil, reproducibilidad, pruebas formales y operación continua</p>
+                            </div>
+                        </div>
+                        <span class="px-3 py-1 rounded-full bg-emerald-100 text-emerald-800 border border-emerald-200 text-xs font-mono font-semibold">CRISP-ML(Q) + TDSP + CMU SEI</span>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs pt-2 border-t border-slate-200">
+                        <div>
+                            <strong class="text-slate-800 block font-semibold mb-1">Liderazgo Corporativo:</strong>
+                            <p class="text-slate-600">Directores de Ciencia de Datos, Ingenieros de Machine Learning, Ingenieros MLOps</p>
+                        </div>
+                        <div>
+                            <strong class="text-slate-800 block font-semibold mb-1">Entregables y Artefactos:</strong>
+                            <p class="text-slate-600">Pipelines CI/CD reproducibles, Model Cards, Data Cards, Registros de ModelOps</p>
+                        </div>
+                        <div>
+                            <strong class="text-emerald-800 block font-semibold mb-1">Sustrato DAMA-DMBOK2:</strong>
+                            <p class="text-slate-600">Calidad de Datos, Metadatos e Interoperabilidad (Pipelines inmutables)</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="p-6 rounded-2xl bg-gradient-to-r from-violet-50 via-white to-slate-50 border border-violet-200 shadow-sm space-y-4">
+                    <div class="flex flex-wrap items-center justify-between gap-2">
+                        <div class="flex items-center gap-3">
+                            <span class="flex items-center justify-center w-8 h-8 rounded-xl bg-violet-700 text-white font-black text-sm">C4</span>
+                            <div>
+                                <h3 class="text-base font-bold text-slate-900">Capa 4: Aseguramiento, Auditoría y Derechos Fundamentales</h3>
+                                <p class="text-xs text-slate-500">Verificación independiente de la tercera línea de defensa y evaluación ético-social</p>
+                            </div>
+                        </div>
+                        <span class="px-3 py-1 rounded-full bg-violet-100 text-violet-800 border border-violet-200 text-xs font-mono font-semibold">ISACA AAIA + ALTAI (EU)</span>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs pt-2 border-t border-slate-200">
+                        <div>
+                            <strong class="text-slate-800 block font-semibold mb-1">Liderazgo Corporativo:</strong>
+                            <p class="text-slate-600">Auditor Interno Principal (CISA/AAIA), Oficial de Cumplimiento, Auditores Externos</p>
+                        </div>
+                        <div>
+                            <strong class="text-slate-800 block font-semibold mb-1">Entregables y Artefactos:</strong>
+                            <p class="text-slate-600">Papeles de Trabajo de Auditoría de IA, Dictámenes de Eficacia, Evaluaciones de Impacto</p>
+                        </div>
+                        <div>
+                            <strong class="text-violet-800 block font-semibold mb-1">Sustrato DAMA-DMBOK2:</strong>
+                            <p class="text-slate-600">Ética de Datos, Privacidad y Trazabilidad de Metadatos</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <section id="matrix" class="space-y-6">
+            <div class="border-b border-slate-200 pb-4">
+                <h2 class="text-2xl font-bold text-slate-900 flex items-center gap-2">
+                    🔄 Matriz Integrativa: DAMA-DMBOK2 vs Gobierno de IA
+                </h2>
+                <p class="text-slate-600 text-sm mt-1">
+                    Análisis comparativo entre la gestión convencional del dato y los requerimientos del ciclo de vida algorítmico.
+                </p>
+            </div>
+
+            <div class="light-card rounded-2xl overflow-hidden border border-slate-200">
+                <div class="overflow-x-auto custom-scrollbar">
+                    <table class="w-full text-left text-xs text-slate-700">
+                        <thead class="bg-slate-100 text-slate-900 uppercase text-[10px] tracking-wider border-b border-slate-200">
+                            <tr>
+                                <th class="p-4 font-bold">Dimensión de Conocimiento</th>
+                                <th class="p-4 font-bold text-cyan-800">DAMA-DMBOK2 (Enfoque Tradicional)</th>
+                                <th class="p-4 font-bold text-indigo-800">Gobierno de IA (Marcos Homólogos)</th>
+                                <th class="p-4 font-bold text-emerald-800">Mecanismo de Sinergia</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-slate-200 font-normal">
+                            <tr class="hover:bg-slate-50 transition">
+                                <td class="p-4 font-semibold text-slate-900">Naturaleza del Activo</td>
+                                <td class="p-4">Dato determinístico, estático, tablas relacionales.</td>
+                                <td class="p-4">Modelo estocástico probabilístico, cajas negras, pesos.</td>
+                                <td class="p-4 text-emerald-800 font-medium">DMBOK2 alimenta de entrenamiento; IA gobierna el artefacto.</td>
+                            </tr>
+                            <tr class="hover:bg-slate-50 transition">
+                                <td class="p-4 font-semibold text-slate-900">Calidad y Mantenimiento</td>
+                                <td class="p-4">Completitud, unicidad, validez sintáctica.</td>
+                                <td class="p-4">Deriva conceptual (*concept drift*), sesgo muestral, alucinación.</td>
+                                <td class="p-4 text-emerald-800 font-medium">Monitoreo MLOps re-evalúa reglas de ingesta DMBOK.</td>
+                            </tr>
+                            <tr class="hover:bg-slate-50 transition">
+                                <td class="p-4 font-semibold text-slate-900">Seguridad & Riesgo</td>
+                                <td class="p-4">Control de acceso, cifrado en reposo/tránsito.</td>
+                                <td class="p-4">Inyección de comandos, extracción de modelo, envenenamiento.</td>
+                                <td class="p-4 text-emerald-800 font-medium">Firewalls de IA (AI TRiSM) sobre barreras DMBOK.</td>
+                            </tr>
+                            <tr class="hover:bg-slate-50 transition">
+                                <td class="p-4 font-semibold text-slate-900">Metadatos & Linaje</td>
+                                <td class="p-4">Diccionarios, esquemas de tablas, transformaciones ETL.</td>
+                                <td class="p-4">Hiperparámetros, versiones de código, Data Cards & Model Cards.</td>
+                                <td class="p-4 text-emerald-800 font-medium">Catálogos DMBOK2 extienden atributos hacia Data Cards.</td>
+                            </tr>
+                            <tr class="hover:bg-slate-50 transition">
+                                <td class="p-4 font-semibold text-slate-900">Ética & Cumplimiento</td>
+                                <td class="p-4">Consentimiento RGPD, retención, privacidad básica.</td>
+                                <td class="p-4">Disparidad de error demográfico, explicabilidad (SHAP/LIME).</td>
+                                <td class="p-4 text-emerald-800 font-medium">Evaluaciones de Impacto en Derechos (ALTAI / MS RAI).</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-white border-t border-slate-200 mt-16 py-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-slate-500">
+            <div>
+                <p class="font-semibold text-slate-700">Marco Metodológico de IA Corporativa & DAMA-DMBOK2</p>
+                <p class="mt-0.5">Basado en investigación técnica comparativa de estándares globales de IA.</p>
+            </div>
+            <div class="flex items-center gap-4">
+                <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-slate-100 border border-slate-200 text-slate-600 font-mono">
+                    ISO 42001 • NIST • CRISP-ML • TRiSM
+                </span>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const frameworksData = [
+            {
+                id: 'iso42001',
+                name: 'ISO/IEC 42001:2023 (AIMS)',
+                category: 'certificable',
+                keywords: ['iso', 'certific', 'norma', 'aims', 'sistema de gestion', 'regulacion', 'politica', 'auditoria externa', 'estandar'],
+                desc: 'Estándar certificable para sistemas de gestión organizacional de IA.',
+                dmbokLink: 'Gobierno de datos corporativo y políticas de cumplimiento.'
+            },
+            {
+                id: 'nist_rmf',
+                name: 'NIST AI RMF 1.0 & AI 600-1',
+                category: 'risk',
+                keywords: ['nist', 'riesgo', 'confiabilidad', 'resiliencia', 'genai', 'llm', 'red team', 'map', 'measure', 'manage', 'eeuu'],
+                desc: 'Gestión de riesgos integrales para IA tradicional e IA Generativa.',
+                dmbokLink: 'Mapeo de inventarios y datos clasificados contra vectores de exposición.'
+            },
+            {
+                id: 'crisp_ml',
+                name: 'CRISP-ML(Q)',
+                category: 'engineering',
+                keywords: ['crisp', 'mlops', 'calidad', 'drift', 'deriva', 'monitoreo', 'pipeline', 'testing', 'ciclo de vida', 'despliegue'],
+                desc: 'Metodología de ciclo de vida con Quality Gates y prevención de deriva.',
+                dmbokLink: 'Reglas de Calidad de Datos aplicadas a ingestas de entrenamiento.'
+            },
+            {
+                id: 'ms_rai',
+                name: 'Microsoft RAI Standard v2',
+                category: 'audit',
+                keywords: ['microsoft', 'etica', 'sesgo', 'equidad', 'derechos', 'impacto', 'responsable', 'privacidad', 'transparencia'],
+                desc: 'Traducción de principios éticos en requisitos de ingeniería.',
+                dmbokLink: 'Supervisión de Ética de Datos y sesgos históricos.'
+            },
+            {
+                id: 'cmu_sei',
+                name: 'CMU SEI AI Engineering',
+                category: 'engineering',
+                keywords: ['cmu', 'sei', 'ingenieria', 'robustez', 'escala', 'arquitectura', 'ciberfisico', 'defensa', 'contratos de datos'],
+                desc: 'Ingeniería formal para sistemas de IA robustos, seguros y a escala.',
+                dmbokLink: 'Arquitectura e Interoperabilidad con data contracts.'
+            },
+            {
+                id: 'gartner_trism',
+                name: 'Gartner AI TRiSM',
+                category: 'risk',
+                keywords: ['trism', 'gartner', 'seguridad', 'firewall', 'alucinacion', 'inyeccion', 'tiempo real', 'modelops', 'privacidad'],
+                desc: 'Arquitectura de seguridad y confianza operacional en tiempo real.',
+                dmbokLink: 'Seguridad de datos para prevenir fugas en inferencia.'
+            },
+            {
+                id: 'isaca_audit',
+                name: 'ISACA AI Audit Framework',
+                category: 'audit',
+                keywords: ['isaca', 'auditoria', 'tercera linea', 'controles', 'aaia', 'evidencia', 'inspeccion', 'revision'],
+                desc: 'Auditoría independiente para la tercera línea de defensa corporativa.',
+                dmbokLink: 'Evidencias auditables de linaje y catálogos actualizados.'
+            },
+            {
+                id: 'tdsp',
+                name: 'Team Data Science Process (TDSP)',
+                category: 'engineering',
+                keywords: ['tdsp', 'agile', 'sprint', 'equipo', 'colaboracion', 'ciencia de datos', 'repositorio', 'git'],
+                desc: 'Ciclo de vida ágil para estructurar la colaboración en ciencia de datos.',
+                dmbokLink: 'Pipelines reproducibles vinculados al catálogo.'
+            },
+            {
+                id: 'google_saif',
+                name: 'Google SAIF & Data Cards',
+                category: 'risk',
+                keywords: ['google', 'saif', 'data card', 'model card', 'ciberseguridad', 'zero trust', 'slsa', 'transparencia'],
+                desc: 'Ciberseguridad adapted a IA con fichas técnicas de transparencia.',
+                dmbokLink: 'Data Cards como extensión enriquecida del catálogo DMBOK.'
+            },
+            {
+                id: 'altai',
+                name: 'ALTAI (EU HLEG AI)',
+                category: 'audit',
+                keywords: ['altai', 'union europea', 'eu ai act', 'rgpd', 'derechos fundamentales', 'evaluacion impacto', 'europa'],
+                desc: 'Lista de autoevaluación para IA Confiable en el marco regulatorio europeo.',
+                dmbokLink: 'Trazabilidad y calidad bajo DMBOK para validar cumplimiento RGPD.'
+            }
+        ];
+
+        function setPresetScenario(type) {
+            const textarea = document.getElementById('problemInput');
+            if (type === 'certificacion') {
+                textarea.value = 'Buscamos certificar formalmente nuestra plataforma de IA corporativa bajo un estándar internacional reconocido, formalizando políticas de gobierno corporativo y preparación ante auditorías regulatorias.';
+            } else if (type === 'mlops') {
+                textarea.value = 'Tenemos problemas de deriva de datos (concept drift) en producción, falta de monitoreo continuo de calidad de modelos y necesidad de automatizar pipelines de MLOps con pruebas de calidad.';
+            } else if (type === 'seguridad') {
+                textarea.value = 'Estamos desplegando agentes y LLMs expuestos a usuarios y tememos ataques de inyección de prompts, alucinaciones, fuga de datos confidenciales y fallas de ciberseguridad en tiempo real.';
+            } else if (type === 'auditoria') {
+                textarea.value = 'La dirección de auditoría interna necesita un marco riguroso de tercera línea de defensa para auditar los algoritmos, evaluar el sesgo, validar el linaje de datos y emitir dictámenes formales.';
+            }
+            analyzeScenario();
+        }
+
+        function analyzeScenario() {
+            const text = document.getElementById('problemInput').value.toLowerCase().trim();
+            const resultsContainer = document.getElementById('recommendationResults');
+            const resultsList = document.getElementById('resultsList');
+
+            if (!text) {
+                alert('Por favor, ingrese una descripción de su problema o seleccione una sugerencia rápida.');
+                return;
+            }
+
+            const scored = frameworksData.map(fw => {
+                let score = 0;
+                fw.keywords.forEach(kw => {
+                    if (text.includes(kw)) {
+                        score += 3;
+                    }
+                });
+
+                if (fw.category === 'certificable' && (text.includes('certific') || text.includes('iso') || text.includes('norma'))) score += 5;
+                if (fw.category === 'risk' && (text.includes('seguridad') || text.includes('riesgo') || text.includes('ataque') || text.includes('llm'))) score += 5;
+                if (fw.category === 'engineering' && (text.includes('mlops') || text.includes('drift') || text.includes('pipeline') || text.includes('calidad'))) score += 5;
+                if (fw.category === 'audit' && (text.includes('auditor') || text.includes('etica') || text.includes('sesgo') || text.includes('evaluacion'))) score += 5;
+
+                return { ...fw, score };
+            });
+
+            scored.sort((a, b) => b.score - a.score);
+            const topMatches = scored.slice(0, 3);
+
+            resultsList.innerHTML = '';
+            topMatches.forEach((match, index) => {
+                const matchPercentage = Math.min(98, Math.max(65, 70 + match.score * 4 - index * 8));
+                
+                const card = document.createElement('div');
+                card.className = 'p-4 rounded-xl bg-white border border-slate-200 shadow-sm space-y-2';
+                card.innerHTML = `
+                    <div class="flex items-center justify-between">
+                        <span class="text-xs font-bold text-cyan-800 bg-cyan-50 px-2.5 py-1 rounded-md border border-cyan-200">
+                            #${index + 1} Recomendación (${matchPercentage}% Coincidencia)
+                        </span>
+                        <span class="text-[11px] text-slate-500 font-mono">${match.category.toUpperCase()}</span>
+                    </div>
+                    <h4 class="text-sm font-bold text-slate-900">${match.name}</h4>
+                    <p class="text-xs text-slate-600">${match.desc}</p>
+                    <div class="p-2.5 rounded-lg bg-slate-50 text-[11px] border border-slate-200 text-slate-700">
+                        <strong class="text-indigo-800 font-semibold block mb-0.5">Sinergia con DAMA-DMBOK2:</strong>
+                        ${match.dmbokLink}
+                    </div>
+                `;
+                resultsList.appendChild(card);
+            });
+
+            resultsContainer.classList.remove('hidden');
+        }
+
+        function wrapLabel(str, maxLen = 16) {
+            if (typeof str !== 'string' || str.length <= maxLen) return str;
+            const words = str.split(' ');
+            const lines = [];
+            let currentLine = '';
+            words.forEach(word => {
+                if ((currentLine + ' ' + word).trim().length > maxLen) {
+                    if (currentLine) lines.push(currentLine.trim());
+                    currentLine = word;
+                } else {
+                    currentLine += (currentLine ? ' ' : '') + word;
+                }
+            });
+            if (currentLine) lines.push(currentLine.trim());
+            return lines;
+        }
+
+        const tooltipTitleCallback = function(tooltipItems) {
+            const item = tooltipItems[0];
+            let label = item.chart.data.labels[item.dataIndex];
+            if (Array.isArray(label)) {
+                return label.join(' ');
+            } else {
+                return label;
+            }
+        };
+
+        document.addEventListener('DOMContentLoaded', () => {
+
+            const rawRadarLabels = ['Gobierno & AIMS', 'Riesgo & Resiliencia', 'Calidad & MLOps', 'Ingeniería Software', 'Seguridad TRiSM', 'Auditoría & Control'];
+            const wrappedRadarLabels = rawRadarLabels.map(l => wrapLabel(l, 16));
+
+            const ctxRadar = document.getElementById('radarFocusChart').getContext('2d');
+            new Chart(ctxRadar, {
+                type: 'radar',
+                data: {
+                    labels: wrappedRadarLabels,
+                    datasets: [
+                        {
+                            label: 'ISO 42001',
+                            data: [95, 80, 70, 60, 75, 85],
+                            borderColor: '#0891b2',
+                            backgroundColor: 'rgba(8, 145, 178, 0.20)',
+                            borderWidth: 2
+                        },
+                        {
+                            label: 'NIST AI RMF',
+                            data: [85, 95, 65, 60, 85, 75],
+                            borderColor: '#4f46e5',
+                            backgroundColor: 'rgba(79, 70, 229, 0.20)',
+                            borderWidth: 2
+                        },
+                        {
+                            label: 'Gartner TRiSM',
+                            data: [60, 85, 80, 70, 95, 65],
+                            borderColor: '#d97706',
+                            backgroundColor: 'rgba(217, 119, 6, 0.20)',
+                            borderWidth: 2
+                        }
+                    ]
+                },
+                options: {
+                    maintainAspectRatio: false,
+                    scales: {
+                        r: {
+                            angleLines: { color: '#e2e8f0' },
+                            grid: { color: '#cbd5e1' },
+                            pointLabels: { color: '#334155', font: { size: 10, weight: '600' } },
+                            ticks: { display: false, backdropColor: 'transparent' }
+                        }
+                    },
+                    plugins: {
+                        legend: { labels: { color: '#0f172a', font: { size: 11 } } },
+                        tooltip: {
+                            callbacks: {
+                                title: tooltipTitleCallback
+                            }
+                        }
+                    }
+                }
+            });
+
+            const rawFrameworkNames = ['ISO 42001', 'NIST AI RMF', 'CRISP-ML(Q)', 'MS Responsible AI', 'CMU SEI Eng', 'Gartner TRiSM', 'ISACA AI Audit', 'TDSP Process', 'Google SAIF', 'ALTAI (EU)'];
+            const wrappedFrameworkNames = rawFrameworkNames.map(name => wrapLabel(name, 16));
+
+            const ctxBar = document.getElementById('barRigorChart').getContext('2d');
+            new Chart(ctxBar, {
+                type: 'bar',
+                data: {
+                    labels: wrappedFrameworkNames,
+                    datasets: [
+                        {
+                            label: 'Rigor de Gobernanza Institucional',
+                            data: [95, 90, 60, 85, 70, 75, 90, 40, 75, 85],
+                            backgroundColor: '#0891b2'
+                        },
+                        {
+                            label: 'Rigor Técnico e Ingeniería MLOps',
+                            data: [65, 75, 95, 70, 95, 90, 60, 90, 85, 50],
+                            backgroundColor: '#4f46e5'
+                        }
+                    ]
+                },
+                options: {
+                    maintainAspectRatio: false,
+                    responsive: true,
+                    scales: {
+                        x: {
+                            grid: { display: false },
+                            ticks: { color: '#475569', font: { size: 9, weight: '500' } }
+                        },
+                        y: {
+                            grid: { color: '#e2e8f0' },
+                            ticks: { color: '#475569', font: { size: 10 } },
+                            max: 100
+                        }
+                    },
+                    plugins: {
+                        legend: { labels: { color: '#0f172a', font: { size: 11 } } },
+                        tooltip: {
+                            callbacks: {
+                                title: tooltipTitleCallback
+                            }
+                        }
+                    }
+                }
+            });
+
+            const ctxStacked = document.getElementById('stackedDmbokChart').getContext('2d');
+            new Chart(ctxStacked, {
+                type: 'bar',
+                data: {
+                    labels: wrappedFrameworkNames,
+                    datasets: [
+                        {
+                            label: 'Gobierno & Ética Datos',
+                            data: [30, 25, 10, 35, 15, 15, 25, 10, 20, 40],
+                            backgroundColor: '#7c3aed'
+                        },
+                        {
+                            label: 'Calidad & Metadatos',
+                            data: [35, 25, 55, 25, 25, 25, 30, 45, 30, 25],
+                            backgroundColor: '#059669'
+                        },
+                        {
+                            label: 'Seguridad & Arquitectura',
+                            data: [20, 35, 15, 20, 45, 45, 25, 30, 40, 15],
+                            backgroundColor: '#0284c7'
+                        },
+                        {
+                            label: 'Operaciones & Interoperabilidad',
+                            data: [15, 15, 20, 20, 15, 15, 20, 15, 10, 20],
+                            backgroundColor: '#d97706'
+                        }
+                    ]
+                },
+                options: {
+                    maintainAspectRatio: false,
+                    responsive: true,
+                    indexAxis: 'y',
+                    scales: {
+                        x: {
+                            stacked: true,
+                            grid: { color: '#e2e8f0' },
+                            ticks: { color: '#475569', font: { size: 10 } }
+                        },
+                        y: {
+                            stacked: true,
+                            grid: { display: false },
+                            ticks: { color: '#475569', font: { size: 10, weight: '500' } }
+                        }
+                    },
+                    plugins: {
+                        legend: { position: 'bottom', labels: { color: '#0f172a', font: { size: 11 } } },
+                        tooltip: {
+                            callbacks: {
+                                title: tooltipTitleCallback
+                            }
+                        }
+                    }
+                }
+            });
+
+        });
+
+        function filterFrameworks(category) {
+            const cards = document.querySelectorAll('.framework-card');
+            const buttons = document.querySelectorAll('.filter-btn');
+
+            buttons.forEach(btn => {
+                btn.classList.remove('bg-cyan-700', 'text-white', 'font-bold', 'shadow-sm');
+                btn.classList.add('bg-white', 'text-slate-700', 'border', 'border-slate-300');
+            });
+
+            event.target.classList.remove('bg-white', 'text-slate-700', 'border', 'border-slate-300');
+            event.target.classList.add('bg-cyan-700', 'text-white', 'font-bold', 'shadow-sm');
+
+            cards.forEach(card => {
+                if (category === 'all' || card.getAttribute('data-category') === category) {
+                    card.style.display = 'flex';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+    </script>
+</body>
+</html>

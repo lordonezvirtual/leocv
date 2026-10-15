@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Leonardo Ordoñez Lozano | FDE & Bio-AI Spatial Portfolio</title>
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Space+Grotesk:wght@600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  
+  <!-- Three.js & GSAP -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            display: ['Space Grotesk', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+          },
+          colors: {
+            sage: {
+              50: '#F2F6F3',
+              100: '#E3ECE6',
+              200: '#C5D8CC',
+              600: '#4A6B53',
+              800: '#263C2D',
+              900: '#18281D',
+            },
+            coral: {
+              500: '#E04F5F',
+              600: '#CC3B4B',
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    :root {
+      --bg-sage: #DCE5DF;
+      --forest-deep: #294233;
+      --forest-mid: #4F6F58;
+      --coral-badge: #DF4B57;
+    }
+
+    body {
+      background-color: var(--bg-sage);
+      color: #1E2922;
+      overflow-x: hidden;
+    }
+
+    /* Fondo orgánico inspirado en hojas de Monstera desenfocadas */
+    .bio-backdrop {
+      position: fixed;
+      inset: 0;
+      z-index: -2;
+      background: 
+        radial-gradient(circle at 25% 30%, rgba(45, 74, 54, 0.72) 0%, rgba(45, 74, 54, 0) 48%),
+        radial-gradient(circle at 75% 22%, rgba(58, 90, 64, 0.65) 0%, rgba(58, 90, 64, 0) 45%),
+        radial-gradient(circle at 68% 78%, rgba(38, 65, 46, 0.75) 0%, rgba(38, 65, 46, 0) 50%),
+        radial-gradient(circle at 18% 82%, rgba(92, 128, 98, 0.55) 0%, rgba(92, 128, 98, 0) 42%),
+        linear-gradient(135deg, #E2EAE5 0%, #CBD8D0 50%, #B8C9BE 100%);
+    }
+
+    /* Siluetas orgánicas tipo hoja en SVG con blur suave */
+    .organic-leaf-blur {
+      position: fixed;
+      inset: 0;
+      z-index: -2;
+      filter: blur(28px);
+      opacity: 0.85;
+      pointer-events: none;
+    }
+
+    /* Lienzo Three.js ADN 3D */
+    #dna-canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: -1;
+      pointer-events: none;
+    }
+
+    /* Panel Maestro de Cristal Esmerilado (Estilo Monstera Crash Course) */
+    .monstera-glass-board {
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.32) 0%, rgba(255, 255, 255, 0.16) 100%);
+      backdrop-filter: blur(26px) saturate(140%);
+      -webkit-backdrop-filter: blur(26px) saturate(140%);
+      border: 1.5px solid rgba(255, 255, 255, 0.55);
+      box-shadow: 
+        0 30px 60px -15px rgba(20, 38, 26, 0.28),
+        inset 0 1px 2px rgba(255, 255, 255, 0.7);
+      border-radius: 28px;
+    }
+
+    /* Sub-tarjetas internas esmeriladas con efecto Pop-Out */
+    .frosted-subcard {
+      background: rgba(255, 255, 255, 0.42);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border: 1px solid rgba(255, 255, 255, 0.65);
+      border-radius: 20px;
+      box-shadow: 0 12px 30px -8px rgba(24, 42, 30, 0.14);
+      transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .frosted-subcard:hover {
+      transform: translateY(-8px);
+      background: rgba(255, 255, 255, 0.58);
+      border-color: rgba(255, 255, 255, 0.95);
+      box-shadow: 0 22px 40px -10px rgba(24, 42, 30, 0.24);
+    }
+
+    /* Icono/Elemento 3D que sobresale por encima de la sub-tarjeta */
+    .pop-out-badge {
+      margin-top: -36px;
+      background: linear-gradient(135deg, #2B4C38 0%, #467356 100%);
+      border: 2px solid rgba(255, 255, 255, 0.85);
+      box-shadow: 0 14px 24px -6px rgba(20, 40, 28, 0.35);
+      transition: transform 0.35s ease;
+    }
+
+    .frosted-subcard:hover .pop-out-badge {
+      transform: scale(1.08) translateY(-4px) rotate(-3deg);
+    }
+
+    /* Orbiter Navigation M3 XR */
+    .xr-orbiter {
+      background: rgba(255, 255, 255, 0.48);
+      backdrop-filter: blur(24px);
+      border: 1px solid rgba(255, 255, 255, 0.75);
+      box-shadow: 0 12px 32px rgba(25, 45, 32, 0.15);
+    }
+
+    /* Sombra de texto sutil para titulares blancos sobre vidrio */
+    .glass-title-shadow {
+      text-shadow: 0 4px 24px rgba(22, 40, 28, 0.32);
+    }
+  </style>
+</head>
+<body class="antialiased selection:bg-coral-500 selection:text-white">
+
+  <!-- CAPA 1: Fondo Bio-Orgánico inspirado en la referencia Monstera -->
+  <div class="bio-backdrop"></div>
+  <div class="organic-leaf-blur">
+    <svg viewBox="0 0 1440 900" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-full h-full object-cover">
+      <!-- Grandes formas orgánicas verdes que simulan hojas detrás del cristal -->
+      <path d="M-100 150 C 250 -50, 550 200, 480 650 C 400 950, 50 850, -100 600 Z" fill="#2B4735"/>
+      <path d="M850 -80 C 1250 -20, 1550 300, 1380 780 C 1200 1050, 750 800, 720 420 C 700 150, 650 -40, 850 -80 Z" fill="#375842"/>
+      <circle cx="520" cy="360" r="210" fill="#5E8568" opacity="0.65"/>
+      <circle cx="960" cy="640" r="260" fill="#233B2B" opacity="0.75"/>
+    </svg>
+  </div>
+
+  <!-- CAPA 2: Motor WebGL Three.js (Doble Hélice ADN Bio-IA) -->
+  <canvas id="dna-canvas"></canvas>
+
+  <!-- NAVEGACIÓN FLOTANTE XR ORBITER -->
+  <header class="fixed top-5 inset-x-0 z-50 flex justify-center px-4">
+    <nav class="xr-orbiter rounded-full px-5 py-2.5 flex items-center gap-4 md:gap-7 max-w-6xl w-full justify-between">
+      <div class="flex items-center gap-3">
+        <span class="bg-coral-500 text-white font-mono text-xs font-bold px-2.5 py-1 rounded tracking-wider uppercase shadow-sm">
+          FDE BIO-XR
+        </span>
+        <span class="font-display font-bold text-sage-900 tracking-tight text-sm md:text-base">
+          Leonardo Ordoñez Lozano
+        </span>
+      </div>
+
+      <!-- Selector de Modo ADN 3D -->
+      <div class="hidden lg:flex items-center gap-1.5 bg-white/40 p-1 rounded-full border border-white/60 text-xs font-mono">
+        <button onclick="setDnaMode('helix')" id="btn-helix" class="px-3 py-1 rounded-full bg-sage-800 text-white font-semibold transition">
+          ADN Multiagente
+        </button>
+        <button onclick="setDnaMode('rag')" id="btn-rag" class="px-3 py-1 rounded-full text-sage-900 hover:bg-white/50 transition">
+          Cromosoma RAG
+        </button>
+        <button onclick="setDnaMode('quantum')" id="btn-quantum" class="px-3 py-1 rounded-full text-sage-900 hover:bg-white/50 transition">
+          Genoma Cuántico
+        </button>
+      </div>
+
+      <div class="flex items-center gap-2">
+        <button onclick="togglePassthrough()" class="text-xs font-mono px-3 py-1.5 rounded-full bg-white/60 hover:bg-white text-sage-900 border border-white transition flex items-center gap-1.5">
+          <i data-lucide="dna" class="w-3.5 h-3.5 text-sage-600"></i>
+          <span class="hidden sm:inline">Ver ADN</span>
+        </button>
+        <a href="#contacto" class="text-xs font-semibold px-4 py-1.5 rounded-full bg-coral-500 hover:bg-coral-600 text-white shadow-sm transition">
+          Contacto
+        </a>
+      </div>
+    </nav>
+  </header>
+
+  <!-- CONTENIDO PRINCIPAL -->
+  <main id="ui-layer" class="relative z-10 pt-28 pb-24 px-4 sm:px-6 lg:px-10 max-w-7xl mx-auto space-y-16 transition-opacity duration-500">
+
+    <!-- ==========================================
+         1. HERO SECTION (RÉPLICA DE LAYOUT MONSTERA GLASS)
+         ========================================== -->
+    <section class="relative">
+      <!-- Badge Superior Rojo Coral idéntico a "FASTER COURSE" -->
+      <div class="mb-3 flex items-center gap-2">
+        <span class="text-xs font-mono font-bold tracking-widest uppercase text-sage-900/80">
+          FORWARD DEPLOYED
+        </span>
+        <span class="bg-coral-500 text-white text-xs font-mono font-bold px-2.5 py-0.5 rounded-sm tracking-wider uppercase shadow">
+          ENGINEER IN PRODUCTION
+        </span>
+      </div>
+
+      <!-- Gran Panel Maestro de Cristal Esmerilado -->
+      <div class="monstera-glass-board p-7 sm:p-12 lg:p-14">
+        
+        <!-- Fila Superior de 2 Columnas (Título Izquierda / Párrafo Derecha) -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start mb-16">
+          <div class="lg:col-span-7">
+            <p class="text-white/90 font-display text-xl sm:text-2xl font-medium mb-1 glass-title-shadow">
+              Arquitectura de Sistemas Vivos &
+            </p>
+            <h1 class="font-display font-extrabold text-4xl sm:text-6xl lg:text-7xl text-white uppercase tracking-tight leading-[0.95] glass-title-shadow">
+              AGENTES DE IA EN PRODUCCIÓN
+            </h1>
+          </div>
+
+          <div class="lg:col-span-5 lg:pt-4">
+            <p class="text-white/95 text-sm sm:text-base leading-relaxed font-medium glass-title-shadow mb-5">
+              Ingeniero que despliega IA generativa en producción dentro de la operación del cliente: del problema ambiguo a un sistema en uso. Más de <strong>15 años en tecnología</strong> y más de <strong>8 en IA y analítica</strong>, construyendo agentes y RAG con LangChain, MCP y n8n bajo estricta gobernanza (Ley 1581, ISO 42001).
+            </p>
+            <div class="flex flex-wrap gap-3">
+              <a href="#experiencia" class="px-5 py-2.5 rounded-full bg-sage-900 text-white text-xs font-mono uppercase tracking-wider hover:bg-sage-800 transition shadow-lg">
+                Explorar Casos Reales
+              </a>
+              <span class="px-4 py-2 rounded-full bg-white/30 backdrop-blur-md border border-white/60 text-white text-xs font-mono">
+                Bogotá / Popayán, CO
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Fila Inferior: 4 Sub-Tarjetas Esmeriladas con Elementos Pop-Out (Como en la imagen) -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-7 pt-6">
+          
+          <!-- Sub-card 1 -->
+          <div class="frosted-subcard p-6 flex flex-col justify-between">
+            <div>
+              <div class="w-16 h-16 rounded-2xl pop-out-badge flex items-center justify-center text-white mb-5">
+                <i data-lucide="network" class="w-8 h-8"></i>
+              </div>
+              <span class="font-mono text-xs font-bold uppercase text-coral-600 tracking-wider">+3.2M Formados</span>
+              <h3 class="font-display text-xl font-bold text-sage-900 mt-1 leading-snug">
+                Agentes de IA & Orquestación RAG
+              </h3>
+              <p class="text-xs text-sage-800/80 mt-2">
+                LangChain, Model Context Protocol (MCP), n8n, Function Calling y LLMs locales (Ollama, Nvidia).
+              </p>
+            </div>
+            <a href="#stack" class="mt-5 inline-flex items-center gap-1.5 text-xs font-bold text-white drop-shadow hover:underline">
+              Ver arquitectura <i data-lucide="arrow-up-right" class="w-3.5 h-3.5"></i>
+            </a>
+          </div>
+
+          <!-- Sub-card 2 -->
+          <div class="frosted-subcard p-6 flex flex-col justify-between">
+            <div>
+              <div class="w-16 h-16 rounded-2xl pop-out-badge flex items-center justify-center text-white mb-5">
+                <i data-lucide="heart-pulse" class="w-8 h-8"></i>
+              </div>
+              <span class="font-mono text-xs font-bold uppercase text-coral-600 tracking-wider">Edentia AgeTech</span>
+              <h3 class="font-display text-xl font-bold text-sage-900 mt-1 leading-snug">
+                Nueva Longevidad & Interfaz Cero
+              </h3>
+              <p class="text-xs text-sage-800/80 mt-2">
+                Sensórica ambiental, Edge-AI y heurísticas XR (WCAG AAA, Ley de Fitts) para la Economía Plateada.
+              </p>
+            </div>
+            <a href="#experiencia" class="mt-5 inline-flex items-center gap-1.5 text-xs font-bold text-white drop-shadow hover:underline">
+              Leer caso <i data-lucide="arrow-up-right" class="w-3.5 h-3.5"></i>
+            </a>
+          </div>
+
+          <!-- Sub-card 3 -->
+          <div class="frosted-subcard p-6 flex flex-col justify-between">
+            <div>
+              <div class="w-16 h-16 rounded-2xl pop-out-badge flex items-center justify-center text-white mb-5">
+                <i data-lucide="shield-check" class="w-8 h-8"></i>
+              </div>
+              <span class="font-mono text-xs font-bold uppercase text-coral-600 tracking-wider">8 Impuestos IA</span>
+              <h3 class="font-display text-xl font-bold text-sage-900 mt-1 leading-snug">
+                Gobernanza ISO 42001 & Ley 1581
+              </h3>
+              <p class="text-xs text-sage-800/80 mt-2">
+                Soberanía de datos y cómputo en despliegues gubernamentales (SIGIG-MIAC) y empresariales.
+              </p>
+            </div>
+            <a href="#experiencia" class="mt-5 inline-flex items-center gap-1.5 text-xs font-bold text-white drop-shadow hover:underline">
+              Ver impacto <i data-lucide="arrow-up-right" class="w-3.5 h-3.5"></i>
+            </a>
+          </div>
+
+          <!-- Sub-card 4 -->
+          <div class="frosted-subcard p-6 flex flex-col justify-between">
+            <div>
+              <div class="w-16 h-16 rounded-2xl pop-out-badge flex items-center justify-center text-white mb-5">
+                <i data-lucide="trees" class="w-8 h-8"></i>
+              </div>
+              <span class="font-mono text-xs font-bold uppercase text-coral-600 tracking-wider">17+ Libros & 4x 1° Lugar</span>
+              <h3 class="font-display text-xl font-bold text-sage-900 mt-1 leading-snug">
+                Gemelos Digitales & Autor Publicado
+              </h3>
+              <p class="text-xs text-sage-800/80 mt-2">
+                Tokenización forestal IoT, Data Lakehouse y autor de las sagas Neurohack Revolution y Cuentos Cuánticos.
+              </p>
+            </div>
+            <a href="#libros" class="mt-5 inline-flex items-center gap-1.5 text-xs font-bold text-white drop-shadow hover:underline">
+              Explorar obra <i data-lucide="arrow-up-right" class="w-3.5 h-3.5"></i>
+            </a>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         2. METODOLOGÍAS DE IMPLEMENTACIÓN FDE
+         ========================================== -->
+    <section class="monstera-glass-board p-7 sm:p-10">
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
+        <div>
+          <span class="bg-coral-500 text-white text-xs font-mono font-bold px-2.5 py-0.5 rounded-sm uppercase">
+            MARCOS DE INGENIERÍA
+          </span>
+          <h2 class="font-display text-2xl sm:text-3xl font-extrabold text-white mt-2 glass-title-shadow">
+            METODOLOGÍAS DE IMPLEMENTACIÓN DE IA EN EMPRESAS
+          </h2>
+        </div>
+        <p class="text-xs font-mono text-white/90 bg-sage-900/40 px-3.5 py-2 rounded-xl border border-white/30">
+          Del problema ambiguo → Al sistema en producción
+        </p>
+      </div>
+
+      <div class="flex flex-wrap gap-2.5">
+        <span class="px-4 py-2 rounded-xl frosted-subcard text-xs font-mono font-semibold text-sage-900">FDE + Capas de IA</span>
+        <span class="px-4 py-2 rounded-xl frosted-subcard text-xs font-mono font-semibold text-sage-900">Spec-Driven Development (SDD)</span>
+        <span class="px-4 py-2 rounded-xl frosted-subcard text-xs font-mono font-semibold text-sage-900">Harness Engineering</span>
+        <span class="px-4 py-2 rounded-xl frosted-subcard text-xs font-mono font-semibold text-sage-900">Rutas Estratégicas de IBM</span>
+        <span class="px-4 py-2 rounded-xl frosted-subcard text-xs font-mono font-semibold text-sage-900">Madurez por Niveles</span>
+        <span class="px-4 py-2 rounded-xl frosted-subcard text-xs font-mono font-semibold text-sage-900">5 Pilares de IA</span>
+        <span class="px-4 py-2 rounded-xl frosted-subcard text-xs font-mono font-semibold text-sage-900">CRISP-DM</span>
+        <span class="px-4 py-2 rounded-xl frosted-subcard text-xs font-mono font-semibold text-sage-900">Metodologías Ágiles</span>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         3. EXPERIENCIA EN PRODUCCIÓN (TIMELINE)
+         ========================================== -->
+    <section id="experiencia" class="monstera-glass-board p-7 sm:p-12">
+      <div class="mb-10">
+        <span class="bg-coral-500 text-white text-xs font-mono font-bold px-2.5 py-0.5 rounded-sm uppercase">
+          TRAYECTORIA COMPROBADA
+        </span>
+        <h2 class="font-display text-3xl sm:text-5xl font-extrabold text-white mt-2 glass-title-shadow">
+          CASOS DE ÉXITO Y DESPLIEGUES FDE
+        </h2>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <!-- Caso 1: Vivetori / Olímpica -->
+        <div class="frosted-subcard p-6">
+          <div class="flex justify-between items-start gap-2 mb-2">
+            <span class="text-xs font-mono font-bold text-coral-600 uppercase">Enero 2026 - Actualidad</span>
+            <span class="text-xs font-mono bg-sage-800 text-white px-2.5 py-0.5 rounded-full">Retail</span>
+          </div>
+          <h3 class="font-display text-xl font-bold text-sage-900">Consultor Senior en IA — Vivetori (Olímpica S.A.)</h3>
+          <ul class="mt-3 space-y-1.5 text-xs sm:text-sm text-sage-900/90 list-disc list-inside">
+            <li>Automatización inteligente y orquestación de agentes con <strong>n8n y LangChain</strong> integrados a los sistemas del cliente.</li>
+            <li>Plataforma de trazabilidad a medida para seguimiento de iniciativas de transformación digital ante directivos.</li>
+            <li>Diagnósticos de madurez digital y de IA con <strong>Harness y SDD</strong>.</li>
+          </ul>
+        </div>
+
+        <!-- Caso 2: Edentia Nueva Longevidad -->
+        <div class="frosted-subcard p-6">
+          <div class="flex justify-between items-start gap-2 mb-2">
+            <span class="text-xs font-mono font-bold text-coral-600 uppercase">2025 - 2026</span>
+            <span class="text-xs font-mono bg-sage-800 text-white px-2.5 py-0.5 rounded-full">AgeTech / XR</span>
+          </div>
+          <h3 class="font-display text-xl font-bold text-sage-900">Fundador y Líder en IA, Nueva Longevidad — Edentia</h3>
+          <ul class="mt-3 space-y-1.5 text-xs sm:text-sm text-sage-900/90 list-disc list-inside">
+            <li>Arquitecturas de IA de <strong>interfaz cero</strong> (sensórica ambiental, Edge-AI, agentes conversacionales afectivos) para adultos mayores.</li>
+            <li>Heurísticas de UX/UI validadas en XR (<strong>WCAG AAA, Ley de Fitts</strong>) en modelos B2C, B2G y B2B2C.</li>
+          </ul>
+        </div>
+
+        <!-- Caso 3: Gobernación de Cundinamarca -->
+        <div class="frosted-subcard p-6">
+          <div class="flex justify-between items-start gap-2 mb-2">
+            <span class="text-xs font-mono font-bold text-coral-600 uppercase">Feb 2025 - Dic 2025</span>
+            <span class="text-xs font-mono bg-sage-800 text-white px-2.5 py-0.5 rounded-full">GovTech</span>
+          </div>
+          <h3 class="font-display text-xl font-bold text-sage-900">Consultor Senior IA — Ingenium (Gobernación de Cundinamarca)</h3>
+          <ul class="mt-3 space-y-1.5 text-xs sm:text-sm text-sage-900/90 list-disc list-inside">
+            <li>Diseño y despliegue de <strong>SIGIG - MIAC</strong>, sistema multiagente con LangChain y Data Lakehouse que optimiza <strong>8 impuestos</strong> departamentales.</li>
+            <li>Integración con pasarelas institucionales mediante <em>function calling</em> bajo <strong>Ley 1581 e ISO 42001</strong>.</li>
+            <li>Liderazgo de 5 proyectos de IA y XR para los sectores médico e industrial.</li>
+          </ul>
+        </div>
+
+        <!-- Caso 4: Minciencias -->
+        <div class="frosted-subcard p-6">
+          <div class="flex justify-between items-start gap-2 mb-2">
+            <span class="text-xs font-mono font-bold text-coral-600 uppercase">Feb 2024 - Dic 2024</span>
+            <span class="text-xs font-mono bg-sage-800 text-white px-2.5 py-0.5 rounded-full">Gobierno</span>
+          </div>
+          <h3 class="font-display text-xl font-bold text-sage-900">Asesor en Inteligencia Artificial — Minciencias Colombia</h3>
+          <ul class="mt-3 space-y-1.5 text-xs sm:text-sm text-sage-900/90 list-disc list-inside">
+            <li>Migración de sistemas heredados a la nube con un <strong>aumento del 30% en la eficiencia operativa</strong>.</li>
+            <li>Modelos de IA internos para seguimiento de convocatorias/contratos e implementación del sistema 360° (Infinity).</li>
+          </ul>
+        </div>
+
+        <!-- Caso 5: Gemelos Digitales del Bosque -->
+        <div class="frosted-subcard p-6">
+          <div class="flex justify-between items-start gap-2 mb-2">
+            <span class="text-xs font-mono font-bold text-coral-600 uppercase">Feb 2020 - Dic 2023</span>
+            <span class="text-xs font-mono bg-sage-800 text-white px-2.5 py-0.5 rounded-full">Bio-IoT & IA</span>
+          </div>
+          <h3 class="font-display text-xl font-bold text-sage-900">Project Manager AI — Edentia (Gemelos Digitales)</h3>
+          <p class="mt-2 text-xs sm:text-sm text-sage-900/90">
+            Lideré <strong>gemelos digitales del bosque</strong> y una plataforma segura de tokenización de activos forestales y agrícolas con sensores IoT e IA generativa, abriendo nuevos productos en dendroenergía.
+          </p>
+        </div>
+
+        <!-- Caso 6: Universidad del Atlántico & SENA Virtual -->
+        <div class="frosted-subcard p-6">
+          <div class="flex justify-between items-start gap-2 mb-2">
+            <span class="text-xs font-mono font-bold text-coral-600 uppercase">2004 - 2020</span>
+            <span class="text-xs font-mono bg-sage-800 text-white px-2.5 py-0.5 rounded-full">Big Data & EdTech</span>
+          </div>
+          <h3 class="font-display text-xl font-bold text-sage-900">Univ. del Atlántico (Big Data) & SENA Virtual</h3>
+          <p class="mt-2 text-xs sm:text-sm text-sage-900/90">
+            <strong>Univ. del Atlántico (2016-2020):</strong> Captura en tiempo real con Kafka, Hadoop, Spark MLlib/Streaming y Python.<br>
+            <strong>SENA Virtual (2004-2016):</strong> Desarrollo de la oficina virtual y +70 cursos que formaron a <strong>más de 3.200.000 personas</strong>.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         4. STACK TECNOLÓGICO & PREMIOS
+         ========================================== -->
+    <section id="stack" class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+      <!-- Habilidades Técnicas -->
+      <div class="lg:col-span-7 monstera-glass-board p-7 sm:p-10">
+        <span class="bg-coral-500 text-white text-xs font-mono font-bold px-2.5 py-0.5 rounded-sm uppercase">
+          ARQUITECTURA TÉCNICA
+        </span>
+        <h2 class="font-display text-2xl sm:text-4xl font-extrabold text-white mt-2 mb-6 glass-title-shadow">
+          ECOSISTEMA DE HABILIDADES
+        </h2>
+        <div class="space-y-4">
+          <div class="frosted-subcard p-4">
+            <h4 class="font-mono text-xs font-bold uppercase text-coral-600">Agentes, LLMs & Orquestación</h4>
+            <p class="text-sm font-semibold text-sage-900 mt-1">
+              n8n • LangChain • MCP • RAG • Function calling • LLM locales (Ollama, Nvidia) • LLM en la nube • Google AI Platform • Stable Diffusion • Python
+            </p>
+          </div>
+          <div class="frosted-subcard p-4">
+            <h4 class="font-mono text-xs font-bold uppercase text-coral-600">Big Data, Cloud & Analítica</h4>
+            <p class="text-sm font-semibold text-sage-900 mt-1">
+              Data Lakehouse • Kafka • Spark (MLlib/Streaming) • Hadoop • BigQuery • ETL/ELT • SQL/MySQL • AWS (pipelines) • GCP • RStudio • Power Query
+            </p>
+          </div>
+          <div class="frosted-subcard p-4">
+            <h4 class="font-mono text-xs font-bold uppercase text-coral-600">Gobernanza, Soberanía & Motores 3D/XR</h4>
+            <p class="text-sm font-semibold text-sage-900 mt-1">
+              ISO 42001 • Ley 1581 • Soberanía de Datos y Cómputo • On-Premise • Unity • Unreal Engine • Blender
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Premios y Reconocimientos -->
+      <div class="lg:col-span-5 monstera-glass-board p-7 sm:p-10">
+        <span class="bg-coral-500 text-white text-xs font-mono font-bold px-2.5 py-0.5 rounded-sm uppercase">
+          TROPHY ROOM
+        </span>
+        <h2 class="font-display text-2xl sm:text-4xl font-extrabold text-white mt-2 mb-6 glass-title-shadow">
+          RECONOCIMIENTOS
+        </h2>
+        <div class="space-y-3">
+          <div class="frosted-subcard p-3.5 flex items-center gap-3.5">
+            <span class="bg-coral-500 text-white font-mono text-xs font-bold px-2.5 py-1 rounded">JUN 2026</span>
+            <div>
+              <p class="font-bold text-sm text-sage-900">1er Lugar — Reto CaribeTech</p>
+              <p class="text-xs text-sage-800">Aplicaciones con IA para Fintech (Serfinanza)</p>
+            </div>
+          </div>
+          <div class="frosted-subcard p-3.5 flex items-center gap-3.5">
+            <span class="bg-coral-500 text-white font-mono text-xs font-bold px-2.5 py-1 rounded">FEB 2026</span>
+            <div>
+              <p class="font-bold text-sm text-sage-900">1er Lugar — Coomeva</p>
+              <p class="text-xs text-sage-800">Soluciones con voz para Fintech, Nueva Longevidad</p>
+            </div>
+          </div>
+          <div class="frosted-subcard p-3.5 flex items-center gap-3.5">
+            <span class="bg-sage-800 text-white font-mono text-xs font-bold px-2.5 py-1 rounded">MAY 2025</span>
+            <div>
+              <p class="font-bold text-sm text-sage-900">Autor Publicado — FILBo 2025</p>
+              <p class="text-xs text-sage-800">Saga Cuentos Cuánticos (6 libros)</p>
+            </div>
+          </div>
+          <div class="frosted-subcard p-3.5 flex items-center gap-3.5">
+            <span class="bg-sage-800 text-white font-mono text-xs font-bold px-2.5 py-1 rounded">AGO 2023</span>
+            <div>
+              <p class="font-bold text-sm text-sage-900">1er Lugar — Reto 4.0 (Innpulsa)</p>
+              <p class="text-xs text-sage-800">Estrategias tecnológicas IoT y marketing</p>
+            </div>
+          </div>
+          <div class="frosted-subcard p-3.5 flex items-center gap-3.5">
+            <span class="bg-sage-800 text-white font-mono text-xs font-bold px-2.5 py-1 rounded">MAY 2020</span>
+            <div>
+              <p class="font-bold text-sm text-sage-900">1er Lugar — MinInterior & IBM</p>
+              <p class="text-xs text-sage-800">Soluciones para líderes sociales, Formación 360</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         5. UNIVERSO LITERARIO & CONTACTO
+         ========================================== -->
+    <section id="libros" class="monstera-glass-board p-7 sm:p-12">
+      <span class="bg-coral-500 text-white text-xs font-mono font-bold px-2.5 py-0.5 rounded-sm uppercase">
+        PROPIEDAD INTELECTUAL
+      </span>
+      <h2 class="font-display text-3xl sm:text-4xl font-extrabold text-white mt-2 mb-8 glass-title-shadow">
+        OBRA LITERARIA PUBLICADA
+      </h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="frosted-subcard p-6">
+          <span class="text-xs font-mono font-bold text-coral-600">10 LIBROS DE NEGOCIOS & IA</span>
+          <h3 class="font-display text-xl font-bold text-sage-900 mt-1">NEUROHACK REVOLUTION</h3>
+          <p class="text-xs text-sage-800 mt-2">
+            "No es solo otro conjunto de 10 libros de negocios, es un sistema operativo para tu mente emprendedora en la era de la inteligencia artificial."
+          </p>
+        </div>
+        <div class="frosted-subcard p-6">
+          <span class="text-xs font-mono font-bold text-coral-600">6 LIBROS • FILBO 2025</span>
+          <h3 class="font-display text-xl font-bold text-sage-900 mt-1">SAGA CUENTOS CUÁNTICOS</h3>
+          <p class="text-xs text-sage-800 mt-2">
+            "La saga literaria que está redefiniendo la manera en que las nuevas generaciones comprenden su papel en el mundo."
+          </p>
+        </div>
+        <div class="frosted-subcard p-6">
+          <span class="text-xs font-mono font-bold text-coral-600">FUTUROS URBANOS</span>
+          <h3 class="font-display text-xl font-bold text-sage-900 mt-1">SMARTCITIES</h3>
+          <p class="text-xs text-sage-800 mt-2">
+            "Una completa saga de experiencias cuánticas para una profunda reflexión sobre nuestros futuros urbanos posibles."
+          </p>
+        </div>
+      </div>
+
+      <!-- Footer Contacto -->
+      <div id="contacto" class="mt-10 pt-8 border-t border-white/40 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 text-white">
+        <div>
+          <p class="font-display font-bold text-lg glass-title-shadow">Leonardo Ordoñez Lozano</p>
+          <p class="text-xs font-mono text-white/90">leonzoro@gmail.com • +57 301 754 1994 • Bogotá / Popayán, Colombia</p>
+        </div>
+        <div class="flex flex-wrap gap-3">
+          <a href="https://linkedin.com/in/leonardo-ordoñez-lozano" target="_blank" class="px-4 py-2 rounded-full frosted-subcard text-xs font-mono font-bold text-sage-900">
+            LinkedIn
+          </a>
+          <a href="https://x.com/lordonezvirtual" target="_blank" class="px-4 py-2 rounded-full frosted-subcard text-xs font-mono font-bold text-sage-900">
+            X (@lordonezvirtual)
+          </a>
+          <a href="mailto:leonzoro@gmail.com" class="px-4 py-2 rounded-full bg-coral-500 text-white text-xs font-mono font-bold shadow">
+            Enviar Correo
+          </a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- SCRIPT MOTOR 3D ADN BIO-ORGÁNICO -->
+  <script>
+    lucide.createIcons();
+
+    const canvas = document.getElementById('dna-canvas');
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(55, window.innerWidth / window.innerHeight, 0.1, 1000);
+    camera.position.z = 26;
+
+    const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+    const dnaGroup = new THREE.Group();
+    scene.add(dnaGroup);
+
+    const pairsCount = 65;
+    const nodes = [];
+    const targetPositions = [];
+
+    // Colores armónicos con el estilo Monstera Bio-Glass
+    const colorStrandA = new THREE.Color('#1E3F2B'); // Verde Bosque Profundo
+    const colorStrandB = new THREE.Color('#DF4B57'); // Coral Vibrante del Badge
+    const colorBridge  = new THREE.Color('#FFFFFF'); // Blanco Cristal
+
+    const sphereGeo = new THREE.SphereGeometry(0.24, 16, 16);
+
+    for (let i = 0; i < pairsCount; i++) {
+      const matA = new THREE.MeshBasicMaterial({ color: colorStrandA });
+      const matB = new THREE.MeshBasicMaterial({ color: colorStrandB });
+      const matC = new THREE.MeshBasicMaterial({ color: colorBridge, transparent: true, opacity: 0.75 });
+
+      const meshA = new THREE.Mesh(sphereGeo, matA);
+      const meshB = new THREE.Mesh(sphereGeo, matB);
+      const meshC = new THREE.Mesh(new THREE.SphereGeometry(0.14, 12, 12), matC);
+
+      dnaGroup.add(meshA, meshB, meshC);
+      nodes.push(meshA, meshB, meshC);
+      targetPositions.push(new THREE.Vector3(), new THREE.Vector3(), new THREE.Vector3());
+    }
+
+    function calculateLayout(mode) {
+      for (let i = 0; i < pairsCount; i++) {
+        const t = (i / pairsCount) * Math.PI * 5 - (Math.PI * 2.5);
+        const y = (i - pairsCount / 2) * 0.55;
+        const idx = i * 3;
+
+        if (mode === 'helix') {
+          const radius = 5.2;
+          targetPositions[idx].set(Math.cos(t) * radius, y, Math.sin(t) * radius);
+          targetPositions[idx + 1].set(Math.cos(t + Math.PI) * radius, y, Math.sin(t + Math.PI) * radius);
+          targetPositions[idx + 2].set(0, y, 0);
+        } else if (mode === 'rag') {
+          const ring = (i % 5) * 2.4 + 2.5;
+          targetPositions[idx].set(Math.cos(t * 1.5) * ring, Math.sin(t * 1.5) * ring, (i % 3 - 1) * 3);
+          targetPositions[idx + 1].set(Math.cos(t * 1.5 + 1) * (ring + 2), Math.sin(t * 1.5 + 1) * (ring + 2), 0);
+          targetPositions[idx + 2].set(Math.cos(t) * 3, Math.sin(t) * 3, 2);
+        } else {
+          const r = 9;
+          targetPositions[idx].set(Math.sin(i) * r, Math.cos(i * 0.7) * r, Math.sin(i * 1.3) * r);
+          targetPositions[idx + 1].set(Math.cos(i) * (r * 0.7), Math.sin(i * 1.1) * (r * 0.7), Math.cos(i * 0.5) * r);
+          targetPositions[idx + 2].set(Math.sin(i * 2) * 4, Math.cos(i * 2) * 4, 0);
+        }
+      }
+    }
+
+    calculateLayout('helix');
+    nodes.forEach((n, idx) => n.position.copy(targetPositions[idx]));
+
+    function setDnaMode(mode) {
+      calculateLayout(mode);
+      ['helix', 'rag', 'quantum'].forEach(m => {
+        const btn = document.getElementById('btn-' + m);
+        if (btn) {
+          btn.className = m === mode
+            ? 'px-3 py-1 rounded-full bg-sage-800 text-white font-semibold transition'
+            : 'px-3 py-1 rounded-full text-sage-900 hover:bg-white/50 transition';
+        }
+      });
+    }
+
+    let passthrough = false;
+    function togglePassthrough() {
+      passthrough = !passthrough;
+      document.getElementById('ui-layer').style.opacity = passthrough ? '0.08' : '1';
+    }
+
+    let mouseX = 0, mouseY = 0;
+    window.addEventListener('mousemove', (e) => {
+      mouseX = (e.clientX / window.innerWidth - 0.5) * 2;
+      mouseY = (e.clientY / window.innerHeight - 0.5) * 2;
+    });
+
+    function animate() {
+      requestAnimationFrame(animate);
+      dnaGroup.rotation.y += 0.0045;
+      dnaGroup.rotation.x += (mouseY * 0.25 - dnaGroup.rotation.x) * 0.05;
+      dnaGroup.rotation.z = Math.sin(Date.now() * 0.0006) * 0.12 + mouseX * 0.15;
+
+      for (let i = 0; i < nodes.length; i++) {
+        nodes[i].position.lerp(targetPositions[i], 0.06);
+      }
+      renderer.render(scene, camera);
+    }
+    animate();
+
+    window.addEventListener('resize', () => {
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+    });
+  </script>
+</body>
+</html>

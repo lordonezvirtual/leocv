@@ -1,0 +1,1417 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Metodología MAPA-IA | Transformación de Hábitos y Upskilling Silver</title>
+  
+  <!-- Google Fonts: Plus Jakarta Sans for high readability -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            heading: ['"Space Grotesk"', 'sans-serif'],
+          },
+          colors: {
+            silver: {
+              50: '#F8FAFC',
+              100: '#F1F5F9',
+              200: '#E2E8F0',
+              300: '#CBD5E1',
+              400: '#94A3B8',
+              500: '#64748B',
+              600: '#475569',
+              700: '#334155',
+              800: '#1E293B',
+              900: '#0F172A',
+            },
+            brand: {
+              emerald: '#059669',
+              teal: '#0D9488',
+              amber: '#D97706',
+              violet: '#7C3AED',
+              blue: '#2563EB',
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* High accessibility styling and smooth transitions */
+    html {
+      font-size: 16px;
+    }
+    html.text-large {
+      font-size: 18px;
+    }
+    html.text-xlarge {
+      font-size: 20px;
+    }
+    .glass-panel {
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
+    .dark .glass-panel {
+      background: rgba(15, 23, 42, 0.85);
+    }
+    .custom-shadow {
+      box-shadow: 0 10px 30px -5px rgba(15, 23, 42, 0.07), 0 4px 6px -2px rgba(15, 23, 42, 0.04);
+    }
+    .custom-shadow-lg {
+      box-shadow: 0 20px 40px -10px rgba(15, 23, 42, 0.12), 0 10px 15px -3px rgba(15, 23, 42, 0.08);
+    }
+  </style>
+</head>
+
+<body class="bg-slate-50 text-slate-800 dark:bg-slate-950 dark:text-slate-100 min-h-screen flex flex-col font-sans transition-colors duration-200">
+
+  <!-- Top Navigation & Accessibility Bar -->
+  <header class="sticky top-0 z-40 glass-panel border-b border-slate-200 dark:border-slate-800 transition-all">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-20">
+        
+        <!-- Brand Logo -->
+        <a href="#inicio" class="flex items-center gap-3 group">
+          <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-brand-teal to-brand-blue flex items-center justify-center text-white text-xl font-bold shadow-md shadow-teal-500/20 group-hover:scale-105 transition-transform">
+            <i class="fa-solid fa-brain"></i>
+          </div>
+          <div>
+            <div class="flex items-center gap-2">
+              <span class="font-heading text-xl font-bold text-slate-900 dark:text-white tracking-tight">MAPA<span class="text-brand-teal">·IA</span></span>
+              <span class="bg-amber-100 text-amber-800 dark:bg-amber-900/40 dark:text-amber-300 text-xs font-semibold px-2 py-0.5 rounded-full">Economía Silver</span>
+            </div>
+            <p class="text-xs text-slate-500 dark:text-slate-400 font-medium">Metodología de Hábitos & Longevidad 50+</p>
+          </div>
+        </a>
+
+        <!-- Desktop Navigation Links -->
+        <nav class="hidden md:flex items-center gap-6 font-medium text-sm text-slate-600 dark:text-slate-300">
+          <a href="#metodologia" class="hover:text-brand-teal transition-colors py-1">Framework MAPA</a>
+          <a href="#anclaje" class="hover:text-brand-teal transition-colors py-1">Anclaje de Hábitos</a>
+          <a href="#matriz" class="hover:text-brand-teal transition-colors py-1">Niveles de Reskilling</a>
+          <a href="#simulador" class="hover:text-brand-teal transition-colors py-1">Simulador Práctico</a>
+          <a href="#diagnostico" class="hover:text-brand-teal transition-colors py-1">Diagnóstico & Plan</a>
+        </nav>
+
+        <!-- Accessibility Controls: Font Size & High Contrast -->
+        <div class="flex items-center gap-2">
+          <!-- Text Size Adjuster -->
+          <div class="hidden sm:flex items-center bg-slate-100 dark:bg-slate-800 rounded-xl p-1 border border-slate-200 dark:border-slate-700" title="Ajustar tamaño de letra">
+            <button id="font-decrease" class="px-2 py-1 text-xs font-bold rounded-lg text-slate-600 dark:text-slate-300 hover:bg-white dark:hover:bg-slate-700 transition-all" aria-label="Letra más pequeña">A-</button>
+            <button id="font-normal" class="px-2 py-1 text-sm font-bold rounded-lg text-slate-800 dark:text-white bg-white dark:bg-slate-700 shadow-xs" aria-label="Letra normal">A</button>
+            <button id="font-increase" class="px-2 py-1 text-base font-bold rounded-lg text-slate-600 dark:text-slate-300 hover:bg-white dark:hover:bg-slate-700 transition-all" aria-label="Letra más grande">A+</button>
+          </div>
+
+          <!-- Dark / Light Mode Toggle -->
+          <button id="theme-toggle" class="w-10 h-10 rounded-xl flex items-center justify-center border border-slate-200 dark:border-slate-700 bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-amber-400 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors" aria-label="Cambiar tema">
+            <i class="fa-solid fa-sun dark:hidden"></i>
+            <i class="fa-solid fa-moon hidden dark:block"></i>
+          </button>
+
+          <!-- Action CTA -->
+          <a href="#diagnostico" class="hidden lg:inline-flex items-center gap-2 bg-gradient-to-r from-brand-teal to-brand-blue text-white px-4 py-2.5 rounded-xl font-semibold text-sm shadow-md shadow-teal-500/20 hover:opacity-95 transition-all">
+            <i class="fa-solid fa-compass"></i>
+            <span>Iniciar Diagnóstico</span>
+          </a>
+
+          <!-- Mobile menu button -->
+          <button id="mobile-menu-btn" class="md:hidden w-10 h-10 rounded-xl flex items-center justify-center border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300">
+            <i class="fa-solid fa-bars"></i>
+          </button>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Mobile Dropdown Menu -->
+    <div id="mobile-menu" class="hidden md:hidden px-4 pt-2 pb-6 border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 space-y-3">
+      <a href="#metodologia" class="block py-2 font-medium text-slate-700 dark:text-slate-200 hover:text-brand-teal">Framework MAPA</a>
+      <a href="#anclaje" class="block py-2 font-medium text-slate-700 dark:text-slate-200 hover:text-brand-teal">Anclaje de Hábitos</a>
+      <a href="#matriz" class="block py-2 font-medium text-slate-700 dark:text-slate-200 hover:text-brand-teal">Niveles de Reskilling</a>
+      <a href="#simulador" class="block py-2 font-medium text-slate-700 dark:text-slate-200 hover:text-brand-teal">Simulador Práctico</a>
+      <a href="#diagnostico" class="block py-2 font-semibold text-brand-teal">Diagnóstico & Plan Personal</a>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section id="inicio" class="relative overflow-hidden py-16 lg:py-24 border-b border-slate-200 dark:border-slate-800 bg-gradient-to-b from-teal-50/50 via-white to-slate-50 dark:from-slate-900 dark:via-slate-950 dark:to-slate-950">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+      <div class="grid lg:grid-cols-12 gap-12 items-center">
+        
+        <!-- Left Hero Copy -->
+        <div class="lg:col-span-7 space-y-6">
+          <div class="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-teal-100 dark:bg-teal-950/60 border border-teal-200 dark:border-teal-800 text-teal-900 dark:text-teal-300 text-xs font-semibold">
+            <i class="fa-solid fa-shield-heart text-brand-teal"></i>
+            <span>Andragogía & Conducta · Longevidad Activa 50+</span>
+          </div>
+
+          <h1 class="font-heading text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-slate-950 dark:text-white leading-[1.15]">
+            Tu experiencia es la base. <br>
+            <span class="bg-gradient-to-r from-brand-teal via-brand-blue to-brand-violet bg-clip-text text-transparent">
+              La IA es tu copiloto.
+            </span>
+          </h1>
+
+          <p class="text-lg sm:text-xl text-slate-600 dark:text-slate-300 max-w-2xl leading-relaxed">
+            Una metodología probada de <strong>transformación de hábitos</strong> que elimina la ansiedad tecnológica, ancla la inteligencia artificial a tus rutinas cotidianas y convierte décadas de trayectoria en una ventaja profesional imparable.
+          </p>
+
+          <!-- Core Value Metrics -->
+          <div class="grid grid-cols-3 gap-4 pt-2 max-w-xl">
+            <div class="bg-white dark:bg-slate-900 p-4 rounded-2xl border border-slate-200 dark:border-slate-800 custom-shadow">
+              <div class="text-2xl lg:text-3xl font-bold text-slate-900 dark:text-white font-heading">1 de cada 2</div>
+              <div class="text-xs text-slate-500 dark:text-slate-400 mt-1 font-medium">Colombianos tendrá +50 años en 2050</div>
+            </div>
+            <div class="bg-white dark:bg-slate-900 p-4 rounded-2xl border border-slate-200 dark:border-slate-800 custom-shadow">
+              <div class="text-2xl lg:text-3xl font-bold text-brand-teal font-heading">0 Código</div>
+              <div class="text-xs text-slate-500 dark:text-slate-400 mt-1 font-medium">100% Lenguaje natural y voz</div>
+            </div>
+            <div class="bg-white dark:bg-slate-900 p-4 rounded-2xl border border-slate-200 dark:border-slate-800 custom-shadow">
+              <div class="text-2xl lg:text-3xl font-bold text-brand-amber font-heading">12 Semanas</div>
+              <div class="text-xs text-slate-500 dark:text-slate-400 mt-1 font-medium">Ciclo estructurado de autonomía</div>
+            </div>
+          </div>
+
+          <!-- Hero Action Buttons -->
+          <div class="flex flex-wrap items-center gap-4 pt-4">
+            <a href="#anclaje" class="inline-flex items-center gap-3 px-6 py-3.5 rounded-2xl bg-brand-teal text-white font-semibold text-base shadow-lg shadow-teal-600/25 hover:bg-teal-700 transition-all">
+              <span>Construir mi primer anclaje</span>
+              <i class="fa-solid fa-arrow-right"></i>
+            </a>
+            <a href="#metodologia" class="inline-flex items-center gap-2 px-6 py-3.5 rounded-2xl bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-200 font-semibold text-base border border-slate-200 dark:border-slate-800 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all">
+              <i class="fa-solid fa-book-open text-brand-teal"></i>
+              <span>Explorar los 4 Pilares</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Right Hero Interactive Badge Card -->
+        <div class="lg:col-span-5">
+          <div class="bg-white dark:bg-slate-900 rounded-3xl p-6 sm:p-8 border border-slate-200 dark:border-slate-800 custom-shadow-lg relative overflow-hidden">
+            <div class="absolute -right-16 -top-16 w-44 h-44 bg-teal-500/10 rounded-full blur-2xl"></div>
+            
+            <div class="flex items-center justify-between pb-6 border-b border-slate-100 dark:border-slate-800">
+              <div class="flex items-center gap-3">
+                <span class="w-3 h-3 rounded-full bg-emerald-500 animate-pulse"></span>
+                <span class="text-xs uppercase tracking-wider font-bold text-slate-500 dark:text-slate-400">Modelo Psicosocial Activo</span>
+              </div>
+              <span class="text-xs bg-slate-100 dark:bg-slate-800 px-3 py-1 rounded-full text-slate-600 dark:text-slate-300 font-semibold">Andragogía Knowles + Fogg</span>
+            </div>
+
+            <!-- Principle Highlights -->
+            <div class="space-y-4 my-6">
+              <div class="flex items-start gap-4 p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-100 dark:border-slate-800">
+                <div class="w-10 h-10 rounded-xl bg-teal-100 dark:bg-teal-900/50 text-brand-teal flex items-center justify-center shrink-0">
+                  <i class="fa-solid fa-user-check"></i>
+                </div>
+                <div>
+                  <h4 class="text-sm font-bold text-slate-900 dark:text-white">Sesgo de Experiencia Respetado</h4>
+                  <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">El sénior no es principiante: actúa como Director y Evaluador ético de la IA.</p>
+                </div>
+              </div>
+
+              <div class="flex items-start gap-4 p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-100 dark:border-slate-800">
+                <div class="w-10 h-10 rounded-xl bg-amber-100 dark:bg-amber-900/50 text-brand-amber flex items-center justify-center shrink-0">
+                  <i class="fa-solid fa-lock-open"></i>
+                </div>
+                <div>
+                  <h4 class="text-sm font-bold text-slate-900 dark:text-white">Espacios Libres de Ansiedad</h4>
+                  <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">Entornos seguros que previenen fraudes, eliminan el miedo a "dañar algo" y garantizan privacidad.</p>
+                </div>
+              </div>
+
+              <div class="flex items-start gap-4 p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-100 dark:border-slate-800">
+                <div class="w-10 h-10 rounded-xl bg-violet-100 dark:bg-violet-900/50 text-brand-violet flex items-center justify-center shrink-0">
+                  <i class="fa-solid fa-microphone-lines"></i>
+                </div>
+                <div>
+                  <h4 class="text-sm font-bold text-slate-900 dark:text-white">Interacción por Voz & Lenguaje Natural</h4>
+                  <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">Cero sintaxis compleja. Hablas y escuchas como si conversaras con un asistente de alta confianza.</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Quote badge -->
+            <div class="p-4 rounded-2xl bg-gradient-to-r from-teal-50 to-blue-50 dark:from-slate-800/80 dark:to-slate-800/40 border border-teal-100 dark:border-slate-700 text-xs text-slate-600 dark:text-slate-300 italic">
+              "No envejecemos cuando nos jubilamos; envejecemos cuando dejamos de crear e interactuar con el futuro."
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Framework MAPA-IA Interactive Explorer -->
+  <section id="metodologia" class="py-16 lg:py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+    <div class="text-center max-w-3xl mx-auto mb-12">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 text-xs font-semibold mb-3">
+        <span>Arquitectura Metodológica</span>
+      </div>
+      <h2 class="font-heading text-3xl sm:text-4xl font-bold text-slate-950 dark:text-white">
+        El Framework MAPA-IA en 4 Fases
+      </h2>
+      <p class="text-slate-600 dark:text-slate-400 mt-3 text-base sm:text-lg">
+        Un recorrido andragógico diseñado específicamente para vencer la inercia, transformar hábitos y garantizar la retención duradera del conocimiento.
+      </p>
+    </div>
+
+    <!-- Phase Selector Tabs -->
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 mb-8">
+      <!-- Tab M -->
+      <button onclick="selectPhase(0)" id="tab-phase-0" class="phase-tab active text-left p-4 rounded-2xl border-2 border-brand-teal bg-teal-50/70 dark:bg-teal-950/40 transition-all flex flex-col justify-between">
+        <div class="flex items-center justify-between w-full">
+          <span class="w-8 h-8 rounded-xl bg-brand-teal text-white flex items-center justify-center font-bold text-sm">M</span>
+          <span class="text-xs font-bold text-brand-teal">Semanas 1–2</span>
+        </div>
+        <div class="mt-4">
+          <div class="font-bold text-sm sm:text-base text-slate-900 dark:text-white">Mapeo de Identidad</div>
+          <div class="text-xs text-slate-500 dark:text-slate-400">Deconstruir miedos</div>
+        </div>
+      </button>
+
+      <!-- Tab A -->
+      <button onclick="selectPhase(1)" id="tab-phase-1" class="phase-tab text-left p-4 rounded-2xl border-2 border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 transition-all flex flex-col justify-between hover:border-slate-300">
+        <div class="flex items-center justify-between w-full">
+          <span class="w-8 h-8 rounded-xl bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 flex items-center justify-center font-bold text-sm">A</span>
+          <span class="text-xs font-bold text-slate-500">Semanas 3–5</span>
+        </div>
+        <div class="mt-4">
+          <div class="font-bold text-sm sm:text-base text-slate-900 dark:text-white">Acción Guiada</div>
+          <div class="text-xs text-slate-500 dark:text-slate-400">Habit Stacking & Voz</div>
+        </div>
+      </button>
+
+      <!-- Tab P -->
+      <button onclick="selectPhase(2)" id="tab-phase-2" class="phase-tab text-left p-4 rounded-2xl border-2 border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 transition-all flex flex-col justify-between hover:border-slate-300">
+        <div class="flex items-center justify-between w-full">
+          <span class="w-8 h-8 rounded-xl bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 flex items-center justify-center font-bold text-sm">P</span>
+          <span class="text-xs font-bold text-slate-500">Semanas 6–8</span>
+        </div>
+        <div class="mt-4">
+          <div class="font-bold text-sm sm:text-base text-slate-900 dark:text-white">Práctica Contextual</div>
+          <div class="text-xs text-slate-500 dark:text-slate-400">Proyectos de legado</div>
+        </div>
+      </button>
+
+      <!-- Tab A (Social) -->
+      <button onclick="selectPhase(3)" id="tab-phase-3" class="phase-tab text-left p-4 rounded-2xl border-2 border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 transition-all flex flex-col justify-between hover:border-slate-300">
+        <div class="flex items-center justify-between w-full">
+          <span class="w-8 h-8 rounded-xl bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 flex items-center justify-center font-bold text-sm">A</span>
+          <span class="text-xs font-bold text-slate-500">Semanas 9–12</span>
+        </div>
+        <div class="mt-4">
+          <div class="font-bold text-sm sm:text-base text-slate-900 dark:text-white">Activación Social</div>
+          <div class="text-xs text-slate-500 dark:text-slate-400">Mentoría y comunidad</div>
+        </div>
+      </button>
+    </div>
+
+    <!-- Phase Content Card Display -->
+    <div id="phase-card" class="bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 p-6 sm:p-10 custom-shadow transition-all">
+      <!-- Dynamic Content inserted via JS -->
+    </div>
+  </section>
+
+  <!-- Habit Stacking Generator (BJ Fogg Behavior Model) -->
+  <section id="anclaje" class="py-16 bg-slate-100/70 dark:bg-slate-900/60 border-y border-slate-200 dark:border-slate-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="grid lg:grid-cols-12 gap-12 items-center">
+        <!-- Explanatory Column -->
+        <div class="lg:col-span-5 space-y-4">
+          <div class="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-brand-amber bg-amber-100 dark:bg-amber-950/70 px-3 py-1 rounded-full">
+            <i class="fa-solid fa-fire"></i>
+            <span>Ciencia del Comportamiento</span>
+          </div>
+          <h2 class="font-heading text-3xl font-bold text-slate-900 dark:text-white">
+            Generador de Anclaje de Hábitos <span class="text-brand-amber">(Habit Stacking)</span>
+          </h2>
+          <p class="text-slate-600 dark:text-slate-300 text-base leading-relaxed">
+            Para una persona mayor de 50 años, memorizar software nuevo genera agotamiento. En cambio, si vinculamos la acción de IA a un hábito que ya realizas desde hace años (el café de la mañana, la caminata o la revisión de extractos), el cerebro adopta la rutina sin esfuerzo.
+          </p>
+          <div class="p-4 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-sm">
+            <span class="font-bold text-slate-800 dark:text-white block mb-1">La Fórmula de BJ Fogg:</span>
+            <span class="text-slate-600 dark:text-slate-300 font-mono text-xs block">
+              [Disparador Consolidado] + [Micro-Acción de IA &lt; 2 min] = [Recompensa Inmediata]
+            </span>
+          </div>
+        </div>
+
+        <!-- Interactive Configurator Box -->
+        <div class="lg:col-span-7">
+          <div class="bg-white dark:bg-slate-900 rounded-3xl p-6 sm:p-8 border border-slate-200 dark:border-slate-800 custom-shadow-lg space-y-6">
+            <h3 class="font-heading text-lg font-bold text-slate-900 dark:text-white flex items-center gap-2">
+              <i class="fa-solid fa-wand-magic-sparkles text-brand-teal"></i>
+              <span>Diseña tu Anclaje Personalizado</span>
+            </h3>
+
+            <!-- Step 1: Trigger -->
+            <div>
+              <label class="block text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-2">
+                1. Selecciona tu Hábito Actual Consolidado (Disparador):
+              </label>
+              <select id="stacking-trigger" class="w-full p-3.5 rounded-2xl border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white font-medium focus:ring-2 focus:ring-brand-teal focus:outline-hidden text-sm sm:text-base">
+                <option value="cafe">☕ Mientras tomo mi primer café matutino (7:30 AM)</option>
+                <option value="extractos">📑 Cuando me llega el extracto bancario o recibo pensional por email</option>
+                <option value="reunion">🗣️ Justo al terminar una llamada o reunión de trabajo/familia</option>
+                <option value="noticias">📰 Mientras leo las noticias o artículos de opinión en la tableta</option>
+                <option value="caminata">🚶 Al regresar de mi caminata diaria de ejercicio</option>
+              </select>
+            </div>
+
+            <!-- Step 2: Role / Focus -->
+            <div>
+              <label class="block text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-2">
+                2. Selecciona tu Enfoque o Rol Profesional Previo:
+              </label>
+              <div class="grid grid-cols-2 sm:grid-cols-3 gap-2">
+                <button type="button" onclick="setStackingRole('financiero')" class="stacking-role-btn active p-3 rounded-xl border border-brand-teal bg-teal-50 dark:bg-teal-950/60 text-xs font-bold text-slate-800 dark:text-slate-200 text-center">
+                  Finanzas & Negocios
+                </button>
+                <button type="button" onclick="setStackingRole('consultoria')" class="stacking-role-btn p-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-xs font-bold text-slate-700 dark:text-slate-300 text-center">
+                  Consultoría & Gestión
+                </button>
+                <button type="button" onclick="setStackingRole('educacion')" class="stacking-role-btn p-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-xs font-bold text-slate-700 dark:text-slate-300 text-center">
+                  Educación / Redacción
+                </button>
+              </div>
+            </div>
+
+            <!-- Generated Stacking Card Output -->
+            <div class="p-5 rounded-2xl bg-gradient-to-br from-slate-900 to-slate-800 text-white space-y-3 relative overflow-hidden">
+              <div class="flex items-center justify-between">
+                <span class="text-xs font-mono text-teal-400 font-bold uppercase tracking-widest">Tarjeta de Anclaje Diario</span>
+                <button onclick="copyStackingPrompt()" class="text-xs text-slate-300 hover:text-white flex items-center gap-1.5 bg-slate-700/60 px-3 py-1.5 rounded-lg transition-colors" title="Copiar prompt al portapapeles">
+                  <i class="fa-regular fa-copy"></i>
+                  <span id="copy-status">Copiar Prompt</span>
+                </button>
+              </div>
+              
+              <div class="space-y-1">
+                <div class="text-xs text-slate-400">Tu anclaje diario estructurado:</div>
+                <div id="stacking-statement" class="text-sm sm:text-base font-bold text-amber-300">
+                  "Apenas me sirva mi café matutino, abriré el asistente por voz y le diré..."
+                </div>
+              </div>
+
+              <div class="bg-black/30 p-3 rounded-xl border border-white/10 font-mono text-xs text-teal-200/90 leading-relaxed" id="stacking-prompt-text">
+                "Actúa como mi analista financiero sénior. Extrae los 3 cobros más altos de este resumen bancario y dime en 2 oraciones si coinciden con mi patrón de gasto habitual."
+              </div>
+
+              <div class="text-xs text-slate-400 flex items-center gap-2 pt-1">
+                <i class="fa-solid fa-gift text-brand-teal"></i>
+                <span id="stacking-reward">Recompensa: 15 minutos ahorrados y tranquilidad mental garantizada.</span>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- 4-Level Reskilling Matrix Section -->
+  <section id="matriz" class="py-16 lg:py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+    <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
+      <div>
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-100 dark:bg-blue-950/60 text-blue-800 dark:text-blue-300 text-xs font-semibold mb-3">
+          <i class="fa-solid fa-stairs"></i>
+          <span>Curva de Maduración Cognitiva</span>
+        </div>
+        <h2 class="font-heading text-3xl sm:text-4xl font-bold text-slate-950 dark:text-white">
+          Matriz de Reskilling: De Explorador a Mentor Silver
+        </h2>
+        <p class="text-slate-600 dark:text-slate-400 mt-2 max-w-2xl text-base">
+          El aprendizaje no ocurre de golpe. Cada nivel consolida una habilidad específica antes de avanzar a la siguiente, evitando la frustración.
+        </p>
+      </div>
+
+      <!-- Quick stats badge -->
+      <div class="bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-4 rounded-2xl flex items-center gap-4 shrink-0">
+        <div class="w-12 h-12 rounded-xl bg-brand-blue/10 text-brand-blue flex items-center justify-center text-xl">
+          <i class="fa-solid fa-chart-line"></i>
+        </div>
+        <div>
+          <div class="text-xs text-slate-500 dark:text-slate-400 font-medium">Tiempo de práctica recomendado</div>
+          <div class="text-lg font-bold text-slate-900 dark:text-white font-heading">15 a 20 min / día</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Levels Grid -->
+    <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+      
+      <!-- Level 1 -->
+      <div class="bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 p-6 custom-shadow flex flex-col justify-between hover:-translate-y-1 transition-all">
+        <div>
+          <div class="flex items-center justify-between mb-4">
+            <span class="w-9 h-9 rounded-xl bg-teal-100 dark:bg-teal-900/50 text-brand-teal flex items-center justify-center font-bold text-sm">1</span>
+            <span class="text-xs font-bold text-slate-500 bg-slate-100 dark:bg-slate-800 px-2.5 py-1 rounded-full">5 min/día</span>
+          </div>
+          <h3 class="font-heading text-lg font-bold text-slate-900 dark:text-white">Nivel 1: Explorador</h3>
+          <p class="text-xs text-brand-teal font-semibold mt-0.5">Perder el miedo & Hablar con la IA</p>
+          <p class="text-xs text-slate-600 dark:text-slate-400 mt-3 leading-relaxed">
+            Eliminación de la fobia al error mediante comandos de voz bidireccionales y transcripción rápida de ideas.
+          </p>
+
+          <div class="mt-4 pt-4 border-t border-slate-100 dark:border-slate-800 space-y-2">
+            <div class="text-xs font-bold text-slate-700 dark:text-slate-300">Herramientas clave:</div>
+            <ul class="text-xs text-slate-500 dark:text-slate-400 space-y-1">
+              <li>• Asistentes de voz en el teléfono</li>
+              <li>• Dictado por voz (Whisper / STT)</li>
+              <li>• Resumen de noticias y salud</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="mt-6 pt-4 border-t border-slate-100 dark:border-slate-800">
+          <div class="text-[11px] font-semibold text-slate-500 uppercase tracking-wider">Entregable tangible:</div>
+          <div class="text-xs font-bold text-slate-800 dark:text-slate-200 mt-1">
+            "Resumen diario de 3 noticias clave generado solo con mi voz."
+          </div>
+        </div>
+      </div>
+
+      <!-- Level 2 -->
+      <div class="bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 p-6 custom-shadow flex flex-col justify-between hover:-translate-y-1 transition-all">
+        <div>
+          <div class="flex items-center justify-between mb-4">
+            <span class="w-9 h-9 rounded-xl bg-blue-100 dark:bg-blue-900/50 text-brand-blue flex items-center justify-center font-bold text-sm">2</span>
+            <span class="text-xs font-bold text-slate-500 bg-slate-100 dark:bg-slate-800 px-2.5 py-1 rounded-full">15 min/día</span>
+          </div>
+          <h3 class="font-heading text-lg font-bold text-slate-900 dark:text-white">Nivel 2: Asistente Personal</h3>
+          <p class="text-xs text-brand-blue font-semibold mt-0.5">Delegación de Operativa Repetitiva</p>
+          <p class="text-xs text-slate-600 dark:text-slate-400 mt-3 leading-relaxed">
+            Ahorro de horas en lectura de documentos extensos, análisis de contratos simples y redacción de reclamos.
+          </p>
+
+          <div class="mt-4 pt-4 border-t border-slate-100 dark:border-slate-800 space-y-2">
+            <div class="text-xs font-bold text-slate-700 dark:text-slate-300">Herramientas clave:</div>
+            <ul class="text-xs text-slate-500 dark:text-slate-400 space-y-1">
+              <li>• Análisis de archivos PDF y tablas</li>
+              <li>• Extracción de datos de extractos</li>
+              <li>• Filtro contra estafas y phishing</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="mt-6 pt-4 border-t border-slate-100 dark:border-slate-800">
+          <div class="text-[11px] font-semibold text-slate-500 uppercase tracking-wider">Entregable tangible:</div>
+          <div class="text-xs font-bold text-slate-800 dark:text-slate-200 mt-1">
+            "Auditoría de comisiones de mi cuenta o pensión en 1 click."
+          </div>
+        </div>
+      </div>
+
+      <!-- Level 3 -->
+      <div class="bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 p-6 custom-shadow flex flex-col justify-between hover:-translate-y-1 transition-all">
+        <div>
+          <div class="flex items-center justify-between mb-4">
+            <span class="w-9 h-9 rounded-xl bg-amber-100 dark:bg-amber-900/50 text-brand-amber flex items-center justify-center font-bold text-sm">3</span>
+            <span class="text-xs font-bold text-slate-500 bg-slate-100 dark:bg-slate-800 px-2.5 py-1 rounded-full">30 min/día</span>
+          </div>
+          <h3 class="font-heading text-lg font-bold text-slate-900 dark:text-white">Nivel 3: Creador & Analista</h3>
+          <p class="text-xs text-brand-amber font-semibold mt-0.5">Cocreación & Proyectos de Legado</p>
+          <p class="text-xs text-slate-600 dark:text-slate-400 mt-3 leading-relaxed">
+            Estructuración de proyectos complejos: memorias familiares, propuestas de consultoría independiente o cursos.
+          </p>
+
+          <div class="mt-4 pt-4 border-t border-slate-100 dark:border-slate-800 space-y-2">
+            <div class="text-xs font-bold text-slate-700 dark:text-slate-300">Herramientas clave:</div>
+            <ul class="text-xs text-slate-500 dark:text-slate-400 space-y-1">
+              <li>• RAG personal (base de conocimiento)</li>
+              <li>• Generación de borradores editoriales</li>
+              <li>• Presentaciones y esquemas visuales</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="mt-6 pt-4 border-t border-slate-100 dark:border-slate-800">
+          <div class="text-[11px] font-semibold text-slate-500 uppercase tracking-wider">Entregable tangible:</div>
+          <div class="text-xs font-bold text-slate-800 dark:text-slate-200 mt-1">
+            "Capítulo 1 de mi biografía o propuesta de consultoría senior."
+          </div>
+        </div>
+      </div>
+
+      <!-- Level 4 -->
+      <div class="bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 p-6 custom-shadow flex flex-col justify-between hover:-translate-y-1 transition-all">
+        <div>
+          <div class="flex items-center justify-between mb-4">
+            <span class="w-9 h-9 rounded-xl bg-violet-100 dark:bg-violet-900/50 text-brand-violet flex items-center justify-center font-bold text-sm">4</span>
+            <span class="text-xs font-bold text-slate-500 bg-slate-100 dark:bg-slate-800 px-2.5 py-1 rounded-full">Social</span>
+          </div>
+          <h3 class="font-heading text-lg font-bold text-slate-900 dark:text-white">Nivel 4: Mentor Silver</h3>
+          <p class="text-xs text-brand-violet font-semibold mt-0.5">Mentoría Inversa & Liderazgo Ético</p>
+          <p class="text-xs text-slate-600 dark:text-slate-400 mt-3 leading-relaxed">
+            Formar a pares en la comunidad y auditar éticamente los resultados de los sistemas autónomos de IA.
+          </p>
+
+          <div class="mt-4 pt-4 border-t border-slate-100 dark:border-slate-800 space-y-2">
+            <div class="text-xs font-bold text-slate-700 dark:text-slate-300">Herramientas clave:</div>
+            <ul class="text-xs text-slate-500 dark:text-slate-400 space-y-1">
+              <li>• Talleres de círculo de pares (Peer circles)</li>
+              <li>• Auditoría de alucinaciones y sesgos</li>
+              <li>• Clubes de economía plateada</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="mt-6 pt-4 border-t border-slate-100 dark:border-slate-800">
+          <div class="text-[11px] font-semibold text-slate-500 uppercase tracking-wider">Entregable tangible:</div>
+          <div class="text-xs font-bold text-slate-800 dark:text-slate-200 mt-1">
+            "Certificación como Mentor Silver para capacitar a 5 personas."
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Silver AI Simulator (Accessible Playground) -->
+  <section id="simulador" class="py-16 bg-slate-100/70 dark:bg-slate-900/60 border-y border-slate-200 dark:border-slate-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="text-center max-w-3xl mx-auto mb-10">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-teal-100 dark:bg-teal-950/80 text-brand-teal text-xs font-bold mb-2">
+          <i class="fa-solid fa-play"></i>
+          <span>Entorno de Práctica Protegido</span>
+        </div>
+        <h2 class="font-heading text-3xl font-bold text-slate-900 dark:text-white">
+          Simulador de Interacción Silver IA
+        </h2>
+        <p class="text-slate-600 dark:text-slate-400 text-sm sm:text-base mt-2">
+          Prueba cómo se siente interactuar con un copiloto de IA diseñado para la longevidad activa: tipografía clara, tono respetuoso y respuestas sin jerga incomprensible.
+        </p>
+      </div>
+
+      <!-- Simulator Container -->
+      <div class="max-w-4xl mx-auto bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 custom-shadow-lg overflow-hidden flex flex-col min-h-[520px]">
+        
+        <!-- Header of the Simulator -->
+        <div class="p-4 sm:p-5 bg-slate-50 dark:bg-slate-800/80 border-b border-slate-200 dark:border-slate-700 flex items-center justify-between flex-wrap gap-3">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-2xl bg-brand-teal text-white flex items-center justify-center font-bold">
+              <i class="fa-solid fa-feather"></i>
+            </div>
+            <div>
+              <div class="text-sm font-bold text-slate-900 dark:text-white">Copiloto Silver "Atenea"</div>
+              <div class="text-xs text-emerald-600 dark:text-emerald-400 font-medium flex items-center gap-1.5">
+                <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                <span>Modo Asistencia Sénior Activo</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Quick Scenario Selector -->
+          <div class="flex items-center gap-2">
+            <span class="text-xs text-slate-500 font-medium hidden sm:inline">Caso de uso:</span>
+            <select id="sim-scenario-select" onchange="loadScenario(this.value)" class="text-xs font-semibold p-2 rounded-xl bg-white dark:bg-slate-700 border border-slate-300 dark:border-slate-600 text-slate-800 dark:text-slate-200">
+              <option value="pension">📊 Explicar extracto pensional</option>
+              <option value="fraude">🛡️ Analizar mensaje sospechoso (Anti-fraude)</option>
+              <option value="memoria">📖 Grabar y estructurar memoria de vida</option>
+              <option value="consultoria">💼 Convertir experiencia en propuesta</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Chat Conversation Area -->
+        <div id="sim-chat-box" class="p-6 space-y-4 flex-1 overflow-y-auto bg-slate-50/50 dark:bg-slate-950/30 text-sm sm:text-base">
+          <!-- Default Bot Greeting -->
+          <div class="flex items-start gap-3">
+            <div class="w-8 h-8 rounded-xl bg-brand-teal/20 text-brand-teal flex items-center justify-center shrink-0 text-xs font-bold">IA</div>
+            <div class="bg-white dark:bg-slate-800 p-4 rounded-2xl rounded-tl-none border border-slate-200 dark:border-slate-700 max-w-xl text-slate-800 dark:text-slate-200 space-y-2">
+              <p>Hola. Estoy configurada para responderte en lenguaje claro, sin tecnicismos innecesarios y con la paciencia que mereces.</p>
+              <p class="text-xs text-slate-500 dark:text-slate-400">Puedes probar uno de los casos de uso predefinidos arriba o escribir cualquier duda que tengas sobre tu dinero, proyectos o tecnología.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Simulator Input Box -->
+        <div class="p-4 bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 space-y-3">
+          <div class="flex items-center gap-2">
+            <input type="text" id="sim-user-input" placeholder="Escribe tu consulta aquí o presiona el micrófono..." class="flex-1 p-3.5 rounded-2xl border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white placeholder-slate-400 focus:outline-hidden focus:ring-2 focus:ring-brand-teal text-sm sm:text-base" onkeydown="if(event.key==='Enter') sendSimMessage()">
+            
+            <!-- Simulated Voice Mic Button -->
+            <button onclick="simulateVoiceInput()" id="sim-mic-btn" class="w-12 h-12 rounded-2xl bg-amber-100 dark:bg-amber-900/40 text-brand-amber hover:bg-amber-200 dark:hover:bg-amber-800/40 flex items-center justify-center text-lg transition-colors shrink-0" title="Dictar por voz (Simulado)">
+              <i class="fa-solid fa-microphone"></i>
+            </button>
+
+            <!-- Send Button -->
+            <button onclick="sendSimMessage()" class="w-12 h-12 rounded-2xl bg-brand-teal text-white hover:bg-teal-700 flex items-center justify-center text-lg transition-colors shrink-0" title="Enviar consulta">
+              <i class="fa-solid fa-paper-plane"></i>
+            </button>
+          </div>
+          <div class="flex items-center justify-between text-xs text-slate-400 px-2">
+            <span>💡 Consejo: La IA funciona mejor cuando le explicas tu rol previo.</span>
+            <button onclick="clearChat()" class="hover:text-slate-600 dark:hover:text-slate-300 underline">Reiniciar conversación</button>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Diagnostic & 12-Week Personal Plan Section -->
+  <section id="diagnostico" class="py-16 lg:py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+    <div class="grid lg:grid-cols-12 gap-12">
+      
+      <!-- Diagnostic Questionnaire (Left) -->
+      <div class="lg:col-span-6 space-y-6">
+        <div>
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-violet-100 dark:bg-violet-950/60 text-brand-violet text-xs font-bold mb-3">
+            <i class="fa-solid fa-clipboard-check"></i>
+            <span>Evaluación Gratuita de 2 Minutos</span>
+          </div>
+          <h2 class="font-heading text-3xl font-bold text-slate-900 dark:text-white">
+            Diagnóstico de Madurez Silver IA
+          </h2>
+          <p class="text-slate-600 dark:text-slate-400 text-sm sm:text-base mt-2">
+            Responde 4 preguntas para determinar tu punto de partida exacto y generar tu plan personalizado de 12 semanas.
+          </p>
+        </div>
+
+        <form id="diag-form" onsubmit="calculateDiagnostic(event)" class="space-y-5 bg-white dark:bg-slate-900 p-6 sm:p-8 rounded-3xl border border-slate-200 dark:border-slate-800 custom-shadow">
+          
+          <!-- Question 1 -->
+          <div>
+            <label class="block text-sm font-bold text-slate-800 dark:text-slate-200 mb-2">
+              1. ¿Qué sensación te genera interactuar con herramientas como ChatGPT o asistentes de voz?
+            </label>
+            <div class="space-y-2">
+              <label class="flex items-center gap-3 p-3 rounded-xl border border-slate-200 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-800 cursor-pointer text-xs sm:text-sm">
+                <input type="radio" name="q1" value="1" checked class="text-brand-teal focus:ring-brand-teal">
+                <span>Temor a equivocarme, dañar el equipo o ser víctima de una estafa.</span>
+              </label>
+              <label class="flex items-center gap-3 p-3 rounded-xl border border-slate-200 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-800 cursor-pointer text-xs sm:text-sm">
+                <input type="radio" name="q1" value="2" class="text-brand-teal focus:ring-brand-teal">
+                <span>Curiosidad, pero no sé cómo aplicarla a mis tareas del día a día.</span>
+              </label>
+              <label class="flex items-center gap-3 p-3 rounded-xl border border-slate-200 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-800 cursor-pointer text-xs sm:text-sm">
+                <input type="radio" name="q1" value="3" class="text-brand-teal focus:ring-brand-teal">
+                <span>Confianza moderada: la uso ocasionalmente para redactar o buscar cosas.</span>
+              </label>
+            </div>
+          </div>
+
+          <!-- Question 2 -->
+          <div>
+            <label class="block text-sm font-bold text-slate-800 dark:text-slate-200 mb-2">
+              2. ¿Cuál es tu rutina tecnológica habitual?
+            </label>
+            <div class="space-y-2">
+              <label class="flex items-center gap-3 p-3 rounded-xl border border-slate-200 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-800 cursor-pointer text-xs sm:text-sm">
+                <input type="radio" name="q2" value="1" checked class="text-brand-teal focus:ring-brand-teal">
+                <span>WhatsApp básico y llamadas telefónicas tradicionales.</span>
+              </label>
+              <label class="flex items-center gap-3 p-3 rounded-xl border border-slate-200 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-800 cursor-pointer text-xs sm:text-sm">
+                <input type="radio" name="q2" value="2" class="text-brand-teal focus:ring-brand-teal">
+                <span>Manejo de correo electrónico, banca móvil elemental y lectura de prensa.</span>
+              </label>
+              <label class="flex items-center gap-3 p-3 rounded-xl border border-slate-200 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-800 cursor-pointer text-xs sm:text-sm">
+                <input type="radio" name="q2" value="3" class="text-brand-teal focus:ring-brand-teal">
+                <span>Gestión de documentos en la nube, videollamadas y herramientas de productividad.</span>
+              </label>
+            </div>
+          </div>
+
+          <!-- Question 3 -->
+          <div>
+            <label class="block text-sm font-bold text-slate-800 dark:text-slate-200 mb-2">
+              3. ¿Cuál es tu meta principal de nueva longevidad?
+            </label>
+            <div class="space-y-2">
+              <label class="flex items-center gap-3 p-3 rounded-xl border border-slate-200 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-800 cursor-pointer text-xs sm:text-sm">
+                <input type="radio" name="q3" value="autonomia" checked class="text-brand-teal focus:ring-brand-teal">
+                <span>Autonomía personal (ahorrar tiempo en trámites y no depender de mis hijos/terceros).</span>
+              </label>
+              <label class="flex items-center gap-3 p-3 rounded-xl border border-slate-200 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-800 cursor-pointer text-xs sm:text-sm">
+                <input type="radio" name="q3" value="consultoria" class="text-brand-teal focus:ring-brand-teal">
+                <span>Monetizar mi experiencia como consultor o asesor sénior independiente.</span>
+              </label>
+              <label class="flex items-center gap-3 p-3 rounded-xl border border-slate-200 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-800 cursor-pointer text-xs sm:text-sm">
+                <input type="radio" name="q3" value="legado" class="text-brand-teal focus:ring-brand-teal">
+                <span>Crear un legado cultural o familiar (libro, curso, archivo de memorias).</span>
+              </label>
+            </div>
+          </div>
+
+          <button type="submit" class="w-full py-3.5 rounded-2xl bg-gradient-to-r from-brand-violet to-brand-blue text-white font-bold text-sm sm:text-base shadow-lg shadow-violet-500/20 hover:opacity-95 transition-all">
+            Calcular mi Nivel y Generar Plan de 12 Semanas
+          </button>
+        </form>
+      </div>
+
+      <!-- Diagnostic Results & Plan Output (Right) -->
+      <div class="lg:col-span-6 flex flex-col justify-between">
+        
+        <div id="diag-results-container" class="bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 p-6 sm:p-8 custom-shadow h-full flex flex-col justify-between">
+          
+          <div>
+            <div class="flex items-center justify-between pb-6 border-b border-slate-100 dark:border-slate-800">
+              <div>
+                <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">Tu Nivel de Entrada Sugerido</span>
+                <h3 id="diag-level-title" class="font-heading text-2xl font-bold text-brand-teal mt-1">
+                  Nivel 1: Explorador de Confianza
+                </h3>
+              </div>
+              <div id="diag-badge-score" class="w-14 h-14 rounded-2xl bg-teal-100 dark:bg-teal-950 text-brand-teal flex items-center justify-center font-bold text-xl">
+                L1
+              </div>
+            </div>
+
+            <!-- Focus Summary -->
+            <div class="my-6 space-y-4">
+              <div class="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-100 dark:border-slate-800">
+                <h4 class="text-xs font-bold text-slate-400 uppercase">Objetivo Clave:</h4>
+                <p id="diag-goal-text" class="text-sm font-semibold text-slate-800 dark:text-slate-200 mt-1">
+                  Desarrollar el hábito de interactuar por voz durante 5 minutos diarios sin temor a errores.
+                </p>
+              </div>
+
+              <!-- Roadmap Preview (12 Weeks) -->
+              <div class="space-y-2">
+                <div class="text-xs font-bold text-slate-500 uppercase tracking-wider">Hoja de Ruta Personal (12 Semanas):</div>
+                
+                <div class="space-y-2 text-xs sm:text-sm">
+                  <div class="flex items-start gap-3 p-3 rounded-xl bg-slate-50 dark:bg-slate-800">
+                    <span class="font-bold text-brand-teal shrink-0">Sem 1–2:</span>
+                    <span class="text-slate-600 dark:text-slate-300">Auditoría de hábitos manuales y configuración de entorno seguro en celular.</span>
+                  </div>
+                  <div class="flex items-start gap-3 p-3 rounded-xl bg-slate-50 dark:bg-slate-800">
+                    <span class="font-bold text-brand-teal shrink-0">Sem 3–5:</span>
+                    <span class="text-slate-600 dark:text-slate-300">Anclaje con el café matutino: transcripción de notas y dictado de correspondencia.</span>
+                  </div>
+                  <div class="flex items-start gap-3 p-3 rounded-xl bg-slate-50 dark:bg-slate-800">
+                    <span class="font-bold text-brand-teal shrink-0">Sem 6–8:</span>
+                    <span class="text-slate-600 dark:text-slate-300">Proyecto práctico: análisis y optimización de gastos pensionales/financieros.</span>
+                  </div>
+                  <div class="flex items-start gap-3 p-3 rounded-xl bg-slate-50 dark:bg-slate-800">
+                    <span class="font-bold text-brand-teal shrink-0">Sem 9–12:</span>
+                    <span class="text-slate-600 dark:text-slate-300">Círculo social: compartir un prompt útil con 2 colegas o familiares cercanos.</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Plan Action buttons -->
+          <div class="pt-4 border-t border-slate-100 dark:border-slate-800 flex flex-wrap gap-3">
+            <button onclick="printOrExportPlan()" class="flex-1 py-3 rounded-xl bg-slate-800 dark:bg-slate-700 text-white font-semibold text-xs sm:text-sm flex items-center justify-center gap-2 hover:bg-slate-700 transition-colors">
+              <i class="fa-solid fa-download"></i>
+              <span>Guardar / Imprimir mi Plan</span>
+            </button>
+            <button onclick="showCustomModal('Inscripción al Círculo Silver', '¡Excelente decisión! Te vincularemos con un grupo de pares de 4 personas para acompañarte en tu primera semana sin costo ni compromisos.')" class="px-5 py-3 rounded-xl bg-brand-teal text-white font-semibold text-xs sm:text-sm flex items-center justify-center gap-2 hover:bg-teal-700 transition-colors">
+              <i class="fa-solid fa-users"></i>
+              <span>Unirme a Círculo de Pares</span>
+            </button>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Educational Glossary & Key Concepts -->
+  <section class="py-16 bg-slate-100/70 dark:bg-slate-900/60 border-t border-slate-200 dark:border-slate-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center max-w-2xl mx-auto mb-10">
+        <h2 class="font-heading text-2xl sm:text-3xl font-bold text-slate-900 dark:text-white">
+          Glosario Esencial de la Nueva Longevidad
+        </h2>
+        <p class="text-slate-600 dark:text-slate-400 text-sm mt-2">
+          Conceptos clave desmitificados para navegar la era de la inteligencia artificial con total claridad.
+        </p>
+      </div>
+
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+        
+        <div class="bg-white dark:bg-slate-900 p-5 rounded-2xl border border-slate-200 dark:border-slate-800 custom-shadow">
+          <div class="text-brand-teal font-bold text-base mb-1">Economía Plateada (Silver Economy)</div>
+          <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+            Actividad económica y de innovación enfocada en satisfacer y potenciar las capacidades de la población mayor de 50 años, reconociéndola como motor activo de consumo y conocimiento.
+          </p>
+        </div>
+
+        <div class="bg-white dark:bg-slate-900 p-5 rounded-2xl border border-slate-200 dark:border-slate-800 custom-shadow">
+          <div class="text-brand-teal font-bold text-base mb-1">Andragogía</div>
+          <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+            Conjunto de técnicas de enseñanza orientadas específicamente a personas adultas, basadas en la experiencia previa, la resolución práctica de problemas y el respeto a la autonomía.
+          </p>
+        </div>
+
+        <div class="bg-white dark:bg-slate-900 p-5 rounded-2xl border border-slate-200 dark:border-slate-800 custom-shadow">
+          <div class="text-brand-teal font-bold text-base mb-1">Habit Stacking (Anclaje)</div>
+          <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+            Estrategia de psicología conductual que consiste en unir una nueva acción que deseas aprender justo después de un hábito que ya realizas de manera automática todos los días.
+          </p>
+        </div>
+
+        <div class="bg-white dark:bg-slate-900 p-5 rounded-2xl border border-slate-200 dark:border-slate-800 custom-shadow">
+          <div class="text-brand-teal font-bold text-base mb-1">Prompting por Rol</div>
+          <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+            Método de instrucción a la IA donde le otorgas un rol específico ("actúa como mi auditor contable"), permitiendo que el criterio del sénior guíe y evalúe la calidad del resultado.
+          </p>
+        </div>
+
+        <div class="bg-white dark:bg-slate-900 p-5 rounded-2xl border border-slate-200 dark:border-slate-800 custom-shadow">
+          <div class="text-brand-teal font-bold text-base mb-1">Modelo Fijital (Phygital)</div>
+          <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+            Integración de la calidez del trato humano y presencial (físico) con la agilidad y conveniencia de las herramientas de autoservicio digital.
+          </p>
+        </div>
+
+        <div class="bg-white dark:bg-slate-900 p-5 rounded-2xl border border-slate-200 dark:border-slate-800 custom-shadow">
+          <div class="text-brand-teal font-bold text-base mb-1">Mentoría Inversa</div>
+          <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+            Intercambio de doble vía donde los más jóvenes aportan trucos de fluidez digital, mientras los adultos mayores transfieren visión de negocio, ética y gestión humana.
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Custom Accessible Modal Dialog (No alerts) -->
+  <div id="custom-modal" class="fixed inset-0 z-50 bg-black/60 backdrop-blur-xs hidden flex items-center justify-center p-4">
+    <div class="bg-white dark:bg-slate-900 rounded-3xl max-w-md w-full p-6 sm:p-8 border border-slate-200 dark:border-slate-800 custom-shadow-lg transform transition-all space-y-4">
+      <div class="w-12 h-12 rounded-2xl bg-teal-100 dark:bg-teal-900/50 text-brand-teal flex items-center justify-center text-xl">
+        <i class="fa-solid fa-bell"></i>
+      </div>
+      <h3 id="modal-title" class="font-heading text-xl font-bold text-slate-900 dark:text-white">Notificación</h3>
+      <p id="modal-body" class="text-slate-600 dark:text-slate-300 text-sm leading-relaxed">Mensaje del sistema.</p>
+      <div class="pt-2">
+        <button onclick="closeCustomModal()" class="w-full py-3 rounded-xl bg-brand-teal text-white font-semibold text-sm hover:bg-teal-700 transition-colors">
+          Entendido
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="mt-auto border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 py-10">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div class="flex items-center gap-2">
+        <div class="w-8 h-8 rounded-xl bg-brand-teal flex items-center justify-center text-white text-sm font-bold">
+          <i class="fa-solid fa-brain"></i>
+        </div>
+        <span class="font-heading font-bold text-slate-800 dark:text-white text-sm">Metodología MAPA-IA</span>
+        <span class="text-xs text-slate-400">| Silver Longevity Initiative</span>
+      </div>
+      <p class="text-xs text-slate-500 dark:text-slate-400 text-center sm:text-right">
+        Diseñado bajo principios de andragogía, accesibilidad cognitiva y diseño ético para la longevidad activa.
+      </p>
+    </div>
+  </footer>
+
+  <script>
+    // State management for Phase Explorer
+    const phasesData = [
+      {
+        letter: "M",
+        tag: "Semanas 1 y 2",
+        title: "Fase 1: Mapeo de Identidad & Deconstrucción de Fricciones",
+        goal: "Desmitificar la IA, identificar tareas cotidianas desgastantes y crear un 'Micromomento Seguro' sin miedo a estafas o cobros.",
+        actions: [
+          "Auditoría personal: listar 3 tareas manuales que toman más de 30 min (revisar extractos, responder reclamos, ordenar recibos).",
+          "Configuración del perímetro seguro: verificación en 2 pasos, navegación sin riesgo de compartir claves bancarias.",
+          "Regla de los 2 minutos: interacciones de un solo comando con gratificación instantánea."
+        ],
+        prompt: "Actúa como un tutor de tecnología amigable. Explícame en 3 puntos muy sencillos qué es un prompt y dame un ejemplo para redactar un saludo formal a mi banco.",
+        metric: "Reducción de la ansiedad tecnológica autoevaluada de 4/5 a 2/5."
+      },
+      {
+        letter: "A",
+        tag: "Semanas 3 a 5",
+        title: "Fase 2: Acción Guiada & Anclaje (Habit Stacking)",
+        goal: "Instalar el hábito diario vinculándolo a una rutina ya grabada en el cerebro (café matutino, caminata o lectura de noticias).",
+        actions: [
+          "Implementar el marco Disparador -> Rutina -> Recompensa de BJ Fogg.",
+          "Priorizar comandos por voz bidireccionales sobre la digitación para reducir fatiga visual y muscular.",
+          "Enseñar el 'Prompting por Roles': el sénior instruye a la IA a asumir su especialidad previa (auditor, educador, consultor)."
+        ],
+        prompt: "Actúa como mi asistente personal sénior. Voy a dictarte 3 compromisos que tengo hoy y tú me los vas a organizar por orden de importancia en una lista clara.",
+        metric: "Frecuencia de uso: mínimo 5 días a la semana durante 10 minutos."
+      },
+      {
+        letter: "P",
+        tag: "Semanas 6 a 8",
+        title: "Fase 3: Práctica Contextual & Proyectos de Legado",
+        goal: "Trascender la curiosidad creando un entregable de valor real: biografía, análisis financiero o propuesta de consultoría profesional.",
+        actions: [
+          "Proyecto de legado personal: digitalizar memorias de vida, cartas o recetas familiares con voz.",
+          "Auditoría financiera: subir resúmenes de extractos (sin datos sensibles) para detectar cargos innecesarios o comisiones ocultas.",
+          "Entrenamiento en detección de alucinaciones: utilizar el criterio acumulado del adulto para validar información."
+        ],
+        prompt: "Tengo este borrador de una recomendación financiera para un cliente. Revisa si el tono es formal, verifica la coherencia y resalta en negrita las 3 conclusiones más importantes.",
+        metric: "1 entregable de legado completado y verificado por el usuario."
+      },
+      {
+        letter: "A",
+        tag: "Semanas 9 a 12",
+        title: "Fase 4: Activación Social & Círculos de Pares",
+        goal: "Garantizar la permanencia del hábito a través de la pertenencia comunitaria, la mentoría inversa y el sentido de propósito.",
+        actions: [
+          "Creación de células de aprendizaje (Peer Circles) de 4 a 6 personas para compartir prompts y descubrimientos.",
+          "Dinámica de mentoría inversa: el joven aporta agilidad en herramientas y el sénior aporta visión estratégica y ética.",
+          "Certificación como Mentor Silver: los usuarios avanzados enseñan a nuevos miembros de su comunidad o club."
+        ],
+        prompt: "Diseña una guía de 1 página con 4 consejos de ciberseguridad sencillos que un adulto mayor de 70 años pueda entender y aplicar para no caer en fraudes telefónicos.",
+        metric: "Participación activa en al menos 2 sesiones de mentoría con pares."
+      }
+    ];
+
+    let currentPhaseIndex = 0;
+
+    // Render Phase Card
+    function renderPhaseCard(index) {
+      const data = phasesData[index];
+      const card = document.getElementById('phase-card');
+      if (!card) return;
+
+      card.innerHTML = `
+        <div class="grid lg:grid-cols-12 gap-8 items-start">
+          <div class="lg:col-span-7 space-y-4">
+            <div class="flex items-center gap-3">
+              <span class="px-3 py-1 rounded-full bg-brand-teal/10 text-brand-teal font-bold text-xs">
+                ${data.tag}
+              </span>
+              <span class="text-xs font-mono text-slate-400">Pilar Metodológico ${data.letter}</span>
+            </div>
+            
+            <h3 class="font-heading text-2xl sm:text-3xl font-bold text-slate-900 dark:text-white">
+              ${data.title}
+            </h3>
+            
+            <p class="text-slate-600 dark:text-slate-300 text-sm sm:text-base leading-relaxed">
+              ${data.goal}
+            </p>
+
+            <div class="space-y-2 pt-2">
+              <span class="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">Acciones Concretas:</span>
+              <ul class="space-y-2 text-xs sm:text-sm text-slate-700 dark:text-slate-300">
+                ${data.actions.map(act => `<li class="flex items-start gap-2"><i class="fa-solid fa-circle-check text-brand-teal mt-0.5 shrink-0"></i><span>${act}</span></li>`).join('')}
+              </ul>
+            </div>
+
+            <div class="p-3.5 rounded-xl bg-teal-50 dark:bg-teal-950/40 border border-teal-200 dark:border-teal-800 text-xs text-teal-900 dark:text-teal-200 flex items-center gap-2">
+              <i class="fa-solid fa-bullseye text-brand-teal"></i>
+              <span><strong>Métrica de éxito:</strong> ${data.metric}</span>
+            </div>
+          </div>
+
+          <div class="lg:col-span-5 bg-slate-50 dark:bg-slate-800 p-5 rounded-2xl border border-slate-200 dark:border-slate-700 space-y-3">
+            <div class="flex items-center justify-between text-xs font-bold text-slate-500">
+              <span>PROMPT MODELO DE LA FASE</span>
+              <i class="fa-solid fa-terminal text-brand-teal"></i>
+            </div>
+            <div class="p-4 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-xs font-mono text-slate-800 dark:text-teal-300 leading-relaxed">
+              "${data.prompt}"
+            </div>
+            <button onclick="copyText('${data.prompt}')" class="w-full py-2.5 rounded-xl bg-brand-teal text-white font-semibold text-xs flex items-center justify-center gap-2 hover:bg-teal-700 transition-colors">
+              <i class="fa-regular fa-copy"></i>
+              <span>Copiar este Prompt</span>
+            </button>
+          </div>
+        </div>
+      `;
+    }
+
+    // Select Phase Tab Handler
+    function selectPhase(index) {
+      currentPhaseIndex = index;
+      document.querySelectorAll('.phase-tab').forEach((tab, i) => {
+        if (i === index) {
+          tab.classList.add('active', 'border-brand-teal', 'bg-teal-50/70', 'dark:bg-teal-950/40');
+          tab.classList.remove('border-slate-200', 'dark:border-slate-800', 'bg-white', 'dark:bg-slate-900');
+        } else {
+          tab.classList.remove('active', 'border-brand-teal', 'bg-teal-50/70', 'dark:bg-teal-950/40');
+          tab.classList.add('border-slate-200', 'dark:border-slate-800', 'bg-white', 'dark:bg-slate-900');
+        }
+      });
+      renderPhaseCard(index);
+    }
+
+    // Stacking Configuration Matrix
+    let selectedStackingRole = 'financiero';
+
+    const stackingData = {
+      cafe: {
+        triggerText: "Apenas tome mi primer café matutino",
+        financiero: {
+          prompt: "Actúa como mi analista financiero sénior. Extrae los 3 cobros más altos de este resumen bancario y dime en 2 oraciones si coinciden con mi patrón de gasto habitual.",
+          reward: "15 minutos ahorrados y cero sobresaltos financieros."
+        },
+        consultoria: {
+          prompt: "Actúa como consultor estratégico. Revisa mi agenda de hoy y redacta 3 preguntas poderosas para la primera llamada de la mañana.",
+          reward: "Claridad mental absoluta antes de iniciar el día."
+        },
+        educacion: {
+          prompt: "Resume en 150 palabras el artículo que te pego a continuación, destacando 2 ideas principales para conversar con mis colegas.",
+          reward: "Conocimiento fresco sin saturación de pantalla."
+        }
+      },
+      extractos: {
+        triggerText: "Apenas reciba una notificación de cobro o extracto por correo",
+        financiero: {
+          prompt: "Analiza esta tabla de cobros de seguro y pensión. Explícame en palabras sencillas si hubo algún incremento imprevisto frente al mes pasado.",
+          reward: "Control de gastos sin fatiga matemática."
+        },
+        consultoria: {
+          prompt: "Revisa este informe de honorarios. Compara las horas registradas y genera un borrador de cuenta de cobro formal.",
+          reward: "Gestión administrativa resuelta en 1 click."
+        },
+        educacion: {
+          prompt: "Identifica si este correo contiene lenguaje manipulador, urgencia injustificada o indicios de suplantación bancaria.",
+          reward: "Seguridad digital y tranquilidad garantizada."
+        }
+      },
+      reunion: {
+        triggerText: "Apenas finalice una reunión o llamada importante",
+        financiero: {
+          prompt: "Voy a dictarte mis notas de voz sobre la conversación con el asesor de inversiones. Organízalas en: acuerdos, dudas pendientes y fecha de seguimiento.",
+          reward: "Memoria de compromisos sin perder detalles clave."
+        },
+        consultoria: {
+          prompt: "Estructura esta minuta de reunión en 3 puntos: situación actual, decisión tomada y próximos entregables con responsables.",
+          reward: "Autoridad profesional y agilidad ejecutiva impecable."
+        },
+        educacion: {
+          prompt: "Convierte mis apuntes rápidos en un correo de agradecimiento claro y cálido para todos los asistentes.",
+          reward: "Relaciones interpersonales fortalecidas."
+        }
+      },
+      noticias: {
+        triggerText: "Mientras leo la prensa en la tableta o computador",
+        financiero: {
+          prompt: "Explícame cómo impacta la decisión de tasas del Banco Central en mi pensión o CDT en 2 párrafos fáciles de entender.",
+          reward: "Criterio financiero propio sin sesgos periodísticos."
+        },
+        consultoria: {
+          prompt: "Extrae 2 oportunidades de consultoría para empresas medianas a partir de esta nueva normativa económica.",
+          reward: "Detección de nichos de mercado activos."
+        },
+        educacion: {
+          prompt: "Busca contraargumentos sólidos a la columna de opinión que acabo de leer para ejercitar mi pensamiento crítico.",
+          reward: "Agilidad cognitiva activa y estimulada."
+        }
+      },
+      caminata: {
+        triggerText: "Al cruzar la puerta de regreso de mi caminata diaria",
+        financiero: {
+          prompt: "Dictado por voz: 'Anota en mi balance semanal que gasté $45.000 en la farmacia y categorízalo en salud preventiva'.",
+          reward: "Presupuesto al día sin esfuerzo manual."
+        },
+        consultoria: {
+          prompt: "Durante la caminata tuve una idea de proyecto. Te la voy a contar por voz; estrúcturala como una hipótesis de negocio en 3 viñetas.",
+          reward: "Creatividad capturada al instante."
+        },
+        educacion: {
+          prompt: "Quiero recordar una anécdota de mi infancia para mi libro de memorias. Escúchala y dame 2 preguntas para enriquecer el relato.",
+          reward: "Preservación del legado familiar paso a paso."
+        }
+      }
+    };
+
+    function updateStackingDisplay() {
+      const triggerSelect = document.getElementById('stacking-trigger');
+      const triggerVal = triggerSelect ? triggerSelect.value : 'cafe';
+      const conf = stackingData[triggerVal][selectedStackingRole];
+
+      const statementEl = document.getElementById('stacking-statement');
+      const promptEl = document.getElementById('stacking-prompt-text');
+      const rewardEl = document.getElementById('stacking-reward');
+
+      if (statementEl) statementEl.innerText = `"${stackingData[triggerVal].triggerText}, abriré la herramienta de IA y diré..."`;
+      if (promptEl) promptEl.innerText = `"${conf.prompt}"`;
+      if (rewardEl) rewardEl.innerText = `Recompensa: ${conf.reward}`;
+    }
+
+    function setStackingRole(role) {
+      selectedStackingRole = role;
+      document.querySelectorAll('.stacking-role-btn').forEach(btn => {
+        btn.classList.remove('active', 'border-brand-teal', 'bg-teal-50', 'dark:bg-teal-950/60');
+        btn.classList.add('border-slate-200', 'dark:border-slate-700', 'bg-slate-50', 'dark:bg-slate-800');
+      });
+      event.currentTarget.classList.add('active', 'border-brand-teal', 'bg-teal-50', 'dark:bg-teal-950/60');
+      event.currentTarget.classList.remove('border-slate-200', 'dark:border-slate-700', 'bg-slate-50', 'dark:bg-slate-800');
+      updateStackingDisplay();
+    }
+
+    const triggerSelectElem = document.getElementById('stacking-trigger');
+    if (triggerSelectElem) {
+      triggerSelectElem.addEventListener('change', updateStackingDisplay);
+    }
+
+    function copyText(text) {
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).catch(() => fallbackCopy(text));
+      } else {
+        fallbackCopy(text);
+      }
+      showCustomModal("Prompt Copiado", "El prompt ha sido copiado a tu portapapeles. Puedes pegarlo en tu aplicación de IA favorita (como ChatGPT o Claude) con Ctrl+V o manteniendo presionado en tu celular.");
+    }
+
+    function fallbackCopy(text) {
+      const textArea = document.createElement("textarea");
+      textArea.value = text;
+      document.body.appendChild(textArea);
+      textArea.select();
+      try {
+        document.execCommand('copy');
+      } catch (e) {
+        console.warn('Fallback copy failed', e);
+      }
+      document.body.removeChild(textArea);
+    }
+
+    function copyStackingPrompt() {
+      const promptEl = document.getElementById('stacking-prompt-text');
+      if (promptEl) {
+        copyText(promptEl.innerText.replace(/^"|"$/g, ''));
+      }
+    }
+
+    function showCustomModal(title, message) {
+      const modal = document.getElementById('custom-modal');
+      const modalTitle = document.getElementById('modal-title');
+      const modalBody = document.getElementById('modal-body');
+      if (modal && modalTitle && modalBody) {
+        modalTitle.innerText = title;
+        modalBody.innerText = message;
+        modal.classList.remove('hidden');
+      }
+    }
+
+    function closeCustomModal() {
+      const modal = document.getElementById('custom-modal');
+      if (modal) modal.classList.add('hidden');
+    }
+
+    const scenarios = {
+      pension: {
+        userMsg: "Me llegó un correo con mi informe pensional, pero tiene términos confusos como 'tasa de reemplazo' y 'rentabilidad real ponderada'. ¿Qué significan para mi bolsillo?",
+        botMsg: "Entiendo perfectamente la confusión; esos términos suelen oscurecer lo esencial:\n\n1. **Tasa de reemplazo:** Es simplemente el porcentaje de tu sueldo habitual que recibirás como pensión mensual. Si ganabas 100 y tu tasa es 65%, recibirás 65.\n2. **Rentabilidad real:** Es lo que creció tu dinero por encima de la inflación (el aumento de los precios del supermercado y servicios).\n\nPara revisarlo con calma, ¿quieres que verifiquemos si la rentabilidad de este mes protegió tu poder adquisitivo?"
+      },
+      fraude: {
+        userMsg: "Recibí un mensaje de WhatsApp que dice: 'Su cuenta bancaria fue bloqueada por intentos fallidos. Ingrese a este enlace para validar su cédula'. ¿Es seguro?",
+        botMsg: "🚨 **¡Alerta! Es un intento de fraude (Phishing). Por favor NO abras el enlace.**\n\nMotivos de seguridad:\n• Los bancos formales **nunca** solicitan validaciones de clave o cédula mediante enlaces de WhatsApp.\n• Si tuvieras un bloqueo real, tu tarjeta simplemente no pasaría en el cajero o datáfono, no te mandarían un link urgente.\n\n**Paso a seguir:** Borra el mensaje y bloquea el número remitente de inmediato. Tu cuenta está segura."
+      },
+      memoria: {
+        userMsg: "Quiero escribir una memoria para mis nietos sobre cómo era mi primer trabajo en los años 80, pero no sé cómo empezar.",
+        botMsg: "Qué hermoso proyecto de legado familiar. Para que sea sencillo y no te abrume, hagámoslo por etapas conversadas:\n\nCuéntame en 2 minutos: ¿Cuál es el primer recuerdo sensorial que te viene a la mente de ese primer día? (¿El sonido de las máquinas de escribir, el olor al café de la oficina, la ropa que vestías?).\n\nCon ese detalle abriremos el primer capítulo."
+      },
+      consultoria: {
+        userMsg: "Trabajé 28 años en logística industrial. Una pyme me pidió asesoría sobre inventarios pero no sé cómo cobrar ni presentar mi propuesta.",
+        botMsg: "Tu experiencia de 28 años tiene un valor inmenso porque ya viviste todas las crisis operativas posibles.\n\nEstructuremos una **Propuesta de Alto Impacto en 3 bloques**:\n1. **Diagnóstico inicial (Semana 1):** Auditoría de cuellos de botella en almacén.\n2. **Plan de acción (Semanas 2 a 4):** Reducción de roturas y calibración de pedidos.\n3. **Acompañamiento mensual:** 4 sesiones directas con el dueño de la empresa.\n\n¿Quieres que le pongamos un rango de honorarios basado en el ahorro que generarás?"
+      }
+    };
+
+    function appendMessage(sender, text, isBot = false) {
+      const chatBox = document.getElementById('sim-chat-box');
+      if (!chatBox) return;
+
+      const wrapper = document.createElement('div');
+      wrapper.className = `flex items-start gap-3 ${isBot ? '' : 'flex-row-reverse'}`;
+
+      const avatar = document.createElement('div');
+      avatar.className = `w-8 h-8 rounded-xl flex items-center justify-center shrink-0 text-xs font-bold ${
+        isBot ? 'bg-brand-teal/20 text-brand-teal' : 'bg-brand-blue text-white'
+      }`;
+      avatar.innerText = isBot ? 'IA' : 'Tú';
+
+      const bubble = document.createElement('div');
+      bubble.className = `p-4 rounded-2xl max-w-xl text-sm leading-relaxed border ${
+        isBot 
+          ? 'bg-white dark:bg-slate-800 rounded-tl-none border-slate-200 dark:border-slate-700 text-slate-800 dark:text-slate-200 space-y-2' 
+          : 'bg-brand-blue text-white rounded-tr-none border-blue-600'
+      }`;
+
+      // Format linebreaks cleanly
+      bubble.innerHTML = text.replace(/\n/g, '<br>');
+
+      wrapper.appendChild(avatar);
+      wrapper.appendChild(bubble);
+      chatBox.appendChild(wrapper);
+      chatBox.scrollTop = chatBox.scrollHeight;
+    }
+
+    function sendSimMessage() {
+      const input = document.getElementById('sim-user-input');
+      if (!input || !input.value.trim()) return;
+
+      const userText = input.value.trim();
+      appendMessage('user', userText, false);
+      input.value = '';
+
+      // Simulated empathetic bot processing
+      setTimeout(() => {
+        appendMessage('bot', `Recibido. Como tu asistente sénior, comprendo tu consulta sobre "${userText.substring(0, 35)}...". Mi recomendación principal es abordarlo paso a paso, priorizando tu tranquilidad y validando fuentes confiables. ¿Deseas que profundicemos en las opciones prácticas?`, true);
+      }, 700);
+    }
+
+    function simulateVoiceInput() {
+      const micBtn = document.getElementById('sim-mic-btn');
+      if (micBtn) {
+        micBtn.classList.add('animate-bounce', 'bg-red-500', 'text-white');
+      }
+      setTimeout(() => {
+        if (micBtn) {
+          micBtn.classList.remove('animate-bounce', 'bg-red-500', 'text-white');
+        }
+        const input = document.getElementById('sim-user-input');
+        if (input) {
+          input.value = "¿Cómo puedo planificar el presupuesto de salud preventiva para este año?";
+          sendSimMessage();
+        }
+      }, 1200);
+    }
+
+    function loadScenario(key) {
+      const scenario = scenarios[key];
+      if (!scenario) return;
+      appendMessage('user', scenario.userMsg, false);
+      setTimeout(() => {
+        appendMessage('bot', scenario.botMsg, true);
+      }, 600);
+    }
+
+    function clearChat() {
+      const chatBox = document.getElementById('sim-chat-box');
+      if (chatBox) {
+        chatBox.innerHTML = `
+          <div class="flex items-start gap-3">
+            <div class="w-8 h-8 rounded-xl bg-brand-teal/20 text-brand-teal flex items-center justify-center shrink-0 text-xs font-bold">IA</div>
+            <div class="bg-white dark:bg-slate-800 p-4 rounded-2xl rounded-tl-none border border-slate-200 dark:border-slate-700 max-w-xl text-slate-800 dark:text-slate-200 space-y-2">
+              <p>Conversación reiniciada. Estoy a tu servicio con respuestas claras y respetuosas.</p>
+            </div>
+          </div>
+        `;
+      }
+    }
+
+    function calculateDiagnostic(event) {
+      event.preventDefault();
+      
+      const q1Val = parseInt(document.querySelector('input[name="q1"]:checked')?.value || '1');
+      const q2Val = parseInt(document.querySelector('input[name="q2"]:checked')?.value || '1');
+      const q3Val = document.querySelector('input[name="q3"]:checked')?.value || 'autonomia';
+
+      const totalScore = q1Val + q2Val;
+      let levelTitle = "Nivel 1: Explorador de Confianza";
+      let badge = "L1";
+      let goalText = "Desarrollar el hábito de interactuar por voz durante 5 minutos diarios sin temor a errores técnicos ni costos.";
+
+      if (totalScore >= 5) {
+        levelTitle = "Nivel 3: Creador & Consultor Sénior";
+        badge = "L3";
+        goalText = "Sistematizar tu experiencia acumulada para crear productos de conocimiento, análisis profundo y mentoría.";
+      } else if (totalScore >= 3) {
+        levelTitle = "Nivel 2: Asistente Personal & Operativo";
+        badge = "L2";
+        goalText = "Delegar tareas repetitivas (resúmenes de lecturas, redacción formal y auditoría de cuentas) ahorrando 4 horas por semana.";
+      }
+
+      const titleEl = document.getElementById('diag-level-title');
+      const badgeEl = document.getElementById('diag-badge-score');
+      const goalEl = document.getElementById('diag-goal-text');
+
+      if (titleEl) titleEl.innerText = levelTitle;
+      if (badgeEl) badgeEl.innerText = badge;
+      if (goalEl) goalEl.innerText = goalText;
+
+      showCustomModal("Diagnóstico Completado", `Tu perfil ha sido clasificado en el ${levelTitle}. Tu plan de 12 semanas ha sido adaptado en el panel derecho.`);
+    }
+
+    function printOrExportPlan() {
+      window.print();
+    }
+
+    // Accessibility: Text resizing
+    const htmlElem = document.documentElement;
+    const btnNormal = document.getElementById('font-normal');
+    const btnDecrease = document.getElementById('font-decrease');
+    const btnIncrease = document.getElementById('font-increase');
+
+    if (btnDecrease) {
+      btnDecrease.addEventListener('click', () => {
+        htmlElem.classList.remove('text-large', 'text-xlarge');
+        updateFontButtons('small');
+      });
+    }
+    if (btnNormal) {
+      btnNormal.addEventListener('click', () => {
+        htmlElem.classList.remove('text-large', 'text-xlarge');
+        updateFontButtons('normal');
+      });
+    }
+    if (btnIncrease) {
+      btnIncrease.addEventListener('click', () => {
+        if (!htmlElem.classList.contains('text-large') && !htmlElem.classList.contains('text-xlarge')) {
+          htmlElem.classList.add('text-large');
+          updateFontButtons('large');
+        } else if (htmlElem.classList.contains('text-large')) {
+          htmlElem.classList.remove('text-large');
+          htmlElem.classList.add('text-xlarge');
+          updateFontButtons('xlarge');
+        }
+      });
+    }
+
+    function updateFontButtons(state) {
+      [btnDecrease, btnNormal, btnIncrease].forEach(b => {
+        if (b) {
+          b.classList.remove('bg-white', 'dark:bg-slate-700', 'shadow-xs');
+        }
+      });
+      if (state === 'normal' && btnNormal) btnNormal.classList.add('bg-white', 'dark:bg-slate-700', 'shadow-xs');
+      if (state === 'small' && btnDecrease) btnDecrease.classList.add('bg-white', 'dark:bg-slate-700', 'shadow-xs');
+      if ((state === 'large' || state === 'xlarge') && btnIncrease) btnIncrease.classList.add('bg-white', 'dark:bg-slate-700', 'shadow-xs');
+    }
+
+    // Theme toggle
+    const themeBtn = document.getElementById('theme-toggle');
+    if (themeBtn) {
+      themeBtn.addEventListener('click', () => {
+        htmlElem.classList.toggle('dark');
+      });
+    }
+
+    // Mobile menu toggle
+    const mobileBtn = document.getElementById('mobile-menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    if (mobileBtn && mobileMenu) {
+      mobileBtn.addEventListener('click', () => {
+        mobileMenu.classList.toggle('hidden');
+      });
+    }
+
+    // Initialize defaults on window load
+    window.addEventListener('load', () => {
+      renderPhaseCard(0);
+      updateStackingDisplay();
+    });
+  </script>
+</body>
+</html>

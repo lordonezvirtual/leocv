@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>XR, Percepción y Disfrute en la Economía Plateada</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Chosen Palette: Warm Neutral Harmony (Warm Neutral #FAF8F5, Slate Charcoal #1E293B, Soft Teal #0D9488, Warm Terracotta #C2410C) -->
+    <!-- Application Structure Plan: The SPA is organized into 5 thematic exploration modules (Dashboard/Overview, Neurobiology & Perception, Communication & Avatar Dynamics, Clinical Evidence & Intergenerational Impact, Silver Economy & AgeTech Markets, and Bio-Ergonomics & Ethics). This non-linear structure allows researchers, healthcare professionals, and investors to navigate directly to their area of interest while maintaining a cohesive narrative. Dynamic filters, neurochemical interaction toggles, interactive Chart.js visualizations, and tabular comparisons translate complex academic data into immediate visual insights. -->
+    <!-- Visualization & Content Choices: 
+    1. Neurochemical Wanting vs. Liking -> Inform/Compare -> Dynamic HTML/CSS Neuro-Hotspot Matrix with toggle state -> User toggles neurotransmitter pathways -> Illustrates why dopamine gamification fails while opioid/endocannabinoid liking persists in older adults -> Standard HTML/CSS with JS state.
+    2. 2D vs 3D Communication Parameters -> Compare -> Dynamic Interactive Matrix Table -> User clicks parameter rows -> Highlights neural mechanisms (mPFC, TPJ, mirror neurons) -> HTML/Tailwind + JS.
+    3. UCSB/Rendever NIH Clinical Data -> Quantify/Compare -> Chart.js Grouped Bar Chart -> User filters clinical metric -> Visualizes control (2D) vs experimental (3D XR) scores with p-values -> Chart.js on Canvas.
+    4. Silver Economy & AgeTech Breakdown -> Quantify/Structure -> Chart.js Donut & Bar Charts -> User toggles 2026 vs 2036 metrics or sector breakdown -> Demonstrates $19T to $34T consumption shift and $4.5T Silver Economy -> Chart.js on Canvas.
+    5. Bio-Ergonomic Guidelines -> Organize/Inform -> Filterable Accordion/Card System -> User filters by physiological domain -> Details PPD, contrast 7:1, snap teleportation, +40% colliders -> Tailwind + JS filter.
+    Confirming: NO SVG graphics used, NO Mermaid JS used. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            bg: '#FAF8F5',
+                            card: '#FFFFFF',
+                            slate: '#1E293B',
+                            teal: '#0D9488',
+                            tealLight: '#CCFBF1',
+                            terracotta: '#C2410C',
+                            amber: '#D97706',
+                            muted: '#64748B'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 650px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 330px;
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 360px;
+            }
+        }
+        .tab-btn.active {
+            border-bottom: 3px solid #0D9488;
+            color: #0D9488;
+            font-weight: 700;
+        }
+    </style>
+</head>
+<body class="bg-brand-bg text-brand-slate font-sans min-h-screen flex flex-col antialiased selection:bg-brand-tealLight selection:text-brand-teal">
+
+    <header class="bg-brand-card border-b border-stone-200 sticky top-0 z-50 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+            <div>
+                <div class="flex items-center gap-2 text-xs uppercase tracking-wider font-semibold text-brand-teal mb-1">
+                    <span>Plataforma de Exploración e Inferencia Activa</span>
+                    <span class="text-stone-300">•</span>
+                    <span>Nueva Longevidad & AgeTech</span>
+                </div>
+                <h1 class="text-xl md:text-2xl font-bold text-brand-slate tracking-tight">
+                    XR, Percepción y Disfrute en la Economía Plateada
+                </h1>
+            </div>
+            <div class="flex items-center gap-2 overflow-x-auto pb-1 md:pb-0 text-sm font-medium">
+                <span class="bg-teal-50 text-teal-800 px-3 py-1 rounded-full border border-teal-200 text-xs">
+                    Mercado XR/AgeTech: $286B (2026)
+                </span>
+                <span class="bg-amber-50 text-amber-800 px-3 py-1 rounded-full border border-amber-200 text-xs">
+                    Gasto +60 años: $19T &rarr; $34T
+                </span>
+            </div>
+        </div>
+
+        <nav class="bg-stone-100 border-t border-stone-200 overflow-x-auto">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex space-x-6 min-w-max text-sm">
+                <button onclick="switchTab('neuro')" id="tab-neuro" class="tab-btn active py-3 px-1 text-stone-600 hover:text-brand-teal transition-colors">
+                    1. Neurobiología & Disfrute
+                </button>
+                <button onclick="switchTab('comms')" id="tab-comms" class="tab-btn py-3 px-1 text-stone-600 hover:text-brand-teal transition-colors">
+                    2. Comunicación & Efecto Proteo
+                </button>
+                <button onclick="switchTab('clinical')" id="tab-clinical" class="tab-btn py-3 px-1 text-stone-600 hover:text-brand-teal transition-colors">
+                    3. Evidencia Clínica (UCSB/NIH)
+                </button>
+                <button onclick="switchTab('economy')" id="tab-economy" class="tab-btn py-3 px-1 text-stone-600 hover:text-brand-teal transition-colors">
+                    4. Economía Plateada & Mercado
+                </button>
+                <button onclick="switchTab('ergonomics')" id="tab-ergonomics" class="tab-btn py-3 px-1 text-stone-600 hover:text-brand-teal transition-colors">
+                    5. Ergonomía & Ética
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-12">
+
+        <section id="sec-neuro" class="tab-content space-y-8">
+            <div class="bg-brand-card rounded-2xl p-6 md:p-8 border border-stone-200 shadow-sm space-y-4">
+                <div class="max-w-3xl">
+                    <span class="text-brand-terracotta text-xs font-bold uppercase tracking-wider">Fundamentos Biológicos</span>
+                    <h2 class="text-2xl font-bold text-brand-slate mt-1">Inferencia Activa y Disociación Hedónica (Wanting vs. Liking)</h2>
+                    <p class="text-stone-600 mt-2 leading-relaxed text-sm md:text-base">
+                        Esta sección explora cómo el cerebro senescente procesa la percepción mediante la codificación predictiva y la reorganización de vías neuroquímicas. Mientras la densidad de receptores dopaminérgicos disminuye progresivamente, la red de <strong>puntos calientes hedónicos (hedonic hotspots)</strong> mediados por opioides y endocannabinoides permanece funcionalmente resiliente en la vejez, haciendo del disfrute cualitativo (<em>liking</em>) el catalizador clave de la adherencia tecnológica.
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 pt-4">
+                    <div class="bg-stone-50 p-4 rounded-xl border border-stone-200">
+                        <div class="text-brand-teal font-bold text-lg mb-1">Inferencia Activa</div>
+                        <p class="text-xs text-stone-600">El cerebro genera predicciones descendentes (<em>priors</em>) frente a flujos sensoriales ascendentes (<em>posteriors</em>). En el envejecimiento, el ruido periférico incrementa la dependencia del contexto previo.</p>
+                    </div>
+                    <div class="bg-stone-50 p-4 rounded-xl border border-stone-200">
+                        <div class="text-brand-terracotta font-bold text-lg mb-1">Ventana Temporal Ampliada</div>
+                        <p class="text-xs text-stone-600">El enlentecimiento axonal expande la <em>temporal binding window</em>, requiriendo integración multisensorial sintética y sincrónica para mantener la matriz corporal.</p>
+                    </div>
+                    <div class="bg-stone-50 p-4 rounded-xl border border-stone-200">
+                        <div class="text-brand-amber font-bold text-lg mb-1">Imán Motivacional</div>
+                        <p class="text-xs text-stone-600">La activación de hotspots opioides otorga propiedad de imán a la experiencia XR, capturando la atención de forma involuntaria y generando un estado de flujo (<em>flow</em>).</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-brand-card rounded-2xl p-6 md:p-8 border border-stone-200 shadow-sm space-y-6">
+                <h3 class="text-xl font-bold text-brand-slate">Simulador Neuroquímico: Dopamina (Wanting) vs. Opioides/Endocannabinoides (Liking)</h3>
+                <p class="text-sm text-stone-600">
+                    Interactúa con el selector para comparar cómo reacciona el cerebro mayor ante los esquemas tradicionales de gamificación coercitiva frente a experiencias inmersivas centradas en el placer consumatorio.
+                </p>
+
+                <div class="flex flex-wrap gap-3">
+                    <button onclick="setNeuroSystem('wanting')" id="btn-wanting" class="px-4 py-2 rounded-lg font-semibold text-sm transition-all border border-stone-300 bg-stone-100 text-stone-700">
+                        Sistema Dopaminérgico ("Wanting" / Deseo)
+                    </button>
+                    <button onclick="setNeuroSystem('liking')" id="btn-liking" class="px-4 py-2 rounded-lg font-semibold text-sm transition-all border border-brand-teal bg-brand-teal text-white shadow-sm">
+                        Red de Hotspots Hedónicos ("Liking" / Disfrute)
+                    </button>
+                </div>
+
+                <div id="neuro-card" class="bg-stone-50 rounded-xl p-6 border border-stone-200 space-y-4">
+                    <!-- Dynamic JS content -->
+                </div>
+            </div>
+        </section>
+
+        <section id="sec-comms" class="tab-content hidden space-y-8">
+            <div class="bg-brand-card rounded-2xl p-6 md:p-8 border border-stone-200 shadow-sm space-y-4">
+                <div class="max-w-3xl">
+                    <span class="text-brand-teal text-xs font-bold uppercase tracking-wider">Interacción & Cognición Social</span>
+                    <h2 class="text-2xl font-bold text-brand-slate mt-1">Reconstrucción Comunicativa y el Efecto Proteo</h2>
+                    <p class="text-stone-600 mt-2 leading-relaxed text-sm md:text-base">
+                        Las pantallas bidimensionales suprimen microgestos y desalinean el contacto ocular, generando fatiga cognitiva. La realidad extendida reconstituye la ecología comunicativa mediante volumetría 3D, audio espacial y seguimiento ocular. Asimismo, la modulación de avatares desencadena el <strong>efecto Proteo</strong>, influyendo en la autoeficacia motora y reduciendo el edadismo implícito.
+                    </p>
+                </div>
+            </div>
+
+            <div class="bg-brand-card rounded-2xl p-6 md:p-8 border border-stone-200 shadow-sm space-y-6">
+                <h3 class="text-xl font-bold text-brand-slate">Matriz Comparativa de Parámetros Comunicativos</h3>
+                <p class="text-sm text-stone-600">
+                    Haz clic en cada parámetro para explorar el impacto neurocognitivo en la población mayor.
+                </p>
+
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left text-sm border-collapse">
+                        <thead>
+                            <tr class="bg-stone-100 border-b border-stone-200 text-stone-700">
+                                <th class="p-3 font-bold">Parámetro</th>
+                                <th class="p-3 font-bold">Comunicación 2D Tradicional</th>
+                                <th class="p-3 font-bold text-brand-teal">Reconstrucción 3D en XR</th>
+                                <th class="p-3 font-bold">Efecto Neurocognitivo Sénior</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-stone-200">
+                            <tr class="hover:bg-stone-50 cursor-pointer" onclick="highlightParam('eye')">
+                                <td class="p-3 font-semibold text-brand-slate">Contacto Ocular</td>
+                                <td class="p-3 text-stone-600">Artificial; desalineación pupila-cámara.</td>
+                                <td class="p-3 text-brand-teal font-medium">Pupilar directo mediante tracking en tiempo real.</td>
+                                <td class="p-3 text-stone-700">Reactivación de redes de mentalización (mPFC, TPJ).</td>
+                            </tr>
+                            <tr class="hover:bg-stone-50 cursor-pointer" onclick="highlightParam('spatial')">
+                                <td class="p-3 font-semibold text-brand-slate">Co-presencia Espacial</td>
+                                <td class="p-3 text-stone-600">Disociación en cuadrículas planas aisladas.</td>
+                                <td class="p-3 text-brand-teal font-medium">Entorno virtual inmersivo compartido.</td>
+                                <td class="p-3 text-stone-700">Metáfora corporizada: Cercanía física = Intimidad.</td>
+                            </tr>
+                            <tr class="hover:bg-stone-50 cursor-pointer" onclick="highlightParam('cues')">
+                                <td class="p-3 font-semibold text-brand-slate">Señales No Verbales</td>
+                                <td class="p-3 text-stone-600">Supresión de torso, ademanes y postura.</td>
+                                <td class="p-3 text-brand-teal font-medium">Captura cinemática 6-DoF de postura y cabeza.</td>
+                                <td class="p-3 text-stone-700">Sincronía conductual y activación de neuronas espejo.</td>
+                            </tr>
+                            <tr class="hover:bg-stone-50 cursor-pointer" onclick="highlightParam('load')">
+                                <td class="p-3 font-semibold text-brand-slate">Carga Cognitiva</td>
+                                <td class="p-3 text-stone-600">Alta; compensación consciente de vacíos.</td>
+                                <td class="p-3 text-brand-teal font-medium">Mínima; convergencia con modelos previos.</td>
+                                <td class="p-3 text-stone-700">Mitigación de la fatiga comunicativa y aislamiento.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div id="param-detail" class="bg-teal-50 border border-teal-200 rounded-xl p-4 text-xs md:text-sm text-teal-900">
+                    Selecciona una fila arriba para ver la explicación detallada según la Teoría de Selectividad Socioemocional (Socioemotional Selectivity Theory - SST).
+                </div>
+            </div>
+
+            <div class="bg-brand-card rounded-2xl p-6 md:p-8 border border-stone-200 shadow-sm space-y-6">
+                <h3 class="text-xl font-bold text-brand-slate">Dinamismo de Avatares y Reducción del Edadismo</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="bg-stone-50 p-5 rounded-xl border border-stone-200 space-y-3">
+                        <div class="text-brand-terracotta font-bold">Riesgo de Avatares Frágiles / Caricaturizados</div>
+                        <p class="text-xs text-stone-600 leading-relaxed">
+                            Encarnar avatares con marcas estereotípicas de decrepitud induce asimilación del declive: reduce la velocidad real de la marcha posterior, disminuye la fuerza de prensión manual e incrementa fallos en memoria episódica.
+                        </p>
+                    </div>
+                    <div class="bg-stone-50 p-5 rounded-xl border border-stone-200 space-y-3">
+                        <div class="text-brand-teal font-bold">Impacto de Avatares Dignificados y Vitales</div>
+                        <p class="text-xs text-stone-600 leading-relaxed">
+                            Avatares fotorrealistas con signos auténticos de madurez (cabello gris, arrugas sutiles) combinados con alta solvencia/competencia reducen significativamente el edadismo implícito (<strong class="text-brand-teal">d = 0.65, p &lt; 0.001</strong>) y mejoran el desempeño motor y ejecutivo.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="sec-clinical" class="tab-content hidden space-y-8">
+            <div class="bg-brand-card rounded-2xl p-6 md:p-8 border border-stone-200 shadow-sm space-y-4">
+                <div class="max-w-3xl">
+                    <span class="text-brand-amber text-xs font-bold uppercase tracking-wider">Validación Empírica</span>
+                    <h2 class="text-2xl font-bold text-brand-slate mt-1">Ensayos Clínicos Longitudinales (UCSB / Rendever / NIH)</h2>
+                    <p class="text-stone-600 mt-2 leading-relaxed text-sm md:text-base">
+                        Esta sección presenta los resultados de ensayos clínicos financiados por los Institutos Nacionales de Salud de EE.UU. (NIH / NIA) con un presupuesto STTR de $4.5M USD. Se compararon díadas de adultos mayores con deterioro cognitivo leve (DCL) o demencia y sus familiares a distancia utilizando videollamadas tradicionales frente a plataformas XR compartidas.
+                    </p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+                <div class="lg:col-span-7 bg-brand-card rounded-2xl p-6 border border-stone-200 shadow-sm space-y-4">
+                    <div class="flex items-center justify-between">
+                        <h3 class="text-lg font-bold text-brand-slate">Métricas Clínicas: Videollamada vs. Plataforma XR</h3>
+                        <span class="text-xs bg-stone-100 text-stone-600 px-2 py-1 rounded">Valores p &lt; 0.05</span>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="clinicalChart"></canvas>
+                    </div>
+                    <p class="text-xs text-stone-500 text-center">
+                        Puntuaciones relativas en escala estandarizada de impacto psicosocial positivo.
+                    </p>
+                </div>
+
+                <div class="lg:col-span-5 bg-brand-card rounded-2xl p-6 border border-stone-200 shadow-sm space-y-4">
+                    <h3 class="text-lg font-bold text-brand-slate">Desglose de Significancia Estadística</h3>
+                    <div class="space-y-3 text-xs">
+                        <div class="p-3 bg-stone-50 rounded-lg border border-stone-200">
+                            <div class="font-bold text-brand-slate">Calidad Relacional Interpersonal</div>
+                            <div class="text-stone-600 mt-1">XR fortalece la intimidad afectiva frente a conversaciones instrumentales de cuidado.</div>
+                            <div class="text-brand-teal font-semibold mt-1">Significancia: p = 0.006</div>
+                        </div>
+                        <div class="p-3 bg-stone-50 rounded-lg border border-stone-200">
+                            <div class="font-bold text-brand-slate">Experiencias Memorables y Gozosas</div>
+                            <div class="text-stone-600 mt-1">Aumento sustantivo de risas compartidas, juego y afecto positivo directo.</div>
+                            <div class="text-brand-teal font-semibold mt-1">Significancia: p = 0.004</div>
+                        </div>
+                        <div class="p-3 bg-stone-50 rounded-lg border border-stone-200">
+                            <div class="font-bold text-brand-slate">Eficacia de Reminiscencia Afectiva</div>
+                            <div class="text-stone-600 mt-1">Activación contextual inmediata de memoria autobiográfica en espacios 3D.</div>
+                            <div class="text-brand-teal font-semibold mt-1">Significancia: p &lt; 0.001</div>
+                        </div>
+                        <div class="p-3 bg-stone-50 rounded-lg border border-stone-200">
+                            <div class="font-bold text-brand-slate">Bienestar y Mitigación de Culpa</div>
+                            <div class="text-stone-600 mt-1">Reducción de sintomatología depresiva y alivio en la carga del cuidador.</div>
+                            <div class="text-brand-teal font-semibold mt-1">Significancia: p &lt; 0.001</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="sec-economy" class="tab-content hidden space-y-8">
+            <div class="bg-brand-card rounded-2xl p-6 md:p-8 border border-stone-200 shadow-sm space-y-4">
+                <div class="max-w-3xl">
+                    <span class="text-brand-teal text-xs font-bold uppercase tracking-wider">Macroeconomía & Proyecciones</span>
+                    <h2 class="text-2xl font-bold text-brand-slate mt-1">La Economía Plateada y el Ecosistema AgeTech</h2>
+                    <p class="text-stone-600 mt-2 leading-relaxed text-sm md:text-base">
+                        En 2026, la cohorte global de más de 60 años supera los 1.200 millones de personas (15% de la población) y controla el 27% del consumo privado global ($19 Trillones USD). Para 2036, este gasto alcanzará los $34 Trillones USD. La tecnología para la longevidad (AgeTech) se posiciona como una infraestructura clave de $286.000 millones.
+                    </p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="bg-brand-card rounded-2xl p-6 border border-stone-200 shadow-sm space-y-4">
+                    <h3 class="text-lg font-bold text-brand-slate">Distribución del Mercado Silver Economy (2026)</h3>
+                    <div class="chart-container">
+                        <canvas id="marketShareChart"></canvas>
+                    </div>
+                    <p class="text-xs text-stone-500 text-center">
+                        Total Valoración Sectorial: $4.5 Trillones USD (2026)
+                    </p>
+                </div>
+
+                <div class="bg-brand-card rounded-2xl p-6 border border-stone-200 shadow-sm space-y-4">
+                    <h3 class="text-lg font-bold text-brand-slate">Proyección del Gasto de Consumo (+60 Años)</h3>
+                    <div class="chart-container">
+                        <canvas id="spendingChart"></canvas>
+                    </div>
+                    <p class="text-xs text-stone-500 text-center">
+                        Evolución en Trillones de Dólares USD (2026 vs. 2036)
+                    </p>
+                </div>
+            </div>
+
+            <div class="bg-brand-card rounded-2xl p-6 md:p-8 border border-stone-200 shadow-sm space-y-4">
+                <h3 class="text-xl font-bold text-brand-slate">Oportunidades de Integración de Tecnologías XR por Sector</h3>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 pt-2">
+                    <div class="p-4 bg-stone-50 rounded-xl border border-stone-200 space-y-2">
+                        <div class="font-bold text-brand-slate text-sm">Senior Living ($1.3T)</div>
+                        <div class="text-xs text-stone-500">CAGR 7.2%</div>
+                        <p class="text-xs text-stone-600">Integración con Ambient Assisted Living (17% CAGR) y estimulación sensorial comunitaria.</p>
+                    </div>
+                    <div class="p-4 bg-stone-50 rounded-xl border border-stone-200 space-y-2">
+                        <div class="font-bold text-brand-slate text-sm">Salud & Longevidad ($0.9T)</div>
+                        <div class="text-xs text-stone-500">CAGR 8.6%</div>
+                        <p class="text-xs text-stone-600">Terapias virtuales regenerativas, neurorrehabilitación motora y prevención de caídas.</p>
+                    </div>
+                    <div class="p-4 bg-stone-50 rounded-xl border border-stone-200 space-y-2">
+                        <div class="font-bold text-brand-slate text-sm">Turismo Sénior ($0.8T)</div>
+                        <div class="text-xs text-stone-500">CAGR 9.1%</div>
+                        <p class="text-xs text-stone-600">Tele-turismo y exploración cultural inmersiva para personas con movilidad reducida.</p>
+                    </div>
+                    <div class="p-4 bg-stone-50 rounded-xl border border-stone-200 space-y-2">
+                        <div class="font-bold text-brand-slate text-sm">AgeTech & IA ($286B)</div>
+                        <div class="text-xs text-stone-500">CAGR 10-14%</div>
+                        <p class="text-xs text-stone-600">Robótica de asistencia, biométricos vestibles y detección temprana de deterioro cognitivo.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="sec-ergonomics" class="tab-content hidden space-y-8">
+            <div class="bg-brand-card rounded-2xl p-6 md:p-8 border border-stone-200 shadow-sm space-y-4">
+                <div class="max-w-3xl">
+                    <span class="text-brand-terracotta text-xs font-bold uppercase tracking-wider">Diseño Inclusivo & Salvaguardas</span>
+                    <h2 class="text-2xl font-bold text-brand-slate mt-1">Ergonomía Neurocognitiva, Cibersinetosis y Ética</h2>
+                    <p class="text-stone-600 mt-2 leading-relaxed text-sm md:text-base">
+                        El éxito de las experiencias inmersivas en adultos mayores exige adaptar el hardware y el software a los requerimientos visuales, vestibulares y motrices del organismo senescente. Además, la mitigación de la cibersinetosis y la protección biométrica son pilares fundamentales de la ética en AgeTech.
+                    </p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="bg-brand-card p-6 rounded-2xl border border-stone-200 shadow-sm space-y-4">
+                    <h3 class="text-lg font-bold text-brand-slate flex items-center gap-2">
+                        <span>Directrices Bio-Ergonómicas</span>
+                    </h3>
+                    <div class="space-y-3 text-xs md:text-sm">
+                        <div class="p-3 bg-stone-50 rounded-lg border border-stone-200">
+                            <strong class="text-brand-teal block mb-1">Canal Visual & Óptica</strong>
+                            Densidad PPD &ge; 30, contraste mínimo de 7:1 en interfaces, renderizado fóveo adaptativo e iluminación difusa sin dispersión intraocular.
+                        </div>
+                        <div class="p-3 bg-stone-50 rounded-lg border border-stone-200">
+                            <strong class="text-brand-teal block mb-1">Control Vestibular & Postura</strong>
+                            Erradicación del movimiento traslacional artificial continuo. Uso estricto de teletransportación por parábola (<em>snap teleportation</em>) y referencias fijas en el horizonte.
+                        </div>
+                        <div class="p-3 bg-stone-50 rounded-lg border border-stone-200">
+                            <strong class="text-brand-teal block mb-1">Coordinación Motriz & Háptica</strong>
+                            Algoritmos de filtrado cinemático de temblor senil, ampliación del +40% en áreas de interacción (<em>colliders</em>) y confirmación multimodal (audio + háptica).
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-brand-card p-6 rounded-2xl border border-stone-200 shadow-sm space-y-4">
+                    <h3 class="text-lg font-bold text-brand-slate flex items-center gap-2">
+                        <span>Cibersinetosis & Privacidad Ética</span>
+                    </h3>
+                    <div class="space-y-3 text-xs md:text-sm">
+                        <div class="p-3 bg-amber-50 rounded-lg border border-amber-200 text-amber-900">
+                            <strong class="block mb-1 font-bold">Mitos vs. Tolerancia Real a la Virtualidad</strong>
+                            Los adultos mayores <strong>no</strong> son intrínsecamente más susceptibles a la cibersinetosis. En posición sedente y con sesiones de 15 a 20 minutos, la tasa de retención supera el <strong>88%</strong>.
+                        </div>
+                        <div class="p-3 bg-stone-50 rounded-lg border border-stone-200">
+                            <strong class="text-brand-terracotta block mb-1">Eye-Tracking como Biomarcador Digital</strong>
+                            Las sacadas antisacádicas y el seguimiento suave permiten detectar signos prodrómicos de Alzheimer en evaluaciones invisibles de 5 minutos durante actividades lúdicas.
+                        </div>
+                        <div class="p-3 bg-stone-50 rounded-lg border border-stone-200">
+                            <strong class="text-brand-terracotta block mb-1">Salvaguardas de Privacidad y Antipaternalismo</strong>
+                            Protección estricta de datos biométricos inconscientes, prevención del escape ontológico/disforia posretorno y rechazo al paternalismo algorítmico infantilizante.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-brand-slate text-stone-400 py-8 border-t border-stone-800 mt-12 text-xs">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-4">
+            <div>
+                <p class="font-semibold text-stone-200">Plataforma Interactiv de Investigación XR & Nueva Longevidad</p>
+                <p class="text-stone-500 mt-0.5">Basado en evidencias neurobiológicas, ensayos UCSB/NIH y modelos macroeconómicos de la Economía Plateada.</p>
+            </div>
+            <div class="text-right text-stone-500">
+                <p>Inferencia Activa • Selectividad Socioemocional • Hotspots Hedónicos</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function switchTab(tabId) {
+            const tabs = ['neuro', 'comms', 'clinical', 'economy', 'ergonomics'];
+            tabs.forEach(t => {
+                const content = document.getElementById(`sec-${t}`);
+                const btn = document.getElementById(`tab-${t}`);
+                if (t === tabId) {
+                    content.classList.remove('hidden');
+                    btn.classList.add('active');
+                } else {
+                    content.classList.add('hidden');
+                    btn.classList.remove('active');
+                }
+            });
+        }
+
+        const neuroData = {
+            wanting: {
+                title: "Sistema Dopaminérgico Mesolímbico (Wanting / Deseo Apetitivo)",
+                subtitle: "Vía VTA &rarr; Núcleo Accumbens &rarr; Corteza Frontal",
+                desc: "El sistema dopaminérgico genera impulso motor, anticipación y conducta de búsqueda orientada a recompensas futuras. En el envejecimiento fisiológico, la densidad de receptores dopaminérgicos D1 y D2 en el estriado disminuye de forma progresiva. En consecuencia, las mecánicas de gamificación coercitiva, rachas artificiales o recompensas cuantitativas intermitentes resultan ineficaces, desencadenando estrés, desinterés o frustración en los adultos mayores.",
+                statusClass: "text-amber-800 bg-amber-100 border-amber-300",
+                badgeText: "Declinación con la edad (Reducción D1/D2)"
+            },
+            liking: {
+                title: "Red de Puntos Calientes Hedónicos (Liking / Disfrute Consumatorio)",
+                subtitle: "Centros de escala milimétrica en vmPFC, mOFC, Concha del NAc y Globo Pálido Ventral",
+                desc: "El placer consumatorio presente —saborear una belleza estética o experimentar comunión afectiva— depende de receptores µ-opioides y endocannabinoides. Esta red muestra una resistencia superior al envejecimiento y la neurodegeneración. Cuando estos hotspots se activan, transforman el objeto o entorno virtual en un 'imán motivacional', capturando la atención visual y sostenida sin esfuerzo voluntario agotador, induciendo un estado de flujo (flow).",
+                statusClass: "text-teal-800 bg-teal-100 border-teal-300",
+                badgeText: "Preservación Resiliente en la Nueva Longevidad"
+            }
+        };
+
+        function setNeuroSystem(type) {
+            const card = document.getElementById('neuro-card');
+            const data = neuroData[type];
+            const btnW = document.getElementById('btn-wanting');
+            const btnL = document.getElementById('btn-liking');
+
+            if (type === 'wanting') {
+                btnW.className = "px-4 py-2 rounded-lg font-semibold text-sm transition-all border border-brand-terracotta bg-brand-terracotta text-white shadow-sm";
+                btnL.className = "px-4 py-2 rounded-lg font-semibold text-sm transition-all border border-stone-300 bg-stone-100 text-stone-700";
+            } else {
+                btnL.className = "px-4 py-2 rounded-lg font-semibold text-sm transition-all border border-brand-teal bg-brand-teal text-white shadow-sm";
+                btnW.className = "px-4 py-2 rounded-lg font-semibold text-sm transition-all border border-stone-300 bg-stone-100 text-stone-700";
+            }
+
+            card.innerHTML = `
+                <div class="flex flex-col md:flex-row md:items-center justify-between gap-2 border-b border-stone-200 pb-3">
+                    <div>
+                        <h4 class="font-bold text-lg text-brand-slate">${data.title}</h4>
+                        <span class="text-xs font-mono text-stone-500">${data.subtitle}</span>
+                    </div>
+                    <span class="text-xs px-3 py-1 rounded-full font-semibold border ${data.statusClass}">
+                        ${data.badgeText}
+                    </span>
+                </div>
+                <p class="text-xs md:text-sm text-stone-700 leading-relaxed pt-1">
+                    ${data.desc}
+                </p>
+            `;
+        }
+
+        const paramDetails = {
+            eye: "<strong>Contacto Ocular Dinámico:</strong> Según la Teoría de Selectividad Socioemocional (SST), los adultos mayores buscan optimizar el significado afectivo presente. El tracking ocular reactiva las áreas de mentalización (corteza prefrontal medial y unión temporoparietal), reduciendo drásticamente la carga de procesamiento inferencial.",
+            spatial: "<strong>Co-presencia Espacial:</strong> Estar en un mismo espacio 3D reactiva metáforas corporizadas donde la cercanía espacial equivale a intimidad afectiva, reduciendo la sensación de aislamiento característico de las videollamadas planas.",
+            cues: "<strong>Señales No Verbales:</strong> El seguimiento 6-DoF de orientación corporal y ademanes reactiva el sistema de neuronas espejo, posibilitando la sincronía conductual espontánea entre abuelos y nietos.",
+            load: "<strong>Reducción de Carga Cognitiva:</strong> Al alinearse con los modelos perceptivos internos preexistentes, la realidad extendida minimiza la fatiga atencional, permitiendo interacciones socioemocionales prolongadas y placenteras."
+        };
+
+        function highlightParam(key) {
+            const detailBox = document.getElementById('param-detail');
+            detailBox.innerHTML = paramDetails[key];
+        }
+
+        let clinicalChartInstance = null;
+        let marketShareChartInstance = null;
+        let spendingChartInstance = null;
+
+        function initCharts() {
+            const ctxClinical = document.getElementById('clinicalChart').getContext('2d');
+            clinicalChartInstance = new Chart(ctxClinical, {
+                type: 'bar',
+                data: {
+                    labels: [
+                        ['Calidad', 'Relacional'], 
+                        ['Redes', 'Sociales'], 
+                        ['Experiencias', 'Gozosas'], 
+                        ['Satisfacción', 'Global'], 
+                        ['Reminiscencia', 'Afectiva'], 
+                        ['Bienestar', 'Psicológico']
+                    ],
+                    datasets: [
+                        {
+                            label: 'Videollamada Tradicional (Control)',
+                            data: [42, 38, 30, 45, 35, 40],
+                            backgroundColor: '#94A3B8',
+                            borderRadius: 6
+                        },
+                        {
+                            label: 'Plataforma XR Compartida (Experimental)',
+                            data: [88, 76, 92, 85, 95, 89],
+                            backgroundColor: '#0D9488',
+                            borderRadius: 6
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { position: 'bottom', labels: { boxWidth: 12, font: { size: 11 } } },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return context.dataset.label + ': ' + context.raw + ' pts';
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        y: { beginAtZero: true, max: 100, ticks: { font: { size: 10 } } },
+                        x: { ticks: { font: { size: 10 } } }
+                    }
+                }
+            });
+
+            const ctxMarket = document.getElementById('marketShareChart').getContext('2d');
+            marketShareChartInstance = new Chart(ctxMarket, {
+                type: 'doughnut',
+                data: {
+                    labels: [
+                        'Vivienda & Cuidados ($1.3T)',
+                        'Salud & Longevidad ($0.9T)',
+                        'Servicios Financieros ($0.9T)',
+                        'Ocio & Turismo ($0.8T)',
+                        'Ecosistema AgeTech ($0.6T)'
+                    ],
+                    datasets: [{
+                        data: [1.3, 0.9, 0.9, 0.8, 0.6],
+                        backgroundColor: ['#0D9488', '#C2410C', '#D97706', '#0284C7', '#64748B']
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { position: 'bottom', labels: { boxWidth: 10, font: { size: 10 } } }
+                    }
+                }
+            });
+
+            const ctxSpending = document.getElementById('spendingChart').getContext('2d');
+            spendingChartInstance = new Chart(ctxSpending, {
+                type: 'bar',
+                data: {
+                    labels: ['2026', '2036 (Proyección WDL)'],
+                    datasets: [{
+                        label: 'Gasto Consumo +60 Años (Trillones USD)',
+                        data: [19, 34],
+                        backgroundColor: ['#0D9488', '#C2410C'],
+                        borderRadius: 8,
+                        barThickness: 45
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return '$' + context.raw + ' Trillones USD';
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        y: { beginAtZero: true, max: 40, ticks: { font: { size: 10 } } },
+                        x: { ticks: { font: { size: 11 } } }
+                    }
+                }
+            });
+        }
+
+        window.addEventListener('DOMContentLoaded', () => {
+            setNeuroSystem('liking');
+            initCharts();
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,939 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Economía Plateada e IA: Plataforma Estratégica para la Nueva Longevidad</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#f0f7ff',
+                            100: '#e0effe',
+                            500: '#2563eb',
+                            600: '#1d4ed8',
+                            700: '#1e40af',
+                            800: '#1e3a8a',
+                            900: '#0f172a'
+                        },
+                        amberAccent: {
+                            500: '#d97706',
+                            600: '#b45309'
+                        },
+                        silverWarm: {
+                            50: '#fafaf9',
+                            100: '#f5f5f4',
+                            200: '#e7e5e4',
+                            800: '#292524'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* CSS estricto para contenedores de Chart.js */
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 650px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 320px;
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 360px;
+            }
+        }
+        
+        /* Estilos personalizados para el Demostrador UX/UI */
+        .demo-box-standard {
+            font-size: 13px;
+            line-height: 1.2;
+            color: #94a3b8;
+            background-color: #ffffff;
+            border: 1px solid #e2e8f0;
+        }
+        .demo-box-senior {
+            font-size: 18px;
+            line-height: 1.6;
+            color: #0f172a;
+            background-color: #ffffff;
+            border: 2px solid #2563eb;
+        }
+        
+        /* Botones táctiles adaptados */
+        .touch-target-std {
+            padding: 4px 8px;
+            font-size: 12px;
+        }
+        .touch-target-senior {
+            min-height: 52px;
+            min-width: 52px;
+            padding: 12px 24px;
+            font-size: 18px;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased font-sans leading-relaxed">
+
+    <!-- Chosen Palette: Warm Neutrals & Silver Slate (Fondo slate-50/white, Acentos en azul royal #2563eb y dorado cálido #d97706, texto slate-900). -->
+    
+    <!-- Application Structure Plan:
+         1. Header & Navegación Persistente: Permite alternar entre los 6 núcleos del informe con indicadores visuales activos.
+         2. Visión Macroeconómica: Presenta las métricas maestras ($22-28T global, $2.0-2.7T AgeTech) con gráficos interactivos y switch geográfico (Global vs LATAM).
+         3. Matriz de Cuellos de Botella: Interfaz filtrable por dominios (Salud, Autonomía, Finanzas, Conexión) para analizar Fricción vs Cuello de Botella Sistémico.
+         4. Arquitectura de IA & Cómputo Cero: Diagrama navegable de capas tecnológicas (Ambiente -> Edge AI -> Modelos Fundacionales -> Alertas Intergeneracionales) y fichas de profundidad.
+         5. Demostrador UX/UI Sénior (Wow Component): Comparador en directo en pantalla dividida que permite ver y probar la diferencia entre un diseño joven/estándar y uno optimizado para mayores de 50 años (WCAG AAA, Ley de Fitts, tolerancia a errores).
+         6. Ecosistema AgeTech & Modelos de Negocio: Explorador interactivo de startups clave (ElliQ/Intuition Robotics, CarePredict, Soy+, Care Daily) y comparativo de modelos B2C vs B2B2C/B2G.
+         7. Ventajas Competitivas & Oportunidades: Generador de ventajas defensivas (Moats) y mapa de nichos desatendidos con estimación de factibilidad e impacto.
+    -->
+
+    <!-- Visualization & Content Choices:
+         - Proyección Macroeconómica -> Chart.js Bar & Line combo -> Muestra crecimiento de mercado AgeTech e incremento poblacional.
+         - Matriz de Cuellos de Botella -> Cards interactivas filtrables mediante Vanilla JS -> Facilita la síntesis multidimensional sin saturar.
+         - Arquitectura de IA -> Tarjetas secuenciales en grid con acentos CSS -> Representa el flujo perimetral sin usar librerías de diagramas.
+         - Comparador UX/UI -> Interfaz interactiva de test de pantalla dividida con interruptores -> Demuestra las heurísticas en tiempo real de forma didáctica.
+         - Ecosistema AgeTech -> Tabla filtrable con detalle dinámico -> Permite explorar la tracción y modelo de negocio de cada caso de estudio.
+         - Confirmación: Sin SVG ni Mermaid.js. Iconos codificados en Unicode y elementos visuales en HTML/CSS estricto.
+    -->
+
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+
+    <!-- Header / Barra de Navegación -->
+    <header class="sticky top-0 z-50 bg-white border-b border-slate-200 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <div class="flex items-center space-x-3">
+                    <span class="text-3xl font-black text-brand-600">&#9879;</span>
+                    <div>
+                        <h1 class="text-xl font-bold text-slate-900 leading-tight">Nueva Longevidad &amp; IA</h1>
+                        <p class="text-xs text-slate-500 font-medium">Plataforma Estratégica de Producto &amp; Mercado Plateado</p>
+                    </div>
+                </div>
+                
+                <!-- Menú de Navegación Desktop -->
+                <nav class="hidden lg:flex space-x-1 text-sm font-semibold text-slate-600">
+                    <button onclick="scrollToSection('macro')" class="px-3 py-2 hover:text-brand-600 hover:bg-slate-100 rounded-lg transition-colors">Macroeconomía</button>
+                    <button onclick="scrollToSection('bottlenecks')" class="px-3 py-2 hover:text-brand-600 hover:bg-slate-100 rounded-lg transition-colors">Cuellos de Botella</button>
+                    <button onclick="scrollToSection('ai-arch')" class="px-3 py-2 hover:text-brand-600 hover:bg-slate-100 rounded-lg transition-colors">Arquitectura IA</button>
+                    <button onclick="scrollToSection('ux-demo')" class="px-3 py-2 hover:text-brand-600 hover:bg-slate-100 rounded-lg transition-colors">Lab UX/UI 50+</button>
+                    <button onclick="scrollToSection('ecosystem')" class="px-3 py-2 hover:text-brand-600 hover:bg-slate-100 rounded-lg transition-colors">Ecosistema AgeTech</button>
+                    <button onclick="scrollToSection('opportunities')" class="px-3 py-2 hover:text-brand-600 hover:bg-slate-100 rounded-lg transition-colors">Estrategia &amp; Moats</button>
+                </nav>
+
+                <div class="lg:hidden">
+                    <select onchange="scrollToSection(this.value)" class="bg-slate-100 border border-slate-300 text-slate-800 text-sm rounded-lg p-2 font-medium">
+                        <option value="macro">1. Macroeconomía</option>
+                        <option value="bottlenecks">2. Cuellos de Botella</option>
+                        <option value="ai-arch">3. Arquitectura IA</option>
+                        <option value="ux-demo">4. Lab UX/UI 50+</option>
+                        <option value="ecosystem">5. Ecosistema AgeTech</option>
+                        <option value="opportunities">6. Estrategia &amp; Moats</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-16">
+
+        <!-- HERO SECTION -->
+        <section class="bg-gradient-to-r from-slate-900 via-brand-900 to-slate-900 text-white rounded-3xl p-8 sm:p-12 shadow-xl border border-slate-800 relative overflow-hidden">
+            <div class="max-w-3xl space-y-6 relative z-10">
+                <span class="inline-block bg-amberAccent-500/20 text-amber-300 text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-full border border-amber-500/30">
+                    &#9733; Inteligencia de Mercado &amp; Diseño de Producto
+                </span>
+                <h2 class="text-3xl sm:text-5xl font-black tracking-tight leading-tight">
+                    Transformando la Longevidad en Oportunidades de Alto Impacto
+                </h2>
+                <p class="text-base sm:text-lg text-slate-300">
+                    Explora los datos clave de la economía plateada ($22T+ a escala global), diagnostica las fricciones de uso y aplica arquitecturas de IA ambiental junto a heurísticas UX/UI científicamente validadas para la cohorte mayor de 50 años.
+                </p>
+                <div class="flex flex-wrap gap-4 pt-2">
+                    <button onclick="scrollToSection('ux-demo')" class="bg-brand-500 hover:bg-brand-600 text-white font-bold px-6 py-3 rounded-xl transition-all shadow-lg hover:shadow-brand-500/30 text-base">
+                        &#9755; Probar Lab de UX/UI Sénior
+                    </button>
+                    <button onclick="scrollToSection('macro')" class="bg-slate-800 hover:bg-slate-700 text-slate-200 font-semibold px-6 py-3 rounded-xl transition-all border border-slate-700 text-base">
+                        &#128200; Ver Datos Macroeconómicos
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECCIÓN 1: MACROECONOMÍA -->
+        <section id="macro" class="space-y-8 scroll-mt-24">
+            <div class="border-b border-slate-200 pb-4">
+                <h2 class="text-2xl sm:text-3xl font-bold text-slate-900 flex items-center gap-3">
+                    <span class="text-brand-600">&#128202;</span> 1. Panorama Macroeconómico de la Economía Plateada
+                </h2>
+                <p class="mt-2 text-slate-600 text-base">
+                    Esta sección analiza el volumen financiero, el crecimiento de la población sénior y el comportamiento de gasto en la economía de la longevidad. Permite evaluar la oportunidad de mercado global en comparación con el acelerado ritmo demográfico de América Latina y el Caribe.
+                </p>
+            </div>
+
+            <!-- Grid de KPIs -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm hover:border-brand-500 transition-all">
+                    <div class="text-xs font-bold text-slate-500 uppercase tracking-wide">Mercado Global Longevidad</div>
+                    <div class="text-3xl font-black text-slate-900 mt-2">$22 - $28 T</div>
+                    <p class="text-xs text-slate-600 mt-1">Trillones USD anuales (3ª actividad económica del planeta).</p>
+                </div>
+
+                <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm hover:border-brand-500 transition-all">
+                    <div class="text-xs font-bold text-slate-500 uppercase tracking-wide">Mercado AgeTech Proyectado</div>
+                    <div class="text-3xl font-black text-brand-600 mt-2">$2.0 - $2.7 T</div>
+                    <p class="text-xs text-slate-600 mt-1">Crecimiento a una tasa de CAGR ~21% anual.</p>
+                </div>
+
+                <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm hover:border-brand-500 transition-all">
+                    <div class="text-xs font-bold text-slate-500 uppercase tracking-wide">Patrimonio Acumulado (50+)</div>
+                    <div class="text-3xl font-black text-amberAccent-500 mt-2">~80%</div>
+                    <p class="text-xs text-slate-600 mt-1">Del riqueza neta total en economías desarrolladas.</p>
+                </div>
+
+                <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm hover:border-brand-500 transition-all">
+                    <div class="text-xs font-bold text-slate-500 uppercase tracking-wide">Desconexión en Software</div>
+                    <div class="text-3xl font-black text-red-600 mt-2">68%</div>
+                    <p class="text-xs text-slate-600 mt-1">Siente que las apps actuales ignoran sus necesidades reales.</p>
+                </div>
+            </div>
+
+            <!-- Control interactivo para conmutar visualización -->
+            <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-6">
+                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+                    <div>
+                        <h3 class="text-lg font-bold text-slate-900">Proyección de Transición Demográfica y Mercado</h3>
+                        <p class="text-xs text-slate-500">Compara la evolución proyectada del mercado AgeTech y la proporción de personas mayores de 65 años.</p>
+                    </div>
+                    <div class="flex bg-slate-100 p-1 rounded-xl border border-slate-200 text-xs font-semibold">
+                        <button id="btn-geo-global" onclick="updateMacroChart('global')" class="px-4 py-2 rounded-lg bg-white text-slate-900 shadow-sm">Alcance Global</button>
+                        <button id="btn-geo-latam" onclick="updateMacroChart('latam')" class="px-4 py-2 rounded-lg text-slate-600 hover:text-slate-900">América Latina &amp; Caribe</button>
+                    </div>
+                </div>
+
+                <div class="chart-container">
+                    <canvas id="macroChart"></canvas>
+                </div>
+                
+                <div id="macro-insight-box" class="bg-slate-50 p-4 rounded-xl border border-slate-200 text-sm text-slate-700">
+                    <span class="font-bold text-brand-700">&#128161; Insight Clave Global:</span> Los hogares encabezados por mayores de 50 años poseen una riqueza media de $765,000 USD (triplicando a las cohortes jóvenes). Sin embargo, la penetración de software verdaderamente adaptado sigue estando desatendida.
+                </div>
+            </div>
+        </section>
+
+        <!-- SECCIÓN 2: DIAGNÓSTICO Y CUELLOS DE BOTELLA -->
+        <section id="bottlenecks" class="space-y-8 scroll-mt-24">
+            <div class="border-b border-slate-200 pb-4">
+                <h2 class="text-2xl sm:text-3xl font-bold text-slate-900 flex items-center gap-3">
+                    <span class="text-brand-600">&#128269;</span> 2. Diagnóstico de Necesidades y Cuellos de Botella
+                </h2>
+                <p class="mt-2 text-slate-600 text-base">
+                    Para diseñar productos exitosos es imprescindible descomponer las demandas en cuatro dominios funcionales. Explora este panel interactivo para identificar la necesidad crítica, el punto de fricción en la experiencia de usuario (UX) y el cuello de botella sistémico que bloquea el escalamiento.
+                </p>
+            </div>
+
+            <!-- Selector de Dominio -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+                <button onclick="selectDomain('health')" id="dom-btn-health" class="p-4 rounded-xl border-2 text-left font-bold text-sm transition-all border-brand-500 bg-brand-50 text-brand-700">
+                    &#127973; Salud Preventiva &amp; Telemedicina
+                </button>
+                <button onclick="selectDomain('autonomy')" id="dom-btn-autonomy" class="p-4 rounded-xl border-2 text-left font-bold text-sm transition-all border-slate-200 bg-white text-slate-700 hover:border-slate-300">
+                    &#127969; Autonomía Residencial (Aging in Place)
+                </button>
+                <button onclick="selectDomain('finance')" id="dom-btn-finance" class="p-4 rounded-xl border-2 text-left font-bold text-sm transition-all border-slate-200 bg-white text-slate-700 hover:border-slate-300">
+                    &#128179; Finanzas &amp; Ciberseguridad
+                </button>
+                <button onclick="selectDomain('social')" id="dom-btn-social" class="p-4 rounded-xl border-2 text-left font-bold text-sm transition-all border-slate-200 bg-white text-slate-700 hover:border-slate-300">
+                    &#129309; Conexión Social &amp; Aprendizaje
+                </button>
+            </div>
+
+            <!-- Tarjeta Dinámica de Detalle de Cuellos de Botella -->
+            <div id="domain-detail-card" class="bg-white p-6 sm:p-8 rounded-2xl border border-slate-200 shadow-sm space-y-6">
+                <!-- Se llena dinámicamente mediante JS -->
+            </div>
+        </section>
+
+        <!-- SECCIÓN 3: ARQUITECTURA DE INTELIGENCIA ARTIFICIAL -->
+        <section id="ai-arch" class="space-y-8 scroll-mt-24">
+            <div class="border-b border-slate-200 pb-4">
+                <h2 class="text-2xl sm:text-3xl font-bold text-slate-900 flex items-center gap-3">
+                    <span class="text-brand-600">&#9881;</span> 3. Arquitectura de IA y Cómputo de Interfaz Cero
+                </h2>
+                <p class="mt-2 text-slate-600 text-base">
+                    La superación de los cuellos de botella exige pasar de aplicaciones intrusivas a un modelo sin fricción (*zero-interface*). La arquitectura combina sensores ambientales, procesamiento perimetral seguro (*edge-AI*) y agentes conversacionales afectivos que respetan la privacidad.
+                </p>
+            </div>
+
+            <!-- Diagrama de Flujo en Grid HTML/CSS -->
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-4 relative">
+                <!-- Capa 1 -->
+                <div class="bg-white p-5 rounded-2xl border-2 border-slate-200 space-y-3 relative">
+                    <div class="text-xs font-black text-brand-600 uppercase tracking-wide">Capa 1: Sensores Cero Interfaz</div>
+                    <h3 class="font-bold text-slate-900 text-base">Inteligencia Ambiental (AmI)</h3>
+                    <p class="text-xs text-slate-600">Radares mmWave de onda milimétrica y transductores acústicos. Capturan micro-Doppler corporal sin usar cámaras invasivas.</p>
+                    <div class="bg-slate-100 p-2 rounded-lg text-xs font-mono text-slate-700">Salida: Firma espectral RF</div>
+                </div>
+
+                <!-- Capa 2 -->
+                <div class="bg-white p-5 rounded-2xl border-2 border-slate-200 space-y-3 relative">
+                    <div class="text-xs font-black text-amberAccent-500 uppercase tracking-wide">Capa 2: Procesamiento Local</div>
+                    <h3 class="font-bold text-slate-900 text-base">Cómputo en el Borde (Edge-AI)</h3>
+                    <p class="text-xs text-slate-600">Inferencia perimetral privada. Algoritmos de aprendizaje profundo discriminan caídas lentas de gestos cotidianos.</p>
+                    <div class="bg-slate-100 p-2 rounded-lg text-xs font-mono text-slate-700">Salida: Métrica anonimizada</div>
+                </div>
+
+                <!-- Capa 3 -->
+                <div class="bg-white p-5 rounded-2xl border-2 border-slate-200 space-y-3 relative">
+                    <div class="text-xs font-black text-emerald-600 uppercase tracking-wide">Capa 3: Orquestación Afectiva</div>
+                    <h3 class="font-bold text-slate-900 text-base">Agente Conversacional Empático</h3>
+                    <p class="text-xs text-slate-600">LLM con memoria longitudinal persistente. Promueve la estimulación cognitiva, adherencia médica y acompañamiento.</p>
+                    <div class="bg-slate-100 p-2 rounded-lg text-xs font-mono text-slate-700">Salida: Interacción verbal/auditiva</div>
+                </div>
+
+                <!-- Capa 4 -->
+                <div class="bg-white p-5 rounded-2xl border-2 border-slate-200 space-y-3 relative">
+                    <div class="text-xs font-black text-indigo-600 uppercase tracking-wide">Capa 4: Red Intergeneracional</div>
+                    <h3 class="font-bold text-slate-900 text-base">Alertas y Fenotipado Digital</h3>
+                    <p class="text-xs text-slate-600">Sintetiza tendencias de salud (AVD) en reportes claros para médicos tratantes y cuidadores familiares.</p>
+                    <div class="bg-slate-100 p-2 rounded-lg text-xs font-mono text-slate-700">Salida: Dashboard predictivo</div>
+                </div>
+            </div>
+
+            <!-- Pestañas de Profundización Tecnológica -->
+            <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-6">
+                <h3 class="text-lg font-bold text-slate-900">Tecnologías Clave de Inteligencia Artificial para la Longevidad</h3>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="p-5 rounded-xl bg-slate-50 border border-slate-200 space-y-2">
+                        <div class="flex items-center gap-2 text-brand-600 font-bold text-sm">
+                            <span>&#128172;</span> Agentes Conversacionales Afectivos
+                        </div>
+                        <p class="text-xs text-slate-700">
+                            A diferencia de los asistentes reactivos tradicionales (Siri/Alexa), agentes como <strong>ElliQ</strong> son proactivos. Inician conversación al detectar movimiento matutino, recuerdan anécdotas personales y reducen la soledad subjetiva en un 95%.
+                        </p>
+                    </div>
+
+                    <div class="p-5 rounded-xl bg-slate-50 border border-slate-200 space-y-2">
+                        <div class="flex items-center gap-2 text-brand-600 font-bold text-sm">
+                            <span>&#128260;</span> Fenotipado Digital y Biomarcadores AVD
+                        </div>
+                        <p class="text-xs text-slate-700">
+                            Plataformas como <strong>CarePredict</strong> analizan patrones de Actividades de la Vida Diaria (frecuencia de aseo, marcha, ingesta). Predicen riesgos de caída con 7 a 14 días de anticipación, aumentando la precisión diagnóstica en un 35%.
+                        </p>
+                    </div>
+
+                    <div class="p-5 rounded-xl bg-slate-50 border border-slate-200 space-y-2">
+                        <div class="flex items-center gap-2 text-brand-600 font-bold text-sm">
+                            <span>&#128737;</span> Ciberdefensa Vocal Contextual
+                        </div>
+                        <p class="text-xs text-slate-700">
+                            Sistemas de detección espectral analizan llamadas telefónicas buscando anomalías de latencia de redes GAN (clonación de voz). Consultan en segundo plano la ubicación real de familiares para neutralizar extorsiones sin causar pánico.
+                        </p>
+                    </div>
+
+                    <div class="p-5 rounded-xl bg-slate-50 border border-slate-200 space-y-2">
+                        <div class="flex items-center gap-2 text-brand-600 font-bold text-sm">
+                            <span>&#128225;</span> Radares mmWave Sin Cámara
+                        </div>
+                        <p class="text-xs text-slate-700">
+                            Eliminan el estigma y la violación de privacidad en baños y dormitorios. Evalúan la perturbación electromagnética y la firma micro-Doppler para detectar emergencias y desvanecimientos al instante.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECCIÓN 4: LABORATORIO INTERACTIVO UX/UI SÉNIOR (WOW COMPONENT) -->
+        <section id="ux-demo" class="space-y-8 scroll-mt-24">
+            <div class="border-b border-slate-200 pb-4">
+                <h2 class="text-2xl sm:text-3xl font-bold text-slate-900 flex items-center gap-3">
+                    <span class="text-brand-600">&#128187;</span> 4. Laboratorio Interactivo de Heurísticas UX/UI (50+)
+                </h2>
+                <p class="mt-2 text-slate-600 text-base">
+                    Aplica la investigación de usabilidad de Nielsen Norman Group y el marco MOLD-US. Utiliza este simulador interactivo para conmutar en tiempo real entre una interfaz estándar orientada a usuarios jóvenes y un diseño optimizado ergónoma y cognitivamente para adultos mayores.
+                </p>
+            </div>
+
+            <!-- Interfaz del Simulador -->
+            <div class="bg-slate-900 text-white p-6 sm:p-8 rounded-3xl space-y-6 shadow-xl border border-slate-800">
+                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+                    <div>
+                        <span class="text-xs font-bold text-amber-400 uppercase tracking-widest">&#128300; Simulador de Usabilidad Comparativa</span>
+                        <h3 class="text-xl font-bold text-white mt-1">Prueba de Aplicación Médica / Financiera</h3>
+                    </div>
+
+                    <!-- Toggle Mode Switch -->
+                    <div class="flex items-center bg-slate-800 p-1.5 rounded-2xl border border-slate-700">
+                        <button id="btn-mode-std" onclick="setUiMode('standard')" class="px-4 py-2 rounded-xl text-xs font-bold transition-all bg-slate-700 text-slate-300">
+                            Diseño Estándar (Jóvenes)
+                        </button>
+                        <button id="btn-mode-senior" onclick="setUiMode('senior')" class="px-4 py-2 rounded-xl text-xs font-bold transition-all bg-brand-500 text-white shadow-lg">
+                            &#10003; Optimizado Sénior (50+)
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Caja de Vista Previa Simulada -->
+                <div class="bg-slate-100 rounded-2xl p-4 sm:p-8 text-slate-900 min-h-[380px] flex flex-col justify-between transition-all" id="simulated-ui-container">
+                    <!-- Contenido dinámico inyectado por JS -->
+                </div>
+
+                <!-- Explicación Técnica de las Heurísticas Aplicadas -->
+                <div id="heuristic-explanation-box" class="bg-slate-800/80 p-5 rounded-2xl border border-slate-700 text-xs sm:text-sm text-slate-300 space-y-2">
+                    <!-- JS inyecta explicación según el modo activo -->
+                </div>
+            </div>
+
+            <!-- Tabla de Heurísticas Comparativas -->
+            <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm overflow-x-auto">
+                <h3 class="text-lg font-bold text-slate-900 mb-4">Resumen de Parámetros de Diseño y Sustento Biológico</h3>
+                <table class="w-full text-left border-collapse text-xs sm:text-sm">
+                    <thead>
+                        <tr class="border-b-2 border-slate-200 bg-slate-50 text-slate-700">
+                            <th class="p-3 font-bold">Parámetro</th>
+                            <th class="p-3 font-bold text-slate-500">Estándar General</th>
+                            <th class="p-3 font-bold text-brand-700">Heurística Sénior (50+)</th>
+                            <th class="p-3 font-bold">Justificación Biológica / Cognitiva</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-100 text-slate-700">
+                        <tr>
+                            <td class="p-3 font-semibold">Fuente Base</td>
+                            <td class="p-3 text-slate-500">14 - 16 px</td>
+                            <td class="p-3 font-bold text-brand-700 bg-brand-50/50">18 - 20 px (Interlineado 160%)</td>
+                            <td class="p-3 text-slate-600">Presbicia y menor agudeza foveal retinal.</td>
+                        </tr>
+                        <tr>
+                            <td class="p-3 font-semibold">Contraste Cromático</td>
+                            <td class="p-3 text-slate-500">WCAG AA (4.5:1)</td>
+                            <td class="p-3 font-bold text-brand-700 bg-brand-50/50">WCAG AAA (&ge; 7.0:1)</td>
+                            <td class="p-3 text-slate-600">Amarilleamiento senil del cristalino ocular.</td>
+                        </tr>
+                        <tr>
+                            <td class="p-3 font-semibold">Dianas Táctiles</td>
+                            <td class="p-3 text-slate-500">32x32 a 44x44 px</td>
+                            <td class="p-3 font-bold text-brand-700 bg-brand-50/50">Mínimo 48x48 px (Pref: 56x56 px)</td>
+                            <td class="p-3 text-slate-600">Ley de Fitts frente a artritis y temblores motores.</td>
+                        </tr>
+                        <tr>
+                            <td class="p-3 font-semibold">Interacción Motor</td>
+                            <td class="p-3 text-slate-500">Gestos complejos (Swipe/Drag)</td>
+                            <td class="p-3 font-bold text-brand-700 bg-brand-50/50">Toque Único (Single-Tap) + Voz</td>
+                            <td class="p-3 text-slate-600">Pérdida de conductividad por piel seca y arrugas.</td>
+                        </tr>
+                        <tr>
+                            <td class="p-3 font-semibold">Tolerancia a Error</td>
+                            <td class="p-3 text-slate-500">Modales con temporizador</td>
+                            <td class="p-3 font-bold text-brand-700 bg-brand-50/50">Confirmación 2 Pasos + Undo Sin Tiempo</td>
+                            <td class="p-3 text-slate-600">Reducción de la ansiedad situacional en memoria de trabajo.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- SECCIÓN 5: ECOSISTEMA AGETECH Y MODELOS DE NEGOCIO -->
+        <section id="ecosystem" class="space-y-8 scroll-mt-24">
+            <div class="border-b border-slate-200 pb-4">
+                <h2 class="text-2xl sm:text-3xl font-bold text-slate-900 flex items-center gap-3">
+                    <span class="text-brand-600">&#128188;</span> 5. Ecosistema Emprendedor y Modelos de Negocio
+                </h2>
+                <p class="mt-2 text-slate-600 text-base">
+                    Analiza las estrategias de monetización y tracción de las startups líderes en el mundo y en América Latina. Descubre por qué los modelos intermediados (B2B2C, B2G) superan las barreras del B2C directo en poblaciones con pensiones o ingresos fijos.
+                </p>
+            </div>
+
+            <!-- Esquema Visual de Modelos de Distribución -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-3">
+                    <span class="text-xs font-bold text-red-500 uppercase tracking-wide">B2C Directo (Fricción Alta)</span>
+                    <h3 class="font-bold text-slate-900 text-base">Venta Directa al Sénior</h3>
+                    <p class="text-xs text-slate-600">Alta barrera de escala cuando el costo es asumido íntegramente por jubilados con ingresos fijos.</p>
+                </div>
+
+                <div class="bg-white p-6 rounded-2xl border-2 border-brand-500 shadow-sm space-y-3">
+                    <span class="text-xs font-bold text-brand-600 uppercase tracking-wide">B2G &amp; Subsidios Estatales (Escala Masiva)</span>
+                    <h3 class="font-bold text-slate-900 text-base">Cobertura Pública de Salud</h3>
+                    <p class="text-xs text-slate-600">Despliegue totalmente financiado por agencias de envejecimiento y reembolso Medicaid/público (Ej. Intuition Robotics/NYSOFA).</p>
+                </div>
+
+                <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-3">
+                    <span class="text-xs font-bold text-emerald-600 uppercase tracking-wide">B2B2C Corporativo (Generación Sándwich)</span>
+                    <h3 class="font-bold text-slate-900 text-base">Bienestar para Empleados</h3>
+                    <p class="text-xs text-slate-600">Financiado por empresas para mitigar el ausentismo laboral de cuidadores familiares y apoyar el retiro (Ej. Soy+).</p>
+                </div>
+            </div>
+
+            <!-- Tabla Filtrable de Casos de Estudio Globales -->
+            <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-6">
+                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+                    <div>
+                        <h3 class="text-lg font-bold text-slate-900">Directorio de Compañías Destacadas y Tracción</h3>
+                        <p class="text-xs text-slate-500">Selecciona un emprendimiento para examinar su arquitectura de negocio y capital captado.</p>
+                    </div>
+                    <input type="text" id="company-search" oninput="filterCompanies()" placeholder="&#128269; Buscar empresa o país..." class="border border-slate-300 rounded-xl px-3 py-2 text-xs w-full sm:w-64 focus:outline-none focus:border-brand-500">
+                </div>
+
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left border-collapse text-xs sm:text-sm">
+                        <thead>
+                            <tr class="border-b-2 border-slate-200 bg-slate-50 text-slate-700">
+                                <th class="p-3 font-bold">Empresa</th>
+                                <th class="p-3 font-bold">País / Capital</th>
+                                <th class="p-3 font-bold">Propuesta e IA</th>
+                                <th class="p-3 font-bold">Modelo Principal</th>
+                                <th class="p-3 font-bold">Métrica de Tracción</th>
+                            </tr>
+                        </thead>
+                        <tbody id="company-table-body" class="divide-y divide-slate-100 text-slate-700">
+                            <!-- JS Inyecta las filas -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECCIÓN 6: VENTAJAS COMPETITIVAS Y OPORTUNIDADES ESTRATÉGICAS -->
+        <section id="opportunities" class="space-y-8 scroll-mt-24">
+            <div class="border-b border-slate-200 pb-4">
+                <h2 class="text-2xl sm:text-3xl font-bold text-slate-900 flex items-center gap-3">
+                    <span class="text-brand-600">&#127919;</span> 6. Ventajas Competitivas Sostenibles (Moats) &amp; Oportunidades
+                </h2>
+                <p class="mt-2 text-slate-600 text-base">
+                    Para construir soluciones defensibles en la economía plateada, los equipos de desarrollo deben trascender los retoques cosméticos. Analiza las tres barreras de entrada estructurales y explora los nichos con alto potencial de retorno.
+                </p>
+            </div>
+
+            <!-- Fosas Defensivas (Moats) -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="bg-white p-6 rounded-2xl border-t-4 border-brand-500 shadow-sm space-y-3">
+                    <div class="text-xs font-bold text-brand-600 uppercase">Moat 1: Datos Longitudinales</div>
+                    <h3 class="font-bold text-slate-900 text-base">Biomarcadores Propietarios</h3>
+                    <p class="text-xs text-slate-600">Modelos entrenados en datos de marcha, voz y biomecánica en contextos reales. La validación clínica inmuniza la solución frente a apps genéricas.</p>
+                </div>
+
+                <div class="bg-white p-6 rounded-2xl border-t-4 border-amberAccent-500 shadow-sm space-y-3">
+                    <div class="text-xs font-bold text-amberAccent-600 uppercase">Moat 2: Cómputo Invisible</div>
+                    <h3 class="font-bold text-slate-900 text-base">Zero-Maintenance Edge-AI</h3>
+                    <p class="text-xs text-slate-600">Sistemas perimetrales que funcionan en segundo plano sin requerir recargas ni configuraciones manuales diarias, reduciendo el *churn* a cero.</p>
+                </div>
+
+                <div class="bg-white p-6 rounded-2xl border-t-4 border-emerald-500 shadow-sm space-y-3">
+                    <div class="text-xs font-bold text-emerald-600 uppercase">Moat 3: Alineación Tripartita</div>
+                    <h3 class="font-bold text-slate-900 text-base">Tríada de Valor Sostenible</h3>
+                    <p class="text-xs text-slate-600">Dignidad para el sénior + Tranquilidad para la familia + Demostración verificable de ahorro para la aseguradora o empleador pagador.</p>
+                </div>
+            </div>
+
+            <!-- Nichos Desatendidos con Alto Potencial -->
+            <div class="bg-white p-6 sm:p-8 rounded-2xl border border-slate-200 shadow-sm space-y-6">
+                <h3 class="text-lg font-bold text-slate-900">Nichos Estratégicos de Alto Retorno para Nuevos Productos</h3>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="bg-slate-50 p-6 rounded-xl border border-slate-200 flex flex-col justify-between space-y-4">
+                        <div class="space-y-2">
+                            <span class="text-xs font-bold text-brand-600 bg-brand-100 px-2.5 py-1 rounded-full">Fintech Protectiva</span>
+                            <h4 class="font-bold text-slate-900 text-base">Banca Digital con Ciberdefensa Vocal</h4>
+                            <p class="text-xs text-slate-600">Líneas de crédito para emprendedores 50+ integradas con filtros anti-estafa por clonación de voz y confirmación contextual biométrica no estigmatizante.</p>
+                        </div>
+                        <div class="pt-2 border-t border-slate-200 text-xs text-slate-500 flex justify-between">
+                            <span>Factibilidad: <strong>Alta</strong></span>
+                            <span>Impacto: <strong>Muy Alto</strong></span>
+                        </div>
+                    </div>
+
+                    <div class="bg-slate-50 p-6 rounded-xl border border-slate-200 flex flex-col justify-between space-y-4">
+                        <div class="space-y-2">
+                            <span class="text-xs font-bold text-amberAccent-600 bg-amber-100 px-2.5 py-1 rounded-full">Capital Intelectual</span>
+                            <h4 class="font-bold text-slate-900 text-base">Plataformas de Mentoría Intergeneracional</h4>
+                            <p class="text-xs text-slate-600">Redes para conectar a profesionales retirados con startups y universidades, estructurando transferencia de conocimiento tácito e interfaces de voz.</p>
+                        </div>
+                        <div class="pt-2 border-t border-slate-200 text-xs text-slate-500 flex justify-between">
+                            <span>Factibilidad: <strong>Muy Alta</strong></span>
+                            <span>Impacto: <strong>Alto</strong></span>
+                        </div>
+                    </div>
+
+                    <div class="bg-slate-50 p-6 rounded-xl border border-slate-200 flex flex-col justify-between space-y-4">
+                        <div class="space-y-2">
+                            <span class="text-xs font-bold text-emerald-600 bg-emerald-100 px-2.5 py-1 rounded-full">Aging-in-Place OS</span>
+                            <h4 class="font-bold text-slate-900 text-base">Sistema Operativo Habitacional Integrado</h4>
+                            <p class="text-xs text-slate-600">Hub unificado de automatización doméstica (iluminación circadiana, control térmico, detección de emergencias) a una fracción del costo residencial.</p>
+                        </div>
+                        <div class="pt-2 border-t border-slate-200 text-xs text-slate-500 flex justify-between">
+                            <span>Factibilidad: <strong>Media</strong></span>
+                            <span>Impacto: <strong>Transformacional</strong></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-slate-900 text-slate-400 py-12 border-t border-slate-800 mt-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row justify-between items-center gap-6 text-xs">
+            <div class="flex items-center space-x-3">
+                <span class="text-2xl font-bold text-brand-500">&#9879;</span>
+                <p>&copy; 2026 Plataforma de Inteligencia de Mercado &amp; Economía Plateada. Basado en el informe técnico de la Nueva Longevidad e IA.</p>
+            </div>
+            <div class="flex space-x-6">
+                <a href="#macro" class="hover:text-white transition-colors">Macroeconomía</a>
+                <a href="#ux-demo" class="hover:text-white transition-colors">Lab UX/UI</a>
+                <a href="#ecosystem" class="hover:text-white transition-colors">Startups</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- LOGICA JAVASCRIPT VANILLA -->
+    <script>
+        // 1. Lógica de Desplazamiento Suave
+        function scrollToSection(id) {
+            const element = document.getElementById(id);
+            if (element) {
+                element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        }
+
+        // 2. Gráfico Macroeconómico (Chart.js)
+        let macroChartInstance = null;
+
+        const macroDataSets = {
+            global: {
+                labels: ['2022', '2030 (Proy.)', '2040 (Proy.)', '2050 (Proy.)'],
+                ageTechSize: [1.2, 1.8, 2.2, 2.7], // Trillones USD
+                popPercentage: [10, 12, 14, 16],   // % Mayor 65 años
+                insight: '<strong>&#128161; Insight Clave Global:</strong> Los hogares encabezados por mayores de 50 años poseen una riqueza media de $765,000 USD (triplicando a las cohortes jóvenes). Sin embargo, el 68% percibe que las soluciones tecnológicas actuales los ignoran.'
+            },
+            latam: {
+                labels: ['2022', '2030 (Proy.)', '2040 (Proy.)', '2050 (Proy.)'],
+                ageTechSize: [0.08, 0.18, 0.35, 0.52], // Estimado regional Trillones USD
+                popPercentage: [9, 12.5, 15.8, 19.0],  // % Mayor 65 años en ALC
+                insight: '<strong>&#128161; Insight Clave LATAM:</strong> América Latina envejece a un ritmo sin precedentes. Para 2050, 1 de cada 4 latinoamericanos superará los 60 años y el 30% del crecimiento del consumo urbano provendrá de este segmento.'
+            }
+        };
+
+        function initMacroChart() {
+            const ctx = document.getElementById('macroChart').getContext('2d');
+            macroChartInstance = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: macroDataSets.global.labels,
+                    datasets: [
+                        {
+                            label: 'Mercado AgeTech (Trillones USD)',
+                            data: macroDataSets.global.ageTechSize,
+                            backgroundColor: '#2563eb',
+                            borderRadius: 8,
+                            yAxisID: 'y'
+                        },
+                        {
+                            label: '% Población 65+ Años',
+                            data: macroDataSets.global.popPercentage,
+                            type: 'line',
+                            borderColor: '#d97706',
+                            borderWidth: 3,
+                            pointRadius: 6,
+                            pointBackgroundColor: '#d97706',
+                            yAxisID: 'y1'
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    interaction: {
+                        mode: 'index',
+                        intersect: false,
+                    },
+                    scales: {
+                        y: {
+                            type: 'linear',
+                            display: true,
+                            position: 'left',
+                            title: {
+                                display: true,
+                                text: 'Valor Mercado (Trillones USD)',
+                                font: { size: 11, weight: 'bold' }
+                            },
+                            grid: { color: '#f1f5f9' }
+                        },
+                        y1: {
+                            type: 'linear',
+                            display: true,
+                            position: 'right',
+                            title: {
+                                display: true,
+                                text: '% Población Mayor de 65',
+                                font: { size: 11, weight: 'bold' }
+                            },
+                            grid: { drawOnChartArea: false }
+                        },
+                        x: {
+                            grid: { display: false }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: { font: { size: 12, weight: '600' } }
+                        },
+                        tooltip: {
+                            padding: 12,
+                            titleFont: { size: 14, weight: 'bold' },
+                            bodyFont: { size: 13 }
+                        }
+                    }
+                }
+            });
+        }
+
+        function updateMacroChart(region) {
+            const btnGlobal = document.getElementById('btn-geo-global');
+            const btnLatam = document.getElementById('btn-geo-latam');
+            const insightBox = document.getElementById('macro-insight-box');
+
+            if (region === 'global') {
+                btnGlobal.className = 'px-4 py-2 rounded-lg bg-white text-slate-900 shadow-sm font-bold';
+                btnLatam.className = 'px-4 py-2 rounded-lg text-slate-600 hover:text-slate-900 font-semibold';
+                macroChartInstance.data.datasets[0].data = macroDataSets.global.ageTechSize;
+                macroChartInstance.data.datasets[1].data = macroDataSets.global.popPercentage;
+                insightBox.innerHTML = macroDataSets.global.insight;
+            } else {
+                btnLatam.className = 'px-4 py-2 rounded-lg bg-white text-slate-900 shadow-sm font-bold';
+                btnGlobal.className = 'px-4 py-2 rounded-lg text-slate-600 hover:text-slate-900 font-semibold';
+                macroChartInstance.data.datasets[0].data = macroDataSets.latam.ageTechSize;
+                macroChartInstance.data.datasets[1].data = macroDataSets.latam.popPercentage;
+                insightBox.innerHTML = macroDataSets.latam.insight;
+            }
+            macroChartInstance.update();
+        }
+
+        // 3. Lógica de Cuellos de Botella por Dominio
+        const domainDetails = {
+            health: {
+                title: 'Salud Preventiva, Telemedicina y Bienestar Físico',
+                criticalNeed: 'Detección precoz de descompensaciones y soporte coordinado a la red de cuidado sin sobrecargar a la familia.',
+                friction: 'Portales médicos fragmentados, enlaces de autenticación por correo que expiran en minutos y lenguaje clínico incomprensible.',
+                bottleneck: 'Modelos de reembolso clínico enfocados en la atención de urgencia agudo (fee-for-service) en lugar de la conservación preventiva del bienestar.',
+                aiSolution: 'Monitoreo longitudinal del fenotipado digital y síntesis mediante LLM de resúmenes de salud accesibles para cuidadores informales.'
+            },
+            autonomy: {
+                title: 'Autonomía Residencial y Vida Independiente (Aging in Place)',
+                criticalNeed: 'Salvaguarda continua de la vida independiente y detección de emergencias domésticas preservando la privacidad.',
+                friction: 'Abandono de pulseras y botones de pánico colgantes debido a la estigmatización social asociada y el olvido de recarga de batería.',
+                bottleneck: 'Sensores tradicionales ciegos o intrusivos (las cámaras ópticas violan la intimidad en baños y dormitorios, donde ocurren el 80% de las caídas).',
+                aiSolution: 'Radares de ondas milimétricas (mmWave) y analítica acústica perimetral (*Edge-AI*) que identifican caídas sin capturar imágenes.'
+            },
+            finance: {
+                title: 'Finanzas, Ciberseguridad y Planificación del Retiro',
+                criticalNeed: 'Gestión autónoma del patrimonio acumulado y preservación de liquidez contra fraudes digitales avanzados.',
+                friction: 'Menús de banca digital jerárquicamente densos, tipografías minúsculas y métodos MFA con códigos SMS urgentes y temporizados.',
+                bottleneck: 'Ciberestafas mediante clonación de voz por IA (redes GAN) que manipulan la respuesta biológica de pánico en familiares y adultos mayores.',
+                aiSolution: 'Agentes de ciberdefensa contextual que analizan frecuencias de audio sintético e interconectan la verificación familiar segura.'
+            },
+            social: {
+                title: 'Conexión Social, Mitigación del Aislamiento y Aprendizaje',
+                criticalNeed: 'Pertenencia vincular, mitigación de la soledad involuntaria y actualización continua de habilidades sin infantilización.',
+                friction: 'Redes sociales hiperactivas dominadas por microformatos vertiginosos y patrones oscuros enfocados en la economía de la atención.',
+                bottleneck: 'Ausencia de cobertura financiera para la soledad en los sistemas de salud y carencia de pedagogías adaptadas a modelos mentales sénior.',
+                aiSolution: 'Robots sociales y asistentes empáticos proactivos (ej. ElliQ) con memoria autobiográfica a largo plazo.'
+            }
+        };
+
+        function selectDomain(domainKey) {
+            const buttons = ['health', 'autonomy', 'finance', 'social'];
+            buttons.forEach(key => {
+                const btn = document.getElementById(`dom-btn-${key}`);
+                if (key === domainKey) {
+                    btn.className = 'p-4 rounded-xl border-2 text-left font-bold text-sm transition-all border-brand-500 bg-brand-50 text-brand-700 shadow-sm';
+                } else {
+                    btn.className = 'p-4 rounded-xl border-2 text-left font-bold text-sm transition-all border-slate-200 bg-white text-slate-700 hover:border-slate-300';
+                }
+            });
+
+            const data = domainDetails[domainKey];
+            const container = document.getElementById('domain-detail-card');
+            container.innerHTML = `
+                <div class="border-b border-slate-100 pb-4">
+                    <span class="text-xs font-bold text-brand-600 uppercase tracking-wider">Análisis Profundo de Dominio</span>
+                    <h3 class="text-xl font-bold text-slate-900 mt-1">${data.title}</h3>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="p-5 rounded-xl bg-slate-50 border border-slate-200 space-y-2">
+                        <div class="text-xs font-bold text-slate-500 uppercase">1. Necesidad Crítica No Resuelta</div>
+                        <p class="text-sm font-semibold text-slate-900">${data.criticalNeed}</p>
+                    </div>
+
+                    <div class="p-5 rounded-xl bg-amber-50 border border-amber-200 space-y-2">
+                        <div class="text-xs font-bold text-amber-700 uppercase">2. Fricción en Experiencia de Usuario (UX)</div>
+                        <p class="text-sm font-semibold text-amber-900">${data.friction}</p>
+                    </div>
+
+                    <div class="p-5 rounded-xl bg-red-50 border border-red-200 space-y-2">
+                        <div class="text-xs font-bold text-red-700 uppercase">3. Cuello de Botella Sistémico</div>
+                        <p class="text-sm font-semibold text-red-900">${data.bottleneck}</p>
+                    </div>
+
+                    <div class="p-5 rounded-xl bg-emerald-50 border border-emerald-200 space-y-2">
+                        <div class="text-xs font-bold text-emerald-700 uppercase">4. Habilitador Tecnológico con IA</div>
+                        <p class="text-sm font-semibold text-emerald-900">${data.aiSolution}</p>
+                    </div>
+                </div>
+            `;
+        }
+
+        // 4. Laboratorio de UX/UI Sénior (Simulador de Pantalla Dividida)
+        let currentUiMode = 'senior';
+
+        function setUiMode(mode) {
+            currentUiMode = mode;
+            const btnStd = document.getElementById('btn-mode-std');
+            const btnSenior = document.getElementById('btn-mode-senior');
+            const container = document.getElementById('simulated-ui-container');
+            const expBox = document.getElementById('heuristic-explanation-box');
+
+            if (mode === 'standard') {
+                btnStd.className = 'px-4 py-2 rounded-xl text-xs font-bold transition-all bg-brand-500 text-white shadow-lg';
+                btnSenior.className = 'px-4 py-2 rounded-xl text-xs font-bold transition-all bg-slate-700 text-slate-300';
+                
+                container.innerHTML = `
+                    <!-- VISTA ESTÁNDAR / JOVEN -->
+                    <div class="space-y-4 font-sans text-xs">
+                        <div class="flex justify-between items-center text-slate-400 border-b pb-2">
+                            <span>AppMed v2.1</span>
+                            <span>&#128269; search | &#9776;</span>
+                        </div>
+                        
+                        <div class="p-3 bg-slate-50 rounded border border-slate-200 space-y-2">
+                            <p class="text-slate-400 text-[11px]">Confirma tu token enviado a tu mail antes de 45 segundos:</p>
+                            <input type="text" placeholder="token..." class="w-full p-1.5 border rounded text-xs">
+                            <div class="flex justify-end space-x-2 text-[10px]">
+                                <button class="px-2 py-1 bg-slate-200 text-slate-600 rounded">Cancel</button>
+                                <button class="px-2 py-1 bg-blue-500 text-white rounded">Submit</button>
+                            </div>
+                        </div>
+
+                        <div class="space-y-1">
+                            <span class="text-[10px] text-slate-400">Selecciona especialista:</span>
+                            <div class="flex space-x-1 text-[10px] overflow-x-auto pb-1">
+                                <span class="px-2 py-1 bg-blue-100 text-blue-800 rounded-full whitespace-nowrap">Cardiología</span>
+                                <span class="px-2 py-1 bg-slate-100 text-slate-600 rounded-full whitespace-nowrap">Neurología</span>
+                                <span class="px-2 py-1 bg-slate-100 text-slate-600 rounded-full whitespace-nowrap">Otorrinolaringología</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-4 pt-2 border-t text-[10px] text-slate-400 flex justify-between">
+                        <span>Status: Connected</span>
+                        <span class="text-red-400">Session expires in 01:15</span>
+                    </div>
+                `;
+
+                expBox.innerHTML = `
+                    <div class="text-amber-300 font-bold">&#9888; Deficiencias detectadas para mayores de 50 años:</div>
+                    <p>1. <strong>Falta de contraste y tipografía pequeña (11-12px):</strong> Provoca fatiga visual en usuarios con presbicia.</p>
+                    <p>2. <strong>Controles minúsculos (&lt;32px):</strong> Inducen a errores por temblores o baja precisión motriz en dispositivos táctiles.</p>
+                    <p>3. <strong>Temporizadores de cuenta regresiva:</strong> Elevan la ansiedad situacional y saturan la memoria de trabajo temporal.</p>
+                `;
+            } else {
+                btnSenior.className = 'px-4 py-2 rounded-xl text-xs font-bold transition-all bg-brand-500 text-white shadow-lg';
+                btnStd.className = 'px-4 py-2 rounded-xl text-xs font-bold transition-all bg-slate-700 text-slate-300';
+
+                container.innerHTML = `
+                    <!-- VISTA OPTIMIZADA SÉNIOR (50+) -->
+                    <div class="space-y-6 text-base">
+                        <div class="flex justify-between items-center border-b-2 border-slate-200 pb-3">
+                            <span class="font-bold text-slate-900 text-lg">&#127973; Mi Portal de Salud</span>
+                            <span class="bg-brand-100 text-brand-800 px-3 py-1 rounded-full text-sm font-bold">&#128065; Texto Grande</span>
+                        </div>
+                        
+                        <div class="p-5 bg-white rounded-2xl border-2 border-brand-500 shadow-sm space-y-4">
+                            <h4 class="font-bold text-slate-900 text-lg">Paso 1 de 2: Confirmación de Identidad</h4>
+                            <p class="text-slate-700 text-base leading-relaxed">Le hemos enviado una clave de 4 números a su teléfono celular. Ingrésela a continuación a su propio ritmo:</p>
+                            
+                            <input type="text" placeholder="Ejemplo: 4582" class="w-full p-4 border-2 border-slate-300 rounded-xl text-xl font-bold text-slate-900 focus:border-brand-600 focus:outline-none">
+                            
+                            <div class="flex flex-col sm:flex-row gap-3 pt-2">
+                                <button class="w-full sm:w-1/2 touch-target-senior bg-slate-100 text-slate-800 rounded-xl border border-slate-300 font-bold hover:bg-slate-200">
+                                    &#10007; Volver Atrás
+                                </button>
+                                <button class="w-full sm:w-1/2 touch-target-senior bg-brand-600 text-white rounded-xl font-bold hover:bg-brand-700 shadow-md">
+                                    &#10003; Confirmar y Continuar
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-4 pt-3 border-t-2 border-slate-200 text-sm text-slate-600 flex justify-between items-center font-medium">
+                        <span>&#128222; ¿Necesita ayuda? Toque para llamar al asistente</span>
+                        <span class="text-emerald-700 font-bold">&#128274; Sesión Segura y Sin Límite de Tiempo</span>
+                    </div>
+                `;
+
+                expBox.innerHTML = `
+                    <div class="text-emerald-400 font-bold">&#10003; Heurísticas de Usabilidad Sénior Aplicadas:</div>
+                    <p>1. <strong>Ergonomía Visual AAA:</strong> Fuentes de 18px+, contraste alto (&ge; 7:1) y jerarquía clara mediante cajas delimitadas.</p>
+                    <p>2. <strong>Ley de Fitts Aplicada:</strong> Botones de conversión con dimensiones de 56x56 dp para facilitar el toque con pulgares o manos con artritis.</p>
+                    <p>3. <strong>Eliminación de Ansiedad:</strong> Flujo progresivo ("Paso 1 de 2") sin contadores regresivos ni términos técnicos oscuros.</p>
+                `;
+            }
+        }
+
+        // 5. Tabla Dinámica del Ecosistema AgeTech
+        const companiesData = [
+            { name: 'Intuition Robotics (ElliQ)', country: 'Israel / EE.UU. ($83M)', offer: 'Robot social empático proactivo con memoria longitudinal LLM', model: 'B2G & Subsidio Estatal (NYSOFA / Medicaid)', traction: '95% reducción de soledad; >30 interacciones diarias' },
+            { name: 'CarePredict', country: 'EE.UU. (+$29M)', offer: 'Sensórica vestible Tempo e IA predictiva de AVD', model: 'B2B SaaS por residente + Monetización de Datos', traction: '+35% precisión predictiva de caídas; 70% ingresos SaaS' },
+            { name: 'Soy+', country: 'México ($3M Seed)', offer: 'Ecosistema de salud integral, finanzas y comunidad 50+', model: 'B2B2C (Bienestar corporativo para empleados)', traction: 'Penetración clave en México y retención de talento laboral' },
+            { name: 'Care Daily', country: 'EE.UU. (Venture-Backed)', offer: 'Inteligencia ambiental domiciliaria y analítica', model: 'B2B SaaS Marca Blanca para Telecoms y Aseguradoras', traction: 'Despliegue a gran escala sin hardware propietario' }
+        ];
+
+        function renderCompanyTable(data) {
+            const tbody = document.getElementById('company-table-body');
+            tbody.innerHTML = '';
+            data.forEach(item => {
+                const tr = document.createElement('tr');
+                tr.className = 'hover:bg-slate-50 border-b border-slate-100 transition-colors';
+                tr.innerHTML = `
+                    <td class="p-3 font-bold text-slate-900">${item.name}</td>
+                    <td class="p-3 text-slate-600">${item.country}</td>
+                    <td class="p-3 text-slate-700">${item.offer}</td>
+                    <td class="p-3 font-medium text-brand-700">${item.model}</td>
+                    <td class="p-3 font-semibold text-emerald-700">${item.traction}</td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        function filterCompanies() {
+            const query = document.getElementById('company-search').value.toLowerCase();
+            const filtered = companiesData.filter(item => 
+                item.name.toLowerCase().includes(query) || 
+                item.country.toLowerCase().includes(query) ||
+                item.offer.toLowerCase().includes(query) ||
+                item.model.toLowerCase().includes(query)
+            );
+            renderCompanyTable(filtered);
+        }
+
+        // Inicialización General al Cargar la Página
+        window.addEventListener('DOMContentLoaded', () => {
+            initMacroChart();
+            selectDomain('health');
+            setUiMode('senior');
+            renderCompanyTable(companiesData);
+        });
+    </script>
+</body>
+</html>

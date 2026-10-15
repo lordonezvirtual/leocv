@@ -1,0 +1,1189 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Metodologías de Adopción e Industrialización de IA</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Custom Font: Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        warmbg: '#FBF9F5',
+                        warmcard: '#FFFFFF',
+                        bordercolor: '#E2E8F0',
+                        brand: {
+                            50: '#F0F7FF',
+                            100: '#E0EFFE',
+                            600: '#2563EB',
+                            700: '#1D4ED8',
+                            900: '#1E3A8A',
+                        },
+                        accent: {
+                            teal: '#0D9488',
+                            amber: '#D97706',
+                            rose: '#E11D48',
+                            slate: '#334155',
+                            indigo: '#4F46E5',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #F8FAF9;
+            color: #1E293B;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 580px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px;
+            max-height: 380px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 340px;
+            }
+        }
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #F1F5F9;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #CBD5E1;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94A3B8;
+        }
+    </style>
+</head>
+<body class="font-sans antialiased text-slate-800 bg-slate-50 min-h-screen flex flex-col">
+
+<!-- Chosen Palette: Warm Slate & Executive Indigo Harmony -->
+<!-- Application Structure Plan:
+     Designed as an interactive executive suite for corporate AI transformation.
+     1. Executive Summary & Diagnostic (Highlights the 95% pilot failure problem, 10-20-70 resource distribution chart, and maturity progression).
+     2. 10 Strategic Methodologies Hub (Interactive grid & detailed drawer view, filterable by Maturity Level and Domain Category).
+     3. Project Scoring Matrix (Interactive tool to score internal AI use cases based on the 5 report criteria).
+     4. Operational Workflows & Lifecycle Visualizer (Interactive tabbed stepper for Sandboxing 5 stages, HITL/HOTL/HIC control levels, and BPR 2.0 cognitive layers).
+     5. Architecture & FinOps Calculator (Interactive model routing simulator showing SLM vs LLM cost efficiency and AI TRiSM 4 pillars).
+     Why: Provides linear executive understanding combined with hands-on decision tools for enterprise AI leaders. -->
+<!-- Visualization & Content Choices:
+     - 10-20-70 Rule: Chart.js Donut chart -> Visualizing culture vs infrastructure vs algorithms.
+     - Maturity Matrix: HTML/Tailwind dynamic interactive filter table -> Compare requirements and key deliverables.
+     - Interactive Use Case Assessor: JS dynamic calculation engine -> Interactive project scoring based on 5 parameters.
+     - Sandboxing & Supervision Models: Interactive step card engine -> NO SVG used, pure styled HTML/CSS + Unicode indicators.
+     - FinOps Dynamic Router Simulator: Chart.js Bar Chart -> Live simulation of token cost savings via SLMs/Prompt Caching. -->
+<!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+
+    <!-- Top Navigation Header -->
+    <header class="bg-white/90 backdrop-blur-md border-b border-slate-200 sticky top-0 z-40 transition-all">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center gap-3">
+                    <div class="w-9 h-9 rounded-lg bg-indigo-600 text-white flex items-center justify-center font-bold text-lg shadow-sm">
+                        IA
+                    </div>
+                    <div>
+                        <span class="font-bold text-slate-900 text-lg leading-tight block">Industrialización de IA</span>
+                        <span class="text-xs text-slate-500 hidden sm:block">Marco Metodológico para la Adopción Corporativa</span>
+                    </div>
+                </div>
+
+                <nav class="hidden md:flex space-x-1 lg:space-x-2 text-sm font-medium">
+                    <button onclick="scrollToSection('summary')" class="px-3 py-2 text-slate-600 hover:text-indigo-600 rounded-md hover:bg-slate-100 transition">Visión General</button>
+                    <button onclick="scrollToSection('methodologies')" class="px-3 py-2 text-slate-600 hover:text-indigo-600 rounded-md hover:bg-slate-100 transition">10 Metodologías</button>
+                    <button onclick="scrollToSection('evaluator')" class="px-3 py-2 text-slate-600 hover:text-indigo-600 rounded-md hover:bg-slate-100 transition">Evaluador de Proyectos</button>
+                    <button onclick="scrollToSection('workflows')" class="px-3 py-2 text-slate-600 hover:text-indigo-600 rounded-md hover:bg-slate-100 transition">Flujos Operativos</button>
+                    <button onclick="scrollToSection('finops')" class="px-3 py-2 text-slate-600 hover:text-indigo-600 rounded-md hover:bg-slate-100 transition">FinOps & Capas</button>
+                </nav>
+
+                <div class="flex items-center gap-2">
+                    <button onclick="scrollToSection('evaluator')" class="bg-indigo-600 hover:bg-indigo-700 text-white text-xs sm:text-sm font-semibold px-4 py-2 rounded-lg shadow-sm transition">
+                        Evaluar Caso de Uso
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Container -->
+    <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-12">
+
+        <!-- SECTION 1: VISIÓN GENERAL Y DIAGNÓSTICO -->
+        <section id="summary" class="scroll-mt-20">
+            <div class="bg-white rounded-2xl border border-slate-200 p-6 md:p-8 shadow-sm">
+                <div class="max-w-3xl mb-8">
+                    <span class="text-xs font-semibold uppercase tracking-wider text-indigo-600 bg-indigo-50 px-3 py-1 rounded-full border border-indigo-100">
+                        Diagnóstico Estratégico
+                    </span>
+                    <h1 class="text-2xl sm:text-3xl md:text-4xl font-bold text-slate-900 mt-3 tracking-tight">
+                        Superando la «Trampa de los Pilotos» en la Empresa
+                    </h1>
+                    <p class="text-slate-600 text-base sm:text-lg mt-3 leading-relaxed">
+                        Aproximadamente el <strong>95% de los proyectos piloto de IA generativa no logran generar un impacto medible</strong> en las cuentas de resultados. La causa principal no es la incapacidad de los modelos, sino la falta de marcos metodológicos para integrar la tecnología en flujos de trabajo con datos heterogéneos, restricciones de seguridad y resistencia cultural.
+                    </p>
+                </div>
+
+                <!-- KPI Metric Cards -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+                    <div class="p-5 rounded-xl bg-slate-50 border border-slate-200">
+                        <div class="text-xs font-medium text-slate-500 uppercase tracking-wider">Tasa de Fracaso de Pilotos</div>
+                        <div class="text-3xl font-bold text-slate-900 mt-1">95%</div>
+                        <div class="text-xs text-rose-600 font-medium mt-1">Por fricción operativa y falta de escala</div>
+                    </div>
+                    <div class="p-5 rounded-xl bg-slate-50 border border-slate-200">
+                        <div class="text-xs font-medium text-slate-500 uppercase tracking-wider">Regla de Éxito 10-20-70</div>
+                        <div class="text-3xl font-bold text-indigo-600 mt-1">70%</div>
+                        <div class="text-xs text-slate-600 font-medium mt-1">Enfocado en Personas y Procesos</div>
+                    </div>
+                    <div class="p-5 rounded-xl bg-slate-50 border border-slate-200">
+                        <div class="text-xs font-medium text-slate-500 uppercase tracking-wider">Time-to-Value Objetivo</div>
+                        <div class="text-3xl font-bold text-teal-600 mt-1">&lt; 90 Días</div>
+                        <div class="text-xs text-slate-600 font-medium mt-1">Para proyectos de primera ola</div>
+                    </div>
+                    <div class="p-5 rounded-xl bg-slate-50 border border-slate-200">
+                        <div class="text-xs font-medium text-slate-500 uppercase tracking-wider">Estadios de Madurez</div>
+                        <div class="text-3xl font-bold text-amber-600 mt-1">5 Niveles</div>
+                        <div class="text-xs text-slate-600 font-medium mt-1">Desde Conciencia hasta Transformación</div>
+                    </div>
+                </div>
+
+                <!-- Visual Breakdown Grid: 10-20-70 & Maturity Levels -->
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center pt-4 border-t border-slate-100">
+                    <div>
+                        <h3 class="text-lg font-bold text-slate-900 mb-2">El Marco de Transformación 10-20-70</h3>
+                        <p class="text-sm text-slate-600 mb-4">
+                            El éxito de la adopción de inteligencia artificial no depende principalmente de la sofisticación del modelo contratado, sino de la inversión distribuida en la transformación organizativa.
+                        </p>
+                        <div class="chart-container">
+                            <canvas id="donutChart102070"></canvas>
+                        </div>
+                    </div>
+
+                    <div class="space-y-4">
+                        <h3 class="text-lg font-bold text-slate-900 mb-2">Evolución en la Madurez Organizacional</h3>
+                        <p class="text-sm text-slate-600 mb-3">
+                            Las 10 metodologías articulan el paso progresivo de la organización a través de los cinco niveles de madurez corporativa de Gartner:
+                        </p>
+                        <div class="space-y-2">
+                            <div class="p-3 rounded-lg border border-slate-200 bg-white hover:border-indigo-300 transition flex items-center justify-between">
+                                <div class="flex items-center gap-3">
+                                    <span class="w-7 h-7 rounded-full bg-slate-100 text-slate-700 font-bold text-xs flex items-center justify-center">N1</span>
+                                    <div>
+                                        <div class="text-sm font-semibold text-slate-800">Conciencia (Awareness)</div>
+                                        <div class="text-xs text-slate-500">Sensibilización, combate al Shadow AI</div>
+                                    </div>
+                                </div>
+                                <span class="text-xs font-semibold text-indigo-600 bg-indigo-50 px-2.5 py-1 rounded">Marco 10-20-70</span>
+                            </div>
+                            <div class="p-3 rounded-lg border border-slate-200 bg-white hover:border-indigo-300 transition flex items-center justify-between">
+                                <div class="flex items-center gap-3">
+                                    <span class="w-7 h-7 rounded-full bg-slate-100 text-slate-700 font-bold text-xs flex items-center justify-center">N2</span>
+                                    <div>
+                                        <div class="text-sm font-semibold text-slate-800">Activo (Active)</div>
+                                        <div class="text-xs text-slate-500">Primeros casos canalizados, sandboxing</div>
+                                    </div>
+                                </div>
+                                <span class="text-xs font-semibold text-indigo-600 bg-indigo-50 px-2.5 py-1 rounded">Banco Proyectos, Sandboxing</span>
+                            </div>
+                            <div class="p-3 rounded-lg border border-slate-200 bg-white hover:border-indigo-300 transition flex items-center justify-between">
+                                <div class="flex items-center gap-3">
+                                    <span class="w-7 h-7 rounded-full bg-indigo-100 text-indigo-700 font-bold text-xs flex items-center justify-center">N3</span>
+                                    <div>
+                                        <div class="text-sm font-semibold text-slate-800">Operacional (Operational)</div>
+                                        <div class="text-xs text-slate-500">Producción estandarizada, arquitectura e integración</div>
+                                    </div>
+                                </div>
+                                <span class="text-xs font-semibold text-indigo-600 bg-indigo-50 px-2.5 py-1 rounded">FDE, Capas, PRD, TRiSM, FinOps</span>
+                            </div>
+                            <div class="p-3 rounded-lg border border-slate-200 bg-white hover:border-indigo-300 transition flex items-center justify-between">
+                                <div class="flex items-center gap-3">
+                                    <span class="w-7 h-7 rounded-full bg-indigo-600 text-white font-bold text-xs flex items-center justify-center">N4</span>
+                                    <div>
+                                        <div class="text-sm font-semibold text-slate-800">Sistémico (Systemic)</div>
+                                        <div class="text-xs text-slate-500">Reingeniería agéntica de procesos end-to-end</div>
+                                    </div>
+                                </div>
+                                <span class="text-xs font-semibold text-indigo-600 bg-indigo-50 px-2.5 py-1 rounded">BPR 2.0</span>
+                            </div>
+                            <div class="p-3 rounded-lg border border-slate-200 bg-white hover:border-indigo-300 transition flex items-center justify-between">
+                                <div class="flex items-center gap-3">
+                                    <span class="w-7 h-7 rounded-full bg-amber-500 text-white font-bold text-xs flex items-center justify-center">N5</span>
+                                    <div>
+                                        <div class="text-sm font-semibold text-slate-800">Transformacional (Transformational)</div>
+                                        <div class="text-xs text-slate-500">Nuevos modelos de negocio e innovación nativa de IA</div>
+                                    </div>
+                                </div>
+                                <span class="text-xs font-semibold text-amber-700 bg-amber-50 px-2.5 py-1 rounded">Ecosistema Completo</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- SECTION 2: LAS 10 METODOLOGÍAS ESTRATÉGICAS -->
+        <section id="methodologies" class="scroll-mt-20">
+            <div class="mb-6 flex flex-col md:flex-row md:items-end justify-between gap-4">
+                <div>
+                    <span class="text-xs font-semibold uppercase tracking-wider text-indigo-600 bg-indigo-50 px-3 py-1 rounded-full border border-indigo-100">
+                        Catálogo Metodológico
+                    </span>
+                    <h2 class="text-2xl sm:text-3xl font-bold text-slate-900 mt-2">
+                        Las 10 Metodologías Interconectadas
+                    </h2>
+                    <p class="text-sm text-slate-600 mt-1">
+                        Seleccione una metodología para explorar sus componentes, roles clave, artefactos y aplicación.
+                    </p>
+                </div>
+
+                <!-- Filters -->
+                <div class="flex flex-wrap gap-2">
+                    <button onclick="filterMethodologies('all')" id="btn-filter-all" class="filter-btn active px-3 py-1.5 rounded-lg text-xs font-semibold bg-indigo-600 text-white transition">Todas (10)</button>
+                    <button onclick="filterMethodologies('operativa')" id="btn-filter-operativa" class="filter-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-white border border-slate-200 text-slate-700 hover:bg-slate-100 transition">Operativas y Despliegue</button>
+                    <button onclick="filterMethodologies('tecnica')" id="btn-filter-tecnica" class="filter-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-white border border-slate-200 text-slate-700 hover:bg-slate-100 transition">Arquitectura y Técnica</button>
+                    <button onclick="filterMethodologies('gobernanza')" id="btn-filter-gobernanza" class="filter-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-white border border-slate-200 text-slate-700 hover:bg-slate-100 transition">Gobernanza y Finanzas</button>
+                    <button onclick="filterMethodologies('cultural')" id="btn-filter-cultural" class="filter-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-white border border-slate-200 text-slate-700 hover:bg-slate-100 transition">Procesos y Cultura</button>
+                </div>
+            </div>
+
+            <!-- Grid of 10 Methodologies -->
+            <div id="methodologies-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Javascript will inject cards here dynamically -->
+            </div>
+        </section>
+
+
+        <!-- SECTION 3: EVALUADOR DINÁMICO DE CASOS DE USO -->
+        <section id="evaluator" class="scroll-mt-20">
+            <div class="bg-white rounded-2xl border border-slate-200 p-6 md:p-8 shadow-sm">
+                <div class="max-w-3xl mb-6">
+                    <span class="text-xs font-semibold uppercase tracking-wider text-teal-600 bg-teal-50 px-3 py-1 rounded-full border border-teal-100">
+                        Herramienta Interactiva - Metodología #3
+                    </span>
+                    <h2 class="text-2xl sm:text-3xl font-bold text-slate-900 mt-2">
+                        Simulador del Banco Dinámico de Proyectos
+                    </h2>
+                    <p class="text-slate-600 text-sm sm:text-base mt-2">
+                        Evalúe cualquier iniciativa o caso de uso de IA según la matriz de diagnóstico multidimensional. Ajuste las variables para obtener la puntuación de viabilidad corporativa y el dictamen de <em>Stage-Gate</em>.
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+                    <!-- Input Sliders Panel -->
+                    <div class="lg:col-span-7 bg-slate-50 p-6 rounded-xl border border-slate-200 space-y-5">
+                        <h3 class="font-bold text-slate-900 text-base border-b border-slate-200 pb-2">Matriz de Calificación de Iniciativa</h3>
+
+                        <div>
+                            <div class="flex justify-between text-sm font-medium text-slate-700 mb-1">
+                                <span>1. Valor e Impacto Estratégico (30%)</span>
+                                <span id="val-impact-num" class="font-bold text-indigo-600">8 / 10</span>
+                            </div>
+                            <input type="range" id="input-impact" min="1" max="10" value="8" oninput="updateScorer()" class="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-indigo-600">
+                            <span class="text-xs text-slate-500">Impacto en margen financiero, eficiencia operativa o ventaja competitiva medible.</span>
+                        </div>
+
+                        <div>
+                            <div class="flex justify-between text-sm font-medium text-slate-700 mb-1">
+                                <span>2. Preparación y Calidad de Datos (25%)</span>
+                                <span id="val-data-num" class="font-bold text-indigo-600">6 / 10</span>
+                            </div>
+                            <input type="range" id="input-data" min="1" max="10" value="6" oninput="updateScorer()" class="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-indigo-600">
+                            <span class="text-xs text-slate-500">Accesibilidad, linaje, permisos y grado de estructuración contextual de los datos.</span>
+                        </div>
+
+                        <div>
+                            <div class="flex justify-between text-sm font-medium text-slate-700 mb-1">
+                                <span>3. Factibilidad Arquitectónica (20%)</span>
+                                <span id="val-arch-num" class="font-bold text-indigo-600">7 / 10</span>
+                            </div>
+                            <input type="range" id="input-arch" min="1" max="10" value="7" oninput="updateScorer()" class="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-indigo-600">
+                            <span class="text-xs text-slate-500">Compatibilidad con la plataforma central, conectores de API y estabilidad técnica.</span>
+                        </div>
+
+                        <div>
+                            <div class="flex justify-between text-sm font-medium text-slate-700 mb-1">
+                                <span>4. Perfil de Riesgo y Seguridad (15%)</span>
+                                <span id="val-risk-num" class="font-bold text-indigo-600">8 / 10</span>
+                            </div>
+                            <input type="range" id="input-risk" min="1" max="10" value="8" oninput="updateScorer()" class="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-indigo-600">
+                            <span class="text-xs text-slate-500">Grado de seguridad de datos, ausencia de riesgo reputacional/normativo alto (10 = Bajo Riesgo).</span>
+                        </div>
+
+                        <div>
+                            <div class="flex justify-between text-sm font-medium text-slate-700 mb-1">
+                                <span>5. Velocidad a Valor - Time-to-Value (10%)</span>
+                                <span id="val-time-num" class="font-bold text-indigo-600">9 / 10</span>
+                            </div>
+                            <input type="range" id="input-time" min="1" max="10" value="9" oninput="updateScorer()" class="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-indigo-600">
+                            <span class="text-xs text-slate-500">Capacidad de entrega de un MVP en menos de 90 días (10 = &lt; 30 días, 1 = &gt; 12 meses).</span>
+                        </div>
+                    </div>
+
+                    <!-- Scorer Result Box -->
+                    <div class="lg:col-span-5 bg-white p-6 rounded-xl border border-slate-200 shadow-sm flex flex-col justify-between h-full space-y-6">
+                        <div>
+                            <span class="text-xs font-medium uppercase tracking-wider text-slate-500">Puntuación Ponderada</span>
+                            <div class="flex items-baseline gap-3 mt-1">
+                                <span id="score-total" class="text-5xl font-extrabold text-slate-900">7.3</span>
+                                <span class="text-sm font-semibold text-slate-500">/ 10.0</span>
+                            </div>
+                            <div id="score-bar-bg" class="w-full h-3 bg-slate-100 rounded-full mt-3 overflow-hidden">
+                                <div id="score-bar-fill" class="h-full bg-indigo-600 transition-all duration-300" style="width: 73%;"></div>
+                            </div>
+                        </div>
+
+                        <div id="gate-recommendation-box" class="p-4 rounded-xl bg-teal-50 border border-teal-200">
+                            <div class="text-xs font-bold uppercase tracking-wider text-teal-800">Dictamen Stage-Gate</div>
+                            <div id="gate-title" class="font-bold text-slate-900 text-lg mt-0.5">Aprobado para Fase Sandbox</div>
+                            <p id="gate-desc" class="text-xs text-slate-600 mt-1">
+                                El proyecto supera el umbral de factibilidad (7.0). Asignar presupuesto inicial para validación de datos en entorno controlado.
+                            </p>
+                        </div>
+
+                        <div class="border-t border-slate-100 pt-4 space-y-2">
+                            <div class="text-xs font-semibold text-slate-700">Principios de Financiación por Etapas:</div>
+                            <ul class="text-xs text-slate-600 space-y-1 list-disc pl-4">
+                                <li><strong>Sin coste hundido:</strong> Cancelación inmediata si los datos fallan en Sandbox.</li>
+                                <li><strong>Presupuesto escalonado:</strong> Asignación por hitos empíricos demostrados.</li>
+                                <li><strong>Redirección rápida:</strong> Reciclaje de recursos hacia el banco dinámico.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- SECTION 4: FLUJOS OPERATIVOS E INTERACTIVOS -->
+        <section id="workflows" class="scroll-mt-20">
+            <div class="bg-white rounded-2xl border border-slate-200 p-6 md:p-8 shadow-sm space-y-8">
+                <div>
+                    <span class="text-xs font-semibold uppercase tracking-wider text-indigo-600 bg-indigo-50 px-3 py-1 rounded-full border border-indigo-100">
+                        Ciclos Operativos Integrados
+                    </span>
+                    <h2 class="text-2xl sm:text-3xl font-bold text-slate-900 mt-2">
+                        Sandboxing, Supervisión Humana y BPR 2.0
+                    </h2>
+                    <p class="text-slate-600 text-sm sm:text-base mt-2">
+                        Explore la progresión técnica desde el aislamiento seguro de la experimentación hasta los modelos de supervisión operacional y reingeniería de procesos agénticos.
+                    </p>
+                </div>
+
+                <!-- Navigation Tabs for Workflows -->
+                <div class="border-b border-slate-200 flex space-x-4 overflow-x-auto">
+                    <button onclick="switchWorkflowTab('sandboxing')" id="tab-sandboxing" class="workflow-tab-btn border-b-2 border-indigo-600 text-indigo-600 pb-3 font-semibold text-sm whitespace-nowrap">
+                        1. Sandbox en 5 Fases
+                    </button>
+                    <button onclick="switchWorkflowTab('hitl')" id="tab-hitl" class="workflow-tab-btn border-b-2 border-transparent text-slate-500 hover:text-slate-800 pb-3 font-semibold text-sm whitespace-nowrap">
+                        2. Espectro HITL / HOTL / HIC
+                    </button>
+                    <button onclick="switchWorkflowTab('bpr')" id="tab-bpr" class="workflow-tab-btn border-b-2 border-transparent text-slate-500 hover:text-slate-800 pb-3 font-semibold text-sm whitespace-nowrap">
+                        3. División Cognitiva BPR 2.0
+                    </button>
+                </div>
+
+                <!-- TAB CONTENT 1: SANDBOXING 5 STAGES -->
+                <div id="content-sandboxing" class="workflow-content space-y-6">
+                    <p class="text-sm text-slate-600">
+                        El paso desde la experimentación hacia el entorno operativo sigue un ciclo riguroso de promoción en cinco etapas consecutivas para prevenir fuga de datos y riesgos adversarios:
+                    </p>
+
+                    <!-- Interactive Stepper -->
+                    <div class="grid grid-cols-1 md:grid-cols-5 gap-3">
+                        <button onclick="selectSandboxStep(1)" id="sb-step-1" class="sb-step-btn p-3 rounded-xl border text-left transition bg-indigo-50 border-indigo-300">
+                            <span class="text-xs font-bold text-indigo-600 block mb-1">Etapa 1</span>
+                            <span class="font-semibold text-slate-900 text-xs block">Sandbox Aislado</span>
+                        </button>
+                        <button onclick="selectSandboxStep(2)" id="sb-step-2" class="sb-step-btn p-3 rounded-xl border text-left transition bg-white border-slate-200 hover:border-slate-300">
+                            <span class="text-xs font-bold text-slate-500 block mb-1">Etapa 2</span>
+                            <span class="font-semibold text-slate-900 text-xs block">Staging Espejo</span>
+                        </button>
+                        <button onclick="selectSandboxStep(3)" id="sb-step-3" class="sb-step-btn p-3 rounded-xl border text-left transition bg-white border-slate-200 hover:border-slate-300">
+                            <span class="text-xs font-bold text-slate-500 block mb-1">Etapa 3</span>
+                            <span class="font-semibold text-slate-900 text-xs block">Modo Sombra</span>
+                        </button>
+                        <button onclick="selectSandboxStep(4)" id="sb-step-4" class="sb-step-btn p-3 rounded-xl border text-left transition bg-white border-slate-200 hover:border-slate-300">
+                            <span class="text-xs font-bold text-slate-500 block mb-1">Etapa 4</span>
+                            <span class="font-semibold text-slate-900 text-xs block">Despliegue Canario</span>
+                        </button>
+                        <button onclick="selectSandboxStep(5)" id="sb-step-5" class="sb-step-btn p-3 rounded-xl border text-left transition bg-white border-slate-200 hover:border-slate-300">
+                            <span class="text-xs font-bold text-slate-500 block mb-1">Etapa 5</span>
+                            <span class="font-semibold text-slate-900 text-xs block">Autonomía Monitorizada</span>
+                        </button>
+                    </div>
+
+                    <!-- Selected Sandbox Details Panel -->
+                    <div id="sandbox-details-card" class="p-6 bg-slate-50 rounded-xl border border-slate-200">
+                        <!-- JS injected detail content -->
+                    </div>
+                </div>
+
+                <!-- TAB CONTENT 2: HITL / HOTL / HIC -->
+                <div id="content-hitl" class="workflow-content hidden space-y-6">
+                    <p class="text-sm text-slate-600">
+                        La supervisión de la fuerza de trabajo digital se clasifica en tres niveles tácticos para equilibrar la agilidad operativa y el control del riesgo corporativo:
+                    </p>
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <!-- HITL Card -->
+                        <div class="bg-slate-50 border border-slate-200 p-5 rounded-xl flex flex-col justify-between">
+                            <div>
+                                <span class="px-2.5 py-1 rounded bg-rose-100 text-rose-800 text-xs font-bold">Máximo Control</span>
+                                <h4 class="font-bold text-slate-900 text-base mt-3">Humano-en-el-Bucle (HITL)</h4>
+                                <p class="text-xs text-slate-600 mt-2 leading-relaxed">
+                                    El sistema prepara la decisión pero una barrera técnica requiere firma explícita del operador humano para escribir en bases de datos maestras.
+                                </p>
+                            </div>
+                            <div class="mt-4 pt-3 border-t border-slate-200 text-xs text-slate-500">
+                                <strong>Casos típicos:</strong> Aprobación de créditos de alto monto, transferencias financieras, diagnósticos clínicos.
+                            </div>
+                        </div>
+
+                        <!-- HOTL Card -->
+                        <div class="bg-slate-50 border border-slate-200 p-5 rounded-xl flex flex-col justify-between">
+                            <div>
+                                <span class="px-2.5 py-1 rounded bg-amber-100 text-amber-800 text-xs font-bold">Autonomía Guiada</span>
+                                <h4 class="font-bold text-slate-900 text-base mt-3">Humano-sobre-el-Bucle (HOTL)</h4>
+                                <p class="text-xs text-slate-600 mt-2 leading-relaxed">
+                                    El agente actúa de forma autónoma dentro de parámetros definidos. El operador monitoriza un panel en tiempo real con capacidad de intervenir o pausar.
+                                </p>
+                            </div>
+                            <div class="mt-4 pt-3 border-t border-slate-200 text-xs text-slate-500">
+                                <strong>Casos típicos:</strong> Atención a clientes en tiempo real, enrutamiento logístico, monitoreo transaccional.
+                            </div>
+                        </div>
+
+                        <!-- HIC Card -->
+                        <div class="bg-slate-50 border border-slate-200 p-5 rounded-xl flex flex-col justify-between">
+                            <div>
+                                <span class="px-2.5 py-1 rounded bg-indigo-100 text-indigo-800 text-xs font-bold">Estratégico</span>
+                                <h4 class="font-bold text-slate-900 text-base mt-3">Humano-al-Mando (HIC)</h4>
+                                <p class="text-xs text-slate-600 mt-2 leading-relaxed">
+                                    Supervisión del comportamiento agregado del sistema. Ajuste de directrices en capas de gobernanza y recalibración de límites operacionales.
+                                </p>
+                            </div>
+                            <div class="mt-4 pt-3 border-t border-slate-200 text-xs text-slate-500">
+                                <strong>Casos típicos:</strong> Auditoría de Chief Orchestration Officer, recalibración de modelos, políticas de gobernanza.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TAB CONTENT 3: BPR 2.0 COGNITIVE DIVISION -->
+                <div id="content-bpr" class="workflow-content hidden space-y-6">
+                    <p class="text-sm text-slate-600">
+                        La Reingeniería de Procesos Nativos (BPR 2.0) desarticula la trampa de la microproductividad dividiendo el trabajo en tres capas funcionales:
+                    </p>
+
+                    <div class="space-y-4">
+                        <div class="p-4 rounded-xl border border-indigo-200 bg-indigo-50/50 flex flex-col sm:flex-row items-start sm:items-center gap-4">
+                            <div class="w-10 h-10 rounded-lg bg-indigo-600 text-white font-bold flex items-center justify-center shrink-0">
+                                C1
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-slate-900 text-sm">Capa 1: Percepción y Monitorización Continua</h4>
+                                <p class="text-xs text-slate-600 mt-0.5">
+                                    Agentes analizan fuentes no estructuradas de forma ininterrumpida (correos, contratos, tickets de soporte, variaciones en ERP/CRM).
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="p-4 rounded-xl border border-indigo-200 bg-indigo-50/50 flex flex-col sm:flex-row items-start sm:items-center gap-4">
+                            <div class="w-10 h-10 rounded-lg bg-indigo-600 text-white font-bold flex items-center justify-center shrink-0">
+                                C2
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-slate-900 text-sm">Capa 2: Razonamiento e Integración Multi-Paso</h4>
+                                <p class="text-xs text-slate-600 mt-0.5">
+                                    Los sistemas agénticos descomponen tareas complejas, ejecutan llamadas a herramientas (APIs), consultan políticas corporativas y formulan la propuesta.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="p-4 rounded-xl border border-indigo-200 bg-indigo-50/50 flex flex-col sm:flex-row items-start sm:items-center gap-4">
+                            <div class="w-10 h-10 rounded-lg bg-teal-600 text-white font-bold flex items-center justify-center shrink-0">
+                                C3
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-slate-900 text-sm">Capa 3: Supervisión y Veredicto Estratégico Humano</h4>
+                                <p class="text-xs text-slate-600 mt-0.5">
+                                    El profesional humano resuelve excepciones complejas, aporta juicio de negocio y autoriza transacciones de alto impacto sin redactar instrucciones repetitivas.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- SECTION 5: FINOPS & ARQUITECTURA -->
+        <section id="finops" class="scroll-mt-20">
+            <div class="bg-white rounded-2xl border border-slate-200 p-6 md:p-8 shadow-sm space-y-8">
+                <div>
+                    <span class="text-xs font-semibold uppercase tracking-wider text-amber-600 bg-amber-50 px-3 py-1 rounded-full border border-amber-100">
+                        Metodologías #2, #9 y #10
+                    </span>
+                    <h2 class="text-2xl sm:text-3xl font-bold text-slate-900 mt-2">
+                        Gobernanza Económica (AI FinOps) y Arquitectura Modular
+                    </h2>
+                    <p class="text-slate-600 text-sm sm:text-base mt-2">
+                        Optimización del consumo de inferencia mediante enrutamiento semántico, gestión de contexto y control estricto bajo el marco AI TRiSM e ISO/IEC 42001.
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+                    <!-- FinOps Router Simulator -->
+                    <div class="space-y-4">
+                        <div class="flex items-center justify-between">
+                            <h3 class="font-bold text-slate-900 text-base">Simulador de Ahorro con Enrutamiento Semántico</h3>
+                            <span class="text-xs text-slate-500">Coste de Inferencia / 1M Tokens</span>
+                        </div>
+                        <p class="text-xs text-slate-600">
+                            Dirigir consultas simples a Modelos Pequeños (SLMs) y reservar Modelos de Frontera solo para razonamiento analítico de alta complejidad reduce drásticamente el coste marginal.
+                        </p>
+
+                        <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 space-y-3">
+                            <div class="flex items-center justify-between text-xs font-semibold">
+                                <span>Mezcla de Enrutamiento (% Consultas en SLMs):</span>
+                                <span id="slm-percent-label" class="text-indigo-600 font-bold">70% SLM / 30% LLM</span>
+                            </div>
+                            <input type="range" id="slm-range" min="0" max="100" value="70" oninput="updateFinOpsChart()" class="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-indigo-600">
+                            
+                            <div class="grid grid-cols-2 gap-2 text-center pt-2">
+                                <div class="bg-white p-2 rounded border border-slate-200">
+                                    <span class="text-[10px] text-slate-500 uppercase block">Gasto Directo (Sin Router)</span>
+                                    <span id="cost-without-router" class="text-base font-bold text-rose-600">$10,000 / mes</span>
+                                </div>
+                                <div class="bg-white p-2 rounded border border-slate-200">
+                                    <span class="text-[10px] text-slate-500 uppercase block">Gasto Optimizado (AI FinOps)</span>
+                                    <span id="cost-with-router" class="text-base font-bold text-teal-600">$3,400 / mes</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="chart-container">
+                            <canvas id="finopsChart"></canvas>
+                        </div>
+                    </div>
+
+                    <!-- AI TRiSM 4 Pillars Box -->
+                    <div class="space-y-4">
+                        <h3 class="font-bold text-slate-900 text-base">Los 4 Pilares de AI TRiSM (Gartner & ISO 42001)</h3>
+                        <p class="text-xs text-slate-600">
+                            Marco de gestión de confianza, riesgo y seguridad para el control dinámico de sistemas probabilísticos en tiempo de ejecución:
+                        </p>
+
+                        <div class="space-y-3">
+                            <div class="p-3.5 bg-slate-50 rounded-xl border border-slate-200 flex items-start gap-3">
+                                <span class="w-2.5 h-2.5 rounded-full bg-indigo-600 mt-1.5 shrink-0"></span>
+                                <div>
+                                    <strong class="text-xs text-slate-900 block">1. Gobernanza de la IA</strong>
+                                    <span class="text-xs text-slate-600">Catálogo corporativo vivo de modelos, agentes y aplicaciones con asignación de riesgo objetivo.</span>
+                                </div>
+                            </div>
+
+                            <div class="p-3.5 bg-slate-50 rounded-xl border border-slate-200 flex items-start gap-3">
+                                <span class="w-2.5 h-2.5 rounded-full bg-indigo-600 mt-1.5 shrink-0"></span>
+                                <div>
+                                    <strong class="text-xs text-slate-900 block">2. Inspección en Tiempo de Ejecución</strong>
+                                    <span class="text-xs text-slate-600">Cortafuegos algorítmicos que neutralizan inyección de instrucciones y fugas de datos confidenciales.</span>
+                                </div>
+                            </div>
+
+                            <div class="p-3.5 bg-slate-50 rounded-xl border border-slate-200 flex items-start gap-3">
+                                <span class="w-2.5 h-2.5 rounded-full bg-indigo-600 mt-1.5 shrink-0"></span>
+                                <div>
+                                    <strong class="text-xs text-slate-900 block">3. Gobernanza de la Información</strong>
+                                    <span class="text-xs text-slate-600">Controles dinámicos de acceso y clasificación para evitar exposición accidental en motores RAG.</span>
+                                </div>
+                            </div>
+
+                            <div class="p-3.5 bg-slate-50 rounded-xl border border-slate-200 flex items-start gap-3">
+                                <span class="w-2.5 h-2.5 rounded-full bg-indigo-600 mt-1.5 shrink-0"></span>
+                                <div>
+                                    <strong class="text-xs text-slate-900 block">4. Seguridad de la Pila Tecnológica</strong>
+                                    <span class="text-xs text-slate-600">Pruebas adversarias continuas (AI Red Teaming) y protección contra envenenamiento de datos.</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="p-4 bg-indigo-50 border border-indigo-100 rounded-xl text-xs text-indigo-900">
+                            <strong>Cumplimiento ISO/IEC 42001:</strong> Certificación del Sistema de Gestión de IA (AIMS) para responder ante regulaciones internacionales como la Ley de IA de la UE.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Modal Drawer for Detailed Methodology View -->
+    <div id="methodology-modal" class="fixed inset-0 z-50 hidden bg-slate-900/50 backdrop-blur-sm flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto p-6 md:p-8 shadow-2xl space-y-6 relative">
+            <button onclick="closeModal()" class="absolute top-4 right-4 w-8 h-8 rounded-full bg-slate-100 text-slate-500 hover:bg-slate-200 flex items-center justify-center font-bold text-sm">
+                ✕
+            </button>
+            <div id="modal-content">
+                <!-- JS Inject -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-slate-900 text-slate-400 text-xs py-8 mt-12 border-t border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row justify-between items-center gap-4">
+            <div>
+                <p class="font-semibold text-slate-200">Industrialización y Adopción Estratégica de Inteligencia Artificial</p>
+                <p class="mt-1">Basado en el Reporte de Metodologías Corporativas de IA.</p>
+            </div>
+            <div class="text-right">
+                <p>Nivel de Madurez Operativa: Gartner N1-N5</p>
+                <p class="mt-1">Normativa ISO/IEC 42001 & AI TRiSM Compliant</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript Application Logic -->
+    <script>
+        // Data Store for 10 Methodologies
+        const methodologiesData = [
+            {
+                id: 1,
+                title: "1. Forward Deployed Engineering (FDE)",
+                category: "operativa",
+                categoryLabel: "Operativa y Despliegue",
+                maturity: "Nivel 3: Operacional",
+                roles: "Ingeniero Delta (FDE), Estratega Echo",
+                deliverables: "Código en producción, ontologías de dominio, componentes reutilizables",
+                summary: "Inserta células de ingeniería táctica de alto nivel directamente en las unidades de negocio para cerrar el desfase entre modelos estándar y realidades de datos heterogéneos.",
+                details: `
+                    <h3 class="text-xl font-bold text-slate-900 mb-2">Forward Deployed Engineering (FDE)</h3>
+                    <p class="text-sm text-slate-600 mb-4">Inspirado en el esquema de Palantir, OpenAI y Google Cloud, esta metodología reemplaza la consultoría teórica por la inserción directa de equipos técnicos de élite en las unidades operativas.</p>
+                    <div class="space-y-3 mb-4">
+                        <div class="p-3 bg-slate-50 rounded-lg border border-slate-200">
+                            <strong class="text-xs font-bold text-indigo-700 block">El Ingeniero Delta (Forward Deployed Engineer)</strong>
+                            <p class="text-xs text-slate-600 mt-0.5">Escribe código de producción sobre datos desestructurados reales, diseña tuberías de ingesta, ontologías y agentes bajo restricciones de infraestructura.</p>
+                        </div>
+                        <div class="p-3 bg-slate-50 rounded-lg border border-slate-200">
+                            <strong class="text-xs font-bold text-teal-700 block">El Estratega Echo (Deployment Strategist)</strong>
+                            <p class="text-xs text-slate-600 mt-0.5">Traductor de negocio con dominio sectorial que identifica dependencias políticas no documentadas y lidera la durabilidad del cambio.</p>
+                        </div>
+                    </div>
+                    <div class="p-3 bg-indigo-50 rounded-lg text-xs text-indigo-900">
+                        <strong>Productización impulsada por el campo:</strong> Las soluciones tácticas se depuran y transfieren al equipo central de plataforma como conectores reutilizables, reduciendo despliegues futuros de meses a semanas.
+                    </div>
+                `
+            },
+            {
+                id: 2,
+                title: "2. Arquitectura IA por Capas Modulares",
+                category: "tecnica",
+                categoryLabel: "Arquitectura y Técnica",
+                maturity: "Nivel 3: Operacional",
+                roles: "Arquitecto Principal de IA, Ingeniero de Plataforma",
+                deliverables: "Especificación técnica modular, pasarela de modelos unificada",
+                summary: "Diseño modular desacoplado y neutral respecto a proveedores, garantizando que el coste marginal decrezca conforme madura el sistema.",
+                details: `
+                    <h3 class="text-xl font-bold text-slate-900 mb-2">Arquitectura por Capas Modulares</h3>
+                    <p class="text-sm text-slate-600 mb-3">Evita la duplicación de datos y la dependencia crítica de un único proveedor aislando la lógica de negocio a través de 7 capas estratégicas:</p>
+                    <ul class="text-xs text-slate-600 space-y-1.5 list-disc pl-4 mb-4">
+                        <li><strong>Infraestructura y Cómputo:</strong> GPUs, orquestadores, acuerdos de capacidad eléctrica.</li>
+                        <li><strong>Datos Gobernados:</strong> Lakehouses, bases vectoriales, linaje a nivel de registro.</li>
+                        <li><strong>Modelos Fundacionales:</strong> Model Gateway, enrutamiento dinámico LLM/SLM.</li>
+                        <li><strong>Semántica y Recuperación:</strong> Grafos de conocimiento corporativo e índices RAG.</li>
+                        <li><strong>Orquestación y Agentes:</strong> Motores multi-agente e interfaces humano-en-el-bucle.</li>
+                        <li><strong>Experiencia de Usuario:</strong> Asistentes embebidos contextuales.</li>
+                        <li><strong>Plano de Control Transversal:</strong> Políticas como código, observabilidad y telemetría.</li>
+                    </ul>
+                `
+            },
+            {
+                id: 3,
+                title: "3. Banco Dinámico de Proyectos",
+                category: "gobernanza",
+                categoryLabel: "Gobernanza y Finanzas",
+                maturity: "Nivel 2: Activo",
+                roles: "Oficina de Transformación (PMO), Líderes de Negocio",
+                deliverables: "Registro corporativo de ideas, matriz de calificación ponderada",
+                summary: "Embudo formal para capturar, calificar, financiar y descartar iniciativas de IA rápidamente, evitando la trampa del coste hundido.",
+                details: `
+                    <h3 class="text-xl font-bold text-slate-900 mb-2">Banco Dinámico de Proyectos y Stage-Gate</h3>
+                    <p class="text-sm text-slate-600 mb-3">Sustituye la intuición por una matriz multidimensional de 5 factores: Impacto Estratégico, Preparación de Datos, Factibilidad Arquitectónica, Riesgo y Time-to-Value (&lt;90 días).</p>
+                    <div class="p-3 bg-amber-50 rounded-lg border border-amber-200 text-xs text-amber-900">
+                        <strong>Cancelación Temprana:</strong> Si una iniciativa demuestra inconsistencias insuperables en sus datos durante el pilotaje, la gobernanza retira el presupuesto y redirige el talento de inmediato.
+                    </div>
+                `
+            },
+            {
+                id: 4,
+                title: "4. Especificación Dirigida por Evaluaciones (AI PRD)",
+                category: "tecnica",
+                categoryLabel: "Arquitectura y Técnica",
+                maturity: "Nivel 3: Operacional",
+                roles: "Gerente de Producto IA (AI PM), Ingeniero de Evaluación",
+                deliverables: "Golden Datasets curados, baterías de evaluación (Evals)",
+                summary: "Gestión de la variabilidad probabilística mediante conjuntos de referencia dorados (Golden Datasets) y pruebas estadísticas continuas.",
+                details: `
+                    <h3 class="text-xl font-bold text-slate-900 mb-2">AI PRD y Specs Basadas en Evals</h3>
+                    <p class="text-sm text-slate-600 mb-3">Dado que las salidas de la IA son probabilísticas, la especificación de producto tradicional se reemplaza por especificaciones basadas en tolerancia estadística:</p>
+                    <ul class="text-xs text-slate-600 space-y-2 list-disc pl-4">
+                        <li><strong>Golden Dataset:</strong> Casos de prueba curados y etiquetados por expertos de negocio para contrastar cada cambio.</li>
+                        <li><strong>Métricas Evals:</strong> Combinación de validaciones exactas (JSON schemas), latencia y sistemas LLM-as-a-judge.</li>
+                        <li><strong>Fallbacks Elegantes:</strong> Protocolos automáticos cuando la confianza cae por debajo del umbral tolerado.</li>
+                    </ul>
+                `
+            },
+            {
+                id: 5,
+                title: "5. Entornos Seguros (Enterprise AI Sandboxing)",
+                category: "operativa",
+                categoryLabel: "Operativa y Despliegue",
+                maturity: "Nivel 2: Activo",
+                roles: "Ingeniero de Seguridad Cloud, MLOps Engineer",
+                deliverables: "MicroVMs aisladas (AWS Firecracker), ciclo de 5 etapas",
+                summary: "Aislamiento técnico para probar soluciones con tráfico de red saliente bloqueado antes de la integración productiva.",
+                details: `
+                    <h3 class="text-xl font-bold text-slate-900 mb-2">Enterprise AI Sandboxing</h3>
+                    <p class="text-sm text-slate-600 mb-3">Entornos de pruebas seguros con separación de memoria a nivel de hardware y políticas de <em>zero network egress</em> para evitar exfiltraciones.</p>
+                    <p class="text-xs font-bold text-slate-800">Promoción en 5 Fases:</p>
+                    <ol class="text-xs text-slate-600 space-y-1 list-decimal pl-4 mt-1">
+                        <li>Sandbox Aislado (Datos sintéticos)</li>
+                        <li>Staging con Espejo Productivo</li>
+                        <li>Modo Sombra (Shadow Mode sin ejecución)</li>
+                        <li>Despliegue Canario (5%-10% tráfico)</li>
+                        <li>Autonomía Monitorizada con Kill-Switch</li>
+                    </ol>
+                `
+            },
+            {
+                id: 6,
+                title: "6. Reingeniería de Procesos Nativos (BPR 2.0)",
+                category: "cultural",
+                categoryLabel: "Procesos y Cultura",
+                maturity: "Nivel 4: Sistémico",
+                roles: "Consultor de Procesos, Arquitecto Agéntico",
+                deliverables: "Diagramas de flujo agénticos, matrices de división cognitiva",
+                summary: "Rediseño completo de cadenas de valor para ser ejecutadas autónomamente por agentes inteligentes sin la trampa de la microproductividad.",
+                details: `
+                    <h3 class="text-xl font-bold text-slate-900 mb-2">Reingeniería BPR 2.0</h3>
+                    <p class="text-sm text-slate-600 mb-3">Reconstrucción integral de procesos superando las interfaces superficiales mediante la división cognitiva del trabajo:</p>
+                    <ul class="text-xs text-slate-600 space-y-1.5 list-disc pl-4">
+                        <li><strong>Percepción:</strong> Monitorización activa de datos desestructurados.</li>
+                        <li><strong>Razonamiento:</strong> Coordinación agéntica y ejecución de llamadas API.</li>
+                        <li><strong>Veredicto Humano:</strong> Resolución de excepciones críticas y supervisión de alto nivel.</li>
+                    </ul>
+                `
+            },
+            {
+                id: 7,
+                title: "7. Transformación Cultural y Marco 10-20-70",
+                category: "cultural",
+                categoryLabel: "Procesos y Cultura",
+                maturity: "Nivel 1: Conciencia",
+                roles: "Director de Recursos Humanos (CHRO), Directores de Área",
+                deliverables: "Academia Interna de IA, directivas de exploración responsable",
+                summary: "Superación del escepticismo y eliminación del Shadow AI mediante la regla 10% algoritmos, 20% tecnología y 70% personas y procesos.",
+                details: `
+                    <h3 class="text-xl font-bold text-slate-900 mb-2">Transformación Cultural y Regla 10-20-70</h3>
+                    <p class="text-sm text-slate-600 mb-3">Formulación de la Academia de IA basada en tres niveles de alfabetización:</p>
+                    <ul class="text-xs text-slate-600 space-y-1.5 list-disc pl-4">
+                        <li><strong>Ejecutivos:</strong> Economía de la IA, gobernanza de riesgos y ventaja competitiva.</li>
+                        <li><strong>Líderes de Producto:</strong> Redacción de Specs AI PRD, medición de calidad y rediseño de procesos.</li>
+                        <li><strong>Colaboradores:</strong> Validación de alucinaciones, mitigación de sesgos y formulación de contexto.</li>
+                    </ul>
+                `
+            },
+            {
+                id: 8,
+                title: "8. Roles Aumentados y Supervisión HITL",
+                category: "cultural",
+                categoryLabel: "Procesos y Cultura",
+                maturity: "Nivel 3: Operacional",
+                roles: "Chief Orchestration Officer (COO 2.0), Auditores Operativos",
+                deliverables: "Consolas de revisión HITL/HOTL, descripciones de puesto actualizadas",
+                summary: "Rediseño de puestos de trabajo para colaborar con fuerza laboral digital bajo protocolos Humano-en-el-Bucle.",
+                details: `
+                    <h3 class="text-xl font-bold text-slate-900 mb-2">Roles Aumentados y Protocolos de Supervisión</h3>
+                    <p class="text-sm text-slate-600 mb-3">Delimitación técnica del grado de intervención humana según el nivel de riesgo:</p>
+                    <ul class="text-xs text-slate-600 space-y-1.5 list-disc pl-4">
+                        <li><strong>HITL (Human-in-the-Loop):</strong> Barrera técnica obligatoria que requiere firma humana previa.</li>
+                        <li><strong>HOTL (Human-on-the-Loop):</strong> Operación autónoma con panel de monitorización e intervención en vivo.</li>
+                        <li><strong>HIC (Human-in-Command):</strong> Control de parámetros agregados y límites operacionales por directivos.</li>
+                    </ul>
+                `
+            },
+            {
+                id: 9,
+                title: "9. Gobernanza Integral (AI TRiSM e ISO 42001)",
+                category: "gobernanza",
+                categoryLabel: "Gobernanza y Finanzas",
+                maturity: "Nivel 3: Operacional",
+                roles: "Oficial de Cumplimiento, Chief Information Security Officer (CISO)",
+                deliverables: "Catálogo auditado de modelos, certificación AIMS ISO/IEC 42001",
+                summary: "Gobernanza de confianza, riesgo y seguridad mediante inspección en tiempo de ejecución y salvaguardas regulatorias.",
+                details: `
+                    <h3 class="text-xl font-bold text-slate-900 mb-2">Gobernanza AI TRiSM e ISO/IEC 42001</h3>
+                    <p class="text-sm text-slate-600 mb-3">Protección continua del ciclo de vida de los sistemas probabilísticos a través de 4 pilares estratégicos:</p>
+                    <ul class="text-xs text-slate-600 space-y-1.5 list-disc pl-4 mb-3">
+                        <li>Gobernanza de Modelos e Inventario Vivo</li>
+                        <li>Runtime Inspection (Firewalls Algorítmicos)</li>
+                        <li>Gobernanza de Datos para Motores RAG</li>
+                        <li>Seguridad de la Pila (AI Red Teaming)</li>
+                    </ul>
+                    <p class="text-xs text-slate-500">Asegura conformidad con la Ley de IA de la Unión Europea y estándares auditables.</p>
+                `
+            },
+            {
+                id: 10,
+                title: "10. Gobernanza Económica de Inferencia (AI FinOps)",
+                category: "gobernanza",
+                categoryLabel: "Gobernanza y Finanzas",
+                maturity: "Nivel 3: Operacional",
+                roles: "Director Financiero (CFO), Cloud Cost Engineer",
+                deliverables: "Cuadros de mando de consumo por token, enrutadores semánticos",
+                summary: "Control presupuestario de los costes volátiles de inferencia mediante métricas FOCUS, enrutamiento dinámico y prompt caching.",
+                details: `
+                    <h3 class="text-xl font-bold text-slate-900 mb-2">AI FinOps y Eficiencia de Cómputo</h3>
+                    <p class="text-sm text-slate-600 mb-3">Aplica observabilidad granular sobre el gasto en tokens y uso de aceleración gráfica:</p>
+                    <ul class="text-xs text-slate-600 space-y-1.5 list-disc pl-4">
+                        <li><strong>Enrutamiento Semántico:</strong> Desvío de consultas simples a modelos de bajo coste (SLMs).</li>
+                        <li><strong>Prompt Caching:</strong> Compresión e instructivos cacheados para reducir tokens reiterados.</li>
+                        <li><strong>Límites Estrictos (Hard Limits):</strong> Cuotas de gasto automáticas para detener bucles infinitos en multi-agentes.</li>
+                    </ul>
+                `
+            }
+        ];
+
+        // Render Methodologies Cards
+        function renderMethodologies(items) {
+            const grid = document.getElementById('methodologies-grid');
+            grid.innerHTML = '';
+
+            items.forEach(item => {
+                const card = document.createElement('div');
+                card.className = "bg-white rounded-xl border border-slate-200 p-5 hover:border-indigo-300 hover:shadow-md transition flex flex-col justify-between cursor-pointer";
+                card.onclick = () => openModal(item.id);
+
+                card.innerHTML = `
+                    <div>
+                        <div class="flex items-center justify-between gap-2 mb-2">
+                            <span class="text-[11px] font-semibold uppercase tracking-wider text-indigo-600 bg-indigo-50 px-2.5 py-0.5 rounded-md border border-indigo-100">
+                                ${item.categoryLabel}
+                            </span>
+                            <span class="text-[11px] font-bold text-slate-500 bg-slate-100 px-2 py-0.5 rounded">
+                                ${item.maturity}
+                            </span>
+                        </div>
+                        <h3 class="font-bold text-slate-900 text-base leading-snug">${item.title}</h3>
+                        <p class="text-slate-600 text-xs mt-2 leading-relaxed line-clamp-3">${item.summary}</p>
+                    </div>
+
+                    <div class="mt-4 pt-3 border-t border-slate-100 space-y-1 text-xs">
+                        <div class="text-slate-500"><strong>Roles:</strong> ${item.roles}</div>
+                        <div class="text-indigo-600 font-medium flex items-center justify-between mt-2 pt-1">
+                            <span>Explorar detalle táctico</span>
+                            <span>→</span>
+                        </div>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        // Filter Function
+        function filterMethodologies(category) {
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.classList.remove('bg-indigo-600', 'text-white');
+                btn.classList.add('bg-white', 'text-slate-700');
+            });
+
+            const activeBtn = document.getElementById(`btn-filter-${category}`);
+            if (activeBtn) {
+                activeBtn.classList.remove('bg-white', 'text-slate-700');
+                activeBtn.classList.add('bg-indigo-600', 'text-white');
+            }
+
+            if (category === 'all') {
+                renderMethodologies(methodologiesData);
+            } else {
+                const filtered = methodologiesData.filter(m => m.category === category);
+                renderMethodologies(filtered);
+            }
+        }
+
+        // Modal Logic
+        function openModal(id) {
+            const item = methodologiesData.find(m => m.id === id);
+            if (!item) return;
+
+            const modalContent = document.getElementById('modal-content');
+            modalContent.innerHTML = item.details;
+
+            const modal = document.getElementById('methodology-modal');
+            modal.classList.remove('hidden');
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('methodology-modal');
+            modal.classList.add('hidden');
+        }
+
+        // SECTION 3: Dynamic Project Evaluator Calculator
+        function updateScorer() {
+            const impact = parseFloat(document.getElementById('input-impact').value);
+            const data = parseFloat(document.getElementById('input-data').value);
+            const arch = parseFloat(document.getElementById('input-arch').value);
+            const risk = parseFloat(document.getElementById('input-risk').value);
+            const time = parseFloat(document.getElementById('input-time').value);
+
+            document.getElementById('val-impact-num').innerText = `${impact} / 10`;
+            document.getElementById('val-data-num').innerText = `${data} / 10`;
+            document.getElementById('val-arch-num').innerText = `${arch} / 10`;
+            document.getElementById('val-risk-num').innerText = `${risk} / 10`;
+            document.getElementById('val-time-num').innerText = `${time} / 10`;
+
+            // Weighted score formula: Impact 30%, Data 25%, Arch 20%, Risk 15%, Time 10%
+            const score = (impact * 0.30) + (data * 0.25) + (arch * 0.20) + (risk * 0.15) + (time * 0.10);
+            const formattedScore = score.toFixed(1);
+
+            document.getElementById('score-total').innerText = formattedScore;
+            document.getElementById('score-bar-fill').style.width = `${score * 10}%`;
+
+            const gateBox = document.getElementById('gate-recommendation-box');
+            const gateTitle = document.getElementById('gate-title');
+            const gateDesc = document.getElementById('gate-desc');
+
+            if (score >= 7.5) {
+                gateBox.className = "p-4 rounded-xl bg-teal-50 border border-teal-200";
+                gateTitle.innerText = "Aprobación Prioritaria para Sandbox";
+                gateDesc.innerText = "Excelente alineación de alto impacto y factibilidad. Asignación inmediata de equipo FDE y Sandbox Aislado.";
+            } else if (score >= 6.0) {
+                gateBox.className = "p-4 rounded-xl bg-amber-50 border border-amber-200";
+                gateTitle.innerText = "Aprobación Condicionada";
+                gateDesc.innerText = "Requiere remediación previa en la calidad de datos o ajuste de arquitectura antes de autorizar fondos de desarrollo.";
+            } else {
+                gateBox.className = "p-4 rounded-xl bg-rose-50 border border-rose-200";
+                gateTitle.innerText = "Iniciativa Desestimada (Stage-Gate Reject)";
+                gateDesc.innerText = "La puntuación es insuficiente. Riesgo de fracaso alto. Redirigir recursos hacia otros casos en el Banco Dinámico.";
+            }
+        }
+
+        // SECTION 4: Workflow Tabs and Sandboxing Stepper Logic
+        function switchWorkflowTab(tabKey) {
+            document.querySelectorAll('.workflow-tab-btn').forEach(btn => {
+                btn.classList.remove('border-indigo-600', 'text-indigo-600');
+                btn.classList.add('border-transparent', 'text-slate-500');
+            });
+            document.getElementById(`tab-${tabKey}`).classList.remove('border-transparent', 'text-slate-500');
+            document.getElementById(`tab-${tabKey}`).classList.add('border-indigo-600', 'text-indigo-600');
+
+            document.querySelectorAll('.workflow-content').forEach(c => c.classList.add('hidden'));
+            document.getElementById(`content-${tabKey}`).classList.remove('hidden');
+        }
+
+        const sandboxDataSteps = {
+            1: {
+                title: "Etapa 1: Sandbox Aislado",
+                subtitle: "Aislamiento total de hardware y red",
+                desc: "Ejecución sobre microVMs efímeras (e.g. AWS Firecracker) con datos 100% sintéticos. Tráfico saliente bloqueado (Zero Network Egress).",
+                requirements: "Verificación de estabilidad del modelo de razonamiento sin credenciales vivas."
+            },
+            2: {
+                title: "Etapa 2: Staging con Espejo Productivo",
+                subtitle: "Pruebas con datos históricos de sólo lectura",
+                desc: "Conexión con réplicas estáticas de bases de datos de producción para evaluar el desempeño del sistema ante datos desestructurados reales.",
+                requirements: "Validación de esquemas JSON, límites de latencia e índices de alucinación."
+            },
+            3: {
+                title: "Etapa 3: Modo Sombra (Shadow Mode)",
+                subtitle: "Ejecución paralela no invasiva",
+                desc: "El sistema procesa solicitudes de producción en tiempo real pero sus decisiones no ejecutan escrituras maestros. Se contrastan los resultados con las decisiones humanas.",
+                requirements: "Auditoría de precisión algorítmica sin afectar operaciones en vivo."
+            },
+            4: {
+                title: "Etapa 4: Despliegue Canario",
+                subtitle: "Tráfico restringido (5% a 10%)",
+                desc: "Liberación controlada para un segmento seleccionado de transacciones de bajo riesgo, con monitoreo activo de telemetría de errores.",
+                requirements: "Estabilidad en producción y baja tasa de excepciones."
+            },
+            5: {
+                title: "Etapa 5: Autonomía Monitorizada",
+                subtitle: "Producción a escala con Kill-Switch",
+                desc: "Operación completa protegida por cortafuegos en tiempo de ejecución (AI TRiSM) y activación automática del interruptor de emergencia ante anomalías.",
+                requirements: "Auditoría periódica de deriva de modelo (drift) y cumplimiento ISO 42001."
+            }
+        };
+
+        function selectSandboxStep(stepNum) {
+            document.querySelectorAll('.sb-step-btn').forEach((btn, idx) => {
+                btn.classList.remove('bg-indigo-50', 'border-indigo-300');
+                btn.classList.add('bg-white', 'border-slate-200');
+                btn.querySelector('span').classList.remove('text-indigo-600');
+                btn.querySelector('span').classList.add('text-slate-500');
+            });
+
+            const activeBtn = document.getElementById(`sb-step-${stepNum}`);
+            activeBtn.classList.remove('bg-white', 'border-slate-200');
+            activeBtn.classList.add('bg-indigo-50', 'border-indigo-300');
+            activeBtn.querySelector('span').classList.remove('text-slate-500');
+            activeBtn.querySelector('span').classList.add('text-indigo-600');
+
+            const info = sandboxDataSteps[stepNum];
+            const card = document.getElementById('sandbox-details-card');
+            card.innerHTML = `
+                <div class="flex items-center justify-between border-b border-slate-200 pb-3 mb-3">
+                    <h4 class="font-bold text-slate-900 text-base">${info.title}</h4>
+                    <span class="text-xs font-semibold text-indigo-700 bg-indigo-100 px-2.5 py-1 rounded-md">${info.subtitle}</span>
+                </div>
+                <p class="text-xs text-slate-700 leading-relaxed">${info.desc}</p>
+                <div class="mt-3 pt-2 border-t border-slate-200 text-xs text-slate-500">
+                    <strong>Hito de Validación:</strong> ${info.requirements}
+                </div>
+            `;
+        }
+
+        // SECTION 5: Chart.js Visualizations
+        let donutChartInstance = null;
+        let finopsChartInstance = null;
+
+        function initCharts() {
+            // Donut Chart: 10-20-70 Rule
+            const ctxDonut = document.getElementById('donutChart102070').getContext('2d');
+            donutChartInstance = new Chart(ctxDonut, {
+                type: 'doughnut',
+                data: {
+                    labels: [
+                        '70% Personas, Procesos y Cultura',
+                        '20% Infraestructura y Datos',
+                        '10% Algoritmos y Modelos'
+                    ],
+                    datasets: [{
+                        data: [70, 20, 10],
+                        backgroundColor: ['#4F46E5', '#0D9488', '#D97706'],
+                        borderWidth: 2,
+                        borderColor: '#FFFFFF'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                font: { family: 'Inter', size: 11 },
+                                boxWidth: 12
+                            }
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return ` ${context.label}: ${context.raw}% del esfuerzo`;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+
+            // FinOps Bar Chart
+            const ctxFinOps = document.getElementById('finopsChart').getContext('2d');
+            finopsChartInstance = new Chart(ctxFinOps, {
+                type: 'bar',
+                data: {
+                    labels: ['Gasto Mensual Estimado ($)'],
+                    datasets: [
+                        {
+                            label: 'Sin Enrutamiento (Todos LLM)',
+                            data: [10000],
+                            backgroundColor: '#E11D48'
+                        },
+                        {
+                            label: 'Con AI FinOps Router',
+                            data: [3400],
+                            backgroundColor: '#0D9488'
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: {
+                                callback: function(value) { return '$' + value; }
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: { font: { family: 'Inter', size: 11 }, boxWidth: 12 }
+                        }
+                    }
+                }
+            });
+        }
+
+        function updateFinOpsChart() {
+            const slmPercent = parseInt(document.getElementById('slm-range').value);
+            const llmPercent = 100 - slmPercent;
+
+            document.getElementById('slm-percent-label').innerText = `${slmPercent}% SLM / ${llmPercent}% LLM`;
+
+            // Base assumption: Standard cost = $10,000 for 100% LLM
+            // SLM reduces cost of assigned queries by 85%
+            const baseCost = 10000;
+            const optimizedCost = Math.round(baseCost * (llmPercent / 100) + (baseCost * (slmPercent / 100) * 0.15));
+
+            document.getElementById('cost-without-router').innerText = `$${baseCost.toLocaleString()} / mes`;
+            document.getElementById('cost-with-router').innerText = `$${optimizedCost.toLocaleString()} / mes`;
+
+            if (finopsChartInstance) {
+                finopsChartInstance.data.datasets[1].data = [optimizedCost];
+                finopsChartInstance.update();
+            }
+        }
+
+        // Smooth Scroll Helper
+        function scrollToSection(id) {
+            const section = document.getElementById(id);
+            if (section) {
+                section.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+
+        // Initialization
+        window.addEventListener('DOMContentLoaded', () => {
+            renderMethodologies(methodologiesData);
+            updateScorer();
+            selectSandboxStep(1);
+            initCharts();
+        });
+    </script>
+</body>
+</html>

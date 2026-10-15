@@ -1,0 +1,892 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Infografía Ejecutiva | La Transición de la IA en América Latina</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
+  
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            display: ['"Space Grotesk"', 'sans-serif'],
+          },
+          colors: {
+            navy: {
+              900: '#0B132B',
+              850: '#0F1A3A',
+              800: '#1C2541',
+              700: '#233152',
+            },
+            latam: {
+              teal: '#00B4D8',
+              emerald: '#10B981',
+              amber: '#F59E0B',
+              rose: '#F43F5E',
+              purple: '#8B5CF6'
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    @media print {
+      body { background: #ffffff !important; color: #0f172a !important; }
+      .no-print { display: none !important; }
+      .page-break { page-break-before: always; }
+      .shadow-2xl, .shadow-xl, .shadow-lg { box-shadow: none !important; border: 1px solid #e2e8f0 !important; }
+    }
+    .custom-scrollbar::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-track {
+      background: rgba(15, 23, 42, 0.4);
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+      background: rgba(148, 163, 184, 0.3);
+      border-radius: 4px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+      background: rgba(148, 163, 184, 0.5);
+    }
+    .glass-card {
+      background: linear-gradient(135deg, rgba(28, 37, 65, 0.85) 0%, rgba(15, 26, 58, 0.75) 100%);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .gradient-border-b {
+      border-bottom: 2px solid;
+      border-image: linear-gradient(90deg, #00B4D8, #10B981, #F59E0B) 1;
+    }
+  </style>
+</head>
+<body class="bg-navy-900 text-slate-100 font-sans min-h-screen selection:bg-latam-teal selection:text-navy-900">
+
+  <!-- TOP EXECUTIVE BANNER -->
+  <header class="border-b border-slate-800 bg-navy-850/90 sticky top-0 z-50 backdrop-blur-md">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3.5 flex flex-wrap items-center justify-between gap-4">
+      <div class="flex items-center gap-3">
+        <div class="p-2 bg-latam-teal/10 rounded-lg border border-latam-teal/30">
+          <svg class="w-6 h-6 text-latam-teal" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+          </svg>
+        </div>
+        <div>
+          <span class="text-xs uppercase tracking-widest text-latam-teal font-semibold">Informe de Políticas Públicas</span>
+          <h1 class="text-sm sm:text-base font-bold text-white tracking-tight">Banco Mundial | Diagnóstico Estratégico ALC 2026</h1>
+        </div>
+      </div>
+      
+      <div class="flex items-center gap-3 no-print">
+        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+          <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+          Edición Ejecutiva Octubre 2026
+        </span>
+        <button onclick="window.print()" class="px-3.5 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-xs font-medium text-slate-200 border border-slate-700 transition flex items-center gap-1.5">
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"></path>
+          </svg>
+          Exportar / Imprimir
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- MAIN INFOGRAPHIC CONTAINER -->
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-10">
+
+    <!-- HERO / TITLE BLOCK -->
+    <section class="glass-card rounded-2xl p-6 sm:p-10 border border-slate-700/60 relative overflow-hidden">
+      <div class="absolute -right-20 -top-20 w-80 h-80 bg-latam-teal/10 rounded-full blur-3xl pointer-events-none"></div>
+      <div class="absolute -left-20 -bottom-20 w-80 h-80 bg-latam-purple/10 rounded-full blur-3xl pointer-events-none"></div>
+
+      <div class="relative z-10 max-w-4xl">
+        <div class="inline-block px-3 py-1 bg-latam-teal/15 text-latam-teal border border-latam-teal/30 rounded-md text-xs font-semibold tracking-wider uppercase mb-3">
+          Infografía de Alto Impacto
+        </div>
+        <h1 class="text-3xl sm:text-5xl font-display font-extrabold text-white tracking-tight leading-tight">
+          La Transición de la IA en <span class="text-transparent bg-clip-text bg-gradient-to-r from-latam-teal via-emerald-400 to-amber-300">América Latina</span>
+        </h1>
+        <p class="text-slate-300 text-base sm:text-lg mt-3 font-normal leading-relaxed">
+          Diagnóstico del informe <span class="italic text-white font-medium">"Aprovechando la transición de la IA"</span> (Banco Mundial, Octubre 2026), mapa de vulnerabilidad y hoja de ruta para la productividad regional.
+        </p>
+      </div>
+    </section>
+
+    <!-- PANEL 1: EL TERMÓMETRO REGIONAL -->
+    <section class="space-y-4">
+      <div class="flex items-center gap-3">
+        <span class="flex items-center justify-center w-8 h-8 rounded-lg bg-latam-teal text-navy-900 font-bold text-sm">01</span>
+        <h2 class="text-xl sm:text-2xl font-display font-bold text-white tracking-tight">
+          PANEL 1 | El Termómetro Regional: Realidad vs. Expectativas
+        </h2>
+      </div>
+
+      <!-- Tesis Central Highlight -->
+      <div class="bg-gradient-to-r from-latam-teal/20 via-navy-800 to-navy-850 border-l-4 border-latam-teal p-5 rounded-r-xl shadow-lg">
+        <div class="text-xs uppercase tracking-wider text-latam-teal font-bold mb-1">Tesis Central de Productividad</div>
+        <p class="text-slate-200 text-base leading-snug">
+          El cuello de botella en América Latina <strong class="text-white">no es el acceso al software ni su costo de suscripción</strong>, sino la <span class="text-latam-teal font-semibold">capacidad de absorción tecnológica</span>: debilidad en competencias gerenciales, rigidez de procesos en las firmas y rezagos crónicos de capital humano.
+        </p>
+      </div>
+
+      <!-- Métricas Clave y Comparativa -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+        <!-- Card 1 -->
+        <div class="glass-card p-5 rounded-xl border border-slate-700/80 flex flex-col justify-between">
+          <div class="flex items-center justify-between">
+            <span class="text-xs text-slate-400 font-medium uppercase">Crecimiento Regional</span>
+            <span class="text-latam-rose bg-latam-rose/10 px-2 py-0.5 rounded text-xs font-semibold">Estancamiento</span>
+          </div>
+          <div class="my-3">
+            <div class="text-4xl font-display font-extrabold text-white">2,2%</div>
+            <div class="text-xs text-slate-300 mt-1">PIB proyectado ALC 2026</div>
+          </div>
+          <p class="text-xs text-slate-400 border-t border-slate-700/50 pt-2">
+            Evidencia de rezago crónico en la productividad agregada respecto al resto del mundo.
+          </p>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="glass-card p-5 rounded-xl border border-slate-700/80 flex flex-col justify-between">
+          <div class="flex items-center justify-between">
+            <span class="text-xs text-slate-400 font-medium uppercase">Penetración GenAI</span>
+            <span class="text-latam-amber bg-latam-amber/10 px-2 py-0.5 rounded text-xs font-semibold">Brecha 2x</span>
+          </div>
+          <div class="my-3">
+            <div class="text-4xl font-display font-extrabold text-latam-teal">17%</div>
+            <div class="text-xs text-slate-300 mt-1">Mediana en adultos trabajadores</div>
+          </div>
+          <p class="text-xs text-slate-400 border-t border-slate-700/50 pt-2">
+            Exactamente la mitad de la tasa observada en las economías de EE. UU. y Canadá.
+          </p>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="glass-card p-5 rounded-xl border border-slate-700/80 flex flex-col justify-between">
+          <div class="flex items-center justify-between">
+            <span class="text-xs text-slate-400 font-medium uppercase">Tipo de Adopción</span>
+            <span class="text-sky-400 bg-sky-500/10 px-2 py-0.5 rounded text-xs font-semibold">Desfase Crítico</span>
+          </div>
+          <div class="my-2">
+            <div class="text-base font-bold text-white flex items-center gap-1.5">
+              <span class="text-latam-rose">Superficial</span> vs. <span class="text-emerald-400">Estructural</span>
+            </div>
+            <div class="text-xs text-slate-300 mt-2">
+              IA limitada a tareas ofimáticas auxiliares; ausencia de integración en procesos neurálgicos de negocio.
+            </div>
+          </div>
+          <div class="w-full bg-slate-800 h-2 rounded-full overflow-hidden mt-1">
+            <div class="bg-latam-rose h-full w-[82%]"></div>
+          </div>
+        </div>
+
+        <!-- Card 4 -->
+        <div class="glass-card p-5 rounded-xl border border-slate-700/80 flex flex-col justify-between">
+          <div class="flex items-center justify-between">
+            <span class="text-xs text-slate-400 font-medium uppercase">Enfoque de Capital</span>
+            <span class="text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded text-xs font-semibold">Estrategia</span>
+          </div>
+          <div class="my-2">
+            <div class="text-sm font-bold text-white">Small AI & Open-Source</div>
+            <p class="text-xs text-slate-300 mt-1">
+              Desaconseja subsidiar macro-modelos fundacionales desde cero; priorizar modelos compactos para fallas locales.
+            </p>
+          </div>
+          <div class="text-xs text-latam-teal font-semibold pt-1 border-t border-slate-700/50">
+            Foco en retorno de inversión social
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PANEL 2: MAPA DE EXPOSICIÓN LABORAL Y DESIGUALDADES -->
+    <section class="space-y-6">
+      <div class="flex items-center gap-3">
+        <span class="flex items-center justify-center w-8 h-8 rounded-lg bg-latam-amber text-navy-900 font-bold text-sm">02</span>
+        <h2 class="text-xl sm:text-2xl font-display font-bold text-white tracking-tight">
+          PANEL 2 | Mapa de Exposición Laboral y Desigualdades
+        </h2>
+      </div>
+
+      <!-- Intro block -->
+      <p class="text-sm sm:text-base text-slate-300">
+        El impacto laboral se distribuye en función de la estructura económica de cada país: las economías basadas en <span class="text-white font-medium">servicios corporativos transables</span> presentan el mayor nivel de exposición algorítmica, mientras que las <span class="text-white font-medium">economías extractivas y agrícolas</span> muestran menor exposición inmediata.
+      </p>
+
+      <!-- Tabla / Tarjetas de Niveles de Exposición Regional -->
+      <div class="grid grid-cols-1 lg:grid-cols-5 gap-3">
+        <!-- Alta -->
+        <div class="glass-card p-4 rounded-xl border-t-4 border-t-latam-rose flex flex-col justify-between">
+          <div>
+            <div class="flex justify-between items-center mb-1">
+              <span class="text-xs font-bold uppercase tracking-wider text-latam-rose">Exposición Alta</span>
+              <span class="text-xs font-extrabold text-white bg-latam-rose/20 px-1.5 py-0.5 rounded">36% – 38%</span>
+            </div>
+            <div class="text-xs font-semibold text-slate-200 mt-2">Países:</div>
+            <p class="text-xs text-slate-300 font-medium">Costa Rica (38%), Uruguay (37%), Brasil (37%), Rep. Dominicana (37%), Chile (36%)</p>
+          </div>
+          <div class="mt-3 pt-2 border-t border-slate-700/60 text-[11px] text-slate-400">
+            <strong class="text-slate-300">Factor estructural:</strong> Hubs de servicios globales, banca digitalizada y centros BPO.
+          </div>
+        </div>
+
+        <!-- Media-Alta -->
+        <div class="glass-card p-4 rounded-xl border-t-4 border-t-latam-amber flex flex-col justify-between">
+          <div>
+            <div class="flex justify-between items-center mb-1">
+              <span class="text-xs font-bold uppercase tracking-wider text-latam-amber">Exposición Media-Alta</span>
+              <span class="text-xs font-extrabold text-white bg-latam-amber/20 px-1.5 py-0.5 rounded">33% – 35%</span>
+            </div>
+            <div class="text-xs font-semibold text-slate-200 mt-2">Países:</div>
+            <p class="text-xs text-slate-300 font-medium">Colombia (35%), México (34%), Surinam (33%)</p>
+          </div>
+          <div class="mt-3 pt-2 border-t border-slate-700/60 text-[11px] text-slate-400">
+            <strong class="text-slate-300">Factor estructural:</strong> Manufactura coordinada digitalmente y centros de contacto.
+          </div>
+        </div>
+
+        <!-- Promedio Regional -->
+        <div class="glass-card p-4 rounded-xl border-t-4 border-t-latam-teal bg-navy-800/90 flex flex-col justify-between shadow-xl">
+          <div>
+            <div class="flex justify-between items-center mb-1">
+              <span class="text-xs font-bold uppercase tracking-wider text-latam-teal">Promedio Regional</span>
+              <span class="text-xs font-extrabold text-white bg-latam-teal/20 px-1.5 py-0.5 rounded">32%</span>
+            </div>
+            <div class="text-xs font-semibold text-white mt-2">América Latina y el Caribe</div>
+            <p class="text-xs text-slate-300 font-medium">Referencia ponderada regional (ALC)</p>
+          </div>
+          <div class="mt-3 pt-2 border-t border-slate-700/60 text-[11px] text-slate-300">
+            Nivel medio ponderado de exposición laboral a la GenAI.
+          </div>
+        </div>
+
+        <!-- Media-Baja -->
+        <div class="glass-card p-4 rounded-xl border-t-4 border-t-sky-400 flex flex-col justify-between">
+          <div>
+            <div class="flex justify-between items-center mb-1">
+              <span class="text-xs font-bold uppercase tracking-wider text-sky-400">Exposición Media-Baja</span>
+              <span class="text-xs font-extrabold text-white bg-sky-400/20 px-1.5 py-0.5 rounded">29% – 32%</span>
+            </div>
+            <div class="text-xs font-semibold text-slate-200 mt-2">Países:</div>
+            <p class="text-xs text-slate-300 font-medium">El Salvador (32%), Guatemala (31%), Panamá (31%), Perú (30%), Honduras (29%)</p>
+          </div>
+          <div class="mt-3 pt-2 border-t border-slate-700/60 text-[11px] text-slate-400">
+            <strong class="text-slate-300">Factor estructural:</strong> Predominio de manufactura ligera, comercio informal y minería.
+          </div>
+        </div>
+
+        <!-- Baja -->
+        <div class="glass-card p-4 rounded-xl border-t-4 border-t-emerald-400 flex flex-col justify-between">
+          <div>
+            <div class="flex justify-between items-center mb-1">
+              <span class="text-xs font-bold uppercase tracking-wider text-emerald-400">Exposición Baja</span>
+              <span class="text-xs font-extrabold text-white bg-emerald-400/20 px-1.5 py-0.5 rounded">26% – 28%</span>
+            </div>
+            <div class="text-xs font-semibold text-slate-200 mt-2">Países:</div>
+            <p class="text-xs text-slate-300 font-medium">Bolivia (27%), Ecuador (27%), Nicaragua (28%), Barbados (26%)</p>
+          </div>
+          <div class="mt-3 pt-2 border-t border-slate-700/60 text-[11px] text-slate-400">
+            <strong class="text-slate-300">Factor estructural:</strong> Predominio de economía física, agricultura y turismo presencial.
+          </div>
+        </div>
+      </div>
+
+      <!-- DISTRIBUCIÓN FUNCIONAL DE LA FUERZA LABORAL -->
+      <div class="glass-card p-6 rounded-2xl border border-slate-700/80">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between pb-4 border-b border-slate-700/60 gap-2">
+          <div>
+            <h3 class="text-base sm:text-lg font-bold text-white">Distribución Funcional de la Fuerza Laboral Regional</h3>
+            <p class="text-xs text-slate-400">Estructura de vulnerabilidad e interacción ante modelos de IA</p>
+          </div>
+          <span class="text-xs px-2.5 py-1 bg-slate-800 text-slate-300 rounded-md self-start sm:self-auto border border-slate-700">Muestra agregada ALC</span>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4 mt-6">
+          <!-- 1: Economia Tangible -->
+          <div class="p-4 rounded-xl bg-slate-850/80 border border-slate-700/70 hover:border-slate-500 transition">
+            <div class="text-3xl font-display font-extrabold text-white">78,1%</div>
+            <div class="text-xs uppercase tracking-wider text-slate-400 font-bold mt-1">Economía Tangible</div>
+            <p class="text-xs text-slate-300 mt-2 leading-relaxed">
+              Trabajadores cuyas labores exigen interacción física. <span class="text-emerald-400 font-medium">Inmunes a la IA digital no incorporada</span>.
+            </p>
+          </div>
+
+          <!-- 2: En Aumento -->
+          <div class="p-4 rounded-xl bg-slate-850/80 border border-emerald-500/30 hover:border-emerald-500 transition">
+            <div class="text-3xl font-display font-extrabold text-emerald-400">8% – 14%</div>
+            <div class="text-xs uppercase tracking-wider text-emerald-300 font-bold mt-1">Complementariedad</div>
+            <p class="text-xs text-slate-300 mt-2 leading-relaxed">
+              Alta calificación (medicina, ingeniería, docencia). <span class="text-emerald-300 font-medium">Multiplican su productividad</span> automatizando rutina.
+            </p>
+          </div>
+
+          <!-- 3: Zona Incierta -->
+          <div class="p-4 rounded-xl bg-slate-850/80 border border-amber-500/30 hover:border-amber-500 transition">
+            <div class="text-3xl font-display font-extrabold text-latam-amber">13% – 22%</div>
+            <div class="text-xs uppercase tracking-wider text-amber-300 font-bold mt-1">Zona Incierta</div>
+            <p class="text-xs text-slate-300 mt-2 leading-relaxed">
+              Ocupaciones intermedias. El resultado final (reemplazo vs. potenciación) <span class="text-amber-300 font-medium">dependerá de políticas públicas</span> y costos.
+            </p>
+          </div>
+
+          <!-- 4: Riesgo Inmediato -->
+          <div class="p-4 rounded-xl bg-slate-850/80 border border-latam-rose/40 hover:border-latam-rose transition">
+            <div class="text-3xl font-display font-extrabold text-latam-rose">1% – 6%</div>
+            <div class="text-xs uppercase tracking-wider text-rose-300 font-bold mt-1">Riesgo Inmediato</div>
+            <p class="text-xs text-slate-300 mt-2 leading-relaxed">
+              Tareas cognitivas rutinarias (digitación, telemercadeo, call centers). <span class="text-rose-300 font-medium">Sustituibles por agentes autónomos</span>.
+            </p>
+          </div>
+
+          <!-- 5: Segunda Ola -->
+          <div class="p-4 rounded-xl bg-slate-850/80 border border-purple-500/30 hover:border-purple-500 transition">
+            <div class="text-3xl font-display font-extrabold text-latam-purple">~25%</div>
+            <div class="text-xs uppercase tracking-wider text-purple-300 font-bold mt-1">Segunda Ola (Alerta)</div>
+            <p class="text-xs text-slate-300 mt-2 leading-relaxed">
+              Operarios manuales rutinarios expuestos gradualmente <span class="text-purple-300 font-medium">al abaratarse la robótica avanzada</span> y hardware.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- BRECHAS Y TENSIONES DISTRIBUTIVAS -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <!-- Brecha 1 -->
+        <div class="glass-card p-5 rounded-xl border border-slate-700/80 flex items-start gap-4">
+          <div class="p-3 rounded-lg bg-amber-500/10 text-latam-amber border border-amber-500/20 shrink-0">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>
+            </svg>
+          </div>
+          <div>
+            <h4 class="text-sm font-bold text-white uppercase tracking-wider">Polarización del Ingreso</h4>
+            <div class="text-2xl font-display font-extrabold text-latam-amber my-1">5,6x</div>
+            <p class="text-xs text-slate-300 leading-snug">
+              En México y la región, el quintil más rico tiene <strong class="text-white">5,6 veces más probabilidades</strong> de acceder a empleos potenciados por IA que el quintil más vulnerable.
+            </p>
+          </div>
+        </div>
+
+        <!-- Brecha 2 -->
+        <div class="glass-card p-5 rounded-xl border border-slate-700/80 flex items-start gap-4">
+          <div class="p-3 rounded-lg bg-rose-500/10 text-latam-rose border border-rose-500/20 shrink-0">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path>
+            </svg>
+          </div>
+          <div>
+            <h4 class="text-sm font-bold text-white uppercase tracking-wider">Sesgo de Género</h4>
+            <div class="text-2xl font-display font-extrabold text-latam-rose my-1">2x Riesgo</div>
+            <p class="text-xs text-slate-300 leading-snug">
+              Las mujeres enfrentan el <strong class="text-white">doble de riesgo relativo</strong> de reemplazo cognitivo debido a su sobrerrepresentación en soporte administrativo y atención a clientes.
+            </p>
+          </div>
+        </div>
+
+        <!-- Brecha 3 -->
+        <div class="glass-card p-5 rounded-xl border border-slate-700/80 flex items-start gap-4">
+          <div class="p-3 rounded-lg bg-sky-500/10 text-sky-400 border border-sky-500/20 shrink-0">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+            </svg>
+          </div>
+          <div>
+            <h4 class="text-sm font-bold text-white uppercase tracking-wider">La Paradoja Salarial</h4>
+            <div class="text-2xl font-display font-extrabold text-sky-400 my-1">Trampa de Piso</div>
+            <p class="text-xs text-slate-300 leading-snug">
+              La informalidad y los salarios de subsistencia amortiguan temporalmente la automatización física, pero <strong class="text-white">encierran a la región en una trampa de productividad estancada</strong>.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PANEL 3: EL DECÁLOGO: 10 SOLUCIONES INTEGRALES -->
+    <section class="space-y-6">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+        <div class="flex items-center gap-3">
+          <span class="flex items-center justify-center w-8 h-8 rounded-lg bg-emerald-400 text-navy-900 font-bold text-sm">03</span>
+          <h2 class="text-xl sm:text-2xl font-display font-bold text-white tracking-tight">
+            PANEL 3 | El Decálogo: 10 Soluciones Integrales
+          </h2>
+        </div>
+        <div class="text-xs text-slate-400">
+          Matriz multisectorial: <span class="text-latam-teal font-medium">Público</span> • <span class="text-emerald-400 font-medium">Privado</span> • <span class="text-latam-purple font-medium">Academia</span>
+        </div>
+      </div>
+
+      <!-- Solutions Matrix Cards Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+
+        <!-- Solución 1 -->
+        <div class="glass-card p-5 rounded-xl border border-slate-700/70 hover:border-slate-500 transition">
+          <div class="flex items-start justify-between gap-3">
+            <span class="w-7 h-7 rounded-full bg-latam-teal/20 text-latam-teal text-xs font-bold flex items-center justify-center shrink-0">1</span>
+            <div class="flex-1">
+              <h3 class="text-base font-bold text-white">Extensión Tecnológica en MiPymes</h3>
+              <p class="text-xs text-slate-300 mt-1">Reorganización de flujos de trabajo y procesos operativos para elevar productividad de base.</p>
+            </div>
+          </div>
+          <div class="mt-4 pt-3 border-t border-slate-700/60 grid grid-cols-3 gap-2 text-[11px]">
+            <div class="bg-navy-900/60 p-2 rounded">
+              <span class="text-latam-teal font-bold block">Público</span>
+              <span class="text-slate-300">Matching grants (50%-70%)</span>
+            </div>
+            <div class="bg-navy-900/60 p-2 rounded">
+              <span class="text-emerald-400 font-bold block">Privado</span>
+              <span class="text-slate-300">Consultoría en planta</span>
+            </div>
+            <div class="bg-navy-900/60 p-2 rounded">
+              <span class="text-latam-purple font-bold block">Academia</span>
+              <span class="text-slate-300">Capacitación gerencial</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Solución 2 -->
+        <div class="glass-card p-5 rounded-xl border border-slate-700/70 hover:border-slate-500 transition">
+          <div class="flex items-start justify-between gap-3">
+            <span class="w-7 h-7 rounded-full bg-latam-teal/20 text-latam-teal text-xs font-bold flex items-center justify-center shrink-0">2</span>
+            <div class="flex-1">
+              <h3 class="text-base font-bold text-white">El Estado como Cliente Ancla (GovTech)</h3>
+              <p class="text-xs text-slate-300 mt-1">Estimular demanda local y resolver cuellos de botella en salud, recaudación y justicia.</p>
+            </div>
+          </div>
+          <div class="mt-4 pt-3 border-t border-slate-700/60 grid grid-cols-3 gap-2 text-[11px]">
+            <div class="bg-navy-900/60 p-2 rounded">
+              <span class="text-latam-teal font-bold block">Público</span>
+              <span class="text-slate-300">Compra pública de innovación</span>
+            </div>
+            <div class="bg-navy-900/60 p-2 rounded">
+              <span class="text-emerald-400 font-bold block">Privado</span>
+              <span class="text-slate-300">Startups GovTech activas</span>
+            </div>
+            <div class="bg-navy-900/60 p-2 rounded">
+              <span class="text-latam-purple font-bold block">Academia</span>
+              <span class="text-slate-300">Auditoría de sesgos algorítmicos</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Solución 3 -->
+        <div class="glass-card p-5 rounded-xl border border-slate-700/70 hover:border-slate-500 transition">
+          <div class="flex items-start justify-between gap-3">
+            <span class="w-7 h-7 rounded-full bg-latam-teal/20 text-latam-teal text-xs font-bold flex items-center justify-center shrink-0">3</span>
+            <div class="flex-1">
+              <h3 class="text-base font-bold text-white">Soberanía con Código Abierto & Small AI</h3>
+              <p class="text-xs text-slate-300 mt-1">Adaptar modelos ligeros de bajo consumo energético a lenguajes y necesidades territoriales.</p>
+            </div>
+          </div>
+          <div class="mt-4 pt-3 border-t border-slate-700/60 grid grid-cols-3 gap-2 text-[11px]">
+            <div class="bg-navy-900/60 p-2 rounded">
+              <span class="text-latam-teal font-bold block">Público</span>
+              <span class="text-slate-300">Liberación de datos públicos</span>
+            </div>
+            <div class="bg-navy-900/60 p-2 rounded">
+              <span class="text-emerald-400 font-bold block">Privado</span>
+              <span class="text-slate-300">Herramientas comerciales</span>
+            </div>
+            <div class="bg-navy-900/60 p-2 rounded">
+              <span class="text-latam-purple font-bold block">Academia</span>
+              <span class="text-slate-300">Optimización de modelos</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Solución 4 -->
+        <div class="glass-card p-5 rounded-xl border border-slate-700/70 hover:border-slate-500 transition">
+          <div class="flex items-start justify-between gap-3">
+            <span class="w-7 h-7 rounded-full bg-latam-teal/20 text-latam-teal text-xs font-bold flex items-center justify-center shrink-0">4</span>
+            <div class="flex-1">
+              <h3 class="text-base font-bold text-white">Reconversión Laboral Modular de Ciclo Corto</h3>
+              <p class="text-xs text-slate-300 mt-1">Formación técnica acelerada (3 a 9 meses) orientada a ocupaciones en riesgo inminente.</p>
+            </div>
+          </div>
+          <div class="mt-4 pt-3 border-t border-slate-700/60 grid grid-cols-3 gap-2 text-[11px]">
+            <div class="bg-navy-900/60 p-2 rounded">
+              <span class="text-latam-teal font-bold block">Público</span>
+              <span class="text-slate-300">Bonos formativos directos</span>
+            </div>
+            <div class="bg-navy-900/60 p-2 rounded">
+              <span class="text-emerald-400 font-bold block">Privado</span>
+              <span class="text-slate-300">Formación dual y contratación</span>
+            </div>
+            <div class="bg-navy-900/60 p-2 rounded">
+              <span class="text-latam-purple font-bold block">Academia</span>
+              <span class="text-slate-300">Microcredenciales técnicas</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Solución 5 -->
+        <div class="glass-card p-5 rounded-xl border border-slate-700/70 hover:border-slate-500 transition">
+          <div class="flex items-start justify-between gap-3">
+            <span class="w-7 h-7 rounded-full bg-latam-teal/20 text-latam-teal text-xs font-bold flex items-center justify-center shrink-0">5</span>
+            <div class="flex-1">
+              <h3 class="text-base font-bold text-white">Protección Social Activa con Captura Fiscal</h3>
+              <p class="text-xs text-slate-300 mt-1">Seguro de desempleo condicionado a capacitación continua, cofinanciado con rentas de IA.</p>
+            </div>
+          </div>
+          <div class="mt-4 pt-3 border-t border-slate-700/60 grid grid-cols-3 gap-2 text-[11px]">
+            <div class="bg-navy-900/60 p-2 rounded">
+              <span class="text-latam-teal font-bold block">Público</span>
+              <span class="text-slate-300">Padrón integrado de subsidios</span>
+            </div>
+            <div class="bg-navy-900/60 p-2 rounded">
+              <span class="text-emerald-400 font-bold block">Privado</span>
+              <span class="text-slate-300">Fondos sectoriales transición</span>
+            </div>
+            <div class="bg-navy-900/60 p-2 rounded">
+              <span class="text-latam-purple font-bold block">Academia</span>
+              <span class="text-slate-300">Evaluación inserción laboral</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Solución 6 -->
+        <div class="glass-card p-5 rounded-xl border border-slate-700/70 hover:border-slate-500 transition">
+          <div class="flex items-start justify-between gap-3">
+            <span class="w-7 h-7 rounded-full bg-latam-teal/20 text-latam-teal text-xs font-bold flex items-center justify-center shrink-0">6</span>
+            <div class="flex-1">
+              <h3 class="text-base font-bold text-white">Pensamiento Crítico y Destrezas Cognitivas</h3>
+              <p class="text-xs text-slate-300 mt-1">Reforma curricular escolar priorizando habilidades complementarias e irreemplazables.</p>
+            </div>
+          </div>
+          <div class="mt-4 pt-3 border-t border-slate-700/60 grid grid-cols-3 gap-2 text-[11px]">
+            <div class="bg-navy-900/60 p-2 rounded">
+              <span class="text-latam-teal font-bold block">Público</span>
+              <span class="text-slate-300">Reforma y capacitación docente</span>
+            </div>
+            <div class="bg-navy-900/60 p-2 rounded">
+              <span class="text-emerald-400 font-bold block">Privado</span>
+              <span class="text-slate-300">EdTech adaptativa auditada</span>
+            </div>
+            <div class="bg-navy-900/60 p-2 rounded">
+              <span class="text-latam-purple font-bold block">Academia</span>
+              <span class="text-slate-300">Nuevos métodos evaluativos</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Solución 7 -->
+        <div class="glass-card p-5 rounded-xl border border-slate-700/70 hover:border-slate-500 transition">
+          <div class="flex items-start justify-between gap-3">
+            <span class="w-7 h-7 rounded-full bg-latam-teal/20 text-latam-teal text-xs font-bold flex items-center justify-center shrink-0">7</span>
+            <div class="flex-1">
+              <h3 class="text-base font-bold text-white">Gobernanza Adaptativa y Sandboxes</h3>
+              <p class="text-xs text-slate-300 mt-1">Regulaciones por niveles de riesgo y bancos de prueba seguros sin frenar la inversión.</p>
+            </div>
+          </div>
+          <div class="mt-4 pt-3 border-t border-slate-700/60 grid grid-cols-3 gap-2 text-[11px]">
+            <div class="bg-navy-900/60 p-2 rounded">
+              <span class="text-latam-teal font-bold block">Público</span>
+              <span class="text-slate-300">Marcos de prueba controlados</span>
+            </div>
+            <div class="bg-navy-900/60 p-2 rounded">
+              <span class="text-emerald-400 font-bold block">Privado</span>
+              <span class="text-slate-300">Autocontrol y ciberseguridad</span>
+            </div>
+            <div class="bg-navy-900/60 p-2 rounded">
+              <span class="text-latam-purple font-bold block">Academia</span>
+              <span class="text-slate-300">Jurisprudencia y ética algorítmica</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Solución 8 -->
+        <div class="glass-card p-5 rounded-xl border border-slate-700/70 hover:border-slate-500 transition">
+          <div class="flex items-start justify-between gap-3">
+            <span class="w-7 h-7 rounded-full bg-latam-teal/20 text-latam-teal text-xs font-bold flex items-center justify-center shrink-0">8</span>
+            <div class="flex-1">
+              <h3 class="text-base font-bold text-white">Infraestructura Digital y Energía Renovable</h3>
+              <p class="text-xs text-slate-300 mt-1">Conectividad de última milla (5G y fibra) soportada por matrices eléctricas limpias.</p>
+            </div>
+          </div>
+          <div class="mt-4 pt-3 border-t border-slate-700/60 grid grid-cols-3 gap-2 text-[11px]">
+            <div class="bg-navy-900/60 p-2 rounded">
+              <span class="text-latam-teal font-bold block">Público</span>
+              <span class="text-slate-300">Licitaciones con cobertura rural</span>
+            </div>
+            <div class="bg-navy-900/60 p-2 rounded">
+              <span class="text-emerald-400 font-bold block">Privado</span>
+              <span class="text-slate-300">Despliegue de red y fibra</span>
+            </div>
+            <div class="bg-navy-900/60 p-2 rounded">
+              <span class="text-latam-purple font-bold block">Academia</span>
+              <span class="text-slate-300">Computación distribuida</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Solución 9 -->
+        <div class="glass-card p-5 rounded-xl border border-slate-700/70 hover:border-slate-500 transition">
+          <div class="flex items-start justify-between gap-3">
+            <span class="w-7 h-7 rounded-full bg-latam-teal/20 text-latam-teal text-xs font-bold flex items-center justify-center shrink-0">9</span>
+            <div class="flex-1">
+              <h3 class="text-base font-bold text-white">Minerales Críticos y Centros de Datos</h3>
+              <p class="text-xs text-slate-300 mt-1">Valor agregado al cobre/litio regional y atracción de hyperscalers verdes.</p>
+            </div>
+          </div>
+          <div class="mt-4 pt-3 border-t border-slate-700/60 grid grid-cols-3 gap-2 text-[11px]">
+            <div class="bg-navy-900/60 p-2 rounded">
+              <span class="text-latam-teal font-bold block">Público</span>
+              <span class="text-slate-300">Estabilidad y distritos verdes</span>
+            </div>
+            <div class="bg-navy-900/60 p-2 rounded">
+              <span class="text-emerald-400 font-bold block">Privado</span>
+              <span class="text-slate-300">Inversión cómputo y refinerías</span>
+            </div>
+            <div class="bg-navy-900/60 p-2 rounded">
+              <span class="text-latam-purple font-bold block">Academia</span>
+              <span class="text-slate-300">Patentes de bajo impacto</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Solución 10 -->
+        <div class="glass-card p-5 rounded-xl border border-slate-700/70 hover:border-slate-500 transition">
+          <div class="flex items-start justify-between gap-3">
+            <span class="w-7 h-7 rounded-full bg-latam-teal/20 text-latam-teal text-xs font-bold flex items-center justify-center shrink-0">10</span>
+            <div class="flex-1">
+              <h3 class="text-base font-bold text-white">Observatorios Laborales de Alta Frecuencia</h3>
+              <p class="text-xs text-slate-300 mt-1">Telemetría en tiempo real de demanda de vacantes para anticipar desfases de formación.</p>
+            </div>
+          </div>
+          <div class="mt-4 pt-3 border-t border-slate-700/60 grid grid-cols-3 gap-2 text-[11px]">
+            <div class="bg-navy-900/60 p-2 rounded">
+              <span class="text-latam-teal font-bold block">Público</span>
+              <span class="text-slate-300">Conexión con seguridad social</span>
+            </div>
+            <div class="bg-navy-900/60 p-2 rounded">
+              <span class="text-emerald-400 font-bold block">Privado</span>
+              <span class="text-slate-300">Datos de bolsas de empleo</span>
+            </div>
+            <div class="bg-navy-900/60 p-2 rounded">
+              <span class="text-latam-purple font-bold block">Academia</span>
+              <span class="text-slate-300">Modelos de predicción</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- PANEL 4: SECUENCIA Y CRONOLOGÍA DE DESPLIEGUE -->
+    <section class="space-y-6">
+      <div class="flex items-center gap-3">
+        <span class="flex items-center justify-center w-8 h-8 rounded-lg bg-sky-400 text-navy-900 font-bold text-sm">04</span>
+        <h2 class="text-xl sm:text-2xl font-display font-bold text-white tracking-tight">
+          PANEL 4 | Secuencia y Cronología de Despliegue Estratégico
+        </h2>
+      </div>
+
+      <p class="text-sm text-slate-300">
+        Para mitigar el colapso institucional y fiscal, las medidas se ejecutan en tres fases ordenadas secuencialmente:
+      </p>
+
+      <!-- Timeline cards horizontal -->
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 relative">
+        
+        <!-- Fase 1 -->
+        <div class="glass-card p-6 rounded-2xl border-t-4 border-t-latam-teal flex flex-col justify-between relative">
+          <div>
+            <div class="flex items-center justify-between mb-2">
+              <span class="px-2.5 py-0.5 rounded text-xs font-extrabold bg-latam-teal/20 text-latam-teal">FASE 1</span>
+              <span class="text-xs text-slate-400 font-medium">Meses 0 a 18</span>
+            </div>
+            <h3 class="text-base font-bold text-white">Preparación Institucional y Normativa</h3>
+            <div class="mt-2 text-xs text-slate-300 font-semibold">Prioridad: Regulaciones, datos y habilitación</div>
+
+            <!-- Soluciones desplegadas -->
+            <div class="flex flex-wrap gap-1.5 my-3">
+              <span class="px-2 py-0.5 rounded bg-slate-800 text-[11px] text-latam-teal border border-latam-teal/30">Solución #2 GovTech</span>
+              <span class="px-2 py-0.5 rounded bg-slate-800 text-[11px] text-latam-teal border border-latam-teal/30">Solución #7 Sandboxes</span>
+              <span class="px-2 py-0.5 rounded bg-slate-800 text-[11px] text-latam-teal border border-latam-teal/30">Solución #8 Conectividad</span>
+              <span class="px-2 py-0.5 rounded bg-slate-800 text-[11px] text-latam-teal border border-latam-teal/30">Solución #10 Observatorio</span>
+            </div>
+
+            <div class="mt-4 pt-3 border-t border-slate-700/60 space-y-2">
+              <div class="text-xs font-bold text-white uppercase tracking-wider">Hitos Críticos:</div>
+              <ul class="text-xs text-slate-300 space-y-1.5 list-disc list-inside">
+                <li>Marco de compra pública de innovación aprobado para GovTech.</li>
+                <li>Sandboxes regulatorios activos en salud, finanzas y transporte.</li>
+                <li>Licitaciones de espectro 5G con obligaciones de cobertura rural.</li>
+                <li>Observatorio activo emitiendo reportes mensuales de competencias.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Fase 2 -->
+        <div class="glass-card p-6 rounded-2xl border-t-4 border-t-latam-amber flex flex-col justify-between relative">
+          <div>
+            <div class="flex items-center justify-between mb-2">
+              <span class="px-2.5 py-0.5 rounded text-xs font-extrabold bg-latam-amber/20 text-latam-amber">FASE 2</span>
+              <span class="text-xs text-slate-400 font-medium">Meses 18 a 36</span>
+            </div>
+            <h3 class="text-base font-bold text-white">Escalamiento Operativo y Absorción</h3>
+            <div class="mt-2 text-xs text-slate-300 font-semibold">Prioridad: Inversión en pymes y reconversión</div>
+
+            <!-- Soluciones desplegadas -->
+            <div class="flex flex-wrap gap-1.5 my-3">
+              <span class="px-2 py-0.5 rounded bg-slate-800 text-[11px] text-latam-amber border border-latam-amber/30">Solución #1 MiPymes</span>
+              <span class="px-2 py-0.5 rounded bg-slate-800 text-[11px] text-latam-amber border border-latam-amber/30">Solución #3 Small AI</span>
+              <span class="px-2 py-0.5 rounded bg-slate-800 text-[11px] text-latam-amber border border-latam-amber/30">Solución #4 Reconversión</span>
+              <span class="px-2 py-0.5 rounded bg-slate-800 text-[11px] text-latam-amber border border-latam-amber/30">Solución #5 Protección</span>
+            </div>
+
+            <div class="mt-4 pt-3 border-t border-slate-700/60 space-y-2">
+              <div class="text-xs font-bold text-white uppercase tracking-wider">Hitos Críticos:</div>
+              <ul class="text-xs text-slate-300 space-y-1.5 list-disc list-inside">
+                <li>Intervención de 100.000 MiPymes con matching grants.</li>
+                <li>Certificación de 250.000 trabajadores en programas técnicos cortos.</li>
+                <li>Modelos de Small AI de código abierto operativos en agro y salud.</li>
+                <li>Seguro de desempleo activo condicionado a recalificación técnica.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Fase 3 -->
+        <div class="glass-card p-6 rounded-2xl border-t-4 border-t-emerald-400 flex flex-col justify-between relative">
+          <div>
+            <div class="flex items-center justify-between mb-2">
+              <span class="px-2.5 py-0.5 rounded text-xs font-extrabold bg-emerald-500/20 text-emerald-400">FASE 3</span>
+              <span class="text-xs text-slate-400 font-medium">Meses 36 a 60+</span>
+            </div>
+            <h3 class="text-base font-bold text-white">Consolidación Sistémica y Segunda Ola</h3>
+            <div class="mt-2 text-xs text-slate-300 font-semibold">Prioridad: Educación profunda y robótica física</div>
+
+            <!-- Soluciones desplegadas -->
+            <div class="flex flex-wrap gap-1.5 my-3">
+              <span class="px-2 py-0.5 rounded bg-slate-800 text-[11px] text-emerald-400 border border-emerald-400/30">Solución #6 Currículos</span>
+              <span class="px-2 py-0.5 rounded bg-slate-800 text-[11px] text-emerald-400 border border-emerald-400/30">Solución #9 Datacenters</span>
+              <span class="px-2 py-0.5 rounded bg-slate-800 text-[11px] text-emerald-400 border border-emerald-400/30">Extensión #1 & #4</span>
+            </div>
+
+            <div class="mt-4 pt-3 border-t border-slate-700/60 space-y-2">
+              <div class="text-xs font-bold text-white uppercase tracking-wider">Hitos Críticos:</div>
+              <ul class="text-xs text-slate-300 space-y-1.5 list-disc list-inside">
+                <li>Reforma curricular básica y media aplicada a nivel nacional.</li>
+                <li>Distritos de litio/cobre y datacenters sostenibles en operación.</li>
+                <li>Extensión de protección a empleos manuales rutinarios (el 25% de la fuerza laboral).</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- PANEL 5: SÍNTESIS Y BALANCE FINAL (ESCENARIOS) -->
+    <section class="space-y-6">
+      <div class="flex items-center gap-3">
+        <span class="flex items-center justify-center w-8 h-8 rounded-lg bg-latam-purple text-navy-900 font-bold text-sm">05</span>
+        <h2 class="text-xl sm:text-2xl font-display font-bold text-white tracking-tight">
+          PANEL 5 | Síntesis y Balance: Dos Futuros Posibles para ALC
+        </h2>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        
+        <!-- Escenario de Inacción -->
+        <div class="rounded-2xl p-6 bg-gradient-to-br from-rose-950/40 via-navy-900 to-navy-900 border border-latam-rose/40 relative overflow-hidden">
+          <div class="flex items-center justify-between pb-4 border-b border-rose-500/30">
+            <div class="flex items-center gap-2.5">
+              <div class="p-2 bg-latam-rose/20 text-latam-rose rounded-lg">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path>
+                </svg>
+              </div>
+              <h3 class="text-lg font-bold text-latam-rose">Escenario de Inacción</h3>
+            </div>
+            <span class="text-xs px-2.5 py-1 bg-latam-rose/20 text-latam-rose font-bold rounded">Costo Elevado</span>
+          </div>
+
+          <ul class="mt-5 space-y-4">
+            <li class="flex items-start gap-3">
+              <span class="text-latam-rose font-bold mt-0.5">✕</span>
+              <p class="text-xs sm:text-sm text-slate-300">
+                <strong class="text-white">Concentración extrema de ganancias:</strong> Exclusivamente en el 8% de trabajadores de alta calificación, profundizando la brecha social.
+              </p>
+            </li>
+            <li class="flex items-start gap-3">
+              <span class="text-latam-rose font-bold mt-0.5">✕</span>
+              <p class="text-xs sm:text-sm text-slate-300">
+                <strong class="text-white">Duplicación de brecha de género:</strong> Pérdida desproporcionada de empleos administrativos y de atención en mujeres trabajadoras.
+              </p>
+            </li>
+            <li class="flex items-start gap-3">
+              <span class="text-latam-rose font-bold mt-0.5">✕</span>
+              <p class="text-xs sm:text-sm text-slate-300">
+                <strong class="text-white">Trampa de subsistencia:</strong> Encierro crónico en baja productividad y salarios precarios sin absorción tecnológica en las firmas.
+              </p>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Escenario de Absorción Estratégica -->
+        <div class="rounded-2xl p-6 bg-gradient-to-br from-emerald-950/40 via-navy-900 to-navy-900 border border-emerald-500/40 relative overflow-hidden">
+          <div class="flex items-center justify-between pb-4 border-b border-emerald-500/30">
+            <div class="flex items-center gap-2.5">
+              <div class="p-2 bg-emerald-500/20 text-emerald-400 rounded-lg">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                </svg>
+              </div>
+              <h3 class="text-lg font-bold text-emerald-400">Escenario de Absorción Estratégica</h3>
+            </div>
+            <span class="text-xs px-2.5 py-1 bg-emerald-500/20 text-emerald-400 font-bold rounded">Ruta Recomendada</span>
+          </div>
+
+          <ul class="mt-5 space-y-4">
+            <li class="flex items-start gap-3">
+              <span class="text-emerald-400 font-bold mt-0.5">✓</span>
+              <p class="text-xs sm:text-sm text-slate-300">
+                <strong class="text-white">Incremento sostenido de PTF:</strong> Aumento en la Productividad Total de los Factores a través de MiPymes modernizadas en planta.
+              </p>
+            </li>
+            <li class="flex items-start gap-3">
+              <span class="text-emerald-400 font-bold mt-0.5">✓</span>
+              <p class="text-xs sm:text-sm text-slate-300">
+                <strong class="text-white">Transición justa con reconversión:</strong> Mecanismos de seguro activo y vouchers modulares que reubican a la fuerza laboral en riesgo.
+              </p>
+            </li>
+            <li class="flex items-start gap-3">
+              <span class="text-emerald-400 font-bold mt-0.5">✓</span>
+              <p class="text-xs sm:text-sm text-slate-300">
+                <strong class="text-white">Integración en cadenas de valor:</strong> Liderazgo en cómputo verde,Small AI territorial y soberanía sobre minerales estratégicos.
+              </p>
+            </li>
+          </ul>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- FOOTER / SOURCE ATTRIBUTION -->
+    <footer class="pt-8 pb-12 border-t border-slate-800 text-center text-xs text-slate-400 space-y-2">
+      <p class="text-slate-300 font-medium">
+        Fuente: Banco Mundial — <span class="italic">"Aprovechando la transición de la IA"</span> (América Latina y el Caribe, Octubre de 2026).
+      </p>
+      <p class="text-slate-400 text-[11px]">
+        Documento sintetizado para comités directivos, ministerios de economía, carteras de trabajo y líderes del ecosistema digital.
+      </p>
+    </footer>
+
+  </main>
+
+</body>
+</html>

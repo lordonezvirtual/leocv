@@ -1,0 +1,1179 @@
+<!DOCTYPE html>
+<html lang="es" class="h-full">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Acemoğlu: La Economía Real de la IA | Hub Estratégico EDENTIA</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#eef2ff',
+                            100: '#e0e7ff',
+                            500: '#6366f1',
+                            600: '#4f46e5',
+                            700: '#4338ca',
+                            900: '#312e81',
+                        },
+                        amberGold: '#d97706',
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Font Awesome for clean semantic icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="manifest" href="data:application/manifest+json,%7B%22name%22%3A%22Acemoglu%20AI%20Economics%22%2C%22short_name%22%3A%22AIEconomics%22%2C%22start_url%22%3A%22.%22%2C%22display%22%3A%22standalone%22%2C%22background_color%22%3A%22%230f172a%22%2C%22theme_color%22%3A%22%234f46e5%22%7D">
+    <style>
+        /* Custom smooth scroll and typography tweaks */
+        html { scroll-behavior: smooth; }
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #94a3b8; border-radius: 9999px; }
+        .dark ::-webkit-scrollbar-thumb { background: #475569; }
+        .tab-active { border-bottom: 2px solid #6366f1; color: #4f46e5; font-weight: 600; }
+        .dark .tab-active { border-bottom: 2px solid #818cf8; color: #a5b4fc; }
+        /* Highlight applied to element currently being read aloud */
+        .speaking-active {
+            outline: 2px solid #6366f1 !important;
+            outline-offset: 3px;
+            box-shadow: 0 0 20px -3px rgba(99, 102, 241, 0.35);
+            transition: all 0.3s ease;
+        }
+        @keyframes pulse-ring {
+            0% { transform: scale(0.95); opacity: 0.8; }
+            50% { transform: scale(1.15); opacity: 0.4; }
+            100% { transform: scale(0.95); opacity: 0.8; }
+        }
+        .animate-pulse-ring {
+            animation: pulse-ring 2s infinite ease-in-out;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 dark:bg-slate-950 text-slate-800 dark:text-slate-100 min-h-screen flex flex-col font-sans antialiased selection:bg-indigo-500 selection:text-white">
+
+    <header class="sticky top-0 z-50 backdrop-blur-md bg-white/85 dark:bg-slate-900/85 border-b border-slate-200 dark:border-slate-800 transition-colors">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-indigo-600 to-amber-500 flex items-center justify-center text-white shadow-md shadow-indigo-500/20">
+                        <i class="fa-solid fa-brain text-lg"></i>
+                    </div>
+                    <div>
+                        <span class="text-xs font-semibold tracking-wider uppercase text-indigo-600 dark:text-indigo-400">Premio Nobel 2024 · MIT</span>
+                        <h1 class="text-base font-bold leading-tight truncate max-w-[200px] sm:max-w-md">Daron Acemoğlu: El Negocio Real de la IA</h1>
+                    </div>
+                </div>
+
+                <!-- Global Actions: Search, Theme Toggle, Install CTA -->
+                <div class="flex items-center gap-2">
+                    <!-- Botón Principal: Leer en Voz Alta -->
+                    <button id="ttsMainToggleBtn" onclick="toggleReadAloud()" aria-label="Escuchar contenido en voz alta" class="flex items-center gap-2 px-3 py-1.5 rounded-xl text-xs font-semibold bg-gradient-to-r from-indigo-600 to-indigo-700 hover:from-indigo-500 hover:to-indigo-600 text-white shadow-md shadow-indigo-500/25 transition-all active:scale-95">
+                        <i id="ttsMainIcon" class="fa-solid fa-volume-high text-xs"></i>
+                        <span id="ttsMainLabel" class="hidden sm:inline">Leer en Voz Alta</span>
+                    </button>
+
+                    <button id="themeToggleBtn" aria-label="Cambiar tema" class="p-2 rounded-lg text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
+                        <i class="fa-solid fa-moon dark:hidden"></i>
+                        <i class="fa-solid fa-sun hidden dark:inline"></i>
+                    </button>
+                    <a href="https://youtu.be/p0u5S0aC0zg?si=wzTxpctDvkM7rIgY" target="_blank" rel="noopener noreferrer" class="hidden sm:inline-flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-semibold bg-red-500/10 text-red-600 dark:text-red-400 hover:bg-red-500/20 transition-colors">
+                        <i class="fa-brands fa-youtube text-sm"></i> Ver Original
+                    </a>
+                </div>
+            </div>
+
+            <!-- Tab Navigation -->
+            <nav class="flex space-x-2 sm:space-x-6 overflow-x-auto text-xs sm:text-sm font-medium border-t border-slate-100 dark:border-slate-800/60 pt-1 pb-2">
+                <button onclick="switchTab('notes')" id="tabBtn-notes" class="px-2 py-1.5 transition-all tab-active whitespace-nowrap">
+                    <i class="fa-solid fa-book-open mr-1.5"></i> Notas & Timestamps
+                </button>
+                <button onclick="switchTab('calculator')" id="tabBtn-calculator" class="px-2 py-1.5 transition-all text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white whitespace-nowrap">
+                    <i class="fa-solid fa-calculator mr-1.5"></i> Calculadora Acemoğlu ROI
+                </button>
+                <button onclick="switchTab('audit')" id="tabBtn-audit" class="px-2 py-1.5 transition-all text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white whitespace-nowrap">
+                    <i class="fa-solid fa-network-wired mr-1.5"></i> Test Frontera Irregular
+                </button>
+                <button onclick="switchTab('edentia')" id="tabBtn-edentia" class="px-2 py-1.5 transition-all text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white whitespace-nowrap">
+                    <i class="fa-solid fa-building-shield mr-1.5"></i> Playbook EDENTIA
+                </button>
+                <button onclick="switchTab('leonardo')" id="tabBtn-leonardo" class="px-2 py-1.5 transition-all text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white whitespace-nowrap">
+                    <i class="fa-solid fa-user-tie mr-1.5"></i> Consultoría Leonardo
+                </button>
+                <button onclick="switchTab('glossary')" id="tabBtn-glossary" class="px-2 py-1.5 transition-all text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white whitespace-nowrap">
+                    <i class="fa-solid fa-spell-check mr-1.5"></i> Glosario & Referencias
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6">
+
+        <!-- ========================================== -->
+        <!-- TAB 1: NOTAS DETALLADAS & TIMESTAMPS -->
+        <!-- ========================================== -->
+        <section id="tab-notes" class="space-y-6">
+            <!-- Filter & Search Bar -->
+            <div class="bg-white dark:bg-slate-900 p-4 rounded-2xl shadow-sm border border-slate-200/80 dark:border-slate-800 flex flex-col md:flex-row gap-4 items-center justify-between">
+                <div class="relative w-full md:w-96">
+                    <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-sm"></i>
+                    <input type="text" id="notesSearchInput" onkeyup="filterNotes()" placeholder="Buscar concepto, cita o tema (ej. electricistas, Ford)..." class="w-full pl-10 pr-4 py-2 text-sm rounded-xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                </div>
+                <div class="flex items-center gap-2 w-full md:w-auto overflow-x-auto pb-1 md:pb-0">
+                    <span class="text-xs text-slate-400 font-medium">Filtrar por bloque:</span>
+                    <button onclick="filterByTag('all')" class="text-xs px-2.5 py-1 rounded-lg bg-indigo-50 dark:bg-indigo-950 text-indigo-600 dark:text-indigo-400 border border-indigo-200 dark:border-indigo-800">Todos</button>
+                    <button onclick="filterByTag('macro')" class="text-xs px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200">Macroeconomía</button>
+                    <button onclick="filterByTag('vertical')" class="text-xs px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200">Aplicaciones</button>
+                    <button onclick="filterByTag('laboral')" class="text-xs px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200">Trabajo & Educación</button>
+                </div>
+            </div>
+
+            <!-- Resumen de 1 párrafo (Sticky Highlight) -->
+            <div class="p-5 rounded-2xl bg-gradient-to-r from-indigo-900/10 via-amber-900/5 to-transparent border border-indigo-200/50 dark:border-indigo-800/40">
+                <div class="flex items-start gap-3">
+                    <div class="p-2 rounded-xl bg-indigo-600 text-white shrink-0">
+                        <i class="fa-solid fa-quote-left text-sm"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-sm text-indigo-900 dark:text-indigo-300 uppercase tracking-wide">Tesis Principal de Daron Acemoğlu</h3>
+                        <p class="text-sm mt-1 leading-relaxed text-slate-700 dark:text-slate-300">
+                            El verdadero dividendo económico de la inteligencia artificial no residirá en la carrera hiper-concentrada por modelos fundacionales comoditizables ni en despedir empleados para reemplazarlos por agentes falibles. La riqueza real y el retorno sobre la inversión ocurrirán al orientar los modelos de IA hacia <strong>aplicaciones verticales integradas</strong> que capturen <strong>conocimiento tácito y datos de nicho</strong>, potenciando la productividad de los trabajadores en la economía real (salud, oficios técnicos, manufactura y operaciones complejas) en vez de destruirlos.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Timeline Card List -->
+            <div id="notesContainer" class="space-y-4">
+
+                <!-- Bloque 1 -->
+                <div class="note-card bg-white dark:bg-slate-900 p-5 rounded-2xl border border-slate-200/80 dark:border-slate-800 hover:shadow-md transition-shadow" data-tag="macro">
+                    <div class="flex items-center justify-between flex-wrap gap-2 mb-2">
+                        <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-indigo-50 dark:bg-indigo-950/80 text-indigo-700 dark:text-indigo-400 font-mono text-xs font-bold">
+                            <i class="fa-regular fa-clock"></i> 00:00:00 - 00:02:45
+                        </span>
+                        <span class="text-xs px-2 py-0.5 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 font-medium">Macroeconomía y Realismo</span>
+                    </div>
+                    <h3 class="text-base font-bold text-slate-900 dark:text-white">El Riesgo del "Solo Automatizar" y Proyecciones 2024 vs. 2026</h3>
+                    <ul class="mt-3 space-y-2 text-sm text-slate-600 dark:text-slate-300 list-disc list-inside">
+                        <li><strong>La trampa del reemplazo:</strong> Sustituir puestos con agentes sin crear nuevas tareas de alto valor polariza la economía y reduce la demanda agregada.</li>
+                        <li><strong>Pronóstico MIT (2024) vs. 2026:</strong> En 2024 estimó ~1% de aporte al PIB en 10 años y 5% de tareas totalmente automatizables. Con la IA agéntica actual, reconoce un leve incremento, pero desmiente saltos exponenciales a corto plazo.</li>
+                        <li><strong>Dificultad de difusión:</strong> Integrar tecnología en organizaciones requiere capital humano complementario, reestructuración y gobernanza: es un proceso lento y terrenal.</li>
+                    </ul>
+                    <div class="mt-3 p-3 rounded-xl bg-slate-50 dark:bg-slate-800/60 border-l-4 border-amber-500 text-xs italic text-slate-700 dark:text-slate-300">
+                        "La automatización es genial. El problema es que si lo único que hacemos es automatizar... eliminaremos empleos sin crear trabajos significativos bien remunerados."
+                    </div>
+                </div>
+
+                <!-- Bloque 2 -->
+                <div class="note-card bg-white dark:bg-slate-900 p-5 rounded-2xl border border-slate-200/80 dark:border-slate-800 hover:shadow-md transition-shadow" data-tag="macro">
+                    <div class="flex items-center justify-between flex-wrap gap-2 mb-2">
+                        <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-indigo-50 dark:bg-indigo-950/80 text-indigo-700 dark:text-indigo-400 font-mono text-xs font-bold">
+                            <i class="fa-regular fa-clock"></i> 00:02:46 - 00:05:07
+                        </span>
+                        <span class="text-xs px-2 py-0.5 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 font-medium">Determinismo vs. Zonas Grises</span>
+                    </div>
+                    <h3 class="text-base font-bold text-slate-900 dark:text-white">Por Qué la Programación Vuela y la Atención al Cliente Tropieza</h3>
+                    <ul class="mt-3 space-y-2 text-sm text-slate-600 dark:text-slate-300 list-disc list-inside">
+                        <li><strong>Programación como sistema determinista:</strong> Ocurre en pantallas sin interacción con el mundo físico. Sigue reglas cerradas (como el ajedrez o las matemáticas): o compila o no. El Aprendizaje por Refuerzo (RL) es super-efectivo con criterios objetivos.</li>
+                        <li><strong>Atención al cliente y "Zonas Grises":</strong> Se esperaba automatización total, pero es lenta y engorrosa. Existen variaciones individuales de lenguaje, emociones y casos límite (*edge cases*) que demandan supervisión humana continua.</li>
+                    </ul>
+                </div>
+
+                <!-- Bloque 3 -->
+                <div class="note-card bg-white dark:bg-slate-900 p-5 rounded-2xl border border-slate-200/80 dark:border-slate-800 hover:shadow-md transition-shadow" data-tag="vertical">
+                    <div class="flex items-center justify-between flex-wrap gap-2 mb-2">
+                        <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-indigo-50 dark:bg-indigo-950/80 text-indigo-700 dark:text-indigo-400 font-mono text-xs font-bold">
+                            <i class="fa-regular fa-clock"></i> 00:05:08 - 00:08:40
+                        </span>
+                        <span class="text-xs px-2 py-0.5 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 font-medium">Geopolítica y Producto</span>
+                    </div>
+                    <h3 class="text-base font-bold text-slate-900 dark:text-white">Una Sola Palabra: "Aplicaciones" (EE.UU. vs. China & El Inevitabilismo)</h3>
+                    <ul class="mt-3 space-y-2 text-sm text-slate-600 dark:text-slate-300 list-disc list-inside">
+                        <li><strong>La ilusión de Silicon Valley:</strong> Excesiva concentración de talento e inversión en modelos fundacionales abstractos sin suficiente foco en llevarlos a los flujos de las organizaciones.</li>
+                        <li><strong>Enfoque Chino (BYD, Foxconn):</strong> Aprovechan los modelos ya destilados y vuelcan legiones de ingenieros a implementar robótica e IA en líneas de ensamblaje industrial y fábricas.</li>
+                        <li><strong>El error del "Inevitabilismo":</strong> Creer ciegamente que la dirección tomada por 3 o 4 laboratorios de San Francisco es el único destino posible para la humanidad.</li>
+                    </ul>
+                </div>
+
+                <!-- Bloque 4 -->
+                <div class="note-card bg-white dark:bg-slate-900 p-5 rounded-2xl border border-slate-200/80 dark:border-slate-800 hover:shadow-md transition-shadow" data-tag="vertical">
+                    <div class="flex items-center justify-between flex-wrap gap-2 mb-2">
+                        <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-indigo-50 dark:bg-indigo-950/80 text-indigo-700 dark:text-indigo-400 font-mono text-xs font-bold">
+                            <i class="fa-regular fa-clock"></i> 00:11:45 - 00:16:30
+                        </span>
+                        <span class="text-xs px-2 py-0.5 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 font-medium">Mercados de Alto Margen</span>
+                    </div>
+                    <h3 class="text-base font-bold text-slate-900 dark:text-white">Nicho Ignorado: Electricistas, Técnicos y Enfermería</h3>
+                    <ul class="mt-3 space-y-2 text-sm text-slate-600 dark:text-slate-300 list-disc list-inside">
+                        <li><strong>Los modelos actuales ya sobran:</strong> No se requiere AGI para transformar la economía; modelos de 2024 o 2025 ya son suficientemente avanzados. El cuello de botella es la *interfaz contextual*.</li>
+                        <li><strong>Salud (Enfermeros):</strong> EE.UU. gasta cerca del 18-20% del PIB en salud. Dotar a enfermeros de herramientas de diagnóstico y prescripción asistida desahoga cuellos de botella críticos.</li>
+                        <li><strong>Electricistas y Oficios Manuales:</strong> Enorme escasez, tarifas elevadas y retrasos de semanas. Un electricista ante maquinaria nueva puede ser asistido con diagnósticos paso a paso en segundos.</li>
+                    </ul>
+                </div>
+
+                <!-- Bloque 5 -->
+                <div class="note-card bg-white dark:bg-slate-900 p-5 rounded-2xl border border-slate-200/80 dark:border-slate-800 hover:shadow-md transition-shadow" data-tag="laboral">
+                    <div class="flex items-center justify-between flex-wrap gap-2 mb-2">
+                        <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-indigo-50 dark:bg-indigo-950/80 text-indigo-700 dark:text-indigo-400 font-mono text-xs font-bold">
+                            <i class="fa-regular fa-clock"></i> 00:23:00 - 00:27:40
+                        </span>
+                        <span class="text-xs px-2 py-0.5 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 font-medium">Estrategia Empresarial</span>
+                    </div>
+                    <h3 class="text-base font-bold text-slate-900 dark:text-white">La Matemática del Empresario: 5% Ahorro vs. 5% Más Productividad</h3>
+                    <ul class="mt-3 space-y-2 text-sm text-slate-600 dark:text-slate-300 list-disc list-inside">
+                        <li><strong>Reducir costos vs. Crear Valor:</strong> Si despides al 5% para ahorrar la mitad, tu ventaja es efímera. Si elevas la productividad del 100% de tu plantilla en 5%, tus ganancias e innovación son órdenes de magnitud superiores.</li>
+                        <li><strong>Lección de Henry Ford, GM e IBM:</strong> Ninguna compañía líder en la historia se convirtió en titán sólo recortando costos en mercados cerrados; triunfaron imaginando productos y mercados no existentes.</li>
+                        <li><strong>Frontera Irregular (*Jagged Frontier*):</strong> La IA resuelve teoremas complejos pero falla en redactar un correo con contexto sensible. Las empresas que despiden personal terminan colapsadas en retrabajos.</li>
+                    </ul>
+                </div>
+
+                <!-- Bloque 6 -->
+                <div class="note-card bg-white dark:bg-slate-900 p-5 rounded-2xl border border-slate-200/80 dark:border-slate-800 hover:shadow-md transition-shadow" data-tag="laboral">
+                    <div class="flex items-center justify-between flex-wrap gap-2 mb-2">
+                        <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-indigo-50 dark:bg-indigo-950/80 text-indigo-700 dark:text-indigo-400 font-mono text-xs font-bold">
+                            <i class="fa-regular fa-clock"></i> 00:39:00 - 00:42:48
+                        </span>
+                        <span class="text-xs px-2 py-0.5 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 font-medium">Monetización & Foso</span>
+                    </div>
+                    <h3 class="text-base font-bold text-slate-900 dark:text-white">El Verdadero Moat: Datos de Alta Calidad y Conocimiento Tácito</h3>
+                    <ul class="mt-3 space-y-2 text-sm text-slate-600 dark:text-slate-300 list-disc list-inside">
+                        <li><strong>Comoditización de Modelos Base:</strong> Prevé caídas de valoración u OPIs (*IPOs*) decepcionantes en laboratorios de IA porque los modelos abiertos son cada vez más potentes y gratuitos.</li>
+                        <li><strong>El Conocimiento Tácito:</strong> No puedes programar una solución de IA para una industria desde una torre de cristal en San Francisco; debes ensuciarte las manos con el trabajador que lleva 20 años resolviendo fallas.</li>
+                        <li><strong>Brújula Moral vs. Pánico Existencial:</strong> No distraerse con el pánico de "robots asesinos". El peligro real es la pérdida de agencia humana (*loss of control*). Se requiere un marco bioético estricto análogo a la edición genética (CRISPR).</li>
+                    </ul>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ========================================== -->
+        <!-- TAB 2: CALCULADORA DE ROI ACEMOĞLU -->
+        <!-- ========================================== -->
+        <section id="tab-calculator" class="hidden space-y-6">
+            <div class="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm">
+                <div class="max-w-2xl">
+                    <span class="text-xs font-bold tracking-wider text-indigo-600 dark:text-indigo-400 uppercase">Simulador Basado en el Discurso MIT [00:24:50]</span>
+                    <h2 class="text-xl font-bold mt-1 text-slate-900 dark:text-white">Comparativa Económica: ¿Despedir vs. Aumentar?</h2>
+                    <p class="text-sm text-slate-600 dark:text-slate-400 mt-2">
+                        Acemoğlu explica que sustituir empleados por agentes genera un beneficio contable marginal de corto plazo acompañado de costos ocultos por fricción (la frontera irregular). En contraste, aumentar la capacidad de los empleados con herramientas complementarias desbloquea valor exponencial.
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-6">
+                    <!-- Control 1 -->
+                    <div class="bg-slate-50 dark:bg-slate-800/60 p-4 rounded-xl border border-slate-200 dark:border-slate-700">
+                        <label class="block text-xs font-semibold uppercase text-slate-500 mb-1">Número de Empleados</label>
+                        <input type="number" id="calcWorkers" value="100" min="5" max="10000" class="w-full text-lg font-bold px-3 py-2 bg-white dark:bg-slate-900 border rounded-lg border-slate-300 dark:border-slate-600">
+                        <span class="text-[11px] text-slate-400 mt-1 block">Tamaño de la plantilla operativa</span>
+                    </div>
+                    <!-- Control 2 -->
+                    <div class="bg-slate-50 dark:bg-slate-800/60 p-4 rounded-xl border border-slate-200 dark:border-slate-700">
+                        <label class="block text-xs font-semibold uppercase text-slate-500 mb-1">Salario Promedio Anual (USD)</label>
+                        <input type="number" id="calcSalary" value="50000" step="5000" class="w-full text-lg font-bold px-3 py-2 bg-white dark:bg-slate-900 border rounded-lg border-slate-300 dark:border-slate-600">
+                        <span class="text-[11px] text-slate-400 mt-1 block">Costo salarial medio por colaborador</span>
+                    </div>
+                    <!-- Control 3 -->
+                    <div class="bg-slate-50 dark:bg-slate-800/60 p-4 rounded-xl border border-slate-200 dark:border-slate-700">
+                        <label class="block text-xs font-semibold uppercase text-slate-500 mb-1">Incremento de Capacidad (%)</label>
+                        <input type="range" id="calcBoostPercent" min="2" max="25" value="8" class="w-full accent-indigo-600">
+                        <div class="flex justify-between text-xs font-bold text-indigo-600 dark:text-indigo-400 mt-1">
+                            <span>2%</span>
+                            <span id="boostDisplay">8%</span>
+                            <span>25%</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Live Results Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
+                    <!-- Estrategia A: Sustitución Pura -->
+                    <div class="p-5 rounded-2xl border border-red-200 dark:border-red-900/60 bg-red-500/5 dark:bg-red-950/20">
+                        <div class="flex items-center justify-between">
+                            <span class="text-xs font-bold uppercase tracking-wider text-red-600 dark:text-red-400">Estrategia Tradicional: Reducción Costos</span>
+                            <i class="fa-solid fa-user-xmark text-red-500"></i>
+                        </div>
+                        <h3 class="text-base font-bold mt-2">Automatización de 5% de Empleos</h3>
+                        <div class="mt-4 space-y-2 text-sm">
+                            <div class="flex justify-between">
+                                <span class="text-slate-500">Puestos despedidos:</span>
+                                <span id="resFiredWorkers" class="font-bold text-red-600">5 trabajadores</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-slate-500">Ahorro nominal bruto:</span>
+                                <span id="resRawSavings" class="font-mono font-bold">$125,000 / año</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-slate-500">Costo oculto (Retrabajos & Edge cases 20%):</span>
+                                <span id="resFrictionCost" class="font-mono text-red-500">-$25,000</span>
+                            </div>
+                            <div class="pt-2 border-t border-red-200 dark:border-red-900/40 flex justify-between items-baseline">
+                                <span class="font-bold text-slate-700 dark:text-slate-300">Beneficio Neto Estimado:</span>
+                                <span id="resNetSavings" class="text-lg font-black font-mono text-red-600 dark:text-red-400">$100,000</span>
+                            </div>
+                        </div>
+                        <p class="text-xs text-red-600/80 dark:text-red-400/80 mt-4 leading-relaxed">
+                            * Pérdida de conocimiento tácito, desgaste del clima laboral y riesgo de fallas operativas ante clientes.
+                        </p>
+                    </div>
+
+                    <!-- Estrategia B: Aumento Acemoğlu -->
+                    <div class="p-5 rounded-2xl border border-emerald-200 dark:border-emerald-900/60 bg-emerald-500/5 dark:bg-emerald-950/20">
+                        <div class="flex items-center justify-between">
+                            <span class="text-xs font-bold uppercase tracking-wider text-emerald-600 dark:text-emerald-400">Estrategia Acemoğlu: IA Aumentada</span>
+                            <i class="fa-solid fa-users-gear text-emerald-500"></i>
+                        </div>
+                        <h3 class="text-base font-bold mt-2">Plantilla 100% Empoderada</h3>
+                        <div class="mt-4 space-y-2 text-sm">
+                            <div class="flex justify-between">
+                                <span class="text-slate-500">Empleados retenidos:</span>
+                                <span id="resRetainedWorkers" class="font-bold text-emerald-600">100 trabajadores</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-slate-500">Capacidad adicional equivalente:</span>
+                                <span id="resEquivWorkers" class="font-mono font-bold">+8 personas</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-slate-500">Generación de nuevo valor económico:</span>
+                                <span id="resValueGenerated" class="font-mono font-bold text-emerald-600">+$400,000 / año</span>
+                            </div>
+                            <div class="pt-2 border-t border-emerald-200 dark:border-emerald-900/40 flex justify-between items-baseline">
+                                <span class="font-bold text-slate-700 dark:text-slate-300">Diferencial de Ganancia vs. Recortes:</span>
+                                <span id="resMultiplierAdvantage" class="text-lg font-black font-mono text-emerald-600 dark:text-emerald-400">+300%</span>
+                            </div>
+                        </div>
+                        <p class="text-xs text-emerald-600/80 dark:text-emerald-400/80 mt-4 leading-relaxed">
+                            * Fomenta innovación, fidelización de clientes y retención del talento clave de la empresa.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========================================== -->
+        <!-- TAB 3: AUDITORÍA DE FRONTERA IRREGULAR -->
+        <!-- ========================================== -->
+        <section id="tab-audit" class="hidden space-y-6">
+            <div class="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm">
+                <div class="max-w-3xl">
+                    <span class="text-xs font-bold tracking-wider text-indigo-600 dark:text-indigo-400 uppercase">Herramienta de Diagnóstico para Consultores</span>
+                    <h2 class="text-xl font-bold mt-1 text-slate-900 dark:text-white">Matriz de Clasificación: Frontera Irregular (Jagged Frontier)</h2>
+                    <p class="text-sm text-slate-600 dark:text-slate-400 mt-2">
+                        Evalúa cualquier tarea o proceso de una empresa para determinar si debe automatizarse mediante código/agentes, mantenerse con un copiloto asistido (*Human-in-the-loop*), o reservarse exclusivamente a juicio humano para no romper el negocio.
+                    </p>
+                </div>
+
+                <div class="mt-6 bg-slate-50 dark:bg-slate-800/50 p-4 rounded-xl border border-slate-200 dark:border-slate-700 space-y-4">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-xs font-bold uppercase text-slate-600 dark:text-slate-300 mb-1">Nombre de la tarea o proceso:</label>
+                            <input type="text" id="auditTaskName" placeholder="Ej. Triage inicial en soporte o Diagnóstico eléctrico" class="w-full text-sm px-3 py-2 bg-white dark:bg-slate-900 border rounded-lg border-slate-300 dark:border-slate-600">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold uppercase text-slate-600 dark:text-slate-300 mb-1">¿Tiene reglas deterministas estrictas? (Código, compilador, fórmulas):</label>
+                            <select id="auditIsDeterministic" class="w-full text-sm px-3 py-2 bg-white dark:bg-slate-900 border rounded-lg border-slate-300 dark:border-slate-600">
+                                <option value="yes">Sí (Resultado 100% binario y verificable automáticamente)</option>
+                                <option value="partial">Parcialmente (Reglas básicas pero con excepciones frecuentes)</option>
+                                <option value="no">No (Depende de lenguaje subjetivo, emociones o contexto)</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-xs font-bold uppercase text-slate-600 dark:text-slate-300 mb-1">Nivel de Conocimiento Tácito requerido:</label>
+                            <select id="auditTacitLevel" class="w-full text-sm px-3 py-2 bg-white dark:bg-slate-900 border rounded-lg border-slate-300 dark:border-slate-600">
+                                <option value="low">Bajo (Todo está documentado en manuales)</option>
+                                <option value="medium">Medio (Requiere experiencia para interpretar manuales)</option>
+                                <option value="high">Alto (Años de intuición del operario y relación con personas)</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold uppercase text-slate-600 dark:text-slate-300 mb-1">Impacto de una Alucinación o Error:</label>
+                            <select id="auditErrorImpact" class="w-full text-sm px-3 py-2 bg-white dark:bg-slate-900 border rounded-lg border-slate-300 dark:border-slate-600">
+                                <option value="low">Bajo (Se corrige fácilmente sin costos)</option>
+                                <option value="medium">Moderado (Fricción con cliente o retraso temporal)</option>
+                                <option value="critical">Crítico (Peligro legal, reputacional, vidas o multas)</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <button onclick="runTaskAudit()" class="px-5 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-semibold text-sm transition-colors flex items-center gap-2 shadow-sm">
+                        <i class="fa-solid fa-wand-magic-sparkles"></i> Evaluar Arquitectura Recomendada
+                    </button>
+                </div>
+
+                <!-- Dynamic Diagnostic Output -->
+                <div id="auditResultBox" class="hidden mt-6 p-5 rounded-2xl border transition-all">
+                    <!-- Populated by JavaScript -->
+                </div>
+            </div>
+        </section>
+
+        <!-- ========================================== -->
+        <!-- TAB 4: PLAYBOOK ESTRATÉGICO EDENTIA -->
+        <!-- ========================================== -->
+        <section id="tab-edentia" class="hidden space-y-6">
+            <!-- Header Card -->
+            <div class="bg-gradient-to-br from-slate-900 via-indigo-950 to-slate-900 text-white p-6 rounded-2xl shadow-lg border border-indigo-900/50">
+                <div class="flex items-center gap-3">
+                    <span class="p-2.5 rounded-xl bg-indigo-500/20 border border-indigo-500/30 text-indigo-300">
+                        <i class="fa-solid fa-cubes text-xl"></i>
+                    </span>
+                    <div>
+                        <span class="text-xs uppercase tracking-widest text-indigo-400 font-bold">Arquitectura Comercial</span>
+                        <h2 class="text-xl font-black">Plan de Monetización y Ventaja Competitiva para EDENTIA</h2>
+                    </div>
+                </div>
+                <p class="text-xs sm:text-sm text-slate-300 mt-3 max-w-3xl leading-relaxed">
+                    Aplicación directa de las tesis de Acemoğlu: No competir en el mercado sangriento de modelos fundacionales. Posicionar a EDENTIA como el integrador de la última milla que captura el conocimiento tácito en nichos desatendidos con interfaces inmersivas y copilotos aumentados.
+                </p>
+            </div>
+
+            <!-- Pillars Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+
+                <!-- Pilar 1 -->
+                <div class="bg-white dark:bg-slate-900 p-5 rounded-2xl border border-slate-200 dark:border-slate-800 flex flex-col justify-between hover:border-indigo-400 transition-colors">
+                    <div>
+                        <div class="w-10 h-10 rounded-xl bg-indigo-50 dark:bg-indigo-950 text-indigo-600 dark:text-indigo-400 flex items-center justify-center mb-3">
+                            <i class="fa-solid fa-wrench text-lg"></i>
+                        </div>
+                        <h3 class="font-bold text-base text-slate-900 dark:text-white">1. Software Vertical de Campo</h3>
+                        <p class="text-xs font-semibold text-indigo-600 dark:text-indigo-400 uppercase mt-0.5">Mantenimiento, Electricistas e Industria</p>
+                        <p class="text-xs text-slate-600 dark:text-slate-300 mt-3 leading-relaxed">
+                            Crear copilotos multimodales Web/PWA con visión artificial para cuadrillas técnicas. Ante maquinaria no conocida, el técnico enfoca la cámara y recibe el esquema esquemático y diagnóstico determinista guiado por voz.
+                        </p>
+                    </div>
+                    <div class="mt-4 pt-3 border-t border-slate-100 dark:border-slate-800 text-xs">
+                        <span class="font-bold text-slate-700 dark:text-slate-300">Modelo de Monetización:</span>
+                        <p class="text-slate-500 mt-0.5">SaaS mensual por técnico activo en campo + Setup de conectores con ERP/GMAO del cliente.</p>
+                    </div>
+                </div>
+
+                <!-- Pilar 2 -->
+                <div class="bg-white dark:bg-slate-900 p-5 rounded-2xl border border-slate-200 dark:border-slate-800 flex flex-col justify-between hover:border-amber-400 transition-colors">
+                    <div>
+                        <div class="w-10 h-10 rounded-xl bg-amber-50 dark:bg-amber-950 text-amber-600 dark:text-amber-400 flex items-center justify-center mb-3">
+                            <i class="fa-solid fa-database text-lg"></i>
+                        </div>
+                        <h3 class="font-bold text-base text-slate-900 dark:text-white">2. Bóvedas de Conocimiento Tácito</h3>
+                        <p class="text-xs font-semibold text-amber-600 dark:text-amber-400 uppercase mt-0.5">Retención de Know-How Crítico</p>
+                        <p class="text-xs text-slate-600 dark:text-slate-300 mt-3 leading-relaxed">
+                            Las empresas sufren la jubilación de operarios que conocen las mañas de las plantas. EDENTIA implementa pipelines de captura de voz/audio y bitácoras para estructurar grafos de conocimiento privado (*Grounding* propio e inexpugnable).
+                        </p>
+                    </div>
+                    <div class="mt-4 pt-3 border-t border-slate-100 dark:border-slate-800 text-xs">
+                        <span class="font-bold text-slate-700 dark:text-slate-300">Modelo de Monetización:</span>
+                        <p class="text-slate-500 mt-0.5">Proyecto de transformación (Setup fee alto) + Licencia anual de custodia y actualización del RAG privado.</p>
+                    </div>
+                </div>
+
+                <!-- Pilar 3 -->
+                <div class="bg-white dark:bg-slate-900 p-5 rounded-2xl border border-slate-200 dark:border-slate-800 flex flex-col justify-between hover:border-emerald-400 transition-colors">
+                    <div>
+                        <div class="w-10 h-10 rounded-xl bg-emerald-50 dark:bg-emerald-950 text-emerald-600 dark:text-emerald-400 flex items-center justify-center mb-3">
+                            <i class="fa-solid fa-shield-halved text-lg"></i>
+                        </div>
+                        <h3 class="font-bold text-base text-slate-900 dark:text-white">3. Auditoría Determinista Híbrida</h3>
+                        <p class="text-xs font-semibold text-emerald-600 dark:text-emerald-400 uppercase mt-0.5">LegalTech, Contratos y Compras Públicas</p>
+                        <p class="text-xs text-slate-600 dark:text-slate-300 mt-3 leading-relaxed">
+                            El LLM extrae cláusulas y anomalías, pero un motor de reglas formales valida la conformidad sin margen de alucinación libre. Ideal para licitaciones públicas (SECOP) o auditorías fiscales.
+                        </p>
+                    </div>
+                    <div class="mt-4 pt-3 border-t border-slate-100 dark:border-slate-800 text-xs">
+                        <span class="font-bold text-slate-700 dark:text-slate-300">Modelo de Monetización:</span>
+                        <p class="text-slate-500 mt-0.5">Cobro por expediente auditado o porcentaje sobre ahorros por detección temprana de riesgos de pliego.</p>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ========================================== -->
+        <!-- TAB 5: RECOMENDACIONES LEONARDO CONSULTOR -->
+        <!-- ========================================== -->
+        <section id="tab-leonardo" class="hidden space-y-6">
+            <!-- Header Card -->
+            <div class="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+                <div>
+                    <span class="text-xs font-bold uppercase tracking-wider text-indigo-600 dark:text-indigo-400">Guía de Reposicionamiento Profesional</span>
+                    <h2 class="text-xl font-bold text-slate-900 dark:text-white">Leonardo: Consultoría Senior de IA Centrada en el Multiplicador Humano</h2>
+                    <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mt-1">
+                        Cómo distinguirte del 95% de consultores novatos que venden "chatbots y despidos de personal".
+                    </p>
+                </div>
+                <div class="p-3 bg-indigo-50 dark:bg-indigo-950/80 rounded-xl text-center shrink-0">
+                    <span class="text-xs text-indigo-500 font-semibold block">Enfoque de Valor</span>
+                    <span class="text-sm font-bold text-indigo-700 dark:text-indigo-300">Worker-Augmented AI</span>
+                </div>
+            </div>
+
+            <!-- 4 Actionable Consulting Tracks -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+                <!-- Track 1: Pitch Comercial -->
+                <div class="bg-white dark:bg-slate-900 p-5 rounded-2xl border border-slate-200 dark:border-slate-800">
+                    <div class="flex items-center gap-2 mb-3">
+                        <i class="fa-solid fa-bullhorn text-indigo-600"></i>
+                        <h3 class="font-bold text-base text-slate-900 dark:text-white">1. El Nuevo Pitch ante CEOs y Directores</h3>
+                    </div>
+                    <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
+                        Desarma la objeción del costo. Cuando el cliente pregunte: <em>"¿Cuánta gente podré despedir con esta IA?"</em>, responde con la tesis del Nobel:
+                    </p>
+                    <blockquote class="my-3 p-3 bg-slate-50 dark:bg-slate-800 text-xs italic rounded-lg border-l-4 border-indigo-600 text-slate-700 dark:text-slate-300">
+                        "Despedir al 5% de tu equipo te dará un respiro financiero marginal de meses y romperá la calidad de tu servicio. Si usamos IA para que tu 100% de personal sea un 10% más rápido, resolutivo y creativo, aplastarás a tus competidores que están atrapados lidiando con agentes fallidos."
+                    </blockquote>
+                    <ul class="text-xs text-slate-600 dark:text-slate-400 space-y-1 list-disc list-inside">
+                        <li>Vende <strong>expansión de capacidad y margen</strong>, no ahorro raquítico.</li>
+                        <li>Posiciónate como el arquitecto de la <em>resiliencia organizativa</em>.</li>
+                    </ul>
+                </div>
+
+                <!-- Track 2: Auditoría de Frontera Irregular -->
+                <div class="bg-white dark:bg-slate-900 p-5 rounded-2xl border border-slate-200 dark:border-slate-800">
+                    <div class="flex items-center gap-2 mb-3">
+                        <i class="fa-solid fa-stethoscope text-amber-500"></i>
+                        <h3 class="font-bold text-base text-slate-900 dark:text-white">2. Servicio de Entrada: "AI Process Triage"</h3>
+                    </div>
+                    <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
+                        Paquete de consultoría diagnóstica de 2 semanas de alto margen:
+                    </p>
+                    <ul class="mt-3 space-y-2 text-xs text-slate-600 dark:text-slate-300">
+                        <li class="flex items-start gap-2">
+                            <i class="fa-solid fa-check text-emerald-500 text-xs mt-0.5"></i>
+                            <span><strong>Mapeo de Procesos Clave:</strong> Identificar qué tareas son deterministas y cuáles son "zonas grises".</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <i class="fa-solid fa-check text-emerald-500 text-xs mt-0.5"></i>
+                            <span><strong>Rescate de Proyectos Fracasados:</strong> Sanear implementaciones donde la empresa intentó poner bots de atención y enfureció a los clientes.</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <i class="fa-solid fa-check text-emerald-500 text-xs mt-0.5"></i>
+                            <span><strong>Entregable:</strong> Hoja de ruta técnica con diseño *Human-in-the-Loop* y salvaguardas operativas.</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Track 3: Modelos de Facturación -->
+                <div class="bg-white dark:bg-slate-900 p-5 rounded-2xl border border-slate-200 dark:border-slate-800">
+                    <div class="flex items-center gap-2 mb-3">
+                        <i class="fa-solid fa-hand-holding-dollar text-emerald-600"></i>
+                        <h3 class="font-bold text-base text-slate-900 dark:text-white">3. Estructura de Precios y Monetización</h3>
+                    </div>
+                    <div class="space-y-3 text-xs text-slate-600 dark:text-slate-300">
+                        <div class="p-2.5 rounded-lg bg-slate-50 dark:bg-slate-800">
+                            <span class="font-bold text-slate-900 dark:text-white block">A) Advisory Retainer Mensual:</span>
+                            Acompañamiento a la junta directiva y directores de IT en la toma de decisiones tecnológicas ($3,000 - $6,000 USD/mes).
+                        </div>
+                        <div class="p-2.5 rounded-lg bg-slate-50 dark:bg-slate-800">
+                            <span class="font-bold text-slate-900 dark:text-white block">B) Success Fee por Eficiencia Medible:</span>
+                            Bono ligado a la reducción del ciclo de entrega de tickets técnicos o tiempo de inspección en campo sin despidos.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Track 4: Brújula Ética & Gobernanza -->
+                <div class="bg-white dark:bg-slate-900 p-5 rounded-2xl border border-slate-200 dark:border-slate-800">
+                    <div class="flex items-center gap-2 mb-3">
+                        <i class="fa-solid fa-compass text-blue-500"></i>
+                        <h3 class="font-bold text-base text-slate-900 dark:text-white">4. Gobernanza y "Agencia Humana"</h3>
+                    </div>
+                    <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
+                        Acemoğlu insiste en que las empresas necesitan una "brújula moral análoga a la bioética en medicina":
+                    </p>
+                    <ul class="mt-2 text-xs text-slate-600 dark:text-slate-400 space-y-1.5 list-disc list-inside">
+                        <li>Implementar auditorías de <strong>pérdida de control cognitivo</strong> para evitar la atrofia del juicio de los empleados junior.</li>
+                        <li>Diseño de interfaces donde la IA actúe como <em>abogado del diablo</em> y herramienta de crítica, no como autor definitivo.</li>
+                    </ul>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ========================================== -->
+        <!-- TAB 6: GLOSARIO Y REFERENCIAS COMPLETAS -->
+        <!-- ========================================== -->
+        <section id="tab-glossary" class="hidden space-y-6">
+            <div class="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm">
+                <h2 class="text-xl font-bold text-slate-900 dark:text-white">Glosario de Términos y Conceptos Clave</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+
+                    <div class="p-4 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700">
+                        <span class="text-xs font-bold text-indigo-600 dark:text-indigo-400 font-mono">Tecnología de Propósito General (GPT)</span>
+                        <p class="text-xs text-slate-600 dark:text-slate-300 mt-1">Innovación transversal (como la electricidad, el motor a vapor o la informática) que reconfigura toda la economía. Sus trayectorias no son fijas ni inevitables.</p>
+                    </div>
+
+                    <div class="p-4 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700">
+                        <span class="text-xs font-bold text-indigo-600 dark:text-indigo-400 font-mono">Frontera Tecnológica Irregular (Jagged Frontier)</span>
+                        <p class="text-xs text-slate-600 dark:text-slate-300 mt-1">Fenómeno donde la IA demuestra capacidades sobrehumanas en tareas de altísima abstracción matemática o código, pero fracasa inesperadamente en tareas de sentido común adyacentes.</p>
+                    </div>
+
+                    <div class="p-4 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700">
+                        <span class="text-xs font-bold text-indigo-600 dark:text-indigo-400 font-mono">Conocimiento Tácito (Tacit Knowledge)</span>
+                        <p class="text-xs text-slate-600 dark:text-slate-300 mt-1">Conocimiento intuitivo, contextual y práctico acumulado por operarios y trabajadores a lo largo de los años que no está escrito en ningún manual digital.</p>
+                    </div>
+
+                    <div class="p-4 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700">
+                        <span class="text-xs font-bold text-indigo-600 dark:text-indigo-400 font-mono">Destilación de Modelos (Model Distillation)</span>
+                        <p class="text-xs text-slate-600 dark:text-slate-300 mt-1">Entrenamiento de modelos compactos y eficientes utilizando como maestro los outputs de un modelo fundacional gigante. Permite a terceros igualar capacidades a menor coste.</p>
+                    </div>
+
+                    <div class="p-4 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700">
+                        <span class="text-xs font-bold text-indigo-600 dark:text-indigo-400 font-mono">Worker-Complementary AI (IA Pro-Trabajador)</span>
+                        <p class="text-xs text-slate-600 dark:text-slate-300 mt-1">Filosofía de diseño de software e ingeniería de sistemas cuyo objetivo explícito es elevar la toma de decisión y precisión humana, no sustituir la posición laboral.</p>
+                    </div>
+
+                    <div class="p-4 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700">
+                        <span class="text-xs font-bold text-indigo-600 dark:text-indigo-400 font-mono">Inevitabilismo Tecnológico</span>
+                        <p class="text-xs text-slate-600 dark:text-slate-300 mt-1">Falacia que asume que el camino comercial impuesto por un puñado de firmas tecnológicas dominantes es el único futuro posible sin alternativas ni debate cívico.</p>
+                    </div>
+
+                </div>
+
+                <!-- Academic Papers & Media References Mentioned -->
+                <h3 class="text-base font-bold text-slate-900 dark:text-white mt-8 mb-3">Referencias & Documentos Citados en la Entrevista</h3>
+                <div class="space-y-3">
+                    <div class="flex items-start gap-3 p-3 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700">
+                        <i class="fa-solid fa-file-lines text-indigo-500 mt-1"></i>
+                        <div class="text-xs">
+                            <span class="font-bold text-slate-800 dark:text-slate-200">The Simple Macroeconomics of AI (2024)</span> - Daron Acemoğlu
+                            <p class="text-slate-500 mt-0.5">Paper del MIT donde calcula la predicción base del impacto del 1% del PIB en 10 años y analiza el límite del 5% de tareas automatizables.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-3 p-3 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700">
+                        <i class="fa-solid fa-file-lines text-indigo-500 mt-1"></i>
+                        <div class="text-xs">
+                            <span class="font-bold text-slate-800 dark:text-slate-200">Robots and Jobs: Evidence from US Labor Markets</span> - Acemoğlu & Pascual Restrepo
+                            <p class="text-slate-500 mt-0.5">Estudio empírico de referencia sobre el efecto real de la automatización industrial en salarios y empleo en los mercados locales.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-3 p-3 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700">
+                        <i class="fa-solid fa-book text-indigo-500 mt-1"></i>
+                        <div class="text-xs">
+                            <span class="font-bold text-slate-800 dark:text-slate-200">Economics (Textbook Introductorio)</span> - Acemoğlu, Laibson & List
+                            <p class="text-slate-500 mt-0.5">Texto de referencia universitaria sobre fundamentos micro y macroeconómicos y capital humano.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 py-6 text-xs text-slate-500 dark:text-slate-400">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div class="flex items-center gap-2">
+                <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                <span>PWA Lista para Uso Offline y Consulta Rápida</span>
+            </div>
+            <div class="text-center sm:text-right">
+                <span>Edentia Tech & Leonardo Consulting Suite · Basado en Daron Acemoğlu (Nobel 2024)</span>
+            </div>
+        </div>
+    </footer>
+
+    <!-- FLOATING TTS AUDIO CONTROLLER WIDGET -->
+    <div id="ttsPlayerWidget" class="fixed bottom-4 left-4 right-4 sm:left-auto sm:right-6 sm:bottom-6 sm:max-w-md bg-white/95 dark:bg-slate-900/95 backdrop-blur-md p-4 rounded-2xl shadow-2xl border border-indigo-200/80 dark:border-indigo-800/80 z-50 transition-all duration-300 transform translate-y-32 opacity-0 pointer-events-none">
+        <div class="flex items-center justify-between gap-3 mb-2.5">
+            <div class="flex items-center gap-2.5 min-w-0">
+                <span class="relative flex h-3 w-3">
+                    <span id="ttsWavePing" class="animate-ping absolute inline-flex h-full w-full rounded-full bg-indigo-400 opacity-75 hidden"></span>
+                    <span id="ttsStatusDot" class="relative inline-flex rounded-full h-3 w-3 bg-slate-400"></span>
+                </span>
+                <div class="min-w-0">
+                    <h4 class="text-xs font-bold text-slate-800 dark:text-slate-200 truncate" id="ttsStatusTitle">Lector de Voz de la Web</h4>
+                    <p class="text-[11px] text-slate-500 dark:text-slate-400 truncate" id="ttsCurrentSectionLabel">Listo para narrar</p>
+                </div>
+            </div>
+            <button onclick="closeTtsWidget()" aria-label="Cerrar reproductor" class="p-1 rounded-lg text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 text-xs">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+        </div>
+
+        <!-- Scope and Speed Controls -->
+        <div class="flex items-center justify-between text-xs py-1.5 border-t border-b border-slate-100 dark:border-slate-800/80 mb-3 gap-2">
+            <div class="flex items-center gap-1.5">
+                <label for="ttsScopeSelect" class="text-[11px] text-slate-500 font-medium">Modo:</label>
+                <select id="ttsScopeSelect" onchange="onTtsScopeChange()" class="text-xs bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 rounded-lg px-2 py-1 border border-slate-200 dark:border-slate-700 focus:outline-none">
+                    <option value="current">Pestaña visible</option>
+                    <option value="all">Todo el sitio (Completo)</option>
+                </select>
+            </div>
+            <div class="flex items-center gap-1.5">
+                <label for="ttsSpeedSelect" class="text-[11px] text-slate-500 font-medium">Velocidad:</label>
+                <select id="ttsSpeedSelect" onchange="updateTtsSpeed()" class="text-xs bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 rounded-lg px-2 py-1 border border-slate-200 dark:border-slate-700 focus:outline-none">
+                    <option value="0.9">0.9x</option>
+                    <option value="1.0" selected>1.0x</option>
+                    <option value="1.2">1.2x</option>
+                    <option value="1.4">1.4x</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Playback Navigation and Timeline Bar -->
+        <div class="w-full bg-slate-200 dark:bg-slate-800 rounded-full h-1.5 mb-3 overflow-hidden">
+            <div id="ttsProgressBar" class="bg-indigo-600 h-1.5 rounded-full transition-all duration-300" style="width: 0%"></div>
+        </div>
+
+        <div class="flex items-center justify-between gap-2">
+            <button onclick="skipTtsSegment(-1)" title="Bloque anterior" class="p-2 rounded-xl text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 text-xs">
+                <i class="fa-solid fa-backward-step"></i>
+            </button>
+            <button id="ttsPlayPauseBtn" onclick="togglePlayPauseTts()" class="flex-1 py-2 px-3 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-semibold text-xs flex items-center justify-center gap-2 shadow-sm transition-all">
+                <i id="ttsPlayPauseIcon" class="fa-solid fa-play"></i>
+                <span id="ttsPlayPauseText">Iniciar Lectura</span>
+            </button>
+            <button onclick="skipTtsSegment(1)" title="Siguiente bloque" class="p-2 rounded-xl text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 text-xs">
+                <i class="fa-solid fa-forward-step"></i>
+            </button>
+            <button onclick="stopTtsPlayback()" title="Detener por completo" class="p-2 rounded-xl text-red-500 hover:bg-red-50 dark:hover:bg-red-950/40 text-xs">
+                <i class="fa-solid fa-stop"></i>
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // ==========================================
+        // TEXT-TO-SPEECH (TTS) NATIVE ENGINE
+        // ==========================================
+        const ttsState = {
+            synth: window.speechSynthesis || null,
+            utterance: null,
+            items: [],         // Array of { text: string, element: HTMLElement, title: string }
+            currentIndex: 0,
+            isPlaying: false,
+            isPaused: false,
+            rate: 1.0,
+            voice: null,
+            timerId: null
+        };
+
+        // Initialize voices on load
+        function initVoices() {
+            if (!ttsState.synth) return;
+            const updateVoice = () => {
+                const voices = ttsState.synth.getVoices();
+                // Prioritize natural Spanish voices (es-ES, es-US, es-CO, es-MX)
+                ttsState.voice = voices.find(v => v.lang.startsWith('es') && (v.name.includes('Natural') || v.name.includes('Google') || v.name.includes('Premium')))
+                    || voices.find(v => v.lang.startsWith('es'))
+                    || voices[0] || null;
+            };
+            updateVoice();
+            if (speechSynthesis.onvoiceschanged !== undefined) {
+                speechSynthesis.onvoiceschanged = updateVoice;
+            }
+        }
+        initVoices();
+
+        // Extract readable blocks based on current user scope selection
+        function gatherReadableItems(scope) {
+            const list = [];
+            const activeTabId = document.querySelector('nav button.tab-active')?.id.replace('tabBtn-', '') || 'notes';
+
+            let containers = [];
+            if (scope === 'all') {
+                containers = Array.from(document.querySelectorAll('main > section'));
+            } else {
+                const currentEl = document.getElementById(`tab-${activeTabId}`);
+                if (currentEl) containers = [currentEl];
+            }
+
+            containers.forEach(container => {
+                // Collect headings, note cards, lists and significant paragraphs
+                const elements = container.querySelectorAll('.note-card, h2, h3, blockquote, .p-5, .p-4, .p-6');
+                elements.forEach(el => {
+                    // Avoid invisible or UI-only control widgets
+                    if (el.closest('#ttsPlayerWidget') || el.closest('button') || el.closest('nav') || el.offsetParent === null) return;
+                    
+                    const text = el.innerText.replace(/[\n\r]+/g, ' ').replace(/\s{2,}/g, ' ').trim();
+                    if (text.length > 25 && !list.some(item => item.element === el)) {
+                        const title = el.querySelector('h3, h2')?.innerText || text.substring(0, 40) + '...';
+                        list.push({ text, element: el, title });
+                    }
+                });
+            });
+
+            return list;
+        }
+
+        // Show/Hide Floating Widget
+        function showTtsWidget() {
+            const widget = document.getElementById('ttsPlayerWidget');
+            widget.classList.remove('translate-y-32', 'opacity-0', 'pointer-events-none');
+            widget.classList.add('translate-y-0', 'opacity-100');
+        }
+
+        function closeTtsWidget() {
+            stopTtsPlayback();
+            const widget = document.getElementById('ttsPlayerWidget');
+            widget.classList.add('translate-y-32', 'opacity-0', 'pointer-events-none');
+            widget.classList.remove('translate-y-0', 'opacity-100');
+        }
+
+        // Toggle Read Aloud from Main Header Button
+        function toggleReadAloud() {
+            if (!('speechSynthesis' in window)) {
+                console.warn('La síntesis de voz no es soportada en este navegador.');
+                return;
+            }
+            showTtsWidget();
+            if (ttsState.isPlaying) {
+                if (ttsState.isPaused) {
+                    resumeTts();
+                } else {
+                    pauseTts();
+                }
+            } else {
+                startTtsPlayback();
+            }
+        }
+
+        function togglePlayPauseTts() {
+            if (!ttsState.isPlaying) {
+                startTtsPlayback();
+            } else if (ttsState.isPaused) {
+                resumeTts();
+            } else {
+                pauseTts();
+            }
+        }
+
+        function startTtsPlayback() {
+            if (!ttsState.synth) return;
+            ttsState.synth.cancel();
+
+            const scope = document.getElementById('ttsScopeSelect').value;
+            ttsState.items = gatherReadableItems(scope);
+            if (ttsState.items.length === 0) return;
+
+            ttsState.currentIndex = 0;
+            ttsState.isPlaying = true;
+            ttsState.isPaused = false;
+            updateTtsUIState(true, false);
+            speakCurrentSegment();
+        }
+
+        function speakCurrentSegment() {
+            if (!ttsState.synth || !ttsState.isPlaying) return;
+
+            if (ttsState.currentIndex >= ttsState.items.length) {
+                stopTtsPlayback();
+                document.getElementById('ttsCurrentSectionLabel').innerText = 'Lectura completa terminada';
+                return;
+            }
+
+            const current = ttsState.items[ttsState.currentIndex];
+            
+            // Clean active highlights from all elements
+            document.querySelectorAll('.speaking-active').forEach(el => el.classList.remove('speaking-active'));
+
+            // Highlight current block & smoothly scroll into view
+            if (current.element) {
+                current.element.classList.add('speaking-active');
+                current.element.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+
+            // Update Progress bar & UI Labels
+            const pct = Math.round(((ttsState.currentIndex + 1) / ttsState.items.length) * 100);
+            document.getElementById('ttsProgressBar').style.width = `${pct}%`;
+            document.getElementById('ttsCurrentSectionLabel').innerText = `[${ttsState.currentIndex + 1}/${ttsState.items.length}] ${current.title}`;
+
+            // Create utterance
+            const utt = new SpeechSynthesisUtterance(current.text);
+            utt.rate = ttsState.rate;
+            utt.lang = 'es-ES';
+            if (ttsState.voice) utt.voice = ttsState.voice;
+
+            utt.onend = () => {
+                if (ttsState.isPlaying && !ttsState.isPaused) {
+                    ttsState.currentIndex++;
+                    speakCurrentSegment();
+                }
+            };
+
+            utt.onerror = (e) => {
+                console.debug('TTS note ended or interrupted:', e);
+            };
+
+            ttsState.utterance = utt;
+            ttsState.synth.speak(utt);
+
+            // Chrome keep-alive workaround for long text
+            clearInterval(ttsState.timerId);
+            ttsState.timerId = setInterval(() => {
+                if (ttsState.synth.speaking && !ttsState.synth.paused) {
+                    ttsState.synth.pause();
+                    ttsState.synth.resume();
+                }
+            }, 12000);
+        }
+
+        function pauseTts() {
+            if (ttsState.synth && ttsState.isPlaying && !ttsState.isPaused) {
+                ttsState.synth.pause();
+                ttsState.isPaused = true;
+                updateTtsUIState(true, true);
+            }
+        }
+
+        function resumeTts() {
+            if (ttsState.synth && ttsState.isPaused) {
+                ttsState.synth.resume();
+                ttsState.isPaused = false;
+                updateTtsUIState(true, false);
+            }
+        }
+
+        function stopTtsPlayback() {
+            if (ttsState.synth) {
+                ttsState.synth.cancel();
+            }
+            clearInterval(ttsState.timerId);
+            document.querySelectorAll('.speaking-active').forEach(el => el.classList.remove('speaking-active'));
+            ttsState.isPlaying = false;
+            ttsState.isPaused = false;
+            ttsState.currentIndex = 0;
+            document.getElementById('ttsProgressBar').style.width = '0%';
+            updateTtsUIState(false, false);
+        }
+
+        function skipTtsSegment(delta) {
+            if (!ttsState.isPlaying) return;
+            ttsState.synth.cancel();
+            ttsState.currentIndex = Math.max(0, Math.min(ttsState.items.length - 1, ttsState.currentIndex + delta));
+            speakCurrentSegment();
+        }
+
+        function updateTtsSpeed() {
+            const val = parseFloat(document.getElementById('ttsSpeedSelect').value) || 1.0;
+            ttsState.rate = val;
+            if (ttsState.isPlaying && !ttsState.isPaused) {
+                // Restart current snippet with new rate
+                ttsState.synth.cancel();
+                speakCurrentSegment();
+            }
+        }
+
+        function onTtsScopeChange() {
+            if (ttsState.isPlaying) {
+                startTtsPlayback();
+            }
+        }
+
+        function updateTtsUIState(playing, paused) {
+            const playPauseIcon = document.getElementById('ttsPlayPauseIcon');
+            const playPauseText = document.getElementById('ttsPlayPauseText');
+            const ping = document.getElementById('ttsWavePing');
+            const dot = document.getElementById('ttsStatusDot');
+            const mainLabel = document.getElementById('ttsMainLabel');
+            const mainIcon = document.getElementById('ttsMainIcon');
+
+            if (!playing) {
+                playPauseIcon.className = 'fa-solid fa-play';
+                playPauseText.innerText = 'Iniciar Lectura';
+                ping.classList.add('hidden');
+                dot.className = 'relative inline-flex rounded-full h-3 w-3 bg-slate-400';
+                if (mainLabel) mainLabel.innerText = 'Leer en Voz Alta';
+                if (mainIcon) mainIcon.className = 'fa-solid fa-volume-high text-xs';
+            } else if (paused) {
+                playPauseIcon.className = 'fa-solid fa-play';
+                playPauseText.innerText = 'Reanudar';
+                ping.classList.add('hidden');
+                dot.className = 'relative inline-flex rounded-full h-3 w-3 bg-amber-400';
+                if (mainLabel) mainLabel.innerText = 'Reanudar';
+                if (mainIcon) mainIcon.className = 'fa-solid fa-pause text-xs';
+            } else {
+                playPauseIcon.className = 'fa-solid fa-pause';
+                playPauseText.innerText = 'Pausar';
+                ping.classList.remove('hidden');
+                dot.className = 'relative inline-flex rounded-full h-3 w-3 bg-emerald-500';
+                if (mainLabel) mainLabel.innerText = 'Pausar Lectura';
+                if (mainIcon) mainIcon.className = 'fa-solid fa-volume-high text-xs animate-pulse';
+            }
+        }
+
+        // Tab switching logic
+        function switchTab(tabId) {
+            const tabs = ['notes', 'calculator', 'audit', 'edentia', 'leonardo', 'glossary'];
+            tabs.forEach(t => {
+                const tabEl = document.getElementById(`tab-${t}`);
+                const btnEl = document.getElementById(`tabBtn-${t}`);
+                if (t === tabId) {
+                    tabEl.classList.remove('hidden');
+                    btnEl.classList.add('tab-active');
+                    btnEl.classList.remove('text-slate-500', 'dark:text-slate-400');
+                } else {
+                    tabEl.classList.add('hidden');
+                    btnEl.classList.remove('tab-active');
+                    btnEl.classList.add('text-slate-500', 'dark:text-slate-400');
+                }
+            });
+            // If reading only the current tab, adapt reading queue
+            if (ttsState.isPlaying && document.getElementById('ttsScopeSelect').value === 'current') {
+                startTtsPlayback();
+            }
+        }
+
+        // Dark mode toggle
+        const themeToggleBtn = document.getElementById('themeToggleBtn');
+        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            document.documentElement.classList.add('dark');
+        }
+        themeToggleBtn.addEventListener('click', () => {
+            document.documentElement.classList.toggle('dark');
+        });
+
+        // Notes filtering
+        function filterNotes() {
+            const query = document.getElementById('notesSearchInput').value.toLowerCase();
+            const cards = document.querySelectorAll('.note-card');
+            cards.forEach(card => {
+                const text = card.innerText.toLowerCase();
+                if (text.includes(query)) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        function filterByTag(tag) {
+            const cards = document.querySelectorAll('.note-card');
+            cards.forEach(card => {
+                if (tag === 'all' || card.getAttribute('data-tag') === tag) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        // ROI Calculator Logic
+        const calcWorkersInput = document.getElementById('calcWorkers');
+        const calcSalaryInput = document.getElementById('calcSalary');
+        const calcBoostPercentInput = document.getElementById('calcBoostPercent');
+        const boostDisplay = document.getElementById('boostDisplay');
+
+        function updateCalculator() {
+            const workers = Math.max(1, parseInt(calcWorkersInput.value) || 100);
+            const salary = Math.max(1000, parseInt(calcSalaryInput.value) || 50000);
+            const boost = parseInt(calcBoostPercentInput.value) || 8;
+            boostDisplay.innerText = `${boost}%`;
+
+            // Strategy A (5% automated at 50% cost reduction)
+            const fired = Math.max(1, Math.round(workers * 0.05));
+            const rawSavings = fired * (salary * 0.5);
+            const friction = rawSavings * 0.20; // 20% estimated friction / errors
+            const netSavings = rawSavings - friction;
+
+            // Strategy B (Worker Boost)
+            const equivWorkers = (workers * (boost / 100)).toFixed(1);
+            const valueGenerated = Math.round(workers * salary * (boost / 100));
+            const multiplierAdvantage = Math.round(((valueGenerated - netSavings) / netSavings) * 100);
+
+            // Update DOM
+            document.getElementById('resFiredWorkers').innerText = `${fired} trabajadores`;
+            document.getElementById('resRawSavings').innerText = `$${rawSavings.toLocaleString()} / año`;
+            document.getElementById('resFrictionCost').innerText = `-$${friction.toLocaleString()}`;
+            document.getElementById('resNetSavings').innerText = `$${netSavings.toLocaleString()} / año`;
+
+            document.getElementById('resRetainedWorkers').innerText = `${workers} trabajadores`;
+            document.getElementById('resEquivWorkers').innerText = `+${equivWorkers} personas de capacidad`;
+            document.getElementById('resValueGenerated').innerText = `+$${valueGenerated.toLocaleString()} / año`;
+            document.getElementById('resMultiplierAdvantage').innerText = `+${multiplierAdvantage > 0 ? multiplierAdvantage : 0}% Más Valor`;
+        }
+
+        calcWorkersInput.addEventListener('input', updateCalculator);
+        calcSalaryInput.addEventListener('input', updateCalculator);
+        calcBoostPercentInput.addEventListener('input', updateCalculator);
+        updateCalculator();
+
+        // Jagged Frontier Audit Simulator
+        function runTaskAudit() {
+            const task = document.getElementById('auditTaskName').value.trim() || 'Proceso Seleccionado';
+            const deterministic = document.getElementById('auditIsDeterministic').value;
+            const tacit = document.getElementById('auditTacitLevel').value;
+            const errorImpact = document.getElementById('auditErrorImpact').value;
+            const resultBox = document.getElementById('auditResultBox');
+
+            resultBox.classList.remove('hidden');
+
+            let recommendation = '';
+            let bgClass = '';
+            let icon = '';
+
+            if (deterministic === 'yes' && errorImpact !== 'critical' && tacit === 'low') {
+                bgClass = 'bg-emerald-50 dark:bg-emerald-950/40 border-emerald-300 dark:border-emerald-800 text-emerald-900 dark:text-emerald-200';
+                icon = '<i class="fa-solid fa-robot text-emerald-600 text-xl"></i>';
+                recommendation = `
+                    <div class="flex items-start gap-3">
+                        ${icon}
+                        <div>
+                            <span class="text-xs uppercase font-bold tracking-wider text-emerald-600">Veredicto Acemoğlu: Zona Determinista Pura</span>
+                            <h4 class="text-base font-bold mt-0.5">${task}: Apto para Automatización Agéntica</h4>
+                            <p class="text-xs mt-1 text-slate-600 dark:text-slate-300">
+                                Al contar con reglas formales estrictas y bajo conocimiento tácito (análogo al código o matemáticas), un agente autónomo con validación por refuerzo o tests automáticos es viable con bajo riesgo.
+                            </p>
+                        </div>
+                    </div>
+                `;
+            } else if (errorImpact === 'critical' || tacit === 'high') {
+                bgClass = 'bg-amber-50 dark:bg-amber-950/40 border-amber-300 dark:border-amber-800 text-amber-900 dark:text-amber-200';
+                icon = '<i class="fa-solid fa-user-shield text-amber-600 text-xl"></i>';
+                recommendation = `
+                    <div class="flex items-start gap-3">
+                        ${icon}
+                        <div>
+                            <span class="text-xs uppercase font-bold tracking-wider text-amber-600">Veredicto Acemoğlu: Frontera Irregular Crítica</span>
+                            <h4 class="text-base font-bold mt-0.5">${task}: Obligatorio Copiloto Aumentado (Humano al Centro)</h4>
+                            <p class="text-xs mt-1 text-slate-600 dark:text-slate-300">
+                                Intentar automatizar este proceso al 100% causará rotura de servicio o riesgos legales. <strong>Diseño aconsejado:</strong> La IA propone pre-análisis o sintetiza documentación, pero la validación final y firma residen en el operador humano experto.
+                            </p>
+                        </div>
+                    </div>
+                `;
+            } else {
+                bgClass = 'bg-indigo-50 dark:bg-indigo-950/40 border-indigo-300 dark:border-indigo-800 text-indigo-900 dark:text-indigo-200';
+                icon = '<i class="fa-solid fa-people-arrows text-indigo-600 text-xl"></i>';
+                recommendation = `
+                    <div class="flex items-start gap-3">
+                        ${icon}
+                        <div>
+                            <span class="text-xs uppercase font-bold tracking-wider text-indigo-600">Veredicto Acemoğlu: Zona Gris Asistida</span>
+                            <h4 class="text-base font-bold mt-0.5">${task}: Sistema de Triage Asistido</h4>
+                            <p class="text-xs mt-1 text-slate-600 dark:text-slate-300">
+                                Similar a la atención al cliente o salud ambulatoria: Usa agentes para recolectar información inicial y derivar anomalías complejas a los especialistas con contexto pre-procesado.
+                            </p>
+                        </div>
+                    </div>
+                `;
+            }
+
+            resultBox.className = `mt-6 p-5 rounded-2xl border transition-all ${bgClass}`;
+            resultBox.innerHTML = recommendation;
+        }
+
+        // Progressive Web App - Service Worker inline registration
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                const swCode = `
+                    const CACHE_NAME = 'acemoglu-ai-v1';
+                    self.addEventListener('install', (e) => self.skipWaiting());
+                    self.addEventListener('activate', (e) => e.waitUntil(clients.claim()));
+                    self.addEventListener('fetch', (e) => {
+                        e.respondWith(fetch(e.request).catch(() => caches.match(e.request)));
+                    });
+                `;
+                const blob = new Blob([swCode], { type: 'application/javascript' });
+                navigator.serviceWorker.register(URL.createObjectURL(blob)).catch(() => {});
+            });
+        }
+    </script>
+</body>
+</html>

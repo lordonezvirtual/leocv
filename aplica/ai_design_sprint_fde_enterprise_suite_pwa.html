@@ -1,0 +1,1220 @@
+<!DOCTYPE html>
+<html lang="es" class="h-full">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FDE Enterprise Suite & AI Design Sprint - Edentia</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <!-- Google Fonts: Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+          },
+          colors: {
+            brand: {
+              50: '#eef2ff',
+              100: '#e0e7ff',
+              200: '#c7d2fe',
+              500: '#6366f1',
+              600: '#4f46e5',
+              700: '#4338ca',
+              900: '#1e1b4b',
+            },
+            accent: {
+              cyan: '#06b6d4',
+              emerald: '#10b981',
+              amber: '#f59e0b',
+              rose: '#f43f5e',
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #0f172a;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #334155;
+      border-radius: 9999px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #475569;
+    }
+    .glass-card {
+      background: rgba(30, 41, 59, 0.7);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .glass-card-hover {
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .glass-card-hover:hover {
+      transform: translateY(-2px);
+      border-color: rgba(99, 102, 241, 0.4);
+      box-shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.6), 0 0 20px -5px rgba(99, 102, 241, 0.2);
+    }
+    .terminal-glow {
+      box-shadow: 0 0 15px rgba(6, 182, 212, 0.15);
+    }
+    @keyframes pulseGlow {
+      0%, 100% { opacity: 0.8; transform: scale(1); }
+      50% { opacity: 1; transform: scale(1.04); }
+    }
+    .pulse-effect {
+      animation: pulseGlow 3s infinite ease-in-out;
+    }
+  </style>
+</head>
+
+<body class="bg-slate-950 text-slate-100 font-sans h-full antialiased selection:bg-brand-600 selection:text-white flex flex-col">
+  <div id="pwa-install-banner" class="hidden bg-gradient-to-r from-brand-900 to-indigo-950 border-b border-brand-500/30 px-4 py-2 text-xs flex items-center justify-between z-50">
+    <div class="flex items-center gap-2">
+      <i class="fa-solid fa-cloud-arrow-down text-brand-400 text-sm"></i>
+      <span>Instala la PWA de <strong>Edentia FDE Suite</strong> para uso offline y acceso rápido.</span>
+    </div>
+    <div class="flex items-center gap-2">
+      <button id="pwa-install-btn" class="bg-brand-600 hover:bg-brand-500 text-white font-medium px-3 py-1 rounded-md transition-colors shadow">
+        Instalar App
+      </button>
+      <button onclick="dismissPwaBanner()" class="text-slate-400 hover:text-white px-2 py-1">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+    </div>
+  </div>
+
+  <!-- Header / Navigation Bar -->
+  <header class="bg-slate-900/90 backdrop-blur-md border-b border-slate-800 sticky top-0 z-40">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16">
+        <!-- Logo & Branding -->
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-brand-600 via-indigo-500 to-accent-cyan flex items-center justify-center shadow-lg shadow-brand-500/20">
+            <i class="fa-solid fa-microchip text-white text-lg"></i>
+          </div>
+          <div>
+            <div class="flex items-center gap-2">
+              <span class="font-bold tracking-tight text-white text-lg">EDENTIA</span>
+              <span class="bg-brand-500/20 text-brand-300 text-[10px] font-mono px-2 py-0.5 rounded-full border border-brand-500/30 font-semibold tracking-wide">FDE OS v2.4</span>
+            </div>
+            <p class="text-xs text-slate-400 hidden sm:block">Forward Deployed Engineering & AI Sprints</p>
+          </div>
+        </div>
+
+        <!-- Navigation Tabs Desktop -->
+        <nav class="hidden md:flex space-x-1 lg:space-x-2" id="nav-tabs">
+          <button onclick="switchTab('dashboard')" data-tab="dashboard" class="nav-btn px-3 py-2 rounded-lg text-xs font-semibold flex items-center gap-2 text-white bg-slate-800/80 border border-slate-700">
+            <i class="fa-solid fa-chart-line text-brand-400"></i> Masterclass & Tesis
+          </button>
+          <button onclick="switchTab('sprint')" data-tab="sprint" class="nav-btn px-3 py-2 rounded-lg text-xs font-semibold flex items-center gap-2 text-slate-400 hover:text-slate-200 hover:bg-slate-800/50 transition-colors">
+            <i class="fa-solid fa-calendar-check text-accent-cyan"></i> AI Design Sprint (2 Sem)
+          </button>
+          <button onclick="switchTab('calculator')" data-tab="calculator" class="nav-btn px-3 py-2 rounded-lg text-xs font-semibold flex items-center gap-2 text-slate-400 hover:text-slate-200 hover:bg-slate-800/50 transition-colors">
+            <i class="fa-solid fa-calculator text-accent-emerald"></i> Matriz & ROI
+          </button>
+          <button onclick="switchTab('simulator')" data-tab="simulator" class="nav-btn px-3 py-2 rounded-lg text-xs font-semibold flex items-center gap-2 text-slate-400 hover:text-slate-200 hover:bg-slate-800/50 transition-colors">
+            <i class="fa-solid fa-terminal text-accent-amber"></i> Simulador FDE
+          </button>
+          <button onclick="switchTab('playbook')" data-tab="playbook" class="nav-btn px-3 py-2 rounded-lg text-xs font-semibold flex items-center gap-2 text-slate-400 hover:text-slate-200 hover:bg-slate-800/50 transition-colors">
+            <i class="fa-solid fa-briefcase text-purple-400"></i> Leonardo Consultoría
+          </button>
+        </nav>
+
+        <!-- Header Actions: Offline Indicator & Quick Export -->
+        <div class="flex items-center gap-2">
+          <div id="connection-status" class="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-mono">
+            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+            <span class="hidden sm:inline">Online</span>
+          </div>
+          <button onclick="window.print()" title="Imprimir o Exportar PDF" class="p-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white border border-slate-700 text-xs flex items-center gap-1.5 transition-colors">
+            <i class="fa-solid fa-print"></i>
+            <span class="hidden lg:inline">PDF</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mobile Navigation Tab Bar -->
+    <div class="md:hidden flex overflow-x-auto px-4 py-2 border-t border-slate-800 bg-slate-900/95 space-x-2 text-xs no-scrollbar">
+      <button onclick="switchTab('dashboard')" data-mobile-tab="dashboard" class="flex-shrink-0 px-3 py-1.5 rounded-lg bg-slate-800 text-white font-medium">Masterclass</button>
+      <button onclick="switchTab('sprint')" data-mobile-tab="sprint" class="flex-shrink-0 px-3 py-1.5 rounded-lg text-slate-400 hover:bg-slate-800 font-medium">Sprint 2 Sem</button>
+      <button onclick="switchTab('calculator')" data-mobile-tab="calculator" class="flex-shrink-0 px-3 py-1.5 rounded-lg text-slate-400 hover:bg-slate-800 font-medium">Calculadora ROI</button>
+      <button onclick="switchTab('simulator')" data-mobile-tab="simulator" class="flex-shrink-0 px-3 py-1.5 rounded-lg text-slate-400 hover:bg-slate-800 font-medium">Simulador</button>
+      <button onclick="switchTab('playbook')" data-mobile-tab="playbook" class="flex-shrink-0 px-3 py-1.5 rounded-lg text-slate-400 hover:bg-slate-800 font-medium">Leonardo IA</button>
+    </div>
+  </header>
+
+  <!-- Main Content Container -->
+  <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 overflow-y-auto">
+    
+    <!-- ========================================== -->
+    <!-- TAB 1: MASTERCLASS & TESIS FDE -->
+    <!-- ========================================== -->
+    <section id="tab-dashboard" class="tab-pane space-y-8">
+      <!-- Hero Banner -->
+      <div class="relative overflow-hidden rounded-2xl bg-gradient-to-br from-brand-900/60 via-slate-900 to-slate-900 border border-brand-500/30 p-6 sm:p-8">
+        <div class="absolute -right-10 -bottom-10 w-72 h-72 bg-brand-500/10 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="relative z-10 max-w-3xl">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-500/20 text-brand-300 text-xs font-semibold border border-brand-500/30 mb-4">
+            <i class="fa-solid fa-crown text-amber-400"></i> The $1M/Year AI Role Deconstructed
+          </div>
+          <h1 class="text-2xl sm:text-4xl font-extrabold tracking-tight text-white leading-tight">
+            La inteligencia es una <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 via-indigo-300 to-accent-cyan">commodity</span>. La ventaja está en el despliegue.
+          </h1>
+          <p class="mt-3 text-sm sm:text-base text-slate-300 leading-relaxed">
+            Análisis táctico del framework de <strong>Voss (Veric Agents)</strong> con <strong>Greg Isenberg</strong>. Cómo romper la trampa del <em>token maxing</em> y el 95% de fallos en pilotos con el rol del <strong>Forward Deployed Engineer (FDE)</strong>.
+          </p>
+
+          <!-- Core Stat Highlights -->
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mt-6">
+            <div class="glass-card rounded-xl p-3 border-l-4 border-l-brand-500">
+              <span class="text-slate-400 text-xs block">Salario / Facturación</span>
+              <span class="text-lg sm:text-xl font-bold text-white">$150k - $1M+</span>
+            </div>
+            <div class="glass-card rounded-xl p-3 border-l-4 border-l-accent-rose">
+              <span class="text-slate-400 text-xs block">Pilotos de IA que Fallan</span>
+              <span class="text-lg sm:text-xl font-bold text-accent-rose">95% (MIT)</span>
+            </div>
+            <div class="glass-card rounded-xl p-3 border-l-4 border-l-accent-emerald">
+              <span class="text-slate-400 text-xs block">Arquitectura Óptima</span>
+              <span class="text-lg sm:text-xl font-bold text-accent-emerald">70% Determinista</span>
+            </div>
+            <div class="glass-card rounded-xl p-3 border-l-4 border-l-accent-cyan">
+              <span class="text-slate-400 text-xs block">Tiempo de Diagnóstico</span>
+              <span class="text-lg sm:text-xl font-bold text-accent-cyan">2 Semanas</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- The 3 Pillars Breakdown -->
+      <div>
+        <div class="flex items-center justify-between mb-4">
+          <h2 class="text-lg font-bold text-white flex items-center gap-2">
+            <i class="fa-solid fa-cubes text-brand-400"></i> Los 3 Pilares del Forward Deployed Engineer
+          </h2>
+          <span class="text-xs text-slate-400">Metodología Palantir llevada a la era de Agentes</span>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+          <!-- Pilar 1 -->
+          <div class="glass-card glass-card-hover rounded-xl p-5 border border-slate-800">
+            <div class="w-10 h-10 rounded-lg bg-blue-500/20 text-blue-400 flex items-center justify-center mb-4 text-lg">
+              <i class="fa-solid fa-magnifying-glass-location"></i>
+            </div>
+            <h3 class="text-base font-bold text-white">1. Realidad del Negocio (In-Situ)</h3>
+            <p class="text-xs text-blue-300 font-mono mt-0.5 mb-2">"El trabajo real vs. el SOP documentado"</p>
+            <p class="text-xs text-slate-300 leading-relaxed mb-3">
+              Estar sentado 8 horas junto al analista para registrar el caos real: correos con formatos mixtos, excepciones de "Sarah ya dio el OK", capturas pegadas y hojas de cálculo no sincronizadas.
+            </p>
+            <div class="bg-slate-900/80 rounded-lg p-2.5 text-[11px] text-slate-400 border border-slate-800/80 font-mono">
+              <span class="text-blue-400 font-bold">Analogía McKinsey:</span> El consultor no lee reportes en la oficina; baja a la mina junto al operario.
+            </div>
+          </div>
+
+          <!-- Pilar 2 -->
+          <div class="glass-card glass-card-hover rounded-xl p-5 border border-slate-800">
+            <div class="w-10 h-10 rounded-lg bg-amber-500/20 text-amber-400 flex items-center justify-center mb-4 text-lg">
+              <i class="fa-solid fa-scale-balanced"></i>
+            </div>
+            <h3 class="text-base font-bold text-white">2. Criterio y Juicio de FDE</h3>
+            <p class="text-xs text-amber-300 font-mono mt-0.5 mb-2">"Dónde pertenece y dónde NO pertenece la IA"</p>
+            <p class="text-xs text-slate-300 leading-relaxed mb-3">
+              Evitar el <em>Token Maxing</em>. De un flujo de 10 pasos, 7 son código determinista (APIs, if/else, webhooks) y solo 3 son llamadas a LLMs para juicio y extracción estructurada.
+            </p>
+            <div class="bg-slate-900/80 rounded-lg p-2.5 text-[11px] text-slate-400 border border-slate-800/80 font-mono">
+              <span class="text-amber-400 font-bold">Analogía Sommelier:</span> No sirvas Pinot Noir a todos. Diagnostica paladar y plato antes de descorchar.
+            </div>
+          </div>
+
+          <!-- Pilar 3 -->
+          <div class="glass-card glass-card-hover rounded-xl p-5 border border-slate-800">
+            <div class="w-10 h-10 rounded-lg bg-emerald-500/20 text-emerald-400 flex items-center justify-center mb-4 text-lg">
+              <i class="fa-solid fa-network-wired"></i>
+            </div>
+            <h3 class="text-base font-bold text-white">3. Despliegue sobre Sistemas Legados</h3>
+            <p class="text-xs text-emerald-300 font-mono mt-0.5 mb-2">"Integrar en SAP/NetSuite, no reemplazarlos"</p>
+            <p class="text-xs text-slate-300 leading-relaxed mb-3">
+              Pescar con dinamita: El cliente gastó millones en su ERP. La IA debe actuar como capa invisible acoplada a sus APIs existentes con consola de aprobación humana (HITL) y trazabilidad inmutable.
+            </p>
+            <div class="bg-slate-900/80 rounded-lg p-2.5 text-[11px] text-slate-400 border border-slate-800/80 font-mono">
+              <span class="text-emerald-400 font-bold">Psicología Corp:</span> Los directivos quieren ser promovidos reduciendo costos, no arriesgar su cargo.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Interactive Roadmap: 30 Días para ser FDE -->
+      <div class="glass-card rounded-2xl p-6 border border-slate-800">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
+          <div>
+            <h3 class="text-lg font-bold text-white flex items-center gap-2">
+              <i class="fa-solid fa-list-check text-indigo-400"></i> Roadmap de 30 Días para FDE (Voss Framework)
+            </h3>
+            <p class="text-xs text-slate-400 mt-1">Haz clic en cada día para registrar tu avance y dominar la disciplina.</p>
+          </div>
+          <div class="flex items-center gap-3">
+            <span class="text-xs text-slate-400 font-mono" id="roadmap-progress-text">0/20 Hitos Completados (0%)</span>
+            <div class="w-32 bg-slate-800 h-2.5 rounded-full overflow-hidden">
+              <div id="roadmap-progress-bar" class="bg-gradient-to-r from-brand-500 to-accent-cyan h-full w-0 transition-all duration-300"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4" id="roadmap-container">
+          <!-- Week 1 -->
+          <div class="bg-slate-900/90 rounded-xl p-4 border border-slate-800 space-y-3">
+            <div class="flex items-center justify-between border-b border-slate-800 pb-2">
+              <span class="text-xs font-bold text-brand-300">SEMANA 1</span>
+              <span class="text-[10px] px-2 py-0.5 rounded bg-brand-500/20 text-brand-300 font-mono">Agente Funcional</span>
+            </div>
+            <div class="space-y-2 text-xs" id="week-1-items"></div>
+          </div>
+
+          <!-- Week 2 -->
+          <div class="bg-slate-900/90 rounded-xl p-4 border border-slate-800 space-y-3">
+            <div class="flex items-center justify-between border-b border-slate-800 pb-2">
+              <span class="text-xs font-bold text-amber-300">SEMANA 2</span>
+              <span class="text-[10px] px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 font-mono">Unhappy Path & Fallas</span>
+            </div>
+            <div class="space-y-2 text-xs" id="week-2-items"></div>
+          </div>
+
+          <!-- Week 3 -->
+          <div class="bg-slate-900/90 rounded-xl p-4 border border-slate-800 space-y-3">
+            <div class="flex items-center justify-between border-b border-slate-800 pb-2">
+              <span class="text-xs font-bold text-emerald-300">SEMANA 3</span>
+              <span class="text-[10px] px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 font-mono">Evals & Economía</span>
+            </div>
+            <div class="space-y-2 text-xs" id="week-3-items"></div>
+          </div>
+
+          <!-- Week 4 -->
+          <div class="bg-slate-900/90 rounded-xl p-4 border border-slate-800 space-y-3">
+            <div class="flex items-center justify-between border-b border-slate-800 pb-2">
+              <span class="text-xs font-bold text-purple-300">SEMANA 4</span>
+              <span class="text-[10px] px-2 py-0.5 rounded bg-purple-500/20 text-purple-300 font-mono">Pitch & C-Level</span>
+            </div>
+            <div class="space-y-2 text-xs" id="week-4-items"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- TAB 2: AI DESIGN SPRINT (2 SEMANAS) -->
+    <!-- ========================================== -->
+    <section id="tab-sprint" class="tab-pane hidden space-y-8">
+      <!-- Section Header -->
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-800 pb-4">
+        <div>
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-accent-cyan/10 text-accent-cyan text-xs font-semibold mb-2">
+            <i class="fa-solid fa-stopwatch"></i> Metodología Comercial y Técnica
+          </div>
+          <h2 class="text-2xl font-bold text-white">AI Design Sprint de 2 Semanas</h2>
+          <p class="text-xs sm:text-sm text-slate-400">
+            Estructura operativa de diagnóstico in situ para cerrar contratos de consultoría sin el rechazo de la palabra "auditoría".
+          </p>
+        </div>
+        <div class="flex items-center gap-2">
+          <button onclick="copySprintProposal()" class="px-3 py-2 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-semibold flex items-center gap-2 transition-colors shadow">
+            <i class="fa-solid fa-copy"></i> Copiar Propuesta
+          </button>
+        </div>
+      </div>
+
+      <!-- Timeline Tabs & Daily Breakdown -->
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <!-- Sprint Overview Card -->
+        <div class="glass-card rounded-xl p-5 border border-slate-800 space-y-4">
+          <h3 class="text-base font-bold text-white flex items-center gap-2">
+            <i class="fa-solid fa-bullseye text-accent-cyan"></i> Reglas de Oro del Sprint
+          </h3>
+          <ul class="space-y-3 text-xs text-slate-300">
+            <li class="flex items-start gap-2.5">
+              <i class="fa-solid fa-circle-check text-emerald-400 mt-0.5 text-[10px]"></i>
+              <span><strong>Rebranding:</strong> Vender siempre como "Design Sprint" o "Diagnóstico Operativo", jamás como "Auditoría" (alergia fiscal).</span>
+            </li>
+            <li class="flex items-start gap-2.5">
+              <i class="fa-solid fa-circle-check text-emerald-400 mt-0.5 text-[10px]"></i>
+              <span><strong>Presencialidad clave:</strong> Los días 2 y 3 se ejecutan sentado físicamente junto al analista para ver las excepciones no registradas.</span>
+            </li>
+            <li class="flex items-start gap-2.5">
+              <i class="fa-solid fa-circle-check text-emerald-400 mt-0.5 text-[10px]"></i>
+              <span><strong>El producto final no es un reporte PDF:</strong> Es un Blueprint arquitectónico, un Golden Dataset y una Matriz de ROI financiero lista para aprobación presupuestaria.</span>
+            </li>
+          </ul>
+
+          <div class="p-3 bg-slate-900 rounded-lg border border-slate-800 space-y-2">
+            <span class="text-[11px] font-bold text-slate-400 uppercase tracking-wider block">Entregables Tangibles</span>
+            <div class="grid grid-cols-2 gap-2 text-[11px] text-slate-200">
+              <div class="flex items-center gap-1.5"><i class="fa-solid fa-file-code text-brand-400"></i> Blueprint Operativo</div>
+              <div class="flex items-center gap-1.5"><i class="fa-solid fa-chart-pie text-accent-emerald"></i> Matriz de ROI</div>
+              <div class="flex items-center gap-1.5"><i class="fa-solid fa-database text-amber-400"></i> Golden Dataset</div>
+              <div class="flex items-center gap-1.5"><i class="fa-solid fa-shield-halved text-purple-400"></i> Protocolo Evals</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 10-Day Detail Stepper -->
+        <div class="lg:col-span-2 space-y-3">
+          <div class="flex items-center justify-between mb-2">
+            <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">Cronograma Ejecutivo (Día a Día)</span>
+            <span class="text-xs text-brand-400 font-mono">10 Días Hábiles</span>
+          </div>
+
+          <div class="space-y-2.5" id="sprint-days-list">
+            <!-- Rendered by JS -->
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- TAB 3: CALCULADORA DINÁMICA DE ROI & BUSINESS CASE -->
+    <!-- ========================================== -->
+    <section id="tab-calculator" class="tab-pane hidden space-y-8">
+      <div>
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-accent-emerald/10 text-accent-emerald text-xs font-semibold mb-2">
+          <i class="fa-solid fa-calculator"></i> Motor de Justificación Financiera para CFO/VPs
+        </div>
+        <h2 class="text-2xl font-bold text-white">Calculadora Dinámica de ROI & Priorización</h2>
+        <p class="text-xs sm:text-sm text-slate-400">
+          Modela el ahorro de horas, reducción de errores y costos unitarios de inferencia para sustentar el Business Case de tu cliente.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <!-- Input Parameters Form -->
+        <div class="glass-card rounded-xl p-5 border border-slate-800 space-y-4">
+          <h3 class="text-sm font-bold text-white flex items-center gap-2 border-b border-slate-800 pb-2">
+            <i class="fa-solid fa-sliders text-emerald-400"></i> Variables Operacionales
+          </h3>
+
+          <div class="space-y-3 text-xs">
+            <div>
+              <label class="block text-slate-300 font-medium mb-1">Nombre del Caso de Uso</label>
+              <input type="text" id="calc-case-name" value="Conciliación de Cuentas y Facturas con Excepciones" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-white focus:outline-none focus:border-brand-500 text-xs">
+            </div>
+
+            <div class="grid grid-cols-2 gap-3">
+              <div>
+                <label class="block text-slate-300 font-medium mb-1">Horas/Mes Dedicadas</label>
+                <input type="number" id="calc-hours" value="380" oninput="calculateROI()" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-white focus:outline-none focus:border-brand-500 font-mono text-xs">
+              </div>
+              <div>
+                <label class="block text-slate-300 font-medium mb-1">Costo Hora Operador ($)</label>
+                <input type="number" id="calc-hourly-rate" value="25" oninput="calculateROI()" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-white focus:outline-none focus:border-brand-500 font-mono text-xs">
+              </div>
+            </div>
+
+            <div class="grid grid-cols-2 gap-3">
+              <div>
+                <label class="block text-slate-300 font-medium mb-1">Tasa Error Humano (%)</label>
+                <input type="number" id="calc-error-current" value="12" step="0.5" oninput="calculateROI()" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-white focus:outline-none focus:border-brand-500 font-mono text-xs">
+              </div>
+              <div>
+                <label class="block text-slate-300 font-medium mb-1">Tasa Error con FDE (%)</label>
+                <input type="number" id="calc-error-future" value="0.8" step="0.1" oninput="calculateROI()" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-white focus:outline-none focus:border-brand-500 font-mono text-xs">
+              </div>
+            </div>
+
+            <div>
+              <label class="block text-slate-300 font-medium mb-1">Automatización Proyectada (%)</label>
+              <input type="range" id="calc-automation-pct" min="30" max="95" value="75" oninput="calculateROI()" class="w-full accent-brand-500 cursor-pointer">
+              <div class="flex justify-between text-[11px] text-slate-400 font-mono">
+                <span>30% (Asistido)</span>
+                <span id="calc-automation-val" class="text-brand-300 font-bold">75%</span>
+                <span>95% (Máx seguro)</span>
+              </div>
+            </div>
+
+            <div class="border-t border-slate-800 pt-3">
+              <label class="block text-slate-300 font-medium mb-1">Costo Estimado Inferencia API ($/mes)</label>
+              <input type="number" id="calc-api-cost" value="180" oninput="calculateROI()" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-white focus:outline-none focus:border-brand-500 font-mono text-xs">
+              <span class="text-[10px] text-slate-400">Ruteo a modelos compactos para subtareas.</span>
+            </div>
+
+            <div>
+              <label class="block text-slate-300 font-medium mb-1">Costo Proyecto / Sprint + Despliegue ($)</label>
+              <input type="number" id="calc-project-cost" value="22000" oninput="calculateROI()" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-white focus:outline-none focus:border-brand-500 font-mono text-xs">
+            </div>
+          </div>
+        </div>
+
+        <!-- Results & Financial Outputs -->
+        <div class="lg:col-span-2 space-y-4">
+          <div class="grid grid-cols-2 sm:grid-cols-3 gap-3">
+            <div class="glass-card rounded-xl p-4 border border-slate-800">
+              <span class="text-xs text-slate-400 block mb-1">Ahorro Mensual Bruto</span>
+              <span class="text-xl sm:text-2xl font-extrabold text-white font-mono" id="res-monthly-gross">$0</span>
+              <span class="text-[10px] text-slate-400 block mt-1" id="res-hours-saved">0 hrs/mes liberadas</span>
+            </div>
+
+            <div class="glass-card rounded-xl p-4 border border-slate-800">
+              <span class="text-xs text-emerald-400 block mb-1">Ahorro Neto Anual</span>
+              <span class="text-xl sm:text-2xl font-extrabold text-emerald-400 font-mono" id="res-annual-net">$0</span>
+              <span class="text-[10px] text-slate-400 block mt-1">Descontando APIs e inferencia</span>
+            </div>
+
+            <div class="glass-card rounded-xl p-4 border border-slate-800 col-span-2 sm:col-span-1">
+              <span class="text-xs text-cyan-400 block mb-1">Payback (Retorno)</span>
+              <span class="text-xl sm:text-2xl font-extrabold text-cyan-300 font-mono" id="res-payback">0 meses</span>
+              <span class="text-[10px] text-slate-400 block mt-1">Periodo de recuperación</span>
+            </div>
+          </div>
+
+          <!-- Comparison Table of Standard Enterprise Cases -->
+          <div class="glass-card rounded-xl p-5 border border-slate-800 space-y-3">
+            <div class="flex items-center justify-between">
+              <h4 class="text-xs font-bold text-white uppercase tracking-wider">Matriz de Casos de Uso Estándar</h4>
+              <span class="text-[10px] text-slate-400">Valores de referencia para cotización</span>
+            </div>
+
+            <div class="overflow-x-auto">
+              <table class="w-full text-left text-xs">
+                <thead>
+                  <tr class="border-b border-slate-800 text-slate-400">
+                    <th class="pb-2 font-medium">Caso de Uso</th>
+                    <th class="pb-2 font-medium">Impacto</th>
+                    <th class="pb-2 font-medium">Horas/Mes</th>
+                    <th class="pb-2 font-medium">Error Prev/Post</th>
+                    <th class="pb-2 font-medium">Ahorro Neto/Año</th>
+                    <th class="pb-2 font-medium">Payback</th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-slate-800/60 font-mono text-slate-300">
+                  <tr class="hover:bg-slate-800/30 cursor-pointer" onclick="loadCaseTemplate(1)">
+                    <td class="py-2.5 font-sans font-medium text-white">Conciliación Cuentas & ERP</td>
+                    <td><span class="px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-400 text-[10px]">Alto</span></td>
+                    <td>380 h</td>
+                    <td>12% → 0.8%</td>
+                    <td class="text-emerald-400 font-bold">$28,500</td>
+                    <td>2.8 m</td>
+                  </tr>
+                  <tr class="hover:bg-slate-800/30 cursor-pointer" onclick="loadCaseTemplate(2)">
+                    <td class="py-2.5 font-sans font-medium text-white">Extracción Legal & Normativa</td>
+                    <td><span class="px-2 py-0.5 rounded bg-rose-500/20 text-rose-400 text-[10px]">Crítico</span></td>
+                    <td>220 h</td>
+                    <td>18% → 0.5%</td>
+                    <td class="text-emerald-400 font-bold">$21,000</td>
+                    <td>2.1 m</td>
+                  </tr>
+                  <tr class="hover:bg-slate-800/30 cursor-pointer" onclick="loadCaseTemplate(3)">
+                    <td class="py-2.5 font-sans font-medium text-white">Ruteo Correos & Adjuntos</td>
+                    <td><span class="px-2 py-0.5 rounded bg-blue-500/20 text-blue-400 text-[10px]">Medio</span></td>
+                    <td>140 h</td>
+                    <td>15% → 2.0%</td>
+                    <td class="text-emerald-400 font-bold">$11,200</td>
+                    <td>3.4 m</td>
+                  </tr>
+                  <tr class="hover:bg-slate-800/30 cursor-pointer" onclick="loadCaseTemplate(4)">
+                    <td class="py-2.5 font-sans font-medium text-white">Reportes Ejecutivos BI</td>
+                    <td><span class="px-2 py-0.5 rounded bg-amber-500/20 text-amber-400 text-[10px]">Bajo</span></td>
+                    <td>60 h</td>
+                    <td>N/A</td>
+                    <td class="text-slate-400">$4,800</td>
+                    <td>9.6 m</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <p class="text-[11px] text-slate-400 italic">Haz clic en cualquier fila para cargar los valores en el simulador superior.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- TAB 4: SIMULADOR DE ARQUITECTURA HÍBRIDA FDE -->
+    <!-- ========================================== -->
+    <section id="tab-simulator" class="tab-pane hidden space-y-6">
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div>
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-accent-amber/10 text-accent-amber text-xs font-semibold mb-2">
+            <i class="fa-solid fa-microchip"></i> Engine Simulator
+          </div>
+          <h2 class="text-2xl font-bold text-white">Simulador de Flujo FDE: Determinismo + Agente + HITL</h2>
+          <p class="text-xs sm:text-sm text-slate-400">
+            Experimenta en tiempo real cómo un agente robusto maneja excepciones reales, esquemas JSON estrictos y trazabilidad inmutable.
+          </p>
+        </div>
+        <div class="flex items-center gap-2">
+          <button onclick="runSimulation('happy')" class="px-3 py-2 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-semibold flex items-center gap-1.5 transition-colors">
+            <i class="fa-solid fa-play"></i> Probar Happy Path
+          </button>
+          <button onclick="runSimulation('unhappy')" class="px-3 py-2 rounded-lg bg-rose-600 hover:bg-rose-500 text-white text-xs font-semibold flex items-center gap-1.5 transition-colors">
+            <i class="fa-solid fa-bug"></i> Inyectar Excepción Crítica
+          </button>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <!-- Input Simulation Box -->
+        <div class="glass-card rounded-xl p-4 border border-slate-800 space-y-3">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-bold text-slate-300 uppercase tracking-wider">Payload Entrante (Correo/ERP)</span>
+            <span class="text-[10px] text-slate-400 font-mono">MIME: mixed/pdf</span>
+          </div>
+
+          <textarea id="sim-input-json" rows="10" class="w-full bg-slate-900 font-mono text-xs text-slate-300 p-3 rounded-lg border border-slate-700 focus:outline-none focus:border-brand-500 resize-none"></textarea>
+
+          <div class="p-3 bg-slate-900/60 rounded-lg border border-slate-800 text-[11px] text-slate-400 space-y-1.5">
+            <div class="flex justify-between">
+              <span>Capa 1: Filtro Determinista</span>
+              <span class="text-emerald-400 font-mono font-bold">Python / API</span>
+            </div>
+            <div class="flex justify-between">
+              <span>Capa 2: Inferencia de Juicio</span>
+              <span class="text-brand-300 font-mono font-bold">LLM Struct JSON</span>
+            </div>
+            <div class="flex justify-between">
+              <span>Capa 3: Aprobación Humana</span>
+              <span class="text-amber-400 font-mono font-bold">HITL Queue</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Terminal Audit Trail -->
+        <div class="lg:col-span-2 glass-card rounded-xl p-4 border border-slate-800 flex flex-col h-[420px]">
+          <div class="flex items-center justify-between border-b border-slate-800 pb-2 mb-3">
+            <div class="flex items-center gap-2">
+              <div class="w-3 h-3 rounded-full bg-rose-500"></div>
+              <div class="w-3 h-3 rounded-full bg-amber-500"></div>
+              <div class="w-3 h-3 rounded-full bg-emerald-500"></div>
+              <span class="text-xs font-mono text-slate-400 ml-2">fde_audit_trail.log</span>
+            </div>
+            <button onclick="clearTerminal()" class="text-xs text-slate-400 hover:text-white transition-colors">Limpiar</button>
+          </div>
+
+          <div id="sim-terminal" class="flex-1 bg-slate-950 font-mono text-[11px] p-3 rounded-lg overflow-y-auto space-y-1.5 text-slate-300 border border-slate-900">
+            <p class="text-slate-500">// Terminal de ejecución inicializada. Presiona un botón para simular.</p>
+          </div>
+
+          <!-- HITL Human Action Bar inside terminal -->
+          <div id="hitl-action-bar" class="hidden mt-3 p-3 bg-amber-500/10 border border-amber-500/30 rounded-lg flex items-center justify-between">
+            <div class="flex items-center gap-2 text-xs text-amber-300 font-medium">
+              <i class="fa-solid fa-triangle-exclamation"></i>
+              <span>Requiere Aprobación Humana (HITL): Se detectó excepción de formato.</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <button onclick="hitlAction('approve')" class="px-3 py-1 rounded bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold">Aprobar Commit</button>
+              <button onclick="hitlAction('reject')" class="px-3 py-1 rounded bg-rose-600 hover:bg-rose-500 text-white text-xs font-bold">Rechazar & Alertar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- TAB 5: PLAYBOOK LEONARDO CONSULTOR & EDENTIA -->
+    <!-- ========================================== -->
+    <section id="tab-playbook" class="tab-pane hidden space-y-8">
+      <div>
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple-500/10 text-purple-400 text-xs font-semibold mb-2">
+          <i class="fa-solid fa-briefcase"></i> Modelo de Negocio Consultivo
+        </div>
+        <h2 class="text-2xl font-bold text-white">Estrategia de Monetización para Leonardo & Edentia</h2>
+        <p class="text-xs sm:text-sm text-slate-400">
+          Cómo estructurar tu portafolio, presentar ofertas sin fricción y posicionarte como consultor estratégico ante la alta gerencia.
+        </p>
+      </div>
+
+      <!-- Pricing Tier Architecture -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+        <!-- Tier 1 -->
+        <div class="glass-card rounded-xl p-5 border border-slate-800 flex flex-col justify-between">
+          <div>
+            <div class="flex justify-between items-start mb-3">
+              <span class="text-xs font-bold text-cyan-400 uppercase tracking-wider">Nivel 1: Entrada</span>
+              <span class="text-xs font-mono bg-cyan-500/10 text-cyan-300 px-2 py-0.5 rounded border border-cyan-500/20">Pago Fijo</span>
+            </div>
+            <h3 class="text-lg font-bold text-white mb-1">AI Design Sprint (2 Semanas)</h3>
+            <div class="text-2xl font-extrabold text-white font-mono my-2">$3,500 - $7,500 <span class="text-xs font-sans text-slate-400 font-normal">USD</span></div>
+            <p class="text-xs text-slate-300 mb-4 leading-relaxed">
+              Diagnóstico in-situ de procesos no documentados, detección de <em>unhappy paths</em> y entrega del Blueprint Operacional con Matriz de ROI.
+            </p>
+            <ul class="text-xs text-slate-300 space-y-2 mb-4">
+              <li class="flex items-center gap-2"><i class="fa-solid fa-check text-cyan-400 text-[10px]"></i> Mapeo de flujos y excepciones</li>
+              <li class="flex items-center gap-2"><i class="fa-solid fa-check text-cyan-400 text-[10px]"></i> Matriz de ROI para CFO</li>
+              <li class="flex items-center gap-2"><i class="fa-solid fa-check text-cyan-400 text-[10px]"></i> Cero compromiso de desarrollo</li>
+            </ul>
+          </div>
+          <button onclick="copyPitchSnippet('tier1')" class="w-full py-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-xs font-semibold text-slate-200 border border-slate-700 transition-colors">
+            Copiar Pitch Nivel 1
+          </button>
+        </div>
+
+        <!-- Tier 2 -->
+        <div class="glass-card rounded-xl p-5 border-2 border-brand-500/80 relative flex flex-col justify-between shadow-lg shadow-brand-500/10">
+          <div class="absolute -top-3 right-4 bg-brand-600 text-white text-[10px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider">
+            Mayor Margen
+          </div>
+          <div>
+            <div class="flex justify-between items-start mb-3">
+              <span class="text-xs font-bold text-brand-300 uppercase tracking-wider">Nivel 2: Implementación</span>
+              <span class="text-xs font-mono bg-brand-500/20 text-brand-300 px-2 py-0.5 rounded border border-brand-500/30">Por Hitos</span>
+            </div>
+            <h3 class="text-lg font-bold text-white mb-1">Célula FDE en Producción</h3>
+            <div class="text-2xl font-extrabold text-white font-mono my-2">$15,000 - $45,000 <span class="text-xs font-sans text-slate-400 font-normal">USD</span></div>
+            <p class="text-xs text-slate-300 mb-4 leading-relaxed">
+              Despliegue del agente de software híbrido sobre ERP/CRM existente. Lógica de reintentos, validación JSON estricta y consola de aprobación HITL.
+            </p>
+            <ul class="text-xs text-slate-300 space-y-2 mb-4">
+              <li class="flex items-center gap-2"><i class="fa-solid fa-check text-brand-400 text-[10px]"></i> Capa sobre NetSuite/SAP/Salesforce</li>
+              <li class="flex items-center gap-2"><i class="fa-solid fa-check text-brand-400 text-[10px]"></i> Consola de aprobación humana</li>
+              <li class="flex items-center gap-2"><i class="fa-solid fa-check text-brand-400 text-[10px]"></i> Trazabilidad y auditoría completa</li>
+            </ul>
+          </div>
+          <button onclick="copyPitchSnippet('tier2')" class="w-full py-2 rounded-lg bg-brand-600 hover:bg-brand-500 text-xs font-semibold text-white transition-colors">
+            Copiar Pitch Nivel 2
+          </button>
+        </div>
+
+        <!-- Tier 3 -->
+        <div class="glass-card rounded-xl p-5 border border-slate-800 flex flex-col justify-between">
+          <div>
+            <div class="flex justify-between items-start mb-3">
+              <span class="text-xs font-bold text-emerald-400 uppercase tracking-wider">Nivel 3: Recurrencia</span>
+              <span class="text-xs font-mono bg-emerald-500/10 text-emerald-300 px-2 py-0.5 rounded border border-emerald-500/20">Mensual</span>
+            </div>
+            <h3 class="text-lg font-bold text-white mb-1">Retainer de Evals & Gobernanza</h3>
+            <div class="text-2xl font-extrabold text-white font-mono my-2">$2,500 - $6,000 <span class="text-xs font-sans text-slate-400 font-normal">USD/mes</span></div>
+            <p class="text-xs text-slate-300 mb-4 leading-relaxed">
+              Supervisión continua de suites de evaluación (*evals*), optimización de costos en llamadas API, actualización de datasets y expansión a flujos adyacentes.
+            </p>
+            <ul class="text-xs text-slate-300 space-y-2 mb-4">
+              <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-400 text-[10px]"></i> Monitoreo de desvíos y alucinaciones</li>
+              <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-400 text-[10px]"></i> Ruteo inteligente a modelos más económicos</li>
+              <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-400 text-[10px]"></i> Mantenimiento del Golden Dataset</li>
+            </ul>
+          </div>
+          <button onclick="copyPitchSnippet('tier3')" class="w-full py-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-xs font-semibold text-slate-200 border border-slate-700 transition-colors">
+            Copiar Pitch Nivel 3
+          </button>
+        </div>
+      </div>
+
+      <!-- Battlecards de Objeciones C-Level -->
+      <div class="glass-card rounded-xl p-5 border border-slate-800 space-y-4">
+        <h3 class="text-sm font-bold text-white flex items-center gap-2">
+          <i class="fa-solid fa-shield-virus text-rose-400"></i> Battlecards de Objeciones C-Level para Leonardo
+        </h3>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
+          <!-- Objeción 1 -->
+          <div class="p-3.5 bg-slate-900 rounded-lg border border-slate-800 space-y-1.5">
+            <div class="flex items-center gap-2 text-rose-400 font-bold">
+              <i class="fa-solid fa-comment-slash"></i> "¿Por qué no usamos ChatGPT Enterprise o Copilot directamente?"
+            </div>
+            <p class="text-slate-300 leading-relaxed">
+              <strong class="text-white">Respuesta FDE:</strong> Las herramientas genéricas operan en silos aislados; no resuelven las 15 excepciones no documentadas de sus sistemas centrales ni auditan fallas. El 95% de esos pilotos fracasan porque el modelo no tiene puente con su ERP ni validación humana integrada.
+            </p>
+          </div>
+
+          <!-- Objeción 2 -->
+          <div class="p-3.5 bg-slate-900 rounded-lg border border-slate-800 space-y-1.5">
+            <div class="flex items-center gap-2 text-rose-400 font-bold">
+              <i class="fa-solid fa-comment-slash"></i> "No queremos cambiar nuestro ERP NetSuite/SAP, costó años implementarlo."
+            </div>
+            <p class="text-slate-300 leading-relaxed">
+              <strong class="text-white">Respuesta FDE:</strong> Precisamente por eso nuestro valor es acoplarnos sobre su ERP sin modificarlo ni migrar datos fuera. Construimos conectores que leen y escriben a través de sus APIs habituales, potenciando la inversión ya realizada.
+            </p>
+          </div>
+
+          <!-- Objeción 3 -->
+          <div class="p-3.5 bg-slate-900 rounded-lg border border-slate-800 space-y-1.5">
+            <div class="flex items-center gap-2 text-rose-400 font-bold">
+              <i class="fa-solid fa-comment-slash"></i> "¿Y si el agente comete un error legal o financiero grave?"
+            </div>
+            <p class="text-slate-300 leading-relaxed">
+              <strong class="text-white">Respuesta FDE:</strong> La arquitectura cuenta con Human-in-the-Loop obligatorio: la IA extrae, clasifica y genera el borrador, pero ningún cambio tiene efecto en la base de datos sin la autorización expresa de su analista en una consola auditable.
+            </p>
+          </div>
+
+          <!-- Objeción 4 -->
+          <div class="p-3.5 bg-slate-900 rounded-lg border border-slate-800 space-y-1.5">
+            <div class="flex items-center gap-2 text-rose-400 font-bold">
+              <i class="fa-solid fa-comment-slash"></i> "¿Por qué pagar por un diagnóstico en lugar de construir de inmediato?"
+            </div>
+            <p class="text-slate-300 leading-relaxed">
+              <strong class="text-white">Respuesta FDE:</strong> Desarrollar sin diagnosticar cuesta 10 veces más al construir sobre flujos equivocados. El Sprint de 2 semanas es la garantía de que solo se automatizarán procesos con retorno comprobable y bajo riesgo de implementación.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Notification Toast Container -->
+  <div id="toast" class="fixed bottom-4 right-4 z-50 transform translate-y-20 opacity-0 transition-all duration-300 bg-slate-800 border border-slate-700 text-white text-xs px-4 py-3 rounded-xl shadow-2xl flex items-center gap-2 pointer-events-none">
+    <i id="toast-icon" class="fa-solid fa-circle-check text-emerald-400 text-sm"></i>
+    <span id="toast-msg">Mensaje del sistema</span>
+  </div>
+
+  <!-- Client-side Logic, PWA Injection & Simulation Script -->
+  <script>
+    // Inject Dynamic PWA Manifest
+    const pwaManifest = {
+      name: "Edentia FDE & AI Design Sprint Suite",
+      short_name: "FDE Suite",
+      description: "Forward Deployed Engineering Operating System & AI Design Sprints",
+      start_url: "./",
+      display: "standalone",
+      background_color: "#020617",
+      theme_color: "#4f46e5",
+      icons: [
+        {
+          src: "https://placehold.co/192x192/4f46e5/ffffff?text=FDE",
+          sizes: "192x192",
+          type: "image/png"
+        },
+        {
+          src: "https://placehold.co/512x512/4f46e5/ffffff?text=Edentia",
+          sizes: "512x512",
+          type: "image/png"
+        }
+      ]
+    };
+    const manifestBlob = new Blob([JSON.stringify(pwaManifest)], { type: 'application/json' });
+    const manifestURL = URL.createObjectURL(manifestBlob);
+    const manifestLink = document.createElement('link');
+    manifestLink.rel = 'manifest';
+    manifestLink.href = manifestURL;
+    document.head.appendChild(manifestLink);
+
+    // Register Dynamic Minimal Service Worker for PWA compliance & offline capability
+    if ('serviceWorker' in navigator) {
+      const swCode = `
+        const CACHE_NAME = 'edentia-fde-v1';
+        self.addEventListener('install', (e) => {
+          self.skipWaiting();
+        });
+        self.addEventListener('activate', (e) => {
+          e.waitUntil(clients.claim());
+        });
+        self.addEventListener('fetch', (e) => {
+          e.respondWith(
+            fetch(e.request).catch(() => caches.match(e.request))
+          );
+        });
+      `;
+      const swBlob = new Blob([swCode], { type: 'application/javascript' });
+      const swUrl = URL.createObjectURL(swBlob);
+      navigator.serviceWorker.register(swUrl).catch(err => console.debug('SW reg failed', err));
+    }
+
+    // PWA Install Prompt Handler
+    let deferredPrompt;
+    window.addEventListener('beforeinstallprompt', (e) => {
+      e.preventDefault();
+      deferredPrompt = e;
+      const banner = document.getElementById('pwa-install-banner');
+      if (banner) banner.classList.remove('hidden');
+    });
+
+    const installBtn = document.getElementById('pwa-install-btn');
+    if (installBtn) {
+      installBtn.addEventListener('click', async () => {
+        if (deferredPrompt) {
+          deferredPrompt.prompt();
+          const { outcome } = await deferredPrompt.userChoice;
+          if (outcome === 'accepted') {
+            dismissPwaBanner();
+          }
+          deferredPrompt = null;
+        }
+      });
+    }
+
+    function dismissPwaBanner() {
+      const banner = document.getElementById('pwa-install-banner');
+      if (banner) banner.classList.add('hidden');
+    }
+
+    // Online / Offline Detection
+    window.addEventListener('online', updateNetworkStatus);
+    window.addEventListener('offline', updateNetworkStatus);
+    function updateNetworkStatus() {
+      const statusEl = document.getElementById('connection-status');
+      if (navigator.onLine) {
+        statusEl.className = "flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-mono";
+        statusEl.innerHTML = '<span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span><span class="hidden sm:inline">Online</span>';
+      } else {
+        statusEl.className = "flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-400 text-xs font-mono";
+        statusEl.innerHTML = '<span class="w-2 h-2 rounded-full bg-amber-400"></span><span class="hidden sm:inline">Offline (PWA)</span>';
+      }
+    }
+
+    // 30-Day Roadmap Checklist Items
+    const roadmapData = {
+      week1: [
+        { id: "w1d1", label: "Día 1-2: Loop de ejecución autónoma básica" },
+        { id: "w1d3", label: "Día 3-4: Uso de herramientas (Function Calling/APIs)" },
+        { id: "w1d5", label: "Día 5: Guardrails y memoria contextual deliberada" },
+        { id: "w1d6", label: "Día 6: Registro de trazabilidad (Audit Trail completo)" },
+        { id: "w1d7", label: "Día 7: Checkpoint - Agente funcional auditable", isCheckpoint: true }
+      ],
+      week2: [
+        { id: "w2d1", label: "Día 8-9: Forzar salidas bajo esquemas JSON estrictos" },
+        { id: "w2d3", label: "Día 10-11: Mapeo exhaustivo de modos de falla reales" },
+        { id: "w2d5", label: "Día 12-13: Gestión de caminos infelices (Unhappy paths)" },
+        { id: "w2d7", label: "Día 14: Checkpoint - Sistema con recuperación de fallas", isCheckpoint: true }
+      ],
+      week3: [
+        { id: "w3d1", label: "Día 15-16: Lógica de reintentos robusta (Retry logic)" },
+        { id: "w3d3", label: "Día 17-18: Construcción del Golden Dataset para evals" },
+        { id: "w3d5", label: "Día 19-20: Ruteo a modelos económicos para subtareas" },
+        { id: "w3d7", label: "Día 21: Checkpoint - Agente evaluado y costos medidos", isCheckpoint: true }
+      ],
+      week4: [
+        { id: "w4d1", label: "Día 22-24: Justificación arquitectónica ante Ingenieros" },
+        { id: "w4d4", label: "Día 25-27: Defensa financiera de ROI ante VPs/CFO" },
+        { id: "w4d7", label: "Día 28-30: Checkpoint - Pitch validado con empresas reales", isCheckpoint: true }
+      ]
+    };
+
+    let roadmapProgress = JSON.parse(sessionStorage.getItem('fde_roadmap_progress') || '{}');
+
+    function renderRoadmap() {
+      for (let i = 1; i <= 4; i++) {
+        const container = document.getElementById(`week-${i}-items`);
+        const items = roadmapData[`week${i}`];
+        if (!container) continue;
+        container.innerHTML = items.map(item => {
+          const checked = roadmapProgress[item.id] ? 'checked' : '';
+          return `
+            <label class="flex items-start gap-2 p-1.5 rounded hover:bg-slate-800/60 cursor-pointer transition-colors ${item.isCheckpoint ? 'font-semibold text-brand-300' : 'text-slate-300'}">
+              <input type="checkbox" onchange="toggleRoadmapItem('${item.id}')" ${checked} class="mt-0.5 rounded border-slate-700 bg-slate-800 text-brand-500 focus:ring-brand-500">
+              <span class="text-[11px] leading-tight">${item.label}</span>
+            </label>
+          `;
+        }).join('');
+      }
+      updateRoadmapProgress();
+    }
+
+    function toggleRoadmapItem(id) {
+      roadmapProgress[id] = !roadmapProgress[id];
+      sessionStorage.setItem('fde_roadmap_progress', JSON.stringify(roadmapProgress));
+      updateRoadmapProgress();
+    }
+
+    function updateRoadmapProgress() {
+      const allItems = [...roadmapData.week1, ...roadmapData.week2, ...roadmapData.week3, ...roadmapData.week4];
+      const total = allItems.length;
+      const completed = allItems.filter(item => roadmapProgress[item.id]).length;
+      const pct = Math.round((completed / total) * 100);
+
+      const textEl = document.getElementById('roadmap-progress-text');
+      const barEl = document.getElementById('roadmap-progress-bar');
+      if (textEl) textEl.textContent = `${completed}/${total} Hitos (${pct}%)`;
+      if (barEl) barEl.style.width = `${pct}%`;
+    }
+
+    const sprintSchedule = [
+      { day: "Día 1", title: "Alineación Directiva & Scope", tag: "Estrategia", desc: "Reunión con sponsors y directores para fijar métricas duras: tiempo meta, umbral de error y departamentos a intervenir." },
+      { day: "Días 2-3", title: "Observación Inmersiva en Campo (Shadowing)", tag: "Campo On-Site", desc: "Acompañamiento presencial de 8 horas al operario para capturar excepciones, software no documentado y atajos tácitos." },
+      { day: "Día 4", title: "Mapeo de Caminos Infelices (Unhappy Paths)", tag: "Análisis", desc: "Documentación de los 40 formatos distintos, archivos corruptos y dependencias de aprobación verbal." },
+      { day: "Día 5", title: "Matriz Preliminar de Viabilidad & Datos", tag: "Datos", desc: "Verificación de la existencia de datos históricos y extracción de los primeros 1,000 registros para el Golden Dataset." },
+      { day: "Día 6", title: "Arquitectura Híbrida (70% Determinista)", tag: "Ingeniería", desc: "Separar la lógica determinista (Python/APIs) del componente agéntico para garantizar estabilidad." },
+      { day: "Día 7", title: "Esquemas Estrictos & Validaciones JSON", tag: "Seguridad", desc: "Diseño de interfaces de datos que prohíben texto libre en la orquestación y conectan con el ERP/CRM existente." },
+      { day: "Día 8", title: "Protocolo de Evals & Consola Humana (HITL)", tag: "Gobernanza", desc: "Diseño del arnés de evaluación y de la interfaz donde el personal humano aprueba o rechaza los borradores." },
+      { day: "Días 9-10", title: "Modelado de ROI & Defensa Ejecutiva", tag: "C-Level Pitch", desc: "Presentación final del Blueprint, demostración técnica en vivo y propuesta de despliegue con payback comprobable." }
+    ];
+
+    function renderSprintDays() {
+      const container = document.getElementById('sprint-days-list');
+      if (!container) return;
+      container.innerHTML = sprintSchedule.map(item => `
+        <div class="p-3 bg-slate-900/80 rounded-xl border border-slate-800 hover:border-slate-700 transition-colors flex items-start justify-between gap-3">
+          <div class="space-y-1">
+            <div class="flex items-center gap-2">
+              <span class="text-xs font-mono font-bold text-accent-cyan">${item.day}:</span>
+              <span class="text-xs font-bold text-white">${item.title}</span>
+            </div>
+            <p class="text-[11px] text-slate-400 leading-relaxed">${item.desc}</p>
+          </div>
+          <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300 border border-slate-700 flex-shrink-0">${item.tag}</span>
+        </div>
+      `).join('');
+    }
+
+    function calculateROI() {
+      const hours = parseFloat(document.getElementById('calc-hours').value) || 0;
+      const hourlyRate = parseFloat(document.getElementById('calc-hourly-rate').value) || 0;
+      const automationPct = parseFloat(document.getElementById('calc-automation-pct').value) || 0;
+      const apiCostMonthly = parseFloat(document.getElementById('calc-api-cost').value) || 0;
+      const projectCost = parseFloat(document.getElementById('calc-project-cost').value) || 0;
+
+      // Update slider label
+      const valEl = document.getElementById('calc-automation-val');
+      if (valEl) valEl.textContent = `${automationPct}%`;
+
+      const hoursSavedMonthly = hours * (automationPct / 100);
+      const grossMonthlySavings = hoursSavedMonthly * hourlyRate;
+      const netMonthlySavings = Math.max(0, grossMonthlySavings - apiCostMonthly);
+      const netAnnualSavings = netMonthlySavings * 12;
+
+      let paybackMonths = 0;
+      if (netMonthlySavings > 0) {
+        paybackMonths = (projectCost / netMonthlySavings).toFixed(1);
+      }
+
+      document.getElementById('res-monthly-gross').textContent = `$${Math.round(grossMonthlySavings).toLocaleString('en-US')}`;
+      document.getElementById('res-hours-saved').textContent = `${Math.round(hoursSavedMonthly)} hrs/mes liberadas`;
+      document.getElementById('res-annual-net').textContent = `$${Math.round(netAnnualSavings).toLocaleString('en-US')}`;
+      document.getElementById('res-payback').textContent = `${paybackMonths} meses`;
+    }
+
+    function loadCaseTemplate(index) {
+      const templates = {
+        1: { name: "Conciliación de Cuentas & ERP", hours: 380, rate: 25, errCur: 12, errFut: 0.8, auto: 75, api: 180, cost: 22000 },
+        2: { name: "Extracción y Validación Legal/Normativa", hours: 220, rate: 35, errCur: 18, errFut: 0.5, auto: 70, api: 95, cost: 18000 },
+        3: { name: "Clasificación y Ruteo de Correos y Adjuntos", hours: 140, rate: 22, errCur: 15, errFut: 2.0, auto: 80, api: 40, cost: 12000 },
+        4: { name: "Generación Automatizada de Reportes BI", hours: 60, rate: 30, errCur: 5, errFut: 0.1, auto: 60, api: 240, cost: 25000 }
+      };
+      const t = templates[index];
+      if (!t) return;
+
+      document.getElementById('calc-case-name').value = t.name;
+      document.getElementById('calc-hours').value = t.hours;
+      document.getElementById('calc-hourly-rate').value = t.rate;
+      document.getElementById('calc-error-current').value = t.errCur;
+      document.getElementById('calc-error-future').value = t.errFut;
+      document.getElementById('calc-automation-pct').value = t.auto;
+      document.getElementById('calc-api-cost').value = t.api;
+      document.getElementById('calc-project-cost').value = t.cost;
+
+      calculateROI();
+      showToast(`Cargada plantilla: ${t.name}`, 'info');
+    }
+
+    const happyPayload = {
+      transaction_id: "TX-99824",
+      sender: "proveedor_auditado@acme.corp",
+      attachment: "invoice_2026_03.pdf",
+      raw_amount: "$42,500.00",
+      po_reference: "PO-7712",
+      metadata: { department: "Logística", exception_flag: false }
+    };
+
+    const unhappyPayload = {
+      transaction_id: "TX-99825",
+      sender: "ventas_externas_no_verif@unknown.net",
+      attachment: "captura_pantalla_recibo.png",
+      raw_amount: "Aprox cuarenta mil dólares",
+      po_reference: null,
+      metadata: { department: "Desconocido", note: "Sarah dio el visto bueno verbalmente" }
+    };
+
+    function initSimulator() {
+      const inputEl = document.getElementById('sim-input-json');
+      if (inputEl) {
+        inputEl.value = JSON.stringify(happyPayload, null, 2);
+      }
+    }
+
+    function logTerminal(msg, type = "info") {
+      const term = document.getElementById('sim-terminal');
+      if (!term) return;
+      const time = new Date().toISOString().substring(11, 19);
+      let color = "text-slate-300";
+      let icon = "fa-circle-info";
+
+      if (type === "success") { color = "text-emerald-400"; icon = "fa-check"; }
+      if (type === "warn") { color = "text-amber-400"; icon = "fa-triangle-exclamation"; }
+      if (type === "error") { color = "text-rose-400"; icon = "fa-circle-xmark"; }
+      if (type === "ai") { color = "text-cyan-400"; icon = "fa-brain"; }
+      if (type === "sys") { color = "text-purple-400"; icon = "fa-gear"; }
+
+      const line = document.createElement('div');
+      line.className = `flex items-start gap-2 py-0.5 ${color}`;
+      line.innerHTML = `
+        <span class="text-slate-600 font-mono select-none">[${time}]</span>
+        <i class="fa-solid ${icon} mt-0.5 text-[10px]"></i>
+        <span class="flex-1">${msg}</span>
+      `;
+      term.appendChild(line);
+      term.scrollTop = term.scrollHeight;
+    }
+
+    function clearTerminal() {
+      const term = document.getElementById('sim-terminal');
+      if (term) term.innerHTML = '<p class="text-slate-500">// Terminal de ejecución reiniciada.</p>';
+      const hitlBar = document.getElementById('hitl-action-bar');
+      if (hitlBar) hitlBar.classList.add('hidden');
+    }
+
+    function runSimulation(mode) {
+      clearTerminal();
+      const inputEl = document.getElementById('sim-input-json');
+      const isHappy = mode === 'happy';
+      inputEl.value = JSON.stringify(isHappy ? happyPayload : unhappyPayload, null, 2);
+
+      logTerminal("Iniciando pipeline de ejecución Forward Deployed...", "sys");
+      setTimeout(() => {
+        logTerminal("Capa 1: Ingesta determinista completada. Validando sintaxis MIME.", "info");
+      }, 400);
+
+      setTimeout(() => {
+        if (isHappy) {
+          logTerminal("Esquema estructural válido. Disparando agente de extracción estructurada.", "ai");
+          setTimeout(() => {
+            logTerminal("LLM Tool Execution: get_po_status('PO-7712') -> STATUS: OPEN.", "sys");
+            logTerminal("Extracción validada contra JSON Schema corporativo.", "success");
+            logTerminal("Auto-Commit a ERP NetSuite autorizado sin intervención humana. Tiempo: 1.2s", "success");
+          }, 800);
+        } else {
+          logTerminal("ALERTA UNHAPPY PATH: Formato no determinista detectado ('captura_pantalla_recibo.png').", "warn");
+          logTerminal("Monto cualitativo ambiguo: 'Aprox cuarenta mil dólares'.", "warn");
+          setTimeout(() => {
+            logTerminal("Intercepción de Guardrail FDE: La regla exige PO_REFERENCE no nulo.", "error");
+            logTerminal("Enrutando de forma segura a la cola Human-In-The-Loop (HITL)...", "warn");
+            const hitlBar = document.getElementById('hitl-action-bar');
+            if (hitlBar) hitlBar.classList.remove('hidden');
+          }, 700);
+        }
+      }, 900);
+    }
+
+    function hitlAction(action) {
+      const hitlBar = document.getElementById('hitl-action-bar');
+      if (hitlBar) hitlBar.classList.add('hidden');
+
+      if (action === 'approve') {
+        logTerminal("HUMAN-IN-THE-LOOP: Operador humano autorizó la transacción tras verificación telefónica.", "success");
+        logTerminal("Audit Trail actualizado con ID de empleado #8812. Transacción completada en ERP.", "success");
+        showToast("Transacción validada por operador humano", "success");
+      } else {
+        logTerminal("HUMAN-IN-THE-LOOP: Operador humano rechazó la transacción. Alerta de seguridad emitida.", "error");
+        logTerminal("Excepción registrada en el Golden Dataset para reentrenamiento del arnés.", "sys");
+        showToast("Transacción rechazada y archivada para evals", "warn");
+      }
+    }
+
+    function switchTab(tabId) {
+      document.querySelectorAll('.tab-pane').forEach(el => el.classList.add('hidden'));
+      const activePane = document.getElementById(`tab-${tabId}`);
+      if (activePane) activePane.classList.remove('hidden');
+
+      // Update Desktop Nav styles
+      document.querySelectorAll('.nav-btn').forEach(btn => {
+        if (btn.dataset.tab === tabId) {
+          btn.className = "nav-btn px-3 py-2 rounded-lg text-xs font-semibold flex items-center gap-2 text-white bg-slate-800/80 border border-slate-700 shadow-sm";
+        } else {
+          btn.className = "nav-btn px-3 py-2 rounded-lg text-xs font-semibold flex items-center gap-2 text-slate-400 hover:text-slate-200 hover:bg-slate-800/50 transition-colors";
+        }
+      });
+
+      // Update Mobile Nav styles
+      document.querySelectorAll('[data-mobile-tab]').forEach(btn => {
+        if (btn.dataset.mobileTab === tabId) {
+          btn.className = "flex-shrink-0 px-3 py-1.5 rounded-lg bg-slate-800 text-white font-medium border border-slate-700";
+        } else {
+          btn.className = "flex-shrink-0 px-3 py-1.5 rounded-lg text-slate-400 hover:bg-slate-800 font-medium";
+        }
+      });
+    }
+
+    function showToast(message, type = 'success') {
+      const toast = document.getElementById('toast');
+      const msg = document.getElementById('toast-msg');
+      const icon = document.getElementById('toast-icon');
+      if (!toast || !msg) return;
+
+      msg.textContent = message;
+      if (type === 'success') {
+        icon.className = "fa-solid fa-circle-check text-emerald-400 text-sm";
+      } else if (type === 'warn') {
+        icon.className = "fa-solid fa-triangle-exclamation text-amber-400 text-sm";
+      } else {
+        icon.className = "fa-solid fa-circle-info text-cyan-400 text-sm";
+      }
+
+      toast.classList.remove('translate-y-20', 'opacity-0');
+      toast.classList.add('translate-y-0', 'opacity-100');
+
+      setTimeout(() => {
+        toast.classList.remove('translate-y-0', 'opacity-100');
+        toast.classList.add('translate-y-20', 'opacity-0');
+      }, 3000);
+    }
+
+    function copyToClipboard(text, successMsg) {
+      const temp = document.createElement('textarea');
+      temp.value = text;
+      document.body.appendChild(temp);
+      temp.select();
+      try {
+        document.execCommand('copy');
+        showToast(successMsg || "Copiado al portapapeles", "success");
+      } catch (err) {
+        showToast("Error al copiar", "warn");
+      }
+      document.body.removeChild(temp);
+    }
+
+    function copySprintProposal() {
+      const text = `PROPUESTA TÉCNICA Y COMERCIAL: AI DESIGN SPRINT (2 SEMANAS)
+Cliente: [Nombre de la Empresa]
+Consultor: Leonardo - Edentia FDE Practice
+
+OBJETIVO:
+Diagnóstico inmersivo en campo de 10 días para identificar cuellos de botella no documentados, mitigar el riesgo de pilotos fallidos y entregar un Blueprint de Arquitectura Híbrida con Matriz de ROI verificable antes de desplegar software.
+
+CRONOGRAMA (10 DÍAS):
+• Semana 1 (Inmersión): Alineación C-Level, shadowing presencial en puesto de trabajo, mapeo de excepciones (unhappy paths) y recopilación del Golden Dataset.
+• Semana 2 (Arquitectura): Separación determinista (70%) vs. agéntica (30%), esquemas JSON validados, protocolo de Evals y consola Human-in-the-Loop (HITL).
+
+ENTREGABLES CLAVE:
+1. Blueprint Operacional de Procesos Reales
+2. Matriz de Priorización y ROI Financiero para CFO
+3. Arquitectura Técnica de Integración sobre ERP/CRM existente
+4. Golden Dataset y Banco de Pruebas de Calidad (Evals)`;
+
+      copyToClipboard(text, "Propuesta completa del Sprint copiada");
+    }
+
+    function copyPitchSnippet(tier) {
+      let text = "";
+      if (tier === 'tier1') {
+        text = `"No construimos software a ciegas ni forzamos migraciones que pongan en riesgo su operación. Nuestro AI Design Sprint de 2 semanas diagnostica cómo fluye realmente el trabajo en campo y le entrega a su comité directivo una matriz de ROI demostrable y una arquitectura de bajo riesgo antes de invertir en licencias o cómputo masivo."`;
+      } else if (tier === 'tier2') {
+        text = `"Construimos una capa de agentes de software que se integra directamente sobre su ERP actual (NetSuite/SAP/Salesforce) mediante esquemas seguros y aprobación humana obligatoria. Garantizamos que el 70% de la lógica sea determinista para erradicar alucinaciones en tareas críticas."`;
+      } else {
+        text = `"La inteligencia artificial en producción requiere supervisión viva. Con nuestro servicio de Evals y Gobernanza, monitoreamos las desviaciones de precisión semanalmente, optimizamos sus costos de inferencia ruteando subtareas a modelos económicos y blindamos su operación contra fallos imprevistos."`;
+      }
+      copyToClipboard(text, "Pitch comercial copiado para WhatsApp/Email");
+    }
+
+    // Initialize application on load
+    window.onload = function() {
+      renderRoadmap();
+      renderSprintDays();
+      calculateROI();
+      initSimulator();
+    };
+  </script>
+</body>
+</html>

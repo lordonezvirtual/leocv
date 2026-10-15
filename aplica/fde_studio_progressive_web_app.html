@@ -1,0 +1,918 @@
+<!DOCTYPE html>
+<html lang="es" class="h-full">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="theme-color" content="#0f172a">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="FDE Studio">
+  <title>FDE Studio | AI Operational Suite para Edentia & Leonardo</title>
+  
+  <link rel="manifest" href="data:application/manifest+json;base64,ewogICJuYW1lIjogIkZERSBTdHVkaW8gfCBBSSBPcGVyYXRpb25hbCBTdWl0ZSIsCiAgInNob3J0X25hbWUiOiAiRkRFIFN0dWRpbyIsCiAgInN0YXJ0X3VybCI6ICIvIiwKICAiZGlzcGxheSI6ICJzdGFuZGFsb25lIiwKICAiYmFja2dyb3VuZF9jb2xvciI6ICIjMGYxNzJhIiwKICAidGhlbWVfY29sb3IiOiAiIzBmMTcyYSIKfQ==">
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+          },
+          colors: {
+            brand: {
+              50: '#eef2ff',
+              100: '#e0e7ff',
+              500: '#6366f1',
+              600: '#4f46e5',
+              700: '#4338ca',
+              900: '#1e1b4b',
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    /* Custom scrollbars and transitions */
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: #0f172a; }
+    ::-webkit-scrollbar-thumb { background: #334155; border-radius: 9999px; }
+    ::-webkit-scrollbar-thumb:hover { background: #475569; }
+    .glass-card {
+      background: rgba(30, 41, 59, 0.7);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .active-tab {
+      background: #4f46e5;
+      color: #ffffff;
+      box-shadow: 0 4px 14px 0 rgba(79, 70, 229, 0.39);
+    }
+  </style>
+</head>
+<body class="bg-slate-950 text-slate-100 font-sans h-full flex flex-col antialiased selection:bg-brand-500 selection:text-white">
+
+  <header class="bg-slate-900/90 border-b border-slate-800 sticky top-0 z-40 backdrop-blur-md">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-16">
+      <div class="flex items-center space-x-3">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-indigo-600 via-brand-500 to-cyan-400 flex items-center justify-center shadow-lg shadow-indigo-500/20">
+          <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+          </svg>
+        </div>
+        <div>
+          <div class="flex items-center space-x-2">
+            <span class="font-black text-lg tracking-tight bg-gradient-to-r from-white via-slate-200 to-slate-400 bg-clip-text text-transparent">FDE Studio</span>
+            <span class="text-[10px] font-bold uppercase tracking-wider bg-indigo-500/20 text-indigo-300 px-2 py-0.5 rounded-full border border-indigo-500/30">Edentia Pro</span>
+          </div>
+          <p class="text-xs text-slate-400">Forward Deployed Engineering Suite • Leonardo</p>
+        </div>
+      </div>
+
+      <div class="flex items-center space-x-2">
+        <button id="pwa-install-btn" class="hidden sm:inline-flex items-center space-x-1.5 px-3 py-1.5 rounded-lg text-xs font-medium bg-slate-800 text-indigo-300 hover:bg-slate-700 border border-slate-700 transition">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+          <span>Instalar PWA</span>
+        </button>
+        <button onclick="app.showToast('Modo sin conexión listo: Todos los datos se guardan localmente.')" class="p-2 rounded-lg bg-slate-800/80 text-emerald-400 hover:bg-slate-700 border border-slate-700 transition" title="Estado PWA Offline">
+          <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 8 8"><circle cx="4" cy="4" r="3"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <nav class="border-t border-slate-800/60 bg-slate-900/50 px-4 sm:px-6 overflow-x-auto">
+      <div class="max-w-7xl mx-auto flex space-x-2 py-2 text-sm font-medium whitespace-nowrap">
+        <button onclick="app.switchTab('tripartite')" id="tab-btn-tripartite" class="tab-btn active-tab px-3.5 py-1.5 rounded-lg transition-all flex items-center space-x-2">
+          <span>⚙️ Filtro Tripartito</span>
+        </button>
+        <button onclick="app.switchTab('roi')" id="tab-btn-roi" class="tab-btn px-3.5 py-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800/60 transition-all flex items-center space-x-2">
+          <span>📊 Calculadora ROI & Error</span>
+        </button>
+        <button onclick="app.switchTab('auditor')" id="tab-btn-auditor" class="tab-btn px-3.5 py-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800/60 transition-all flex items-center space-x-2">
+          <span>📝 Auditoría de Campo</span>
+        </button>
+        <button onclick="app.switchTab('roadmap')" id="tab-btn-roadmap" class="tab-btn px-3.5 py-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800/60 transition-all flex items-center space-x-2">
+          <span>🚀 Roadmap & Adopción</span>
+        </button>
+        <button onclick="app.switchTab('knowledge')" id="tab-btn-knowledge" class="tab-btn px-3.5 py-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800/60 transition-all flex items-center space-x-2">
+          <span>📚 Notas & Casos FDE</span>
+        </button>
+        <button onclick="app.switchTab('ai-pitch')" id="tab-btn-ai-pitch" class="tab-btn px-3.5 py-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800/60 transition-all flex items-center space-x-2">
+          <span>✨ Generador Gemini</span>
+        </button>
+      </div>
+    </nav>
+  </header>
+
+  <main class="flex-1 overflow-y-auto pb-12 pt-6 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full">
+    
+    <!-- ==================== TAB 1: FILTRO TRIPARTITO ==================== -->
+    <section id="view-tripartite" class="tab-view block space-y-6">
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-gradient-to-r from-slate-900 to-indigo-950 p-6 rounded-2xl border border-indigo-500/20 shadow-xl">
+        <div>
+          <span class="text-xs font-semibold text-indigo-400 uppercase tracking-widest">Metodología Central de Mosa & OpenAI</span>
+          <h1 class="text-2xl sm:text-3xl font-bold tracking-tight text-white mt-1">El Filtro Tripartito de Procesos</h1>
+          <p class="text-slate-300 text-sm mt-1 max-w-2xl">
+            Evita el fallo del 95% de proyectos (MIT). Desglosa el flujo del cliente en sus pasos atómicos y clasifica qué corresponde a software determinista, qué a modelos LLM y qué debe permanecer con validación humana según el costo de error.
+          </p>
+        </div>
+        <button onclick="app.resetDemoSteps()" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-sm font-semibold shadow-md transition whitespace-nowrap">
+          Cargar Caso Reembolsos
+        </button>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+        <div class="glass-card p-4 rounded-xl border-l-4 border-l-blue-500">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-bold uppercase text-blue-400">Software Determinista</span>
+            <span id="count-software" class="text-xl font-bold text-white">0</span>
+          </div>
+          <p class="text-xs text-slate-400 mt-1">Reglas fijas, 100% predecible, sin alucinación.</p>
+        </div>
+        <div class="glass-card p-4 rounded-xl border-l-4 border-l-purple-500">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-bold uppercase text-purple-400">Modelo / Agente LLM</span>
+            <span id="count-ai" class="text-xl font-bold text-white">0</span>
+          </div>
+          <p class="text-xs text-slate-400 mt-1">Lenguaje no estructurado, juicio difuso.</p>
+        </div>
+        <div class="glass-card p-4 rounded-xl border-l-4 border-l-amber-500">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-bold uppercase text-amber-400">Humano en el Bucle</span>
+            <span id="count-human" class="text-xl font-bold text-white">0</span>
+          </div>
+          <p class="text-xs text-slate-400 mt-1">Alto costo de error, decisión de negocio.</p>
+        </div>
+      </div>
+
+      <div class="glass-card p-6 rounded-2xl space-y-6">
+        <h2 class="text-lg font-bold text-white flex items-center justify-between">
+          <span>Pasos del Proceso Auditado</span>
+          <button onclick="app.addNewStepModal()" class="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-indigo-300 border border-slate-700 rounded-lg text-xs font-semibold flex items-center space-x-1">
+            <span>+ Agregar Paso</span>
+          </button>
+        </h2>
+
+        <div id="steps-container" class="space-y-3">
+          <!-- Populated dynamically via JS -->
+        </div>
+
+        <div class="mt-8 pt-6 border-t border-slate-800">
+          <h3 class="text-sm font-semibold uppercase tracking-wider text-slate-400 mb-3">Diagrama de Ejecución Proyectado</h3>
+          <div id="visual-pipeline" class="p-4 bg-slate-900/90 rounded-xl border border-slate-800 flex flex-wrap items-center gap-2 overflow-x-auto min-h-[70px]">
+            <!-- Visual pills generated via JS -->
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== TAB 2: CALCULADORA ROI & ERROR ==================== -->
+    <section id="view-roi" class="tab-view hidden space-y-6">
+      <div class="bg-gradient-to-r from-slate-900 to-emerald-950 p-6 rounded-2xl border border-emerald-500/20 shadow-xl">
+        <span class="text-xs font-semibold text-emerald-400 uppercase tracking-widest">La Métrica de Cursor & Palantir</span>
+        <h1 class="text-2xl sm:text-3xl font-bold tracking-tight text-white mt-1">Calculadora de ROI & Costo de Error</h1>
+        <p class="text-slate-300 text-sm mt-1 max-w-2xl">
+          "El cliente de Cursor pagaba $2.000/día por un agente y se quejaba, hasta que comprendió que enviar al técnico equivocado le costaba más de $2.000 por fallo". Demuestra el retorno tangible para cerrar contratos en Edentia.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        <!-- Input Form -->
+        <div class="lg:col-span-6 glass-card p-6 rounded-2xl space-y-4">
+          <h2 class="text-base font-bold text-white border-b border-slate-800 pb-2">Variables del Proceso Actual</h2>
+          
+          <div>
+            <label class="block text-xs font-semibold text-slate-300 mb-1">Volumen mensual de repeticiones (tickets, mensajes, cotizaciones)</label>
+            <input type="number" id="roi-volume" value="4500" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-white font-mono text-sm focus:border-indigo-500 focus:outline-none" oninput="app.calculateROI()">
+          </div>
+
+          <div class="grid grid-cols-2 gap-4">
+            <div>
+              <label class="block text-xs font-semibold text-slate-300 mb-1">Minutos manuales / tarea</label>
+              <input type="number" id="roi-time-task" value="12" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-white font-mono text-sm focus:border-indigo-500 focus:outline-none" oninput="app.calculateROI()">
+            </div>
+            <div>
+              <label class="block text-xs font-semibold text-slate-300 mb-1">Costo hora operador ($USD)</label>
+              <input type="number" id="roi-hourly-rate" value="18" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-white font-mono text-sm focus:border-indigo-500 focus:outline-none" oninput="app.calculateROI()">
+            </div>
+          </div>
+
+          <div class="grid grid-cols-2 gap-4">
+            <div>
+              <label class="block text-xs font-semibold text-slate-300 mb-1">Tasa histórica de error (%)</label>
+              <input type="number" id="roi-error-rate" value="4.5" step="0.1" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-white font-mono text-sm focus:border-indigo-500 focus:outline-none" oninput="app.calculateROI()">
+            </div>
+            <div>
+              <label class="block text-xs font-semibold text-slate-300 mb-1">Costo medio por error ($USD)</label>
+              <input type="number" id="roi-error-cost" value="250" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-white font-mono text-sm focus:border-indigo-500 focus:outline-none" oninput="app.calculateROI()">
+            </div>
+          </div>
+
+          <div class="pt-2 border-t border-slate-800">
+            <h3 class="text-xs font-bold text-indigo-400 uppercase tracking-wider mb-2">Costos Estimados de la Solución FDE (Edentia)</h3>
+            <div class="grid grid-cols-2 gap-4">
+              <div>
+                <label class="block text-xs font-semibold text-slate-300 mb-1">Honorario Consultoría / Mes</label>
+                <input type="number" id="roi-consulting-fee" value="3200" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-white font-mono text-sm focus:border-indigo-500 focus:outline-none" oninput="app.calculateROI()">
+              </div>
+              <div>
+                <label class="block text-xs font-semibold text-slate-300 mb-1">Costos de Inferencia / API / Mes</label>
+                <input type="number" id="roi-api-cost" value="450" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-white font-mono text-sm focus:border-indigo-500 focus:outline-none" oninput="app.calculateROI()">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Output Cards -->
+        <div class="lg:col-span-6 space-y-4">
+          <div class="glass-card p-6 rounded-2xl border-l-4 border-l-emerald-500">
+            <span class="text-xs font-bold uppercase text-emerald-400 tracking-wider">Ahorro Neto Mensual Proyectado</span>
+            <div id="metric-net-savings" class="text-4xl font-extrabold text-white mt-1 font-mono">$0 USD</div>
+            <p class="text-xs text-slate-400 mt-2">Diferencia entre el costo actual (labor + errores) y la solución FDE operando en producción.</p>
+          </div>
+
+          <div class="grid grid-cols-2 gap-4">
+            <div class="glass-card p-4 rounded-xl">
+              <span class="text-xs font-bold uppercase text-indigo-400">Horas Liberadas / Mes</span>
+              <div id="metric-hours-saved" class="text-2xl font-bold text-white mt-1 font-mono">0 h</div>
+              <p class="text-[11px] text-slate-400 mt-1">Tiempo rescatado para tareas de alto valor.</p>
+            </div>
+            <div class="glass-card p-4 rounded-xl">
+              <span class="text-xs font-bold uppercase text-cyan-400">ROI Estimado Anual</span>
+              <div id="metric-roi-percent" class="text-2xl font-bold text-white mt-1 font-mono">0%</div>
+              <p class="text-[11px] text-slate-400 mt-1">Retorno sobre inversión de consultoría.</p>
+            </div>
+          </div>
+
+          <div class="glass-card p-5 rounded-xl border border-slate-800">
+            <h3 class="text-xs font-bold text-slate-300 uppercase tracking-wider mb-2">Desglose Financiero Comparativo</h3>
+            <div class="space-y-2 text-xs">
+              <div class="flex justify-between py-1 border-b border-slate-800/60">
+                <span class="text-slate-400">Costo actual por horas hombre:</span>
+                <span id="metric-labor-cost" class="font-mono text-white">$0</span>
+              </div>
+              <div class="flex justify-between py-1 border-b border-slate-800/60">
+                <span class="text-slate-400">Pérdidas actuales por tasa de error:</span>
+                <span id="metric-losses-cost" class="font-mono text-red-400">$0</span>
+              </div>
+              <div class="flex justify-between py-1 border-b border-slate-800/60">
+                <span class="text-slate-400">Costo total actual del cliente:</span>
+                <span id="metric-total-current" class="font-mono font-bold text-slate-200">$0</span>
+              </div>
+              <div class="flex justify-between py-1 text-emerald-400 font-semibold pt-1">
+                <span>Inversión con Edentia + APIs:</span>
+                <span id="metric-solution-cost" class="font-mono">$0</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== TAB 3: AUDITORÍA DE CAMPO ==================== -->
+    <section id="view-auditor" class="tab-view hidden space-y-6">
+      <div class="bg-gradient-to-r from-slate-900 to-blue-950 p-6 rounded-2xl border border-blue-500/20 shadow-xl">
+        <span class="text-xs font-semibold text-blue-400 uppercase tracking-widest">Protocolo de Shadowing en Vivo</span>
+        <h1 class="text-2xl sm:text-3xl font-bold tracking-tight text-white mt-1">Hoja de Trabajo de Auditoría FDE</h1>
+        <p class="text-slate-300 text-sm mt-1 max-w-2xl">
+          El primer cuello de botella de Vasuman Mosa: pasar 1 hora sentado al lado de quien ejecuta la tarea repetitiva para desenterrar los parches invisibles (workarounds) que el manual oficial ignora.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <!-- Checklist Guide -->
+        <div class="glass-card p-6 rounded-2xl space-y-4">
+          <h2 class="text-base font-bold text-white flex items-center space-x-2">
+            <span>Guía de Observación Activa</span>
+          </h2>
+          <div class="space-y-3 text-xs text-slate-300">
+            <div class="p-3 bg-slate-900/80 rounded-xl border border-slate-800">
+              <span class="font-bold text-indigo-400 block mb-1">1. Detección de parches tácitos</span>
+              Pregunta ante cada atajo: <em>"¿Por qué haces eso de esa forma?"</em>. Si dicen "porque siempre se hizo así", encontraste un parche no formalizado.
+            </div>
+            <div class="p-3 bg-slate-900/80 rounded-xl border border-slate-800">
+              <span class="font-bold text-indigo-400 block mb-1">2. Puntos de verificación humana</span>
+              Identifica dónde el operador hace doble clic o pausa para confirmar datos (ejemplo Palantir). Conserva esa confirmación visual.
+            </div>
+            <div class="p-3 bg-slate-900/80 rounded-xl border border-slate-800">
+              <span class="font-bold text-indigo-400 block mb-1">3. Integraciones de hecho</span>
+              ¿Copian y pegan entre Notion, correo, Excel y su ERP? Los agentes se montarán allí vía MCP, nunca forzando nueva app.
+            </div>
+          </div>
+        </div>
+
+        <!-- Audit Form -->
+        <div class="lg:col-span-2 glass-card p-6 rounded-2xl space-y-4">
+          <h2 class="text-base font-bold text-white">Formulario de Registro de Auditoría para Edentia</h2>
+          
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label class="block text-xs font-semibold text-slate-300 mb-1">Empresa / Cliente</label>
+              <input type="text" id="audit-company" placeholder="Ej. Distribuidora del Norte S.A." class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-white text-sm focus:border-indigo-500 focus:outline-none">
+            </div>
+            <div>
+              <label class="block text-xs font-semibold text-slate-300 mb-1">Área Auditada</label>
+              <input type="text" id="audit-dept" placeholder="Ej. Cuentas por Cobrar & Facturación" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-white text-sm focus:border-indigo-500 focus:outline-none">
+            </div>
+          </div>
+
+          <div>
+            <label class="block text-xs font-semibold text-slate-300 mb-1">Sistemas Legados Actuales (No reemplazables)</label>
+            <input type="text" id="audit-systems" placeholder="Ej. SAP R/3, Google Sheets, Outlook, Slack, WhatsApp" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-white text-sm focus:border-indigo-500 focus:outline-none">
+          </div>
+
+          <div>
+            <label class="block text-xs font-semibold text-slate-300 mb-1">Parches y Excepciones Ocultas Descubiertas</label>
+            <textarea id="audit-workarounds" rows="3" placeholder="Ej. Si la factura supera $5.000, la persona revisa manualmente en WhatsApp si el director comercial dio visto bueno antes de radicarla..." class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-white text-sm focus:border-indigo-500 focus:outline-none"></textarea>
+          </div>
+
+          <div class="flex flex-wrap gap-2 pt-2">
+            <button onclick="app.saveAuditDraft()" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-xs font-bold shadow-md transition">
+              Guardar Auditoría Local
+            </button>
+            <button onclick="app.exportAuditMarkdown()" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 rounded-xl text-xs font-bold transition">
+              Exportar a Markdown
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== TAB 4: ROADMAP & ADOPCIÓN ==================== -->
+    <section id="view-roadmap" class="tab-view hidden space-y-6">
+      <div class="bg-gradient-to-r from-slate-900 to-purple-950 p-6 rounded-2xl border border-purple-500/20 shadow-xl">
+        <span class="text-xs font-semibold text-purple-400 uppercase tracking-widest">Cronograma Real de un FDE</span>
+        <h1 class="text-2xl sm:text-3xl font-bold tracking-tight text-white mt-1">El Factor Confianza: 6-8 Semanas de Código vs. 4 Meses de Adopción</h1>
+        <p class="text-slate-300 text-sm mt-1 max-w-2xl">
+          El error fatal del consultor tradicional es marcharse cuando el código funciona. En el megabanco con OpenAI, construir el sistema tomó 8 semanas; lograr que 98% de los asesores confiaran en él tomó 4 meses de calibración.
+        </p>
+      </div>
+
+      <!-- Roadmap Timeline Cards -->
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+        <div class="glass-card p-5 rounded-2xl border-t-4 border-t-indigo-500 space-y-2">
+          <span class="text-[10px] font-bold uppercase tracking-wider text-indigo-400 bg-indigo-500/20 px-2 py-0.5 rounded">Semanas 1 - 2</span>
+          <h3 class="font-bold text-white text-base">1. Shadowing & Auditoría</h3>
+          <p class="text-xs text-slate-300">Sentarse con los operadores. Mapear pasos atómicos, parches manuales y calcular ROI cuantificable.</p>
+          <div class="text-[11px] text-slate-400 pt-2 border-t border-slate-800">
+            <strong>Entregable:</strong> Documento de Auditoría FDE y Matriz Tripartita.
+          </div>
+        </div>
+
+        <div class="glass-card p-5 rounded-2xl border-t-4 border-t-cyan-500 space-y-2">
+          <span class="text-[10px] font-bold uppercase tracking-wider text-cyan-400 bg-cyan-500/20 px-2 py-0.5 rounded">Semanas 3 - 6</span>
+          <h3 class="font-bold text-white text-base">2. Prototipado Ágil FDE</h3>
+          <p class="text-xs text-slate-300">Sin perfeccionismo de 10 años. Construcción rápida con Claude Code y conexión MCP a sistemas existentes.</p>
+          <div class="text-[11px] text-slate-400 pt-2 border-t border-slate-800">
+            <strong>Entregable:</strong> Prototipo funcional montado sobre su Notion/ERP/Slack.
+          </div>
+        </div>
+
+        <div class="glass-card p-5 rounded-2xl border-t-4 border-t-amber-500 space-y-2">
+          <span class="text-[10px] font-bold uppercase tracking-wider text-amber-400 bg-amber-500/20 px-2 py-0.5 rounded">Semanas 7 - 8</span>
+          <h3 class="font-bold text-white text-base">3. Evals & Casos Límite</h3>
+          <p class="text-xs text-slate-300">Corrida por lotes con 200-500 casos históricos reales. Medir precisión y corregir alucinaciones en casos raros.</p>
+          <div class="text-[11px] text-slate-400 pt-2 border-t border-slate-800">
+            <strong>Entregable:</strong> Benchmark de precisión >95% antes de tocar usuarios.
+          </div>
+        </div>
+
+        <div class="glass-card p-5 rounded-2xl border-t-4 border-t-emerald-500 space-y-2">
+          <span class="text-[10px] font-bold uppercase tracking-wider text-emerald-400 bg-emerald-500/20 px-2 py-0.5 rounded">Meses 3 - 5</span>
+          <h3 class="font-bold text-white text-base">4. Trust Building & Escala</h3>
+          <p class="text-xs text-slate-300">El proceso se mantiene visualmente idéntico paso a paso. Pilotos progresivos con humanos validando la inferencia.</p>
+          <div class="text-[11px] text-slate-400 pt-2 border-t border-slate-800">
+            <strong>Entregable:</strong> Adopción orgánica >90% sin resistencia al cambio.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== TAB 5: NOTAS & CASOS FDE ==================== -->
+    <section id="view-knowledge" class="tab-view hidden space-y-6">
+      <div class="flex items-center justify-between bg-slate-900 p-6 rounded-2xl border border-slate-800">
+        <div>
+          <h1 class="text-2xl font-bold text-white">Base de Conocimiento y Casos Reales</h1>
+          <p class="text-xs text-slate-400 mt-1">Transcripción estructurada, datos verificados y citas textuales de OpenAI, Anthropic y Palantir.</p>
+        </div>
+        <div class="relative w-64">
+          <input type="text" id="kb-search" oninput="app.filterKnowledge()" placeholder="Buscar concepto o timestamp..." class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-1.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500">
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="kb-grid">
+        <!-- Cards generated dynamically or static with high fidelity -->
+        <div class="kb-card glass-card p-5 rounded-2xl space-y-2 border-l-4 border-l-red-500">
+          <div class="flex justify-between items-center text-xs">
+            <span class="font-mono text-red-400 font-semibold">[00:03:54] El Fracaso del 95%</span>
+            <span class="text-slate-400">Estudio MIT</span>
+          </div>
+          <p class="text-xs text-slate-300 leading-relaxed">
+            300 proyectos estudiados: 95% no generó retorno financiero. La causa: herramientas genéricas desconectadas de cómo opera el negocio real, montadas sobre procesos descompuestos sin auditoría previa.
+          </p>
+        </div>
+
+        <div class="kb-card glass-card p-5 rounded-2xl space-y-2 border-l-4 border-l-indigo-500">
+          <div class="flex justify-between items-center text-xs">
+            <span class="font-mono text-indigo-400 font-semibold">[00:05:06] El Doble Clic de Palantir</span>
+            <span class="text-slate-400">Parches Invisibles</span>
+          </div>
+          <p class="text-xs text-slate-300 leading-relaxed">
+            Palantir perdió un año de migración porque una ingeniera no podía validar datos haciendo doble clic. Una solución construida en una noche resolvió el bloqueo y se aprobó en 48 horas.
+          </p>
+        </div>
+
+        <div class="kb-card glass-card p-5 rounded-2xl space-y-2 border-l-4 border-l-emerald-500">
+          <div class="flex justify-between items-center text-xs">
+            <span class="font-mono text-emerald-400 font-semibold">[00:06:25] 98% de Adopción en Megabanco</span>
+            <span class="text-slate-400">OpenAI FDE Team</span>
+          </div>
+          <p class="text-xs text-slate-300 leading-relaxed">
+            El equipo de FDE atacó la tarea que hacían miles de asesores diariamente. Al integrarse a su herramienta y mantener la verificación intermedia, alcanzaron una tasa histórica de 98% de uso real.
+          </p>
+        </div>
+
+        <div class="kb-card glass-card p-5 rounded-2xl space-y-2 border-l-4 border-l-amber-500">
+          <div class="flex justify-between items-center text-xs">
+            <span class="font-mono text-amber-400 font-semibold">[00:11:32] El Agente de $2.000 de Cursor</span>
+            <span class="text-slate-400">Costo del Error</span>
+          </div>
+          <p class="text-xs text-slate-300 leading-relaxed">
+            Un cliente se quejaba del costo del agente de despacho. Cuando calcularon el impacto de enviar al técnico equivocado (más de $2.000 por error), la objeción de precio desapareció inmediatamente.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== TAB 6: GENERADOR GEMINI PRO ==================== -->
+    <section id="view-ai-pitch" class="tab-view hidden space-y-6">
+      <div class="bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 p-6 rounded-2xl border border-indigo-500/20 shadow-xl">
+        <div class="flex items-center space-x-2 text-indigo-400 text-xs font-bold uppercase tracking-wider">
+          <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M10 2a8 8 0 100 16 8 8 0 000-16zM8 12a2 2 0 114 0 2 2 0 01-4 0z"/></svg>
+          <span>Impulsado por Gemini 3 Flash Preview</span>
+        </div>
+        <h1 class="text-2xl sm:text-3xl font-bold tracking-tight text-white mt-1">Generador de Propuesta & Diagnóstico FDE</h1>
+        <p class="text-slate-300 text-sm mt-1 max-w-2xl">
+          Genera al instante una propuesta comercial y técnica con el marco FDE para Leonardo y Edentia, redactada para directores de operaciones y CFOs con el cálculo tripartito y mitigación del riesgo MIT.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        <div class="lg:col-span-5 glass-card p-6 rounded-2xl space-y-4">
+          <h2 class="text-base font-bold text-white">Parámetros del Prospecto</h2>
+          
+          <div>
+            <label class="block text-xs font-semibold text-slate-300 mb-1">Industria del Cliente</label>
+            <input type="text" id="ai-client-industry" value="Logística & Cadena de Suministro" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-white text-sm focus:border-indigo-500 focus:outline-none">
+          </div>
+
+          <div>
+            <label class="block text-xs font-semibold text-slate-300 mb-1">Proceso Cuello de Botella</label>
+            <input type="text" id="ai-client-process" value="Recepción de facturas de transportistas y validación contra órdenes de compra en ERP" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-white text-sm focus:border-indigo-500 focus:outline-none">
+          </div>
+
+          <div>
+            <label class="block text-xs font-semibold text-slate-300 mb-1">Volumen & Herramientas Actuales</label>
+            <input type="text" id="ai-client-stack" value="3.000 facturas/mes en PDFs desordenados, SAP R/3, correos en Outlook" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-white text-sm focus:border-indigo-500 focus:outline-none">
+          </div>
+
+          <button id="ai-generate-btn" onclick="app.generateAIPitch()" class="w-full py-3 bg-gradient-to-r from-indigo-600 to-brand-500 hover:from-indigo-500 hover:to-brand-600 text-white font-bold rounded-xl text-sm shadow-lg shadow-indigo-500/25 transition flex items-center justify-center space-x-2">
+            <span>✨ Generar Propuesta de Consultoría FDE</span>
+          </button>
+        </div>
+
+        <div class="lg:col-span-7 glass-card p-6 rounded-2xl space-y-3 flex flex-col">
+          <div class="flex items-center justify-between border-b border-slate-800 pb-2">
+            <span class="text-xs font-bold uppercase text-slate-400">Borrador de Propuesta Edentia</span>
+            <button onclick="app.copyPitchText()" class="text-xs text-indigo-400 hover:text-indigo-300 transition">Copiar al portapapeles</button>
+          </div>
+          
+          <div id="ai-output-container" class="flex-1 bg-slate-950 p-4 rounded-xl border border-slate-800 font-mono text-xs text-slate-300 whitespace-pre-wrap overflow-y-auto max-h-[460px]">
+Presiona "Generar Propuesta de Consultoría FDE" para que Gemini 3 Flash construya la propuesta comercial personalizada bajo la metodología explicada por los líderes de OpenAI, Palantir y Anthropic.
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <div id="step-modal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+    <div class="bg-slate-900 border border-slate-800 rounded-2xl max-w-md w-full p-6 space-y-4 shadow-2xl">
+      <h3 class="text-lg font-bold text-white">Agregar Nuevo Paso al Proceso</h3>
+      
+      <div>
+        <label class="block text-xs font-semibold text-slate-300 mb-1">Nombre / Acción del Paso</label>
+        <input type="text" id="modal-step-name" placeholder="Ej. Verificar tarjeta de crédito corporativa" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white text-sm focus:outline-none focus:border-indigo-500">
+      </div>
+
+      <div>
+        <label class="block text-xs font-semibold text-slate-300 mb-1">Filtro 1: ¿Sigue una regla determinista fija?</label>
+        <select id="modal-is-deterministic" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white text-sm">
+          <option value="yes">Sí (Debe resultar idéntico al 100% de las veces)</option>
+          <option value="no" selected>No (Interpreta datos variables o lenguaje)</option>
+        </select>
+      </div>
+
+      <div>
+        <label class="block text-xs font-semibold text-slate-300 mb-1">Filtro 2: ¿Requiere leer datos desordenados / juicio difuso?</label>
+        <select id="modal-needs-fuzzy" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white text-sm">
+          <option value="yes" selected>Sí (PDFs, correos, intención del cliente)</option>
+          <option value="no">No (Campos estandarizados)</option>
+        </select>
+      </div>
+
+      <div>
+        <label class="block text-xs font-semibold text-slate-300 mb-1">Filtro 3: Costo de equivocarse (Costo del Error)</label>
+        <select id="modal-error-cost" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white text-sm">
+          <option value="low">Bajo (Fácil de corregir o impacto despreciable)</option>
+          <option value="medium" selected>Medio (Requiere supervisión aleatoria)</option>
+          <option value="high">Crítico (Pérdida de cuenta clave o riesgo legal)</option>
+        </select>
+      </div>
+
+      <div class="flex justify-end space-x-2 pt-2">
+        <button onclick="app.closeStepModal()" class="px-4 py-2 bg-slate-800 text-slate-300 rounded-xl text-xs font-semibold hover:bg-slate-700 transition">Cancelar</button>
+        <button onclick="app.saveModalStep()" class="px-4 py-2 bg-indigo-600 text-white rounded-xl text-xs font-semibold hover:bg-indigo-500 transition">Guardar Paso</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="toast" class="fixed bottom-6 right-6 bg-indigo-600 text-white text-xs px-4 py-3 rounded-xl shadow-2xl transition-opacity duration-300 opacity-0 pointer-events-none z-50 flex items-center space-x-2">
+    <span id="toast-text">Notificación</span>
+  </div>
+
+  <script>
+    /**
+     * FDE Suite Progressive Web Application Controller
+     * Built for Edentia and Senior AI Consultant Leonardo
+     */
+    const app = {
+      currentTab: 'tripartite',
+      steps: [
+        { id: 1, name: "Recepción de solicitud de reembolso por correo", deterministic: false, needsFuzzy: true, errorCost: "low", assigned: "ai" },
+        { id: 2, name: "Verificar tipo de pago (Tarjeta Corporativa)", deterministic: true, needsFuzzy: false, errorCost: "medium", assigned: "software" },
+        { id: 3, name: "Aprobación automática cliente VIP corporativo", deterministic: true, needsFuzzy: false, errorCost: "low", assigned: "software" },
+        { id: 4, name: "Lectura y cotejo de política para clientes estándar", deterministic: false, needsFuzzy: true, errorCost: "medium", assigned: "ai" },
+        { id: 5, name: "Decisión de excepciones / casos litigiosos", deterministic: false, needsFuzzy: true, errorCost: "high", assigned: "human" }
+      ],
+
+      init() {
+        this.renderSteps();
+        this.calculateROI();
+        this.registerServiceWorker();
+        this.initPwaInstall();
+      },
+
+      switchTab(tabId) {
+        this.currentTab = tabId;
+        document.querySelectorAll('.tab-view').forEach(view => view.classList.add('hidden'));
+        document.querySelectorAll('.tab-btn').forEach(btn => {
+          btn.classList.remove('active-tab');
+          btn.classList.add('text-slate-400');
+        });
+
+        const activeView = document.getElementById(`view-${tabId}`);
+        const activeBtn = document.getElementById(`tab-btn-${tabId}`);
+        if (activeView) activeView.classList.remove('hidden');
+        if (activeBtn) {
+          activeBtn.classList.add('active-tab');
+          activeBtn.classList.remove('text-slate-400');
+        }
+      },
+
+      renderSteps() {
+        const container = document.getElementById('steps-container');
+        const pipeline = document.getElementById('visual-pipeline');
+        if (!container) return;
+
+        container.innerHTML = '';
+        pipeline.innerHTML = '';
+
+        let counts = { software: 0, ai: 0, human: 0 };
+
+        this.steps.forEach((step, idx) => {
+          counts[step.assigned]++;
+
+          let badgeColor = 'bg-blue-500/20 text-blue-300 border-blue-500/30';
+          let label = '⚙️ Software Fijo';
+          if (step.assigned === 'ai') {
+            badgeColor = 'bg-purple-500/20 text-purple-300 border-purple-500/30';
+            label = '🤖 Modelo LLM';
+          } else if (step.assigned === 'human') {
+            badgeColor = 'bg-amber-500/20 text-amber-300 border-amber-500/30';
+            label = '👤 Humano en Bucle';
+          }
+
+          // Step Item
+          const div = document.createElement('div');
+          div.className = 'p-3 bg-slate-900/80 rounded-xl border border-slate-800 flex items-center justify-between gap-3 text-sm';
+          div.innerHTML = `
+            <div class="flex items-center space-x-3 overflow-hidden">
+              <span class="w-6 h-6 rounded-full bg-slate-800 text-slate-400 text-xs flex items-center justify-center font-mono font-bold">${idx + 1}</span>
+              <div class="truncate">
+                <span class="text-white font-medium block truncate">${step.name}</span>
+                <span class="text-[10px] text-slate-400">Riesgo: ${step.errorCost.toUpperCase()} | Regla determinista: ${step.deterministic ? 'SÍ' : 'NO'}</span>
+              </div>
+            </div>
+            <div class="flex items-center space-x-2 shrink-0">
+              <span class="text-xs px-2.5 py-1 rounded-full border ${badgeColor} font-semibold">${label}</span>
+              <button onclick="app.removeStep(${step.id})" class="text-slate-500 hover:text-red-400 p-1" title="Eliminar">&times;</button>
+            </div>
+          `;
+          container.appendChild(div);
+
+          // Pipeline Pill
+          const pill = document.createElement('div');
+          pill.className = `px-2.5 py-1 rounded-lg border text-xs font-mono font-semibold flex items-center space-x-1 ${badgeColor}`;
+          pill.innerHTML = `<span>${idx + 1}. ${step.name.substring(0, 18)}...</span>`;
+          pipeline.appendChild(pill);
+          if (idx < this.steps.length - 1) {
+            const arrow = document.createElement('span');
+            arrow.className = 'text-slate-600 text-xs';
+            arrow.innerText = '→';
+            pipeline.appendChild(arrow);
+          }
+        });
+
+        document.getElementById('count-software').innerText = counts.software;
+        document.getElementById('count-ai').innerText = counts.ai;
+        document.getElementById('count-human').innerText = counts.human;
+      },
+
+      addNewStepModal() {
+        document.getElementById('step-modal').classList.remove('hidden');
+      },
+
+      closeStepModal() {
+        document.getElementById('step-modal').classList.add('hidden');
+      },
+
+      saveModalStep() {
+        const name = document.getElementById('modal-step-name').value.trim();
+        if (!name) return;
+
+        const isDet = document.getElementById('modal-is-deterministic').value === 'yes';
+        const needsFuzzy = document.getElementById('modal-needs-fuzzy').value === 'yes';
+        const errorCost = document.getElementById('modal-error-cost').value;
+
+        // Tripartite decision algorithm based on video rules
+        let assigned = 'ai';
+        if (errorCost === 'high') {
+          assigned = 'human';
+        } else if (isDet && !needsFuzzy) {
+          assigned = 'software';
+        } else {
+          assigned = 'ai';
+        }
+
+        this.steps.push({
+          id: Date.now(),
+          name,
+          deterministic: isDet,
+          needsFuzzy,
+          errorCost,
+          assigned
+        });
+
+        document.getElementById('modal-step-name').value = '';
+        this.closeStepModal();
+        this.renderSteps();
+        this.showToast("Paso clasificado y agregado al diagrama");
+      },
+
+      removeStep(id) {
+        this.steps = this.steps.filter(s => s.id !== id);
+        this.renderSteps();
+      },
+
+      resetDemoSteps() {
+        this.steps = [
+          { id: 1, name: "Recepción de solicitud de reembolso por correo", deterministic: false, needsFuzzy: true, errorCost: "low", assigned: "ai" },
+          { id: 2, name: "Verificar tipo de pago (Tarjeta Corporativa)", deterministic: true, needsFuzzy: false, errorCost: "medium", assigned: "software" },
+          { id: 3, name: "Aprobación automática cliente VIP corporativo", deterministic: true, needsFuzzy: false, errorCost: "low", assigned: "software" },
+          { id: 4, name: "Lectura y cotejo de política para clientes estándar", deterministic: false, needsFuzzy: true, errorCost: "medium", assigned: "ai" },
+          { id: 5, name: "Decisión de excepciones / casos litigiosos", deterministic: false, needsFuzzy: true, errorCost: "high", assigned: "human" }
+        ];
+        this.renderSteps();
+        this.showToast("Caso de estudio 'Reembolsos' cargado");
+      },
+
+      calculateROI() {
+        const volume = parseFloat(document.getElementById('roi-volume').value) || 0;
+        const timeMinutes = parseFloat(document.getElementById('roi-time-task').value) || 0;
+        const hourlyRate = parseFloat(document.getElementById('roi-hourly-rate').value) || 0;
+        const errorRate = (parseFloat(document.getElementById('roi-error-rate').value) || 0) / 100;
+        const errorCost = parseFloat(document.getElementById('roi-error-cost').value) || 0;
+        const consultingFee = parseFloat(document.getElementById('roi-consulting-fee').value) || 0;
+        const apiCost = parseFloat(document.getElementById('roi-api-cost').value) || 0;
+
+        // Current operational costs
+        const monthlyHours = (volume * timeMinutes) / 60;
+        const currentLaborCost = monthlyHours * hourlyRate;
+        const currentErrorCost = (volume * errorRate) * errorCost;
+        const totalCurrentCost = currentLaborCost + currentErrorCost;
+
+        // FDE solution (automation reduces 70% of manual labor + 85% of errors)
+        const postAutomationLaborCost = currentLaborCost * 0.30;
+        const postAutomationErrorCost = currentErrorCost * 0.15;
+        const solutionOperationalCost = consultingFee + apiCost + postAutomationLaborCost + postAutomationErrorCost;
+
+        const netSavings = totalCurrentCost - solutionOperationalCost;
+        const hoursLiberated = monthlyHours * 0.70;
+        const annualROI = (solutionOperationalCost > 0) ? ((netSavings * 12) / ((consultingFee + apiCost) * 12)) * 100 : 0;
+
+        // Render metrics
+        document.getElementById('metric-net-savings').innerText = `$${Math.max(0, Math.round(netSavings)).toLocaleString()} USD`;
+        document.getElementById('metric-hours-saved').innerText = `${Math.round(hoursLiberated)} h`;
+        document.getElementById('metric-roi-percent').innerText = `${Math.round(annualROI)}%`;
+
+        document.getElementById('metric-labor-cost').innerText = `$${Math.round(currentLaborCost).toLocaleString()}`;
+        document.getElementById('metric-losses-cost').innerText = `$${Math.round(currentErrorCost).toLocaleString()}`;
+        document.getElementById('metric-total-current').innerText = `$${Math.round(totalCurrentCost).toLocaleString()}`;
+        document.getElementById('metric-solution-cost').innerText = `$${Math.round(consultingFee + apiCost).toLocaleString()}/mes`;
+      },
+
+      saveAuditDraft() {
+        const company = document.getElementById('audit-company').value || "Empresa";
+        localStorage.setItem('fde_audit_company', company);
+        localStorage.setItem('fde_audit_dept', document.getElementById('audit-dept').value);
+        localStorage.setItem('fde_audit_systems', document.getElementById('audit-systems').value);
+        localStorage.setItem('fde_audit_workarounds', document.getElementById('audit-workarounds').value);
+        this.showToast("Borrador de auditoría guardado en el dispositivo.");
+      },
+
+      exportAuditMarkdown() {
+        const company = document.getElementById('audit-company').value || "Cliente Prospecto";
+        const dept = document.getElementById('audit-dept').value || "Operaciones";
+        const systems = document.getElementById('audit-systems').value || "No especificado";
+        const workarounds = document.getElementById('audit-workarounds').value || "No especificado";
+
+        const md = `# Reporte de Auditoría Operacional FDE - Edentia\n\n` +
+          `**Cliente:** ${company}\n` +
+          `**Área:** ${dept}\n` +
+          `**Consultor Responsable:** Leonardo (Senior AI Consultant)\n\n` +
+          `## 1. Sistemas Existentes (Preservación por MCP)\n${systems}\n\n` +
+          `## 2. Parches Ocultos & Excepciones Detectadas (Shadowing)\n${workarounds}\n\n` +
+          `## 3. Matriz Tripartita de Automatización\n` +
+          this.steps.map(s => `- [${s.assigned.toUpperCase()}] ${s.name} (Riesgo: ${s.errorCost})`).join('\n') +
+          `\n\n*Generado con FDE Studio | Edentia Pro*`;
+
+        const blob = new Blob([md], { type: 'text/markdown' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `Auditoria_FDE_${company.replace(/\s+/g, '_')}.md`;
+        a.click();
+        URL.revokeObjectURL(url);
+        this.showToast("Archivo Markdown descargado.");
+      },
+
+      filterKnowledge() {
+        const query = document.getElementById('kb-search').value.toLowerCase();
+        document.querySelectorAll('.kb-card').forEach(card => {
+          const text = card.innerText.toLowerCase();
+          card.style.display = text.includes(query) ? 'block' : 'none';
+        });
+      },
+
+      async generateAIPitch() {
+        const btn = document.getElementById('ai-generate-btn');
+        const output = document.getElementById('ai-output-container');
+        const industry = document.getElementById('ai-client-industry').value;
+        const process = document.getElementById('ai-client-process').value;
+        const stack = document.getElementById('ai-client-stack').value;
+
+        btn.disabled = true;
+        btn.innerHTML = `<svg class="animate-spin -ml-1 mr-2 h-4 w-4 text-white" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg> Generando propuesta técnica...`;
+        output.innerText = "Consultando a Gemini 3 Flash con el framework FDE...";
+
+        const prompt = `Actúa como Leonardo, Consultor Senior de Inteligencia Artificial para Edentia.
+Escribe una propuesta de intervención ejecutiva tipo 'Forward Deployed Engineering' para un cliente corporativo.
+Datos del cliente:
+- Industria: ${industry}
+- Proceso Cuello de Botella: ${process}
+- Sistemas y Volumen actual: ${stack}
+
+Estructura obligatoria de la propuesta:
+1. Resumen Ejecutivo y Diagnóstico del Riesgo (Cita la estadística de MIT sobre el 95% de fallos por herramientas genéricas desconectadas).
+2. Metodología de Intervención Tripartita (Separación explícita en Software Determinista, Agentes LLM vía MCP y Humano en el Bucle).
+3. Cronograma de 4 Fases (2 semanas de Shadowing/Auditoría, 4 semanas de Prototipado, 2 semanas de Evals sobre datos reales, y 3 meses de Construcción de Confianza/Piloto).
+4. Modelo Financiero y ROI (Justificación por Costo de Error versus costo de consultoría).
+Mantén un tono formal, técnico, altamente persuasivo para un CFO o Director de Operaciones.`;
+
+        const apiKey = "";
+        const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=${apiKey}`;
+
+        try {
+          const response = await fetch(apiUrl, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              contents: [{ parts: [{ text: prompt }] }],
+              systemInstruction: {
+                parts: [{ text: "Eres el consultor principal de IA de la firma Edentia, experto en Forward Deployed Engineering, protocolos MCP, evals sistemáticos y reducción del costo de error en procesos empresariales." }]
+              }
+            })
+          });
+
+          const data = await response.json();
+          const text = data.candidates?.[0]?.content?.parts?.[0]?.text;
+          if (text) {
+            output.innerText = text;
+            this.showToast("Propuesta generada exitosamente con Gemini.");
+          } else {
+            output.innerText = "Error: La estructura de respuesta no contiene texto válido.";
+          }
+        } catch (err) {
+          output.innerText = `Error al conectar con la API de Gemini: ${err.message}\nVerifica la conexión a internet.`;
+        } finally {
+          btn.disabled = false;
+          btn.innerHTML = `<span>✨ Generar Propuesta de Consultoría FDE</span>`;
+        }
+      },
+
+      copyPitchText() {
+        const text = document.getElementById('ai-output-container').innerText;
+        const textarea = document.createElement('textarea');
+        textarea.value = text;
+        textarea.style.position = 'fixed';
+        textarea.style.opacity = '0';
+        document.body.appendChild(textarea);
+        textarea.select();
+        try {
+          document.execCommand('copy');
+          this.showToast("Propuesta copiada al portapapeles.");
+        } catch (e) {
+          this.showToast("No se pudo copiar.");
+        }
+        document.body.removeChild(textarea);
+      },
+
+      showToast(msg) {
+        const toast = document.getElementById('toast');
+        const text = document.getElementById('toast-text');
+        text.innerText = msg;
+        toast.classList.remove('opacity-0');
+        toast.classList.add('opacity-100');
+        setTimeout(() => {
+          toast.classList.remove('opacity-100');
+          toast.classList.add('opacity-0');
+        }, 3200);
+      },
+
+      registerServiceWorker() {
+        if ('serviceWorker' in navigator) {
+          const swCode = `
+            const CACHE_NAME = 'fde-studio-v1';
+            self.addEventListener('install', (e) => {
+              self.skipWaiting();
+            });
+            self.addEventListener('activate', (e) => {
+              e.waitUntil(clients.claim());
+            });
+            self.addEventListener('fetch', (e) => {
+              // Network first, fallback to cache for offline capabilities
+              e.respondWith(fetch(e.request).catch(() => caches.match(e.request)));
+            });
+          `;
+          const blob = new Blob([swCode], { type: 'application/javascript' });
+          const swUrl = URL.createObjectURL(blob);
+          navigator.serviceWorker.register(swUrl).catch(err => {
+            console.debug('SW registration skipped:', err);
+          });
+        }
+      },
+
+      initPwaInstall() {
+        let deferredPrompt;
+        const installBtn = document.getElementById('pwa-install-btn');
+        window.addEventListener('beforeinstallprompt', (e) => {
+          e.preventDefault();
+          deferredPrompt = e;
+          if (installBtn) {
+            installBtn.classList.remove('hidden');
+            installBtn.addEventListener('click', () => {
+              deferredPrompt.prompt();
+              deferredPrompt.userChoice.then(() => {
+                deferredPrompt = null;
+                installBtn.classList.add('hidden');
+              });
+            });
+          }
+        });
+      }
+    };
+
+    window.addEventListener('DOMContentLoaded', () => {
+      app.init();
+    });
+  </script>
+</body>
+</html>
