@@ -16,10 +16,11 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
     
-    <!-- Google Fonts Modernas: Outfit + Plus Jakarta Sans + JetBrains Mono -->
+    <!-- Fuentes Editorial Morgan (Morganite) + Antonio + Barlow Condensed + JetBrains Mono -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.cdnfonts.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Antonio:wght@100..700&family=Barlow+Condensed:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
 
     <script>
         tailwind.config = {
@@ -57,8 +58,8 @@
                         }
                     },
                     fontFamily: {
-                        display: ['Outfit', 'sans-serif'],
-                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                        display: ['Morganite', 'Antonio', 'Barlow Condensed', 'sans-serif'],
+                        sans: ['Barlow Condensed', 'Morganite', 'sans-serif'],
                         mono: ['JetBrains Mono', 'monospace'],
                     },
                     boxShadow: {
@@ -72,11 +73,78 @@
     </script>
 
     <style>
+        /* =========================================================================
+           FAMILIA TIPOGRÁFICA MORGAN (MORGANITE) - PESOS UPRIGHT & EDITORIALES
+           ========================================================================= */
+        @font-face {
+            font-family: 'Morganite';
+            font-style: normal;
+            font-weight: 100;
+            font-display: swap;
+            src: url('https://fonts.cdnfonts.com/s/18660/Morganite-Thin.woff') format('woff');
+        }
+        @font-face {
+            font-family: 'Morganite';
+            font-style: normal;
+            font-weight: 200;
+            font-display: swap;
+            src: url('https://fonts.cdnfonts.com/s/18660/Morganite-ExtraLight.woff') format('woff');
+        }
+        @font-face {
+            font-family: 'Morganite';
+            font-style: normal;
+            font-weight: 300;
+            font-display: swap;
+            src: url('https://fonts.cdnfonts.com/s/18660/Morganite-Light.woff') format('woff');
+        }
+        @font-face {
+            font-family: 'Morganite';
+            font-style: normal;
+            font-weight: 400;
+            font-display: swap;
+            src: url('https://fonts.cdnfonts.com/s/18660/Morganite-Book.woff') format('woff');
+        }
+        @font-face {
+            font-family: 'Morganite';
+            font-style: normal;
+            font-weight: 500;
+            font-display: swap;
+            src: url('https://fonts.cdnfonts.com/s/18660/Morganite-Medium.woff') format('woff');
+        }
+        @font-face {
+            font-family: 'Morganite';
+            font-style: normal;
+            font-weight: 600;
+            font-display: swap;
+            src: url('https://fonts.cdnfonts.com/s/18660/Morganite-SemiBold.woff') format('woff');
+        }
+        @font-face {
+            font-family: 'Morganite';
+            font-style: normal;
+            font-weight: 700;
+            font-display: swap;
+            src: url('https://fonts.cdnfonts.com/s/18660/Morganite-Bold.woff') format('woff');
+        }
+        @font-face {
+            font-family: 'Morganite';
+            font-style: normal;
+            font-weight: 800;
+            font-display: swap;
+            src: url('https://fonts.cdnfonts.com/s/18660/Morganite-ExtraBold.woff') format('woff');
+        }
+        @font-face {
+            font-family: 'Morganite';
+            font-style: normal;
+            font-weight: 900;
+            font-display: swap;
+            src: url('https://fonts.cdnfonts.com/s/18660/Morganite-Black.woff') format('woff');
+        }
+
         :root {
-            --xr-surface: rgba(255, 255, 255, 0.78);
-            --xr-surface-elevated: rgba(255, 255, 255, 0.92);
-            --xr-specular-border: rgba(255, 255, 255, 0.9);
-            --xr-border-subtle: rgba(15, 23, 42, 0.08);
+            --xr-surface: linear-gradient(135deg, rgba(235, 245, 255, 0.64) 0%, rgba(212, 230, 250, 0.48) 52%, rgba(228, 241, 255, 0.58) 100%);
+            --xr-surface-elevated: linear-gradient(135deg, rgba(242, 249, 255, 0.74) 0%, rgba(222, 238, 255, 0.60) 52%, rgba(236, 246, 255, 0.68) 100%);
+            --xr-specular-border: rgba(255, 255, 255, 0.58);
+            --xr-border-subtle: rgba(56, 189, 248, 0.28);
             --xr-cyan: #0284C7;
             --xr-violet: #6D28D9;
             --xr-amber: #D97706;
@@ -90,20 +158,136 @@
         }
 
         body {
-            background: radial-gradient(circle at 50% 12%, #FFFFFF 0%, #F1F6FD 48%, #E5EFF9 100%);
+            background-color: #051329;
+            background-image:
+                radial-gradient(circle at 18% 22%, rgba(251, 191, 36, 0.24) 0%, transparent 28%),
+                radial-gradient(circle at 82% 18%, rgba(249, 115, 22, 0.22) 0%, transparent 26%),
+                radial-gradient(circle at 74% 62%, rgba(245, 158, 11, 0.20) 0%, transparent 30%),
+                radial-gradient(circle at 24% 78%, rgba(56, 189, 248, 0.22) 0%, transparent 32%),
+                radial-gradient(circle at 52% 45%, rgba(14, 116, 144, 0.28) 0%, transparent 50%),
+                linear-gradient(160deg, #030d1e 0%, #071f40 38%, #0b2d59 72%, #05162e 100%);
+            background-attachment: fixed;
             color: #0F172A;
-            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-family: 'Barlow Condensed', 'Antonio', sans-serif;
+            letter-spacing: 0.015em;
             overflow-x: hidden;
             min-height: 100vh;
         }
 
+        /* Escala y proporción monumental para la fuente Morgan (Morganite) */
+        .font-display {
+            font-family: 'Morganite', 'Antonio', 'Barlow Condensed', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 0.025em;
+            line-height: 0.88;
+        }
+
+        /* Ajuste proporcional para títulos en tarjetas y secciones con Morganite */
+        h1.font-display {
+            line-height: 0.82 !important;
+            letter-spacing: 0.015em;
+        }
+        h2.font-display {
+            font-size: clamp(3.4rem, 6.5vw, 5.8rem) !important;
+            line-height: 0.84 !important;
+            letter-spacing: 0.02em;
+        }
+        h3.font-display {
+            font-size: clamp(2.1rem, 3.2vw, 2.85rem) !important;
+            line-height: 0.88 !important;
+            letter-spacing: 0.02em;
+        }
+        h4.font-display {
+            font-size: 1.65rem !important;
+            line-height: 0.92 !important;
+            letter-spacing: 0.025em;
+        }
+
+        /* Componentes Editoriales Estilo Imagen de Referencia Morgan (Jude Benhalim Poster) */
+        .morgan-hero-stack {
+            font-family: 'Morganite', 'Antonio', sans-serif;
+            font-weight: 800;
+            text-transform: uppercase;
+            font-size: clamp(4.8rem, 11.2vw, 9.6rem);
+            line-height: 0.80;
+            letter-spacing: 0.01em;
+        }
+
+        .morgan-vertical-pill {
+            writing-mode: vertical-rl;
+            text-orientation: mixed;
+            font-family: 'Morganite', 'Antonio', sans-serif;
+            font-weight: 500;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            font-size: 1.55rem;
+            line-height: 1;
+            padding: 1.35rem 0.65rem;
+            border-radius: 22px 4px 4px 22px;
+            background: rgba(255, 255, 255, 0.38);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.65);
+            box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.8), 0 6px 16px rgba(3, 13, 30, 0.14);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            user-select: none;
+        }
+
+        .morgan-edition-number {
+            font-family: 'Morganite', 'Antonio', sans-serif;
+            font-weight: 300;
+            font-size: clamp(4.2rem, 6.5vw, 5.8rem);
+            line-height: 0.78;
+            letter-spacing: 0.01em;
+        }
+
+        .morgan-edition-label {
+            font-family: 'Morganite', 'Antonio', sans-serif;
+            font-weight: 500;
+            font-size: 1.75rem;
+            line-height: 0.9;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+
+        .morgan-script-lead {
+            font-family: 'Morganite', 'Barlow Condensed', sans-serif;
+            font-weight: 300;
+            font-size: clamp(1.9rem, 2.8vw, 2.45rem);
+            line-height: 0.92;
+            letter-spacing: 0.02em;
+        }
+
+        /* Escala legible para párrafos y botones con estética condensada */
+        p, li {
+            font-size: 1.08rem;
+            line-height: 1.45;
+        }
+
+        .m3-spatial-btn.font-display,
+        button.font-display,
+        a.font-display {
+            font-size: 1.35rem !important;
+            letter-spacing: 0.05em;
+            line-height: 1 !important;
+        }
+
+        .kpi-morgan-num {
+            font-family: 'Morganite', 'Antonio', sans-serif;
+            font-weight: 800;
+            font-size: clamp(3.8rem, 6vw, 5.2rem) !important;
+            line-height: 0.82 !important;
+        }
+
         ::selection {
-            background: rgba(2, 132, 199, 0.2);
+            background: rgba(56, 189, 248, 0.28);
             color: #0284C7;
         }
 
-        /* Lienzo WebGL 3D Fijo de Fondo */
-        #webgl-canvas {
+        /* Lienzo de Ventana Lluviosa + Bokeh Nocturno (Fondo Principal estilo Referencia) */
+        #rain-bokeh-canvas {
             position: fixed;
             top: 0;
             left: 0;
@@ -113,14 +297,26 @@
             pointer-events: none;
         }
 
-        /* Ambient Passthrough Glow Orbs para Tema Claro (Inspiración Jetpack Compose for XR) */
-        .ambient-spatial-orb {
-            position: absolute;
-            border-radius: 9999px;
-            filter: blur(140px);
-            opacity: 0.38;
-            pointer-events: none;
+        /* Lienzo WebGL 3D Fijo de Fondo */
+        #webgl-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
             z-index: 1;
+            pointer-events: none;
+            opacity: 0.72;
+        }
+
+        /* Ambient Bokeh Glow Orbs (Luces cálidas de ciudad desenfocadas tras el cristal) */
+        .ambient-spatial-orb {
+            position: fixed;
+            border-radius: 9999px;
+            filter: blur(95px);
+            opacity: 0.52;
+            pointer-events: none;
+            z-index: 0;
             will-change: transform, opacity;
             animation: floatSpatial 18s ease-in-out infinite alternate;
         }
@@ -132,93 +328,129 @@
         }
 
         /* =========================================================================
-           JETPACK COMPOSE FOR XR & MATERIAL DESIGN 3: SPATIAL PANEL
+           GLASSMORPHISM UI SYSTEM (Inspiración Ventana Lluviosa + Cristal Esmerilado)
            ========================================================================= */
         .xr-spatial-panel {
             background: var(--xr-surface);
-            backdrop-filter: blur(28px) saturate(190%);
-            -webkit-backdrop-filter: blur(28px) saturate(190%);
+            backdrop-filter: blur(26px) saturate(185%);
+            -webkit-backdrop-filter: blur(26px) saturate(185%);
             border-radius: var(--xr-radius-panel);
-            border: 1px solid var(--xr-specular-border);
+            border: 1.5px solid var(--xr-specular-border);
             box-shadow: 
-                0 24px 60px -12px rgba(15, 23, 42, 0.08),
-                0 4px 18px -2px rgba(2, 132, 199, 0.05),
+                0 24px 60px -12px rgba(2, 8, 23, 0.55),
+                0 6px 24px -4px rgba(14, 165, 233, 0.18),
                 0 0 0 1px var(--xr-border-subtle),
-                inset 0 1.5px 1.5px rgba(255, 255, 255, 0.95);
+                inset 0 1.5px 2px rgba(255, 255, 255, 0.85),
+                inset 0 -1px 1.5px rgba(186, 230, 253, 0.35);
             transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
                         border-color 0.35s ease,
                         box-shadow 0.4s ease,
-                        background-color 0.35s ease;
+                        background 0.35s ease;
             transform-style: preserve-3d;
             will-change: transform;
         }
 
         .xr-spatial-panel:hover {
             background: var(--xr-surface-elevated);
-            border-color: rgba(2, 132, 199, 0.45);
+            border-color: rgba(56, 189, 248, 0.88);
             box-shadow: 
-                0 32px 75px -15px rgba(2, 132, 199, 0.16),
-                0 0 0 1px rgba(2, 132, 199, 0.3),
-                inset 0 1.5px 2px rgba(255, 255, 255, 1);
+                0 32px 75px -15px rgba(2, 8, 23, 0.68),
+                0 0 28px rgba(56, 189, 248, 0.36),
+                0 0 0 1px rgba(125, 211, 252, 0.55),
+                inset 0 1.5px 2.5px rgba(255, 255, 255, 0.96);
             transform: translateY(-4px);
         }
 
-        /* Barra Flotante de Controles de Ventana estilo Jetpack Compose XR */
+        /* Sub-tarjetas internas en modo Glassmorphism translúcido (sin alterar colores de fuente) */
+        #spatial-main-stage .bg-white,
+        #spatial-main-stage .bg-white\/95,
+        #spatial-main-stage .bg-white\/90,
+        #spatial-main-stage .bg-white\/80 {
+            background: linear-gradient(135deg, rgba(244, 250, 255, 0.62) 0%, rgba(226, 240, 255, 0.46) 100%) !important;
+            backdrop-filter: blur(18px) saturate(175%);
+            -webkit-backdrop-filter: blur(18px) saturate(175%);
+            border-color: rgba(255, 255, 255, 0.62) !important;
+            box-shadow: 0 10px 28px -6px rgba(2, 8, 23, 0.22), inset 0 1px 1.5px rgba(255, 255, 255, 0.82);
+        }
+
+        #spatial-main-stage .bg-white\/70,
+        #spatial-main-stage .bg-white\/60 {
+            background: linear-gradient(135deg, rgba(235, 246, 255, 0.56) 0%, rgba(212, 232, 252, 0.42) 100%) !important;
+            backdrop-filter: blur(22px) saturate(180%);
+            -webkit-backdrop-filter: blur(22px) saturate(180%);
+            border-color: rgba(255, 255, 255, 0.58) !important;
+            box-shadow: 0 18px 42px -10px rgba(2, 8, 23, 0.38), inset 0 1.5px 2px rgba(255, 255, 255, 0.8);
+        }
+
+        #spatial-main-stage .bg-slate-50,
+        #spatial-main-stage .bg-slate-50\/90,
+        #spatial-main-stage .bg-slate-100 {
+            background: linear-gradient(135deg, rgba(230, 242, 255, 0.48) 0%, rgba(210, 228, 248, 0.34) 100%) !important;
+            backdrop-filter: blur(14px) saturate(165%);
+            -webkit-backdrop-filter: blur(14px) saturate(165%);
+            border-color: rgba(255, 255, 255, 0.52) !important;
+            box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.72);
+        }
+
+        /* Barra Flotante de Controles de Ventana Glassmorphism */
         .xr-window-capsule {
-            background: rgba(255, 255, 255, 0.94);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(15, 23, 42, 0.08);
+            background: linear-gradient(135deg, rgba(242, 249, 255, 0.68) 0%, rgba(220, 237, 255, 0.52) 100%);
+            backdrop-filter: blur(24px) saturate(190%);
+            -webkit-backdrop-filter: blur(24px) saturate(190%);
+            border: 1px solid rgba(255, 255, 255, 0.72);
             border-radius: 9999px;
-            box-shadow: 0 4px 14px rgba(15, 23, 42, 0.06), inset 0 1px 0 rgba(255, 255, 255, 1);
+            box-shadow: 0 8px 22px rgba(2, 8, 23, 0.28), inset 0 1px 1.5px rgba(255, 255, 255, 0.9);
         }
 
-        /* Orbiters Flotantes de Jetpack Compose for XR */
+        /* Orbiters Flotantes Glassmorphism */
         .xr-orbiter {
-            background: rgba(255, 255, 255, 0.88);
-            backdrop-filter: blur(32px) saturate(200%);
-            -webkit-backdrop-filter: blur(32px) saturate(200%);
+            background: linear-gradient(135deg, rgba(236, 246, 255, 0.68) 0%, rgba(214, 232, 252, 0.54) 100%);
+            backdrop-filter: blur(30px) saturate(200%);
+            -webkit-backdrop-filter: blur(30px) saturate(200%);
             border-radius: var(--xr-radius-orbiter);
-            border: 1px solid rgba(255, 255, 255, 0.95);
+            border: 1.5px solid rgba(255, 255, 255, 0.72);
             box-shadow: 
-                0 20px 50px rgba(15, 23, 42, 0.1),
-                0 0 0 1px rgba(15, 23, 42, 0.06),
-                inset 0 1px 1.5px rgba(255, 255, 255, 1);
+                0 22px 55px rgba(2, 8, 23, 0.52),
+                0 0 0 1px rgba(56, 189, 248, 0.3),
+                inset 0 1.5px 2px rgba(255, 255, 255, 0.92);
         }
 
-        /* Píldoras y Chips M3 de Selección Tonal */
+        /* Píldoras y Chips Glassmorphism con marco luminoso al activarse */
         .m3-pill {
-            background: rgba(255, 255, 255, 0.85);
-            backdrop-filter: blur(16px);
+            background: linear-gradient(135deg, rgba(240, 248, 255, 0.58) 0%, rgba(218, 235, 252, 0.42) 100%);
+            backdrop-filter: blur(18px) saturate(175%);
+            -webkit-backdrop-filter: blur(18px) saturate(175%);
             border-radius: 9999px;
-            border: 1px solid rgba(15, 23, 42, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.62);
             min-height: 44px;
             color: #334155;
             transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
-            box-shadow: 0 4px 12px rgba(15, 23, 42, 0.04), inset 0 1px 0 rgba(255, 255, 255, 0.9);
+            box-shadow: 0 6px 18px rgba(2, 8, 23, 0.22), inset 0 1px 1px rgba(255, 255, 255, 0.85);
         }
 
         .m3-pill:hover, .m3-pill.active {
-            background: rgba(2, 132, 199, 0.12);
-            border-color: #0284C7;
+            background: linear-gradient(135deg, rgba(224, 242, 254, 0.78) 0%, rgba(186, 230, 253, 0.62) 100%);
+            border-color: rgba(56, 189, 248, 0.95);
             color: #0F172A;
-            box-shadow: 0 10px 24px rgba(2, 132, 199, 0.15), inset 0 1px 0 rgba(255, 255, 255, 1);
+            box-shadow: 0 10px 26px rgba(2, 132, 199, 0.35), 0 0 16px rgba(56, 189, 248, 0.45), inset 0 1.5px 2px rgba(255, 255, 255, 0.95);
             transform: translateY(-2px);
         }
 
-        /* Grab Bar inferior estilo ventana espacial Android XR */
+        /* Grab Bar inferior estilo ventana espacial Glassmorphism */
         .xr-grab-handle {
             width: 104px;
             height: 5px;
             border-radius: 9999px;
-            background: rgba(15, 23, 42, 0.18);
+            background: rgba(255, 255, 255, 0.55);
+            box-shadow: 0 1px 3px rgba(2, 8, 23, 0.2);
             margin: 16px auto 0;
             transition: all 0.3s ease;
         }
 
         .xr-spatial-panel:hover .xr-grab-handle {
             width: 136px;
-            background: rgba(2, 132, 199, 0.75);
-            box-shadow: 0 0 14px rgba(2, 132, 199, 0.35);
+            background: rgba(56, 189, 248, 0.9);
+            box-shadow: 0 0 16px rgba(56, 189, 248, 0.65);
         }
 
         /* Modo Curvatura Espacial XR interactivo */
@@ -230,7 +462,7 @@
             transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        /* Gradientes de Texto de Alto Contraste para Tema Claro */
+        /* Gradientes de Texto de Alto Contraste (Intactos) */
         .text-gradient-cyan {
             background: linear-gradient(135deg, #0369A1 0%, #0284C7 45%, #6D28D9 100%);
             -webkit-background-clip: text;
@@ -243,27 +475,33 @@
             -webkit-text-fill-color: transparent;
         }
 
-        /* Botón Neón Espacial con brillo tonal */
+        /* Botón Espacial Glass con brillo tonal */
         .m3-spatial-btn {
-            background: linear-gradient(135deg, #0284C7 0%, #0369A1 100%);
+            background: linear-gradient(135deg, rgba(2, 132, 199, 0.92) 0%, rgba(3, 105, 161, 0.92) 100%);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(186, 230, 253, 0.65);
             color: #FFFFFF !important;
-            box-shadow: 0 10px 25px rgba(2, 132, 199, 0.35);
+            box-shadow: 0 10px 25px rgba(2, 132, 199, 0.42), inset 0 1px 1px rgba(255, 255, 255, 0.45);
             transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
         }
 
         .m3-spatial-btn:hover {
-            box-shadow: 0 14px 35px rgba(2, 132, 199, 0.5), 0 0 20px rgba(109, 40, 217, 0.25);
+            box-shadow: 0 14px 35px rgba(56, 189, 248, 0.55), 0 0 22px rgba(56, 189, 248, 0.4);
             transform: translateY(-2px) scale(1.02);
         }
 
-        /* Tarjetas Holográficas Nácar / Ópalo para Trophy Room */
+        /* Tarjetas Holográficas Glassmorphism para Trophy Room */
         .holo-card-light {
             position: relative;
             overflow: hidden;
-            background: linear-gradient(145deg, rgba(255, 255, 255, 0.95) 0%, rgba(240, 248, 255, 0.88) 100%);
-            border: 1px solid rgba(217, 119, 6, 0.3);
+            background: linear-gradient(145deg, rgba(240, 248, 255, 0.66) 0%, rgba(218, 235, 252, 0.50) 100%);
+            backdrop-filter: blur(26px) saturate(185%);
+            -webkit-backdrop-filter: blur(26px) saturate(185%);
+            border: 1.5px solid rgba(251, 191, 36, 0.58);
             border-radius: 28px;
-            box-shadow: 0 20px 45px -10px rgba(15, 23, 42, 0.08), inset 0 1px 2px rgba(255, 255, 255, 0.95);
+            box-shadow: 
+                0 22px 50px -10px rgba(2, 8, 23, 0.52),
+                inset 0 1.5px 2px rgba(255, 255, 255, 0.88);
             transition: all 0.4s ease;
         }
 
@@ -277,44 +515,46 @@
             background: conic-gradient(
                 from 0deg,
                 transparent 0%,
-                rgba(2, 132, 199, 0.09) 20%,
-                rgba(217, 119, 6, 0.12) 40%,
-                rgba(109, 40, 217, 0.08) 60%,
+                rgba(56, 189, 248, 0.14) 20%,
+                rgba(251, 191, 36, 0.18) 40%,
+                rgba(139, 92, 246, 0.12) 60%,
                 transparent 80%
             );
             animation: rotateHolo 12s linear infinite;
             pointer-events: none;
-            opacity: 0.7;
+            opacity: 0.85;
         }
 
         .holo-card-light:hover {
-            border-color: rgba(217, 119, 6, 0.65);
+            border-color: rgba(251, 191, 36, 0.92);
             transform: translateY(-6px) scale(1.015);
-            box-shadow: 0 26px 55px -10px rgba(217, 119, 6, 0.16), 0 0 25px rgba(2, 132, 199, 0.12);
+            box-shadow: 0 28px 60px -10px rgba(2, 8, 23, 0.65), 0 0 28px rgba(251, 191, 36, 0.35), inset 0 1.5px 2px rgba(255, 255, 255, 0.95);
         }
 
         @keyframes rotateHolo {
             100% { transform: rotate(360deg); }
         }
 
-        /* Libros 3D Perspective en Tema Claro */
+        /* Libros 3D Perspective en Glassmorphism */
         .book-container {
             perspective: 1400px;
         }
 
         .book-card {
             transform-style: preserve-3d;
-            background: linear-gradient(145deg, rgba(255, 255, 255, 0.96) 0%, rgba(243, 247, 252, 0.92) 100%);
-            border: 1px solid rgba(255, 255, 255, 0.95);
+            background: linear-gradient(145deg, rgba(238, 247, 255, 0.68) 0%, rgba(215, 233, 252, 0.52) 100%);
+            backdrop-filter: blur(26px) saturate(185%);
+            -webkit-backdrop-filter: blur(26px) saturate(185%);
+            border: 1.5px solid rgba(255, 255, 255, 0.68);
             border-radius: 28px;
-            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.6s ease;
-            box-shadow: 0 20px 45px rgba(15, 23, 42, 0.08), 0 0 0 1px rgba(15, 23, 42, 0.04);
+            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.6s ease, border-color 0.4s ease;
+            box-shadow: 0 24px 52px rgba(2, 8, 23, 0.52), inset 0 1.5px 2px rgba(255, 255, 255, 0.88);
         }
 
         .book-container:hover .book-card {
             transform: rotateY(-14deg) rotateX(6deg) translateY(-8px);
-            border-color: rgba(2, 132, 199, 0.5);
-            box-shadow: -22px 28px 55px rgba(15, 23, 42, 0.13), 0 0 30px rgba(2, 132, 199, 0.16);
+            border-color: rgba(56, 189, 248, 0.88);
+            box-shadow: -22px 28px 60px rgba(2, 8, 23, 0.65), 0 0 32px rgba(56, 189, 248, 0.36);
         }
 
         .book-spine {
@@ -323,32 +563,29 @@
             top: 0;
             bottom: 0;
             width: 14px;
-            background: linear-gradient(90deg, rgba(2, 132, 199, 0.4), rgba(109, 40, 217, 0.25));
+            background: linear-gradient(90deg, rgba(2, 132, 199, 0.55), rgba(109, 40, 217, 0.35));
             border-radius: 28px 0 0 28px;
         }
 
-        /* Cuadrícula Biométrica Espacial Sutil */
+        /* Cuadrícula Biométrica Espacial Sutil sobre Cristal */
         .spatial-grid {
             background-size: 48px 48px;
-            background-image: 
-                linear-gradient(to right, rgba(15, 23, 42, 0.035) 1px, transparent 1px),
-                linear-gradient(to bottom, rgba(15, 23, 42, 0.035) 1px, transparent 1px);
         }
 
-        /* Scrollbar Claro y Pulido */
+        /* Scrollbar Glass Nocturno */
         ::-webkit-scrollbar {
             width: 8px;
         }
         ::-webkit-scrollbar-track {
-            background: #F1F5F9;
+            background: #041022;
         }
         ::-webkit-scrollbar-thumb {
-            background: #CBD5E1;
+            background: rgba(56, 189, 248, 0.45);
             border-radius: 4px;
-            border: 1px solid rgba(2, 132, 199, 0.25);
+            border: 1px solid rgba(255, 255, 255, 0.3);
         }
         ::-webkit-scrollbar-thumb:hover {
-            background: #0284C7;
+            background: #38BDF8;
         }
 
         /* Indicador de Status con Pulso */
@@ -375,14 +612,17 @@
 </head>
 <body class="spatial-grid text-slate-800">
 
+    <!-- LIENZO DE VENTANA LLUVIOSA + BOKEH NOCTURNO (Estilo Glassmorphism UI de Referencia) -->
+    <canvas id="rain-bokeh-canvas"></canvas>
+
     <!-- LIENZO WEBGL 3D (Three.js Multiagent Spatial Architecture) -->
     <canvas id="webgl-canvas"></canvas>
 
-    <!-- AMBIENT PASSTHROUGH GLOW ORBS (Ambiente Espacial Claro de Día) -->
-    <div class="ambient-spatial-orb w-[600px] h-[600px] bg-sky-200 top-[3%] -left-[10%]"></div>
-    <div class="ambient-spatial-orb w-[650px] h-[650px] bg-purple-200 top-[24%] -right-[15%]"></div>
-    <div class="ambient-spatial-orb w-[550px] h-[550px] bg-amber-100 top-[52%] left-[4%]"></div>
-    <div class="ambient-spatial-orb w-[700px] h-[700px] bg-sky-100 top-[76%] right-[2%]"></div>
+    <!-- AMBIENT BOKEH GLOW ORBS (Luces cálidas y cian desenfocadas tras la ventana lluviosa) -->
+    <div class="ambient-spatial-orb w-[520px] h-[520px] bg-amber-400/40 top-[4%] left-[6%]"></div>
+    <div class="ambient-spatial-orb w-[580px] h-[580px] bg-orange-500/35 top-[22%] right-[5%]"></div>
+    <div class="ambient-spatial-orb w-[500px] h-[500px] bg-sky-400/35 top-[50%] left-[12%]"></div>
+    <div class="ambient-spatial-orb w-[620px] h-[620px] bg-amber-300/35 top-[74%] right-[8%]"></div>
 
     <!-- =========================================================================
          1. TOP SPATIAL ORBITER BAR (Material Design 3 for XR & Jetpack Compose XR)
@@ -505,9 +745,9 @@
                     </div>
                 </div>
 
-                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-stretch">
                     
-                    <!-- Columna Principal -->
+                    <!-- Columna Principal: Composición Editorial Morgan (Inspirada en la imagen de referencia) -->
                     <div class="lg:col-span-8 space-y-6">
                         
                         <!-- Badge Superior (Terminal M3 XR) -->
@@ -522,26 +762,59 @@
                             </div>
                         </div>
 
-                        <!-- Título Principal -->
-                        <h1 class="font-display font-extrabold text-4xl sm:text-6xl lg:text-7xl tracking-tight leading-[1.05] text-slate-900">
-                            Leonardo <span class="text-gradient-cyan">Ordoñez Lozano</span>
-                        </h1>
+                        <!-- Bloque Editorial Morgan: Columna Izquierda Vertical + Columna Derecha Monumental -->
+                        <div class="xr-spatial-panel p-5 sm:p-8 border border-slate-200/90">
+                            <div class="grid grid-cols-1 sm:grid-cols-12 gap-6 sm:gap-8 items-stretch">
+                                
+                                <!-- Columna Editorial Izquierda (Píldora Vertical + 639/026 EDITION + Lead Condensada) -->
+                                <div class="sm:col-span-3 sm:border-r border-b sm:border-b-0 border-slate-300/90 pb-5 sm:pb-0 sm:pr-6 flex sm:flex-col justify-between items-center sm:items-end text-right gap-4">
+                                    
+                                    <!-- Píldora Vertical ("SIGNATURE DESIGNS COLLECTION" style) -->
+                                    <div class="morgan-vertical-pill text-slate-900 shadow-sm">
+                                        SIGNATURE FDE ARCHITECTURE
+                                    </div>
 
-                        <!-- Subtítulo Dinámico -->
-                        <div class="font-display text-xl sm:text-2xl lg:text-3xl font-semibold text-slate-800 flex flex-wrap items-center gap-2">
-                            <span class="px-3.5 py-1 rounded-xl bg-purple-100 border border-purple-300 text-purple-900 font-mono text-base sm:text-xl font-bold">
-                                Forward Deployed Engineer (FDE)
-                            </span>
-                            <span class="text-slate-700">| Agentes de IA, RAG en Producción y Gobernanza</span>
+                                    <!-- Sello Numérico de Edición ("639 EDITION" style) -->
+                                    <div class="flex flex-col items-end">
+                                        <div class="morgan-edition-number text-slate-900">026</div>
+                                        <div class="morgan-edition-label text-sky-700">EDITION</div>
+                                    </div>
+
+                                    <!-- Frase Editorial Condensada ("Jude was bound to eventually tap into her" style) -->
+                                    <div class="morgan-script-lead text-slate-600 text-right leading-none hidden sm:block">
+                                        <div>Del problema ambiguo</div>
+                                        <div>a tu IA en producción</div>
+                                    </div>
+                                </div>
+
+                                <!-- Columna Monumental Derecha ("JUDE / BENHALIM / OF J'S / DESIGNS" style) -->
+                                <div class="sm:col-span-9 flex flex-col justify-between space-y-5">
+                                    <h1 class="morgan-hero-stack text-slate-900 select-none">
+                                        <span class="block">LEONARDO</span>
+                                        <span class="block text-gradient-cyan">ORDOÑEZ LOZANO</span>
+                                        <span class="block text-slate-800">OF EDENTIA’S</span>
+                                        <span class="block text-slate-900">AI &amp; FDE DESIGNS</span>
+                                    </h1>
+
+                                    <!-- Subtítulo Dinámico -->
+                                    <div class="font-display text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-800 flex flex-wrap items-center gap-2.5 pt-2 border-t border-slate-200/80">
+                                        <span class="px-3.5 py-1 rounded-xl bg-purple-100 border border-purple-300 text-purple-900 font-mono text-xs sm:text-sm font-bold tracking-normal normal-case">
+                                            Forward Deployed Engineer (FDE)
+                                        </span>
+                                        <span class="text-slate-700">| AGENTES DE IA, RAG EN PRODUCCIÓN Y GOBERNANZA</span>
+                                    </div>
+
+                                    <!-- Propuesta de Valor -->
+                                    <p class="text-slate-600 text-base sm:text-lg lg:text-xl leading-relaxed max-w-3xl font-normal">
+                                        Ingeniero que despliega <strong class="text-slate-900 font-semibold">IA generativa en producción</strong> dentro de la operación del cliente: <span class="text-sky-700 font-semibold">del problema ambiguo a un sistema en uso</span>. Rediseño de procesos, <span class="text-sky-700 font-semibold">Roles Aumentados</span> y Soberanía de Datos (<span class="font-mono text-sm text-amber-800 font-bold bg-amber-50 px-2 py-0.5 rounded-md border border-amber-200">Ley 1581, ISO 42001</span>).
+                                    </p>
+                                </div>
+
+                            </div>
                         </div>
 
-                        <!-- Propuesta de Valor -->
-                        <p class="text-slate-600 text-base sm:text-lg lg:text-xl leading-relaxed max-w-3xl font-normal">
-                            Ingeniero que despliega <strong class="text-slate-900 font-semibold">IA generativa en producción</strong> dentro de la operación del cliente: <span class="text-sky-700 font-semibold">del problema ambiguo a un sistema en uso</span>. Rediseño de procesos, <span class="text-sky-700 font-semibold">Roles Aumentados</span> y Soberanía de Datos (<span class="font-mono text-sm text-amber-800 font-bold bg-amber-50 px-2 py-0.5 rounded-md border border-amber-200">Ley 1581, ISO 42001</span>).
-                        </p>
-
                         <!-- CTAs -->
-                        <div class="pt-3 flex flex-wrap items-center gap-4">
+                        <div class="pt-1 flex flex-wrap items-center gap-4">
                             <a href="#trayectoria" class="m3-spatial-btn px-7 py-4 rounded-2xl font-display font-bold text-sm sm:text-base flex items-center gap-3">
                                 <span>Explorar Arquitecturas en Producción</span>
                                 <i data-lucide="arrow-down-right" class="w-5 h-5"></i>
@@ -553,10 +826,11 @@
                         </div>
 
                         <!-- Chips de Sectores en Producción -->
-                        <div class="pt-3 flex flex-wrap items-center gap-2 text-xs font-mono text-slate-500">
+                        <div class="pt-1 flex flex-wrap items-center gap-2 text-xs font-mono text-slate-500">
                             <span class="text-slate-600 uppercase font-bold mr-1">Despliegues Activos:</span>
                             <span class="px-3 py-1.5 rounded-xl bg-white/90 border border-slate-200 text-slate-700 font-medium shadow-sm">🏛️ Gobierno & Hacienda</span>
-                            <span class="px-3 py-1.5 rounded-xl bg-white/90 border border-slate-200 text-slate-700 font-medium shadow-sm">🛒 Retail (Olímpica S.A.)</span>
+                            <span class="px-3 py-1.5 rounded-xl bg-white/90 border border-slate-200 text-slate-700 font-medium shadow-sm">🛒 Retail (Olímpica S.A. • 8 Proyectos IA)</span>
+                            <span class="px-3 py-1.5 rounded-xl bg-white/90 border border-slate-200 text-slate-700 font-medium shadow-sm">🏭 Clúster Impresión & Empaques (CCB)</span>
                             <span class="px-3 py-1.5 rounded-xl bg-white/90 border border-slate-200 text-slate-700 font-medium shadow-sm">👵 AgeTech & Zero-UI</span>
                             <span class="px-3 py-1.5 rounded-xl bg-white/90 border border-slate-200 text-slate-700 font-medium shadow-sm">🎓 Educación (+3.2M SENA)</span>
                             <span class="px-3 py-1.5 rounded-xl bg-white/90 border border-slate-200 text-slate-700 font-medium shadow-sm">🌲 IoT & Gemelos Digitales</span>
@@ -564,67 +838,71 @@
                     </div>
 
                     <!-- Columna Lateral: Tarjeta Espacial M3 XR de Telemetría -->
-                    <div class="lg:col-span-4">
-                        <div class="xr-spatial-panel p-6 sm:p-8 relative overflow-hidden border border-sky-300/80">
+                    <div class="lg:col-span-4 flex">
+                        <div class="xr-spatial-panel p-6 sm:p-8 relative overflow-hidden border border-sky-300/80 w-full flex flex-col justify-between">
                             
-                            <!-- Header de Tarjeta Espacial -->
-                            <div class="flex items-center justify-between border-b border-slate-200/80 pb-4 mb-6">
-                                <div class="flex items-center gap-3">
-                                    <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-sky-500 to-purple-600 p-0.5 shadow-md">
-                                        <div class="w-full h-full bg-white rounded-[14px] flex items-center justify-center font-display font-bold text-lg text-sky-700">
-                                            FDE
+                            <div>
+                                <!-- Header de Tarjeta Espacial -->
+                                <div class="flex items-center justify-between border-b border-slate-200/80 pb-4 mb-6">
+                                    <div class="flex items-center gap-3">
+                                        <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-sky-500 to-purple-600 p-0.5 shadow-md">
+                                            <div class="w-full h-full bg-white rounded-[14px] flex items-center justify-center font-display font-bold text-2xl text-sky-700">
+                                                FDE
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <h3 class="font-display font-bold text-slate-900">Arquitectura Activa</h3>
+                                            <p class="font-mono text-xs text-sky-700 font-semibold">Bogotá • Popayán • Colombia</p>
                                         </div>
                                     </div>
-                                    <div>
-                                        <h2 class="font-display font-bold text-slate-900 text-base">Arquitectura Activa</h2>
-                                        <p class="font-mono text-xs text-sky-700 font-semibold">Bogotá • Popayán • Colombia</p>
+                                    <span class="px-2.5 py-1 rounded-full bg-emerald-100 border border-emerald-300 font-mono text-[10px] text-emerald-800 font-bold">
+                                        ISO 42001 READY
+                                    </span>
+                                </div>
+
+                                <!-- Pipeline de Despliegue Visual en Tema Claro -->
+                                <div class="space-y-3 font-mono text-xs">
+                                    <div class="p-3.5 rounded-2xl bg-slate-50/90 border border-slate-200/80 flex items-center justify-between shadow-sm">
+                                        <span class="text-slate-600">01. Diagnóstico & SDD</span>
+                                        <span class="text-sky-700 font-bold">Harness + 5 Pilares</span>
+                                    </div>
+                                    <div class="p-3.5 rounded-2xl bg-slate-50/90 border border-slate-200/80 flex items-center justify-between shadow-sm">
+                                        <span class="text-slate-600">02. Orquestación</span>
+                                        <span class="text-purple-700 font-bold">LangChain • MCP • n8n</span>
+                                    </div>
+                                    <div class="p-3.5 rounded-2xl bg-slate-50/90 border border-slate-200/80 flex items-center justify-between shadow-sm">
+                                        <span class="text-slate-600">03. Inferencia</span>
+                                        <span class="text-amber-700 font-bold">Nvidia • Ollama • Cloud</span>
+                                    </div>
+                                    <div class="p-3.5 rounded-2xl bg-slate-50/90 border border-slate-200/80 flex items-center justify-between shadow-sm">
+                                        <span class="text-slate-600">04. Soberanía</span>
+                                        <span class="text-emerald-700 font-bold">Ley 1581 • On-Premise</span>
                                     </div>
                                 </div>
-                                <span class="px-2.5 py-1 rounded-full bg-emerald-100 border border-emerald-300 font-mono text-[10px] text-emerald-800 font-bold">
-                                    ISO 42001 READY
-                                </span>
                             </div>
 
-                            <!-- Pipeline de Despliegue Visual en Tema Claro -->
-                            <div class="space-y-3 font-mono text-xs">
-                                <div class="p-3.5 rounded-2xl bg-slate-50/90 border border-slate-200/80 flex items-center justify-between shadow-sm">
-                                    <span class="text-slate-600">01. Diagnóstico & SDD</span>
-                                    <span class="text-sky-700 font-bold">Harness + 5 Pilares</span>
+                            <div>
+                                <div class="mt-6 pt-4 border-t border-slate-200/80 flex items-center justify-between text-xs text-slate-500 font-mono">
+                                    <span>ENTORNO ESPACIAL XR:</span>
+                                    <span class="text-sky-700 flex items-center gap-1.5 font-bold">
+                                        <span class="w-2 h-2 rounded-full bg-sky-600 live-pulse"></span> 60 FPS FLUIDO
+                                    </span>
                                 </div>
-                                <div class="p-3.5 rounded-2xl bg-slate-50/90 border border-slate-200/80 flex items-center justify-between shadow-sm">
-                                    <span class="text-slate-600">02. Orquestación</span>
-                                    <span class="text-purple-700 font-bold">LangChain • MCP • n8n</span>
-                                </div>
-                                <div class="p-3.5 rounded-2xl bg-slate-50/90 border border-slate-200/80 flex items-center justify-between shadow-sm">
-                                    <span class="text-slate-600">03. Inferencia</span>
-                                    <span class="text-amber-700 font-bold">Nvidia • Ollama • Cloud</span>
-                                </div>
-                                <div class="p-3.5 rounded-2xl bg-slate-50/90 border border-slate-200/80 flex items-center justify-between shadow-sm">
-                                    <span class="text-slate-600">04. Soberanía</span>
-                                    <span class="text-emerald-700 font-bold">Ley 1581 • On-Premise</span>
-                                </div>
-                            </div>
 
-                            <div class="mt-6 pt-4 border-t border-slate-200/80 flex items-center justify-between text-xs text-slate-500 font-mono">
-                                <span>ENTORNO ESPACIAL XR:</span>
-                                <span class="text-sky-700 flex items-center gap-1.5 font-bold">
-                                    <span class="w-2 h-2 rounded-full bg-sky-600 live-pulse"></span> 60 FPS FLUIDO
-                                </span>
+                                <!-- Grab Handle estilo Android XR Window -->
+                                <div class="xr-grab-handle" title="Barra de agarre espacial"></div>
                             </div>
-
-                            <!-- Grab Handle estilo Android XR Window -->
-                            <div class="xr-grab-handle" title="Barra de agarre espacial"></div>
                         </div>
                     </div>
                 </div>
 
-                <!-- KPIs Flotantes (Contadores Animados con GSAP en Tema Claro) -->
+                <!-- KPIs Flotantes (Contadores Animados con GSAP en Tema Claro + Numerales Morganite) -->
                 <div class="mt-12 grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
                     
                     <!-- KPI 1 -->
                     <div class="xr-spatial-panel p-6 border-l-4 border-l-sky-600">
                         <div class="font-mono text-xs text-slate-500 uppercase font-semibold mb-1">Ecosistemas Virtuales</div>
-                        <div class="font-display font-extrabold text-3xl sm:text-4xl text-slate-900 flex items-baseline gap-1">
+                        <div class="kpi-morgan-num text-slate-900 flex items-baseline gap-1">
                             <span>+</span><span class="kpi-counter text-sky-700" data-target="3.2" data-decimals="1">0</span><span>M</span>
                         </div>
                         <p class="text-xs text-slate-600 mt-2 font-medium">Personas formadas en cursos y plataformas digitales.</p>
@@ -633,9 +911,9 @@
                     <!-- KPI 2 -->
                     <div class="xr-spatial-panel p-6 border-l-4 border-l-purple-600">
                         <div class="font-mono text-xs text-slate-500 uppercase font-semibold mb-1">Secretaría de Hacienda</div>
-                        <div class="font-display font-extrabold text-3xl sm:text-4xl text-slate-900 flex items-baseline gap-1">
+                        <div class="kpi-morgan-num text-slate-900 flex items-baseline gap-1">
                             <span class="kpi-counter text-purple-700" data-target="8" data-decimals="0">0</span>
-                            <span class="text-lg font-mono text-slate-500 font-semibold ml-1">Impuestos</span>
+                            <span class="text-lg font-mono text-slate-500 font-semibold ml-1.5">Impuestos</span>
                         </div>
                         <p class="text-xs text-slate-600 mt-2 font-medium">Optimizados con IA Multiagente (SIGIG-MIAC).</p>
                     </div>
@@ -643,9 +921,9 @@
                     <!-- KPI 3 -->
                     <div class="xr-spatial-panel p-6 border-l-4 border-l-amber-500">
                         <div class="font-mono text-xs text-slate-500 uppercase font-semibold mb-1">Producción Intelectual</div>
-                        <div class="font-display font-extrabold text-3xl sm:text-4xl text-slate-900 flex items-baseline gap-1">
+                        <div class="kpi-morgan-num text-slate-900 flex items-baseline gap-1">
                             <span class="kpi-counter text-amber-700" data-target="17" data-decimals="0">0</span><span>+</span>
-                            <span class="text-lg font-mono text-slate-500 font-semibold ml-1">Libros</span>
+                            <span class="text-lg font-mono text-slate-500 font-semibold ml-1.5">Libros</span>
                         </div>
                         <p class="text-xs text-slate-600 mt-2 font-medium">Publicados en IA, Negocios y Futuros Cuánticos.</p>
                     </div>
@@ -653,9 +931,9 @@
                     <!-- KPI 4 -->
                     <div class="xr-spatial-panel p-6 border-l-4 border-l-emerald-600">
                         <div class="font-mono text-xs text-slate-500 uppercase font-semibold mb-1">Hackathons & Retos</div>
-                        <div class="font-display font-extrabold text-3xl sm:text-4xl text-slate-900 flex items-baseline gap-1">
+                        <div class="kpi-morgan-num text-slate-900 flex items-baseline gap-1">
                             <span class="kpi-counter text-emerald-700" data-target="4" data-decimals="0">0</span><span>x</span>
-                            <span class="text-base font-mono text-amber-700 font-bold ml-1">#1 Lugar</span>
+                            <span class="text-base font-mono text-amber-700 font-bold ml-1.5">#1 Lugar</span>
                         </div>
                         <p class="text-xs text-slate-600 mt-2 font-medium">Ganador nacional en retos de IA, Fintech y Voz.</p>
                     </div>
@@ -670,17 +948,23 @@
         <section id="metodologia" class="py-20 relative">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 
-                <!-- Encabezado de Sesión Diferenciada -->
+                <!-- Encabezado de Sesión Diferenciada con Sello Editorial Morgan -->
                 <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6 bg-white/60 p-6 sm:p-8 rounded-[28px] border border-slate-200/80 shadow-sm backdrop-blur-md">
-                    <div>
-                        <div class="font-mono text-xs text-sky-700 uppercase tracking-widest mb-2 flex items-center gap-2 font-bold">
-                            <i data-lucide="git-merge" class="w-4 h-4"></i> SESIÓN 02 // MARCO ESTRATÉGICO DE INGENIERÍA
+                    <div class="flex items-stretch gap-5 sm:gap-7">
+                        <div class="hidden sm:flex flex-col items-end justify-between border-r border-slate-300/90 pr-5 text-right select-none">
+                            <span class="morgan-edition-number text-slate-900">002</span>
+                            <span class="morgan-edition-label text-sky-700">EDITION</span>
                         </div>
-                        <h2 class="font-display font-extrabold text-3xl sm:text-5xl text-slate-900">
-                            El Método <span class="text-gradient-cyan">FDE & Metodologías</span>
-                        </h2>
+                        <div>
+                            <div class="font-mono text-xs text-sky-700 uppercase tracking-widest mb-2 flex items-center gap-2 font-bold">
+                                <i data-lucide="git-merge" class="w-4 h-4"></i> SESIÓN 02 // MARCO ESTRATÉGICO DE INGENIERÍA
+                            </div>
+                            <h2 class="font-display font-extrabold text-3xl sm:text-5xl text-slate-900">
+                                El Método <span class="text-gradient-cyan">FDE &amp; Metodologías</span>
+                            </h2>
+                        </div>
                     </div>
-                    <p class="text-slate-600 max-w-md text-sm sm:text-base font-normal">
+                    <p class="morgan-script-lead text-slate-600 max-w-md font-normal">
                         Cómo transformar organizaciones combinando ingeniería de vanguardia, marcos estratégicos rigurosos y adopción cultural en el puesto de trabajo.
                     </p>
                 </div>
@@ -795,15 +1079,23 @@
         <section id="ecosistema" class="py-20 relative">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 
-                <!-- Encabezado de Sesión Diferenciada -->
-                <div class="text-center max-w-3xl mx-auto mb-16 bg-white/60 p-6 sm:p-8 rounded-[28px] border border-slate-200/80 shadow-sm backdrop-blur-md">
-                    <div class="font-mono text-xs text-sky-700 uppercase tracking-widest mb-2 font-bold">
-                        [ SESIÓN 03 // FULL-STACK AI & SPATIAL ARCHITECTURE ]
+                <!-- Encabezado de Sesión Diferenciada con Sello Editorial Morgan -->
+                <div class="flex flex-col md:flex-row md:items-end justify-between max-w-5xl mx-auto mb-16 gap-6 bg-white/60 p-6 sm:p-8 rounded-[28px] border border-slate-200/80 shadow-sm backdrop-blur-md">
+                    <div class="flex items-stretch gap-5 sm:gap-7">
+                        <div class="hidden sm:flex flex-col items-end justify-between border-r border-slate-300/90 pr-5 text-right select-none">
+                            <span class="morgan-edition-number text-slate-900">003</span>
+                            <span class="morgan-edition-label text-sky-700">EDITION</span>
+                        </div>
+                        <div>
+                            <div class="font-mono text-xs text-sky-700 uppercase tracking-widest mb-2 font-bold">
+                                [ SESIÓN 03 // FULL-STACK AI &amp; SPATIAL ARCHITECTURE ]
+                            </div>
+                            <h2 class="font-display font-extrabold text-3xl sm:text-5xl text-slate-900">
+                                Ecosistema Técnico por <span class="text-gradient-cyan">Capas de Producción</span>
+                            </h2>
+                        </div>
                     </div>
-                    <h2 class="font-display font-extrabold text-3xl sm:text-5xl text-slate-900 mb-4">
-                        Ecosistema Técnico por <span class="text-gradient-cyan">Capas de Producción</span>
-                    </h2>
-                    <p class="text-slate-600 text-sm sm:text-base font-normal">
+                    <p class="morgan-script-lead text-slate-600 max-w-md font-normal">
                         De la ingesta distribuida en tiempo real hasta la orquestación multiagente y la experiencia inmersiva en Computación Espacial.
                     </p>
                 </div>
@@ -820,7 +1112,7 @@
                                 </div>
                                 <div>
                                     <span class="font-mono text-[11px] text-sky-700 uppercase font-bold">CAPA 01 // AGENTIC CORE</span>
-                                    <h3 class="font-display font-extrabold text-xl text-slate-900">Agentes, LLM & Orquestación</h3>
+                                    <h3 class="font-display font-extrabold text-xl text-slate-900">Agentes, LLM &amp; Orquestación</h3>
                                 </div>
                             </div>
                             <span class="font-mono text-xs text-emerald-800 bg-emerald-100 px-3 py-1 rounded-full border border-emerald-300 font-bold">
@@ -845,7 +1137,7 @@
                         <!-- Barra de Telemetría -->
                         <div class="space-y-2 pt-4 border-t border-slate-200/80 font-mono text-xs">
                             <div class="flex justify-between text-slate-600">
-                                <span>Multi-Agent Swarm & Context Routing</span>
+                                <span>Multi-Agent Swarm &amp; Context Routing</span>
                                 <span class="text-sky-700 font-bold">99.8% Determinismo</span>
                             </div>
                             <div class="w-full h-2.5 bg-slate-200/80 rounded-full overflow-hidden p-[1px]">
@@ -863,7 +1155,7 @@
                                 </div>
                                 <div>
                                     <span class="font-mono text-[11px] text-purple-700 uppercase font-bold">CAPA 02 // DATA FABRIC</span>
-                                    <h3 class="font-display font-extrabold text-xl text-slate-900">Data Architecture & Big Data</h3>
+                                    <h3 class="font-display font-extrabold text-xl text-slate-900">Data Architecture &amp; Big Data</h3>
                                 </div>
                             </div>
                             <span class="font-mono text-xs text-purple-800 bg-purple-100 px-3 py-1 rounded-full border border-purple-300 font-bold">
@@ -889,7 +1181,7 @@
                         <!-- Barra de Telemetría -->
                         <div class="space-y-2 pt-4 border-t border-slate-200/80 font-mono text-xs">
                             <div class="flex justify-between text-slate-600">
-                                <span>Throughput de Ingesta & Latencia</span>
+                                <span>Throughput de Ingesta &amp; Latencia</span>
                                 <span class="text-purple-700 font-bold">Sub-segundo / TB Scale</span>
                             </div>
                             <div class="w-full h-2.5 bg-slate-200/80 rounded-full overflow-hidden p-[1px]">
@@ -906,8 +1198,8 @@
                                     <i data-lucide="shield-alert" class="w-6 h-6"></i>
                                 </div>
                                 <div>
-                                    <span class="font-mono text-[11px] text-amber-700 uppercase font-bold">CAPA 03 // TRUST & SOVEREIGNTY</span>
-                                    <h3 class="font-display font-extrabold text-xl text-slate-900">Gobernanza & Infraestructura</h3>
+                                    <span class="font-mono text-[11px] text-amber-700 uppercase font-bold">CAPA 03 // TRUST &amp; SOVEREIGNTY</span>
+                                    <h3 class="font-display font-extrabold text-xl text-slate-900">Gobernanza &amp; Infraestructura</h3>
                                 </div>
                             </div>
                             <span class="font-mono text-xs text-amber-800 bg-amber-100 px-3 py-1 rounded-full border border-amber-300 font-bold">
@@ -930,7 +1222,7 @@
                         <!-- Barra de Telemetría -->
                         <div class="space-y-2 pt-4 border-t border-slate-200/80 font-mono text-xs">
                             <div class="flex justify-between text-slate-600">
-                                <span>Alineación Normativa & Blindaje Legal</span>
+                                <span>Alineación Normativa &amp; Blindaje Legal</span>
                                 <span class="text-amber-700 font-bold">100% Auditabilidad</span>
                             </div>
                             <div class="w-full h-2.5 bg-slate-200/80 rounded-full overflow-hidden p-[1px]">
@@ -947,8 +1239,8 @@
                                     <i data-lucide="boxes" class="w-6 h-6"></i>
                                 </div>
                                 <div>
-                                    <span class="font-mono text-[11px] text-emerald-700 uppercase font-bold">CAPA 04 // SPATIAL & ZERO-UI</span>
-                                    <h3 class="font-display font-extrabold text-xl text-slate-900">Computación Espacial & XR</h3>
+                                    <span class="font-mono text-[11px] text-emerald-700 uppercase font-bold">CAPA 04 // SPATIAL &amp; ZERO-UI</span>
+                                    <h3 class="font-display font-extrabold text-xl text-slate-900">Computación Espacial &amp; XR</h3>
                                 </div>
                             </div>
                             <span class="font-mono text-xs text-emerald-800 bg-emerald-100 px-3 py-1 rounded-full border border-emerald-300 font-bold">
@@ -960,20 +1252,20 @@
                         <div class="flex flex-wrap gap-2 mb-6">
                             <span class="px-3 py-1.5 rounded-xl bg-emerald-100 border border-emerald-300 font-mono text-xs text-emerald-900 font-semibold shadow-sm">Jetpack Compose for XR</span>
                             <span class="px-3 py-1.5 rounded-xl bg-emerald-100 border border-emerald-300 font-mono text-xs text-emerald-900 font-semibold shadow-sm">Material Design 3 (M3 XR)</span>
-                            <span class="px-3 py-1.5 rounded-xl bg-emerald-100 border border-emerald-300 font-mono text-xs text-emerald-900 font-semibold shadow-sm">Unity & Unreal Engine</span>
+                            <span class="px-3 py-1.5 rounded-xl bg-emerald-100 border border-emerald-300 font-mono text-xs text-emerald-900 font-semibold shadow-sm">Unity &amp; Unreal Engine</span>
                             <span class="px-3 py-1.5 rounded-xl bg-white border border-slate-200 font-mono text-xs text-slate-700 font-medium shadow-sm">Blender 3D</span>
                             <span class="px-3 py-1.5 rounded-xl bg-white border border-slate-200 font-mono text-xs text-slate-700 font-medium shadow-sm">Heurísticas UX/UI en XR</span>
                             <span class="px-3 py-1.5 rounded-xl bg-white border border-slate-200 font-mono text-xs text-slate-700 font-medium shadow-sm">WCAG AAA</span>
                             <span class="px-3 py-1.5 rounded-xl bg-white border border-slate-200 font-mono text-xs text-slate-700 font-medium shadow-sm">Ley de Fitts Espacial</span>
                             <span class="px-3 py-1.5 rounded-xl bg-white border border-slate-200 font-mono text-xs text-slate-700 font-medium shadow-sm">Interfaz Cero (Zero-UI)</span>
                             <span class="px-3 py-1.5 rounded-xl bg-white border border-slate-200 font-mono text-xs text-slate-700 font-medium shadow-sm">Gemelos Digitales IoT</span>
-                            <span class="px-3 py-1.5 rounded-xl bg-white border border-slate-200 font-mono text-xs text-slate-700 font-medium shadow-sm">Sensórica Ambiental & Edge-AI</span>
+                            <span class="px-3 py-1.5 rounded-xl bg-white border border-slate-200 font-mono text-xs text-slate-700 font-medium shadow-sm">Sensórica Ambiental &amp; Edge-AI</span>
                         </div>
 
                         <!-- Barra de Telemetría -->
                         <div class="space-y-2 pt-4 border-t border-slate-200/80 font-mono text-xs">
                             <div class="flex justify-between text-slate-600">
-                                <span>Inmersión Espacial & Accesibilidad</span>
+                                <span>Inmersión Espacial &amp; Accesibilidad</span>
                                 <span class="text-emerald-700 font-bold">90 FPS XR Ready</span>
                             </div>
                             <div class="w-full h-2.5 bg-slate-200/80 rounded-full overflow-hidden p-[1px]">
@@ -993,18 +1285,24 @@
         <section id="productos" class="py-20 relative">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 
-                <!-- Encabezado de Sesión Diferenciada -->
+                <!-- Encabezado de Sesión Diferenciada con Sello Editorial Morgan -->
                 <div class="flex flex-col lg:flex-row lg:items-end justify-between mb-12 gap-6 bg-white/70 p-6 sm:p-8 rounded-[28px] border border-slate-200/80 shadow-sm backdrop-blur-md">
-                    <div>
-                        <div class="font-mono text-xs text-sky-700 uppercase tracking-widest mb-2 flex items-center gap-2 font-bold">
-                            <i data-lucide="layers" class="w-4 h-4 text-sky-600"></i> SESIÓN 04 // SISTEMAS DESPLEGADOS & SUITE INTERACTIVA
+                    <div class="flex items-stretch gap-5 sm:gap-7">
+                        <div class="hidden sm:flex flex-col items-end justify-between border-r border-slate-300/90 pr-5 text-right select-none">
+                            <span class="morgan-edition-number text-slate-900">023</span>
+                            <span class="morgan-edition-label text-sky-700">SYSTEMS</span>
                         </div>
-                        <h2 class="font-display font-extrabold text-3xl sm:text-5xl text-slate-900">
-                            Productos & <span class="text-gradient-cyan">Sistemas en Producción</span>
-                        </h2>
-                        <p class="text-slate-600 mt-2 max-w-2xl text-sm sm:text-base font-normal">
-                            Ecosistema de plataformas en la nube, herramientas de gestión pública, simuladores estratégicos y aplicaciones interactivas desarrolladas por Leonardo Ordoñez Lozano.
-                        </p>
+                        <div>
+                            <div class="font-mono text-xs text-sky-700 uppercase tracking-widest mb-2 flex items-center gap-2 font-bold">
+                                <i data-lucide="layers" class="w-4 h-4 text-sky-600"></i> SESIÓN 04 // SISTEMAS DESPLEGADOS &amp; SUITE INTERACTIVA
+                            </div>
+                            <h2 class="font-display font-extrabold text-3xl sm:text-5xl text-slate-900">
+                                Productos &amp; <span class="text-gradient-cyan">Sistemas en Producción</span>
+                            </h2>
+                            <p class="morgan-script-lead text-slate-600 mt-2 max-w-2xl font-normal">
+                                Ecosistema de plataformas en la nube, herramientas de gestión pública, simuladores estratégicos y aplicaciones interactivas desarrolladas por Leonardo Ordoñez Lozano.
+                            </p>
+                        </div>
                     </div>
 
                     <!-- Filtros de Categoría -->
@@ -2482,33 +2780,39 @@
         <section id="trayectoria" class="py-20 relative">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 
-                <!-- Encabezado de Sesión Diferenciada -->
+                <!-- Encabezado de Sesión Diferenciada con Sello Editorial Morgan -->
                 <div class="flex flex-col lg:flex-row lg:items-end justify-between mb-12 gap-6 bg-white/60 p-6 sm:p-8 rounded-[28px] border border-slate-200/80 shadow-sm backdrop-blur-md">
-                    <div>
-                        <div class="font-mono text-xs text-sky-700 uppercase tracking-widest mb-2 flex items-center gap-2 font-bold">
-                            <i data-lucide="history" class="w-4 h-4"></i> SESIÓN 05 // CASOS DE ÉXITO EN PRODUCCIÓN REAL
+                    <div class="flex items-stretch gap-5 sm:gap-7">
+                        <div class="hidden sm:flex flex-col items-end justify-between border-r border-slate-300/90 pr-5 text-right select-none">
+                            <span class="morgan-edition-number text-slate-900">005</span>
+                            <span class="morgan-edition-label text-sky-700">EDITION</span>
                         </div>
-                        <h2 class="font-display font-extrabold text-3xl sm:text-5xl text-slate-900">
-                            Trayectoria y <span class="text-gradient-cyan">Despliegues FDE</span>
-                        </h2>
+                        <div>
+                            <div class="font-mono text-xs text-sky-700 uppercase tracking-widest mb-2 flex items-center gap-2 font-bold">
+                                <i data-lucide="history" class="w-4 h-4"></i> SESIÓN 05 // CASOS DE ÉXITO EN PRODUCCIÓN REAL
+                            </div>
+                            <h2 class="font-display font-extrabold text-3xl sm:text-5xl text-slate-900">
+                                Trayectoria y <span class="text-gradient-cyan">Despliegues FDE</span>
+                            </h2>
+                        </div>
                     </div>
 
                     <!-- Filtros de la Línea de Tiempo -->
                     <div class="flex flex-wrap gap-2">
                         <button onclick="filterExperience('all')" class="exp-filter-btn active px-4 py-2 rounded-xl font-mono text-xs bg-sky-600 text-white font-bold shadow-sm transition">
-                            Todos (7)
+                            Todos (8)
                         </button>
                         <button onclick="filterExperience('fde')" class="exp-filter-btn px-4 py-2 rounded-xl font-mono text-xs bg-white hover:bg-slate-100 text-slate-700 border border-slate-300 font-semibold transition">
-                            Agentes & Retail
+                            Agentes, Retail &amp; Industria
                         </button>
                         <button onclick="filterExperience('gov')" class="exp-filter-btn px-4 py-2 rounded-xl font-mono text-xs bg-white hover:bg-slate-100 text-slate-700 border border-slate-300 font-semibold transition">
-                            Gobierno & Hacienda
+                            Gobierno &amp; Hacienda
                         </button>
                         <button onclick="filterExperience('agetech')" class="exp-filter-btn px-4 py-2 rounded-xl font-mono text-xs bg-white hover:bg-slate-100 text-slate-700 border border-slate-300 font-semibold transition">
-                            Economía Plateada & IoT
+                            Economía Plateada &amp; IoT
                         </button>
                         <button onclick="filterExperience('edu')" class="exp-filter-btn px-4 py-2 rounded-xl font-mono text-xs bg-white hover:bg-slate-100 text-slate-700 border border-slate-300 font-semibold transition">
-                            Big Data & Educación
+                            Big Data &amp; Formación Ejecutiva
                         </button>
                     </div>
                 </div>
@@ -2516,24 +2820,257 @@
                 <!-- Línea de Tiempo Espacial -->
                 <div class="space-y-6 relative before:absolute before:top-4 before:bottom-4 before:left-4 sm:before:left-8 before:w-1 before:bg-gradient-to-b before:from-sky-600 before:via-purple-600 before:to-transparent" id="timeline-container">
 
-                    <!-- Experiencia 1: Vivetori / Olímpica S.A. -->
-                    <div class="exp-item pl-12 sm:pl-20 relative" data-category="fde">
+                    <!-- Experiencia 1: Vivetori / Olímpica S.A. (Ampliada con Bolsa de 80h y 8 Proyectos en Mentoría) -->
+                    <div class="exp-item pl-12 sm:pl-20 relative" data-category="fde edu">
                         <div class="absolute left-2 sm:left-6 top-6 w-5 h-5 rounded-full bg-sky-600 shadow-[0_0_12px_rgba(2,132,199,0.5)] border-4 border-white"></div>
                         <div class="xr-spatial-panel p-6 sm:p-8 border-l-4 border-l-sky-600">
                             <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
-                                <span class="font-mono text-xs text-sky-800 bg-sky-100 px-3 py-1 rounded-full border border-sky-300 font-bold">
-                                    Ene 2026 - Actualidad • EN PRODUCCIÓN
-                                </span>
-                                <span class="font-mono text-xs text-slate-500 font-semibold">Retail Masivo & Core Systems</span>
+                                <div class="flex flex-wrap items-center gap-2">
+                                    <span class="font-mono text-xs text-sky-800 bg-sky-100 px-3 py-1 rounded-full border border-sky-300 font-bold">
+                                        Ene 2026 - Nov 2026 • EN PRODUCCIÓN &amp; MENTORÍA ACTIVA
+                                    </span>
+                                    <span class="font-mono text-xs text-emerald-800 bg-emerald-100 px-3 py-1 rounded-full border border-emerald-300 font-bold">
+                                        Bolsa 80 Horas • 8 Células de IA
+                                    </span>
+                                </div>
+                                <span class="font-mono text-xs text-slate-500 font-semibold">Retail Masivo &amp; Core Systems</span>
                             </div>
+
                             <h3 class="font-display font-extrabold text-xl sm:text-2xl text-slate-900">
-                                Consultor Senior en IA — <span class="text-sky-700">Vivetori (Implementación para Olímpica S.A. - Retail)</span>
+                                Consultor Senior en IA &amp; Mentor Técnico de Proyectos — <span class="text-sky-700">Vivetori (Implementación para Olímpica S.A. - Retail)</span>
                             </h3>
+
                             <ul class="mt-4 space-y-2.5 text-slate-700 text-sm sm:text-base list-disc list-inside font-normal">
                                 <li>Automatización inteligente y orquestación de agentes con <code class="text-sky-800 font-mono text-xs px-2 py-0.5 rounded bg-sky-50 border border-sky-200">n8n</code> y <code class="text-sky-800 font-mono text-xs px-2 py-0.5 rounded bg-sky-50 border border-sky-200">LangChain</code> integrados a sistemas core del cliente.</li>
-                                <li>Plataforma de trazabilidad ejecutiva a medida para transformación digital y diagnósticos con <strong class="text-slate-900 font-semibold">Harness y Spec-Driven Development (SDD)</strong>.</li>
-                                <li>Integración con metodologías ágiles, CRISP-DM, rutas estratégicas de IBM, madurez por niveles, 5 pilares y FDE + capas de IA.</li>
+                                <li>Plataforma de trazabilidad ejecutiva a medida para transformación digital, gestión de bolsa de horas, bitácora de sesiones y diagnósticos con <strong class="text-slate-900 font-semibold">Harness Engineering y Spec-Driven Development (SDD)</strong>.</li>
+                                <li><strong class="text-slate-900 font-semibold">Acompañamiento y Mentoría Técnica Transversal (Programa Olímpica 80 Horas - Proyecto IA):</strong> Co-liderazgo y soporte técnico directo a los equipos de ingeniería y negocio de Olímpica S.A. (en articulación con Liderazgo Cliente <span class="text-sky-700 font-semibold">Heidy Rivera</span> y Mentor Líder <span class="text-sky-700 font-semibold">Julián Castaño</span>), estructurando la arquitectura y paso a producción de <strong class="text-sky-700 font-bold">8 proyectos estratégicos de IA</strong>:</li>
                             </ul>
+
+                            <!-- Cuadrícula de los 8 Proyectos de IA Mentorizados en Olímpica S.A. -->
+                            <div class="mt-5 pt-5 border-t border-slate-200/80">
+                                <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+                                    <span class="font-mono text-xs text-sky-700 uppercase font-bold flex items-center gap-1.5">
+                                        <i data-lucide="layers" class="w-4 h-4"></i> PORTAFOLIO DE 8 PROYECTOS EN MENTORÍA TÉCNICA (OLÍMPICA S.A. — 80H ASIGNADAS)
+                                    </span>
+                                    <span class="font-mono text-[11px] text-slate-500 font-semibold">10h Estimadas por Célula • Metodología FDE + SDD</span>
+                                </div>
+
+                                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+                                    <!-- Proyecto 1 -->
+                                    <div class="p-3.5 rounded-2xl bg-white/90 border border-slate-200/90 flex flex-col justify-between">
+                                        <div>
+                                            <div class="flex items-center justify-between gap-1 mb-1">
+                                                <span class="font-mono text-[10px] text-emerald-800 bg-emerald-100 px-2 py-0.5 rounded-full font-bold border border-emerald-300">ACTIVO • LOGÍSTICA</span>
+                                                <span class="font-mono text-[10px] text-slate-500 font-semibold">3 part. • 10h</span>
+                                            </div>
+                                            <h4 class="font-display font-bold text-slate-900 text-base mt-1">1. Agendamiento CEDI</h4>
+                                            <p class="text-xs text-slate-600 mt-1 leading-snug">Optimización y automatización inteligente de turnos, muelles y recepción logística en Centros de Distribución (CEDI).</p>
+                                        </div>
+                                        <div class="mt-2.5 pt-2 border-t border-slate-200/70 font-mono text-[10px] text-sky-700 font-bold">
+                                            Apoyo Mentoría: Leonardo Ordoñez
+                                        </div>
+                                    </div>
+
+                                    <!-- Proyecto 2 -->
+                                    <div class="p-3.5 rounded-2xl bg-white/90 border border-slate-200/90 flex flex-col justify-between">
+                                        <div>
+                                            <div class="flex items-center justify-between gap-1 mb-1">
+                                                <span class="font-mono text-[10px] text-sky-800 bg-sky-100 px-2 py-0.5 rounded-full font-bold border border-sky-300">ACTIVO • BI AGENT</span>
+                                                <span class="font-mono text-[10px] text-slate-500 font-semibold">3 part. • 10h</span>
+                                            </div>
+                                            <h4 class="font-display font-bold text-slate-900 text-base mt-1">2. Agente Turno BI</h4>
+                                            <p class="text-xs text-slate-600 mt-1 leading-snug">Agente conversacional de Business Intelligence para consulta analítica de indicadores y soporte de turnos operativos.</p>
+                                        </div>
+                                        <div class="mt-2.5 pt-2 border-t border-slate-200/70 font-mono text-[10px] text-sky-700 font-bold">
+                                            Apoyo Mentoría: Leonardo Ordoñez
+                                        </div>
+                                    </div>
+
+                                    <!-- Proyecto 3 -->
+                                    <div class="p-3.5 rounded-2xl bg-white/90 border border-slate-200/90 flex flex-col justify-between">
+                                        <div>
+                                            <div class="flex items-center justify-between gap-1 mb-1">
+                                                <span class="font-mono text-[10px] text-purple-900 bg-purple-100 px-2 py-0.5 rounded-full font-bold border border-purple-300">ACTIVO • IT GOV</span>
+                                                <span class="font-mono text-[10px] text-slate-500 font-semibold">2 part. • 10h</span>
+                                            </div>
+                                            <h4 class="font-display font-bold text-slate-900 text-base mt-1">3. GovTI 360</h4>
+                                            <p class="text-xs text-slate-600 mt-1 leading-snug">Plataforma integral de Gobernanza de TI 360° asistida por agentes para control normativo, trazabilidad y gestión tecnológica.</p>
+                                        </div>
+                                        <div class="mt-2.5 pt-2 border-t border-slate-200/70 font-mono text-[10px] text-sky-700 font-bold">
+                                            Apoyo Mentoría: Leonardo Ordoñez
+                                        </div>
+                                    </div>
+
+                                    <!-- Proyecto 4 -->
+                                    <div class="p-3.5 rounded-2xl bg-white/90 border border-slate-200/90 flex flex-col justify-between">
+                                        <div>
+                                            <div class="flex items-center justify-between gap-1 mb-1">
+                                                <span class="font-mono text-[10px] text-amber-800 bg-amber-100 px-2 py-0.5 rounded-full font-bold border border-amber-300">ACTIVO • AUDITORÍA</span>
+                                                <span class="font-mono text-[10px] text-slate-500 font-semibold">1 part. • 10h</span>
+                                            </div>
+                                            <h4 class="font-display font-bold text-slate-900 text-base mt-1">4. Extracción de Hallazgos</h4>
+                                            <p class="text-xs text-slate-600 mt-1 leading-snug">Automatización inteligente de lectura documental, minería de texto y estructuración de hallazgos de control y auditoría.</p>
+                                        </div>
+                                        <div class="mt-2.5 pt-2 border-t border-slate-200/70 font-mono text-[10px] text-sky-700 font-bold">
+                                            Apoyo Mentoría: Leonardo Ordoñez
+                                        </div>
+                                    </div>
+
+                                    <!-- Proyecto 5 -->
+                                    <div class="p-3.5 rounded-2xl bg-white/90 border border-slate-200/90 flex flex-col justify-between">
+                                        <div>
+                                            <div class="flex items-center justify-between gap-1 mb-1">
+                                                <span class="font-mono text-[10px] text-emerald-800 bg-emerald-100 px-2 py-0.5 rounded-full font-bold border border-emerald-300">ACTIVO • COMERCIAL</span>
+                                                <span class="font-mono text-[10px] text-slate-500 font-semibold">1 part. • 10h</span>
+                                            </div>
+                                            <h4 class="font-display font-bold text-slate-900 text-base mt-1">5. «Ofertas Inteligentes»</h4>
+                                            <p class="text-xs text-slate-600 mt-1 leading-snug">Plataforma integral de gestión de ofertas comerciales asistida por IA para segmentación, pricing y efectividad promocional.</p>
+                                        </div>
+                                        <div class="mt-2.5 pt-2 border-t border-slate-200/70 font-mono text-[10px] text-sky-700 font-bold">
+                                            Apoyo Mentoría: Leonardo Ordoñez
+                                        </div>
+                                    </div>
+
+                                    <!-- Proyecto 6 -->
+                                    <div class="p-3.5 rounded-2xl bg-white/90 border border-slate-200/90 flex flex-col justify-between">
+                                        <div>
+                                            <div class="flex items-center justify-between gap-1 mb-1">
+                                                <span class="font-mono text-[10px] text-purple-900 bg-purple-100 px-2 py-0.5 rounded-full font-bold border border-purple-300">ACTIVO • PREDICTIVO</span>
+                                                <span class="font-mono text-[10px] text-slate-500 font-semibold">1 part. • 10h</span>
+                                            </div>
+                                            <h4 class="font-display font-bold text-slate-900 text-base mt-1">6. Insights &amp; Predicción de Incidentes</h4>
+                                            <p class="text-xs text-slate-600 mt-1 leading-snug">Plataforma analítica de detección temprana de anomalías, generación de insights y predicción de incidentes operativos.</p>
+                                        </div>
+                                        <div class="mt-2.5 pt-2 border-t border-slate-200/70 font-mono text-[10px] text-sky-700 font-bold">
+                                            Apoyo Mentoría: Leonardo Ordoñez
+                                        </div>
+                                    </div>
+
+                                    <!-- Proyecto 7 -->
+                                    <div class="p-3.5 rounded-2xl bg-white/90 border border-slate-200/90 flex flex-col justify-between">
+                                        <div>
+                                            <div class="flex items-center justify-between gap-1 mb-1">
+                                                <span class="font-mono text-[10px] text-sky-800 bg-sky-100 px-2 py-0.5 rounded-full font-bold border border-sky-300">ACTIVO • WORKFLOWS</span>
+                                                <span class="font-mono text-[10px] text-slate-500 font-semibold">1 part. • 10h</span>
+                                            </div>
+                                            <h4 class="font-display font-bold text-slate-900 text-base mt-1">7. Automatización Flujos de Correo</h4>
+                                            <p class="text-xs text-slate-600 mt-1 leading-snug">Clasificación semántica con LLMs, triaje automático, extracción de adjuntos y enrutamiento inteligente de correos corporativos.</p>
+                                        </div>
+                                        <div class="mt-2.5 pt-2 border-t border-slate-200/70 font-mono text-[10px] text-sky-700 font-bold">
+                                            Apoyo Mentoría: Leonardo Ordoñez
+                                        </div>
+                                    </div>
+
+                                    <!-- Proyecto 8 -->
+                                    <div class="p-3.5 rounded-2xl bg-white/90 border border-slate-200/90 flex flex-col justify-between">
+                                        <div>
+                                            <div class="flex items-center justify-between gap-1 mb-1">
+                                                <span class="font-mono text-[10px] text-amber-800 bg-amber-100 px-2 py-0.5 rounded-full font-bold border border-amber-300">ACTIVO • RAG SOPORTE</span>
+                                                <span class="font-mono text-[10px] text-slate-500 font-semibold">1 part. • 10h</span>
+                                            </div>
+                                            <h4 class="font-display font-bold text-slate-900 text-base mt-1">8. Asistente de Conocimiento</h4>
+                                            <p class="text-xs text-slate-600 mt-1 leading-snug">Asistente inteligente basado en RAG sobre manuales y tickets históricos para acelerar la resolución en mesas de soporte.</p>
+                                        </div>
+                                        <div class="mt-2.5 pt-2 border-t border-slate-200/70 font-mono text-[10px] text-sky-700 font-bold">
+                                            Apoyo Mentoría: Leonardo Ordoñez
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Experiencia 2 (NUEVA): Cámara de Comercio de Bogotá (CCB) - Clúster de Impresión y de Empaques -->
+                    <div class="exp-item pl-12 sm:pl-20 relative" data-category="edu fde">
+                        <div class="absolute left-2 sm:left-6 top-6 w-5 h-5 rounded-full bg-purple-600 shadow-[0_0_12px_rgba(109,40,217,0.5)] border-4 border-white"></div>
+                        <div class="xr-spatial-panel p-6 sm:p-8 border-l-4 border-l-purple-600">
+                            <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+                                <div class="flex flex-wrap items-center gap-2">
+                                    <span class="font-mono text-xs text-purple-900 bg-purple-100 px-3 py-1 rounded-full border border-purple-300 font-bold">
+                                        2026 • CÁMARA DE COMERCIO DE BOGOTÁ (CCB)
+                                    </span>
+                                    <span class="font-mono text-xs text-amber-800 bg-amber-100 px-3 py-1 rounded-full border border-amber-300 font-bold">
+                                        Programa Intensivo 20 Horas • 8 Módulos
+                                    </span>
+                                </div>
+                                <span class="font-mono text-xs text-slate-500 font-semibold">Clústeres de Impresión &amp; Empaques (Alianza Acaplusco SAS)</span>
+                            </div>
+
+                            <h3 class="font-display font-extrabold text-xl sm:text-2xl text-slate-900">
+                                Docente Experto &amp; Formador en IA Industrial — <span class="text-purple-700">Cámara de Comercio de Bogotá (Clúster de Impresión y de Empaques)</span>
+                            </h3>
+
+                            <p class="mt-3 text-slate-700 text-sm sm:text-base leading-relaxed font-normal">
+                                Estructuración, construcción curricular, evaluación diagnóstica y docencia magistral del programa <strong class="text-slate-900 font-semibold">«Inteligencia Artificial para Diseño, Producción y Comercialización de Impresos y Empaques»</strong> (20 horas en modalidad híbrida: 17.5h virtuales + Taller Integrador presencial en <span class="text-sky-700 font-semibold">Sede Chapinero CCB Bogotá</span>), dirigido a empresas manufactureras y afiliados de los clústeres industriales de la CCB (vía <span class="text-slate-900 font-semibold">Acaplusco S.A.S.</span>).
+                            </p>
+
+                            <!-- Desglose de los 8 Módulos Temáticos dictados para la CCB -->
+                            <div class="mt-5 pt-5 border-t border-slate-200/80">
+                                <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+                                    <span class="font-mono text-xs text-purple-700 uppercase font-bold flex items-center gap-1.5">
+                                        <i data-lucide="cpu" class="w-4 h-4"></i> ARQUITECTURA TEMÁTICA: 8 MÓDULOS DE IA APLICADA A MANUFACTURA, IMPRESIÓN Y EMPAQUES
+                                    </span>
+                                    <span class="font-mono text-[11px] text-slate-500 font-semibold">Casos Reales End-to-End en Clase</span>
+                                </div>
+
+                                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+                                    <!-- Módulo 1 -->
+                                    <div class="p-3.5 rounded-2xl bg-white/90 border border-slate-200/90">
+                                        <span class="font-mono text-[10px] text-sky-700 font-bold">MÓDULO 01 • 2.5H VIRTUAL</span>
+                                        <h4 class="font-display font-bold text-slate-900 text-base mt-0.5">Fundamentos de IA en Impresión y Empaques</h4>
+                                        <p class="text-xs text-slate-600 mt-1 leading-snug">Evolución de IA en manufactura, IA Generativa vs. Analítica, Ingeniería de Prompts industrial y automatización de tareas repetitivas.</p>
+                                    </div>
+
+                                    <!-- Módulo 2 -->
+                                    <div class="p-3.5 rounded-2xl bg-white/90 border border-slate-200/90">
+                                        <span class="font-mono text-[10px] text-emerald-700 font-bold">MÓDULO 02 • 2.5H VIRTUAL</span>
+                                        <h4 class="font-display font-bold text-slate-900 text-base mt-0.5">IA para Costos y Cotizaciones (&lt;10 min)</h4>
+                                        <p class="text-xs text-slate-600 mt-1 leading-snug">Estructuras de costos (materiales, procesos, indirectos, márgenes), validación frente al mercado y cotizaciones automáticas con IA en menos de 10 minutos.</p>
+                                    </div>
+
+                                    <!-- Módulo 3 -->
+                                    <div class="p-3.5 rounded-2xl bg-white/90 border border-slate-200/90">
+                                        <span class="font-mono text-[10px] text-purple-700 font-bold">MÓDULO 03 • 2.5H VIRTUAL</span>
+                                        <h4 class="font-display font-bold text-slate-900 text-base mt-0.5">Planeación de Producción y Procesos</h4>
+                                        <p class="text-xs text-slate-600 mt-1 leading-snug">Programación de planta, balanceo de cargas, detección de cuellos de botella, simulación de escenarios y predicción de retrasos.</p>
+                                    </div>
+
+                                    <!-- Módulo 4 -->
+                                    <div class="p-3.5 rounded-2xl bg-white/90 border border-slate-200/90">
+                                        <span class="font-mono text-[10px] text-amber-700 font-bold">MÓDULO 04 • 2.5H VIRTUAL</span>
+                                        <h4 class="font-display font-bold text-slate-900 text-base mt-0.5">Compras, Inventarios y Materiales</h4>
+                                        <p class="text-xs text-slate-600 mt-1 leading-snug">Pronóstico de consumo, reposición inteligente, selección de proveedores, análisis ABC con IA, control de desperdicios y alertas.</p>
+                                    </div>
+
+                                    <!-- Módulo 5 -->
+                                    <div class="p-3.5 rounded-2xl bg-white/90 border border-slate-200/90">
+                                        <span class="font-mono text-[10px] text-sky-700 font-bold">MÓDULO 05 • 2.5H VIRTUAL</span>
+                                        <h4 class="font-display font-bold text-slate-900 text-base mt-0.5">IA para Calidad y Mejora Continua</h4>
+                                        <p class="text-xs text-slate-600 mt-1 leading-snug">Análisis de causas raíz, acciones correctivas automáticas, inspección visual asistida por IA, auditorías inteligentes y gestión documental.</p>
+                                    </div>
+
+                                    <!-- Módulo 6 -->
+                                    <div class="p-3.5 rounded-2xl bg-white/90 border border-slate-200/90">
+                                        <span class="font-mono text-[10px] text-purple-700 font-bold">MÓDULO 06 • 2.5H VIRTUAL</span>
+                                        <h4 class="font-display font-bold text-slate-900 text-base mt-0.5">Diseño de Empaques y Nuevos Productos</h4>
+                                        <p class="text-xs text-slate-600 mt-1 leading-snug">Diseño conceptual, generación de propuestas de empaque, investigación de tendencias, benchmarking, fichas técnicas y revisión normativa.</p>
+                                    </div>
+
+                                    <!-- Módulo 7 -->
+                                    <div class="p-3.5 rounded-2xl bg-white/90 border border-amber-300">
+                                        <span class="font-mono text-[10px] text-amber-800 bg-amber-100 px-2 py-0.5 rounded-full font-bold">MÓDULO 07 • PRESENCIAL SEDE CCB</span>
+                                        <h4 class="font-display font-bold text-slate-900 text-base mt-1">Taller Integrador End-to-End (12 Pasos)</h4>
+                                        <p class="text-xs text-slate-600 mt-1 leading-snug">Automatización completa desde la solicitud del cliente hasta el costeo de materia prima/mano de obra, cotización, propuesta y presentación ejecutiva.</p>
+                                    </div>
+
+                                    <!-- Módulo 8 -->
+                                    <div class="p-3.5 rounded-2xl bg-white/90 border border-slate-200/90">
+                                        <span class="font-mono text-[10px] text-emerald-700 font-bold">MÓDULO 08 • 2.5H VIRTUAL</span>
+                                        <h4 class="font-display font-bold text-slate-900 text-base mt-0.5">IA para Ventas, Licitaciones y CRM</h4>
+                                        <p class="text-xs text-slate-600 mt-1 leading-snug">Propuestas técnicas y económicas, preparación de reuniones, IA para responder licitaciones, análisis de competidores y CRM asistido por IA.</p>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
@@ -2566,7 +3103,7 @@
                                 <span class="font-mono text-xs text-purple-900 bg-purple-100 px-3 py-1 rounded-full border border-purple-300 font-bold">
                                     Feb 2025 - Dic 2025 • HACIENDA PÚBLICA
                                 </span>
-                                <span class="font-mono text-xs text-emerald-800 bg-emerald-50 px-2.5 py-0.5 rounded-full border border-emerald-300 font-bold">Ley 1581 & ISO 42001</span>
+                                <span class="font-mono text-xs text-emerald-800 bg-emerald-50 px-2.5 py-0.5 rounded-full border border-emerald-300 font-bold">Ley 1581 &amp; ISO 42001</span>
                             </div>
                             <h3 class="font-display font-extrabold text-xl sm:text-2xl text-slate-900">
                                 Consultor Senior Adopción de IA — <span class="text-purple-700">Ingenium (Gobernación de Cundinamarca)</span>
@@ -2606,9 +3143,9 @@
                         <div class="xr-spatial-panel p-6 sm:p-8 border-l-4 border-l-sky-600">
                             <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
                                 <span class="font-mono text-xs text-slate-700 bg-slate-100 px-3 py-1 rounded-full border border-slate-300 font-bold">
-                                    Feb 2020 - Dic 2023 • DIGITAL TWINS & AGROTECH
+                                    Feb 2020 - Dic 2023 • DIGITAL TWINS &amp; AGROTECH
                                 </span>
-                                <span class="font-mono text-xs text-slate-500 font-semibold">Dendroenergía & IoT</span>
+                                <span class="font-mono text-xs text-slate-500 font-semibold">Dendroenergía &amp; IoT</span>
                             </div>
                             <h3 class="font-display font-extrabold text-xl sm:text-2xl text-slate-900">
                                 Project Manager AI — <span class="text-sky-700">Edentia</span>
@@ -2667,15 +3204,23 @@
         <section id="premios" class="py-20 relative">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 
-                <!-- Encabezado de Sesión Diferenciada -->
-                <div class="text-center max-w-3xl mx-auto mb-16 bg-white/60 p-6 sm:p-8 rounded-[28px] border border-slate-200/80 shadow-sm backdrop-blur-md">
-                    <div class="font-mono text-xs text-amber-700 uppercase tracking-widest mb-2 flex items-center justify-center gap-2 font-bold">
-                        <i data-lucide="trophy" class="w-4 h-4 text-amber-600"></i> SESIÓN 06 // TROPHY ROOM & EXCELENCIA NACIONAL
+                <!-- Encabezado de Sesión Diferenciada con Sello Editorial Morgan -->
+                <div class="flex flex-col md:flex-row md:items-end justify-between max-w-5xl mx-auto mb-16 gap-6 bg-white/60 p-6 sm:p-8 rounded-[28px] border border-slate-200/80 shadow-sm backdrop-blur-md">
+                    <div class="flex items-stretch gap-5 sm:gap-7">
+                        <div class="hidden sm:flex flex-col items-end justify-between border-r border-slate-300/90 pr-5 text-right select-none">
+                            <span class="morgan-edition-number text-slate-900">006</span>
+                            <span class="morgan-edition-label text-amber-700">AWARDS</span>
+                        </div>
+                        <div>
+                            <div class="font-mono text-xs text-amber-700 uppercase tracking-widest mb-2 flex items-center gap-2 font-bold">
+                                <i data-lucide="trophy" class="w-4 h-4 text-amber-600"></i> SESIÓN 06 // TROPHY ROOM &amp; EXCELENCIA NACIONAL
+                            </div>
+                            <h2 class="font-display font-extrabold text-3xl sm:text-5xl text-slate-900">
+                                Reconocimientos y <span class="text-gradient-gold">Premios de Primer Lugar</span>
+                            </h2>
+                        </div>
                     </div>
-                    <h2 class="font-display font-extrabold text-3xl sm:text-5xl text-slate-900 mb-4">
-                        Reconocimientos y <span class="text-gradient-gold">Premios de Primer Lugar</span>
-                    </h2>
-                    <p class="text-slate-600 text-sm sm:text-base font-normal">
+                    <p class="morgan-script-lead text-slate-600 max-w-md font-normal">
                         Soluciones validadas y premiadas en competencias de alta exigencia técnica en Fintech, Voz, IoT e impacto social.
                     </p>
                 </div>
@@ -2788,17 +3333,23 @@
         <section id="libros" class="py-20 relative">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 
-                <!-- Encabezado de Sesión Diferenciada -->
+                <!-- Encabezado de Sesión Diferenciada con Sello Editorial Morgan -->
                 <div class="flex flex-col md:flex-row md:items-end justify-between mb-14 gap-6 bg-white/60 p-6 sm:p-8 rounded-[28px] border border-slate-200/80 shadow-sm backdrop-blur-md">
-                    <div>
-                        <div class="font-mono text-xs text-sky-700 uppercase tracking-widest mb-2 font-bold">
-                            [ SESIÓN 07 // SISTEMAS OPERATIVOS MENTALES & FUTUROS URBANOS ]
+                    <div class="flex items-stretch gap-5 sm:gap-7">
+                        <div class="hidden sm:flex flex-col items-end justify-between border-r border-slate-300/90 pr-5 text-right select-none">
+                            <span class="morgan-edition-number text-slate-900">17+</span>
+                            <span class="morgan-edition-label text-sky-700">EDITION</span>
                         </div>
-                        <h2 class="font-display font-extrabold text-3xl sm:text-5xl text-slate-900">
-                            El Autor: <span class="text-gradient-cyan">Universo Literario</span>
-                        </h2>
+                        <div>
+                            <div class="font-mono text-xs text-sky-700 uppercase tracking-widest mb-2 font-bold">
+                                [ SESIÓN 07 // SISTEMAS OPERATIVOS MENTALES &amp; FUTUROS URBANOS ]
+                            </div>
+                            <h2 class="font-display font-extrabold text-3xl sm:text-5xl text-slate-900">
+                                El Autor: <span class="text-gradient-cyan">Universo Literario</span>
+                            </h2>
+                        </div>
                     </div>
-                    <p class="text-slate-600 max-w-md text-sm sm:text-base font-normal">
+                    <p class="morgan-script-lead text-slate-600 max-w-md font-normal">
                         17+ libros concebidos como sistemas operativos mentales que fusionan inteligencia artificial, negocios exponenciales y física conceptual.
                     </p>
                 </div>
@@ -2815,7 +3366,7 @@
                                     <span class="px-3 py-1 rounded-md bg-sky-100 text-sky-800 font-mono text-xs font-bold border border-sky-300">
                                         10 LIBROS
                                     </span>
-                                    <span class="font-mono text-xs text-slate-500 font-semibold">BUSINESS & MIND OS</span>
+                                    <span class="font-mono text-xs text-slate-500 font-semibold">BUSINESS &amp; MIND OS</span>
                                 </div>
                                 <div class="w-14 h-14 rounded-2xl bg-sky-100 border border-sky-300 flex items-center justify-center text-sky-700 mb-6 shadow-sm">
                                     <i data-lucide="brain-circuit" class="w-8 h-8"></i>
@@ -2905,7 +3456,7 @@
                     <!-- Educación y Certificaciones -->
                     <div class="lg:col-span-7 xr-spatial-panel p-8 sm:p-10 border border-slate-200">
                         <div class="font-mono text-xs text-sky-700 uppercase mb-2 font-bold">[ SESIÓN 08 // FUNDAMENTACIÓN ACADÉMICA ]</div>
-                        <h3 class="font-display font-extrabold text-2xl text-slate-900 mb-6">Educación & Credenciales</h3>
+                        <h3 class="font-display font-extrabold text-2xl text-slate-900 mb-6">Educación &amp; Credenciales</h3>
                         
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                             <div class="p-4 rounded-2xl bg-white border border-slate-200/90 shadow-sm">
@@ -2977,12 +3528,12 @@
                         <div class="lg:col-span-7 space-y-4">
                             <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-100 border border-emerald-300 font-mono text-xs text-emerald-800 font-bold">
                                 <span class="w-2.5 h-2.5 rounded-full bg-emerald-600 live-pulse"></span>
-                                SESIÓN 08 // COMMAND CENTER DISPONIBLE PARA CONSULTORÍA & FDE
+                                SESIÓN 08 // COMMAND CENTER DISPONIBLE PARA CONSULTORÍA &amp; FDE
                             </div>
                             <h2 class="font-display font-extrabold text-3xl sm:text-5xl text-slate-900">
                                 Del problema ambiguo <span class="text-gradient-cyan">a tu IA en producción.</span>
                             </h2>
-                            <p class="text-slate-600 text-sm sm:text-base max-w-2xl font-normal">
+                            <p class="morgan-script-lead text-slate-600 max-w-2xl font-normal">
                                 ¿Listo para desplegar sistemas multiagente auditables, RAG de alto rendimiento, marcos Harness/SDD o cumplimiento de Ley 1581 e ISO 42001? Conectemos directamente.
                             </p>
 
@@ -3079,7 +3630,10 @@
                     ⚡ ¿Cómo funciona SIGIG-MIAC en Hacienda Cundinamarca?
                 </button>
                 <button onclick="askAgent('retail')" class="text-left p-3 rounded-xl bg-white hover:bg-sky-50 border border-slate-200 hover:border-sky-400 font-mono text-xs text-slate-800 font-medium transition shadow-sm">
-                    🛒 ¿Cómo despliegas agentes en Retail (Olímpica S.A.)?
+                    🛒 ¿Qué proyectos de IA mentorizas en Olímpica S.A.?
+                </button>
+                <button onclick="askAgent('ccb')" class="text-left p-3 rounded-xl bg-white hover:bg-sky-50 border border-slate-200 hover:border-sky-400 font-mono text-xs text-slate-800 font-medium transition shadow-sm sm:col-span-2">
+                    🏭 ¿Cómo es la formación en IA para los Clústeres de Impresión y Empaques (CCB)?
                 </button>
                 <button onclick="askAgent('iso')" class="text-left p-3 rounded-xl bg-white hover:bg-sky-50 border border-slate-200 hover:border-sky-400 font-mono text-xs text-slate-800 font-medium transition shadow-sm">
                     🛡️ ¿Cómo garantizas Ley 1581 e ISO 42001 con LLMs?
@@ -3554,8 +4108,12 @@
                     a: "SIGIG-MIAC es un sistema multiagente en producción orquestado con LangChain sobre una arquitectura Data Lakehouse. Optimiza 8 impuestos departamentales integrándose de forma segura a pasarelas institucionales mediante Function Calling y cumpliendo estrictamente con la Ley 1581 e ISO 42001."
                 },
                 retail: {
-                    q: "¿Cómo despliegas agentes en Retail (Olímpica S.A.)?",
-                    a: "En Vivetori para Olímpica S.A., construyo automatización inteligente y orquestación con n8n y LangChain conectados a sistemas core, con una plataforma de trazabilidad ejecutiva y diagnósticos de madurez con Harness y Spec-Driven Development (SDD)."
+                    q: "¿Qué proyectos de IA mentorizas en Olímpica S.A.?",
+                    a: "En Vivetori para Olímpica S.A. (Programa 80 Horas - Proyecto IA), desarrollo orquestación con n8n y LangChain bajo Harness/SDD y acompaño como mentor técnico transversal 8 proyectos estratégicos: (1) Agendamiento CEDI, (2) Agente Turno BI, (3) GovTI 360, (4) Automatización Inteligente de Extracción de Hallazgos, (5) Plataforma «Ofertas Inteligentes», (6) Insights y Predicción de Incidentes, (7) Automatización de Flujos de Correo y (8) Asistente Inteligente de Conocimiento para Soporte."
+                },
+                ccb: {
+                    q: "¿Cómo es la formación en IA para los Clústeres de Impresión y Empaques (CCB)?",
+                    a: "Para la Cámara de Comercio de Bogotá (CCB, en alianza con Acaplusco SAS), estructuré e impartí el programa de 20 horas «Inteligencia Artificial para Diseño, Producción y Comercialización de Impresos y Empaques» en 8 módulos: Fundamentos en Manufactura, Costos y Cotizaciones en <10 min, Planeación de Producción, Compras/Inventarios, Calidad y Mejora Continua, Diseño de Empaques, Taller Integrador Presencial (12 pasos end-to-end en Sede Chapinero CCB) y Ventas/Licitaciones con IA."
                 },
                 iso: {
                     q: "¿Cómo garantizas Ley 1581 e ISO 42001 con LLMs?",
@@ -3664,9 +4222,218 @@
         }
 
         // ============================================================================
-        // 6. INICIALIZACIÓN GENERAL & ANIMACIÓN GSAP CONTADORES
+        // 6. MOTOR DE VENTANA LLUVIOSA + BOKEH NOCTURNO (Estilo Glassmorphism UI)
+        // ============================================================================
+        function initRainyWindowBokeh() {
+            const canvas = document.getElementById('rain-bokeh-canvas');
+            if (!canvas) return;
+            const ctx = canvas.getContext('2d');
+
+            let width = window.innerWidth;
+            let height = window.innerHeight;
+            const dpr = Math.min(window.devicePixelRatio || 1, 2);
+
+            function resizeCanvas() {
+                width = window.innerWidth;
+                height = window.innerHeight;
+                canvas.width = width * dpr;
+                canvas.height = height * dpr;
+                ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+            }
+            resizeCanvas();
+
+            // Paleta de luces Bokeh desenfocadas (Ámbar cálido, Oro, Naranja coral, Cian nocturno)
+            const bokehPalette = [
+                { r: 255, g: 190, b: 75 },   // Warm Gold
+                { r: 251, g: 146, b: 60 },   // Warm Orange
+                { r: 245, g: 158, b: 11 },   // Deep Amber
+                { r: 254, g: 215, b: 130 },  // Soft Cream Gold
+                { r: 239, g: 108, b: 55 },   // Streetlight Coral-Orange
+                { r: 56,  g: 189, b: 248 },  // Cool Cyan Neon
+                { r: 125, g: 211, b: 252 },  // Ice Blue Reflection
+                { r: 30,  g: 136, b: 229 }   // Cobalt Glow
+            ];
+
+            // 1. Círculos Bokeh de fondo (luces de ciudad tras la ventana)
+            const bokehCount = 46;
+            const bokehLights = [];
+            for (let i = 0; i < bokehCount; i++) {
+                const col = bokehPalette[i % bokehPalette.length];
+                const isLarge = i < 14;
+                bokehLights.push({
+                    x: Math.random() * width,
+                    y: Math.random() * height,
+                    r: isLarge ? (65 + Math.random() * 110) : (22 + Math.random() * 52),
+                    color: col,
+                    baseAlpha: isLarge ? (0.14 + Math.random() * 0.16) : (0.18 + Math.random() * 0.24),
+                    pulseSpeed: 0.4 + Math.random() * 1.1,
+                    phase: Math.random() * Math.PI * 2,
+                    vx: (Math.random() - 0.5) * 0.12,
+                    vy: (Math.random() - 0.5) * 0.08
+                });
+            }
+
+            // 2. Micro-condensación estática en el cristal (cientos de diminutas gotas)
+            const microDropsCount = 420;
+            const microDrops = [];
+            for (let i = 0; i < microDropsCount; i++) {
+                microDrops.push({
+                    x: Math.random() * width,
+                    y: Math.random() * height,
+                    r: 0.9 + Math.random() * 2.1,
+                    aspect: 1.0 + Math.random() * 0.25,
+                    alpha: 0.28 + Math.random() * 0.42
+                });
+            }
+
+            // 3. Gotas de agua principales en el cristal (con refracción 3D y deslizamiento ocasional)
+            const mainDropsCount = 135;
+            const mainDrops = [];
+            function createDrop(randomY = true) {
+                const r = 3.2 + Math.pow(Math.random(), 1.6) * 8.5;
+                const isSliding = Math.random() < 0.22;
+                const tint = bokehPalette[Math.floor(Math.random() * 5)]; // reflejo cálido interno
+                return {
+                    x: Math.random() * width,
+                    y: randomY ? Math.random() * height : -20,
+                    r: r,
+                    aspect: isSliding ? (1.28 + Math.random() * 0.35) : (1.08 + Math.random() * 0.22),
+                    vy: isSliding ? (0.18 + Math.random() * 0.55) : 0,
+                    wobblePhase: Math.random() * Math.PI * 2,
+                    tint: tint
+                };
+            }
+            for (let i = 0; i < mainDropsCount; i++) {
+                mainDrops.push(createDrop(true));
+            }
+
+            window.addEventListener('resize', () => {
+                resizeCanvas();
+            });
+
+            function drawBokeh(time) {
+                // Fondo base azul cobalto nocturno profundo
+                const bgGrad = ctx.createLinearGradient(0, 0, width * 0.4, height);
+                bgGrad.addColorStop(0, '#041226');
+                bgGrad.addColorStop(0.45, '#082347');
+                bgGrad.addColorStop(0.8, '#0b2e59');
+                bgGrad.addColorStop(1, '#051730');
+                ctx.fillStyle = bgGrad;
+                ctx.fillRect(0, 0, width, height);
+
+                // Dibujar luces Bokeh suaves y brillantes
+                ctx.save();
+                ctx.globalCompositeOperation = 'screen';
+                for (let i = 0; i < bokehLights.length; i++) {
+                    const b = bokehLights[i];
+                    b.x += b.vx;
+                    b.y += b.vy;
+                    if (b.x < -b.r) b.x = width + b.r;
+                    if (b.x > width + b.r) b.x = -b.r;
+                    if (b.y < -b.r) b.y = height + b.r;
+                    if (b.y > height + b.r) b.y = -b.r;
+
+                    const alpha = b.baseAlpha + Math.sin(time * b.pulseSpeed + b.phase) * 0.04;
+                    const grad = ctx.createRadialGradient(b.x, b.y, b.r * 0.08, b.x, b.y, b.r);
+                    grad.addColorStop(0, `rgba(${b.color.r}, ${b.color.g}, ${b.color.b}, ${Math.min(alpha * 1.35, 0.55)})`);
+                    grad.addColorStop(0.55, `rgba(${b.color.r}, ${b.color.g}, ${b.color.b}, ${alpha * 0.85})`);
+                    grad.addColorStop(0.85, `rgba(${b.color.r}, ${b.color.g}, ${b.color.b}, ${alpha * 0.35})`);
+                    grad.addColorStop(1, `rgba(${b.color.r}, ${b.color.g}, ${b.color.b}, 0)`);
+
+                    ctx.fillStyle = grad;
+                    ctx.beginPath();
+                    ctx.arc(b.x, b.y, b.r, 0, Math.PI * 2);
+                    ctx.fill();
+                }
+                ctx.restore();
+            }
+
+            function drawDroplets(time) {
+                // Micro-gotas de condensación
+                for (let i = 0; i < microDrops.length; i++) {
+                    const m = microDrops[i];
+                    ctx.beginPath();
+                    ctx.ellipse(m.x, m.y, m.r, m.r * m.aspect, 0, 0, Math.PI * 2);
+                    ctx.fillStyle = `rgba(195, 228, 255, ${m.alpha * 0.45})`;
+                    ctx.fill();
+
+                    // Punto especular en micro-gota
+                    ctx.beginPath();
+                    ctx.arc(m.x - m.r * 0.25, m.y + m.r * 0.25, m.r * 0.35, 0, Math.PI * 2);
+                    ctx.fillStyle = `rgba(255, 255, 255, ${m.alpha * 0.85})`;
+                    ctx.fill();
+                }
+
+                // Gotas principales con sombreado de lente 3D en ventana
+                for (let i = 0; i < mainDrops.length; i++) {
+                    const d = mainDrops[i];
+                    if (d.vy > 0) {
+                        d.y += d.vy;
+                        d.x += Math.sin(time * 1.8 + d.wobblePhase) * 0.18;
+                        if (d.y > height + 25) {
+                            mainDrops[i] = createDrop(false);
+                            continue;
+                        }
+                    }
+
+                    const rx = d.r;
+                    const ry = d.r * d.aspect;
+
+                    // Sombra exterior inferior de la gota sobre el vidrio
+                    ctx.beginPath();
+                    ctx.ellipse(d.x + 1, d.y + 2.2, rx * 0.98, ry * 0.98, 0, 0, Math.PI * 2);
+                    ctx.fillStyle = 'rgba(2, 10, 24, 0.42)';
+                    ctx.fill();
+
+                    // Cuerpo de la gota (refracción oscura arriba, brillo cálido/helado abajo)
+                    const dropGrad = ctx.createRadialGradient(
+                        d.x - rx * 0.2, d.y - ry * 0.35, rx * 0.1,
+                        d.x, d.y, ry * 1.05
+                    );
+                    dropGrad.addColorStop(0, 'rgba(3, 15, 35, 0.72)');
+                    dropGrad.addColorStop(0.5, 'rgba(18, 58, 102, 0.32)');
+                    dropGrad.addColorStop(0.82, `rgba(${d.tint.r}, ${d.tint.g}, ${d.tint.b}, 0.28)`);
+                    dropGrad.addColorStop(1, 'rgba(224, 242, 254, 0.65)');
+
+                    ctx.beginPath();
+                    ctx.ellipse(d.x, d.y, rx, ry, 0, 0, Math.PI * 2);
+                    ctx.fillStyle = dropGrad;
+                    ctx.fill();
+
+                    // Borde fino de tensión superficial
+                    ctx.lineWidth = 0.75;
+                    ctx.strokeStyle = 'rgba(224, 242, 254, 0.38)';
+                    ctx.stroke();
+
+                    // Destello especular principal (blanco brillante en la parte inferior/lateral de la gota)
+                    ctx.beginPath();
+                    ctx.ellipse(d.x - rx * 0.26, d.y + ry * 0.38, rx * 0.32, ry * 0.18, -0.35, 0, Math.PI * 2);
+                    ctx.fillStyle = 'rgba(255, 255, 255, 0.88)';
+                    ctx.fill();
+
+                    // Segundo micro-reflejo superior
+                    ctx.beginPath();
+                    ctx.arc(d.x + rx * 0.28, d.y - ry * 0.32, rx * 0.14, 0, Math.PI * 2);
+                    ctx.fillStyle = 'rgba(255, 245, 220, 0.55)';
+                    ctx.fill();
+                }
+            }
+
+            let startTime = performance.now();
+            function renderRainBokeh(now) {
+                const elapsed = (now - startTime) * 0.001;
+                drawBokeh(elapsed);
+                drawDroplets(elapsed);
+                requestAnimationFrame(renderRainBokeh);
+            }
+            requestAnimationFrame(renderRainBokeh);
+        }
+
+        // ============================================================================
+        // 7. INICIALIZACIÓN GENERAL & ANIMACIÓN GSAP CONTADORES
         // ============================================================================
         window.addEventListener('DOMContentLoaded', () => {
+            initRainyWindowBokeh();
             initThreeJS();
             initCardTilt();
 
