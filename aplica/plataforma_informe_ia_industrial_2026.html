@@ -1,0 +1,849 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IA en la Ingeniería Industrial | Informe 2026</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#f0fdfa',
+                            500: '#14b8a6',
+                            600: '#0d9488',
+                            900: '#134e4a',
+                        },
+                        cyber: {
+                            blue: '#0284c7',
+                            violet: '#6366f1',
+                            amber: '#f59e0b',
+                            emerald: '#10b981',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0f172a;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #334155;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #475569;
+        }
+        .glow-effect {
+            box-shadow: 0 0 25px -5px rgba(20, 184, 166, 0.15);
+        }
+        .glass-panel {
+            background: rgba(15, 23, 42, 0.75);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+    </style>
+</head>
+<body class="bg-slate-950 text-slate-100 font-sans antialiased selection:bg-teal-500 selection:text-slate-950">
+
+    <header class="sticky top-0 z-50 glass-panel border-b border-slate-800/80">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <div class="w-9 h-9 rounded-lg bg-gradient-to-tr from-teal-500 to-cyan-400 flex items-center justify-center shadow-lg shadow-teal-500/20">
+                    <svg class="w-5 h-5 text-slate-950" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                    </svg>
+                </div>
+                <div>
+                    <span class="font-bold text-lg tracking-tight bg-gradient-to-r from-white via-slate-100 to-slate-400 bg-clip-text text-transparent">IND-AI 2026</span>
+                    <span class="text-xs ml-2 px-2 py-0.5 rounded-full bg-teal-500/10 text-teal-400 border border-teal-500/30 font-mono">Reporte Oficial</span>
+                </div>
+            </div>
+
+            <nav class="hidden md:flex items-center space-x-1 text-sm font-medium text-slate-300">
+                <a href="#vision-general" class="px-3 py-2 rounded-lg hover:text-white hover:bg-slate-800/50 transition">Panorama</a>
+                <a href="#tecnologias" class="px-3 py-2 rounded-lg hover:text-white hover:bg-slate-800/50 transition">Tecnologías Clave</a>
+                <a href="#sectores" class="px-3 py-2 rounded-lg hover:text-white hover:bg-slate-800/50 transition">Casos Sectoriales</a>
+                <a href="#calculadora" class="px-3 py-2 rounded-lg hover:text-white hover:bg-slate-800/50 transition">Simulador ROI</a>
+                <a href="#roles" class="px-3 py-2 rounded-lg hover:text-white hover:bg-slate-800/50 transition">Roles 2026</a>
+                <a href="#desafios" class="px-3 py-2 rounded-lg hover:text-white hover:bg-slate-800/50 transition">Gobernanza</a>
+            </nav>
+
+            <div class="flex items-center space-x-3">
+                <a href="#calculadora" class="text-xs sm:text-sm font-semibold px-4 py-2 rounded-lg bg-teal-500 hover:bg-teal-400 text-slate-950 transition duration-200 shadow-md shadow-teal-500/25 flex items-center gap-1.5">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>
+                    Calcular Impacto
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <section id="vision-general" class="relative overflow-hidden pt-16 pb-20 border-b border-slate-900 bg-gradient-to-b from-slate-900/60 via-slate-950 to-slate-950">
+        <div class="absolute inset-0 bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(20,184,166,0.15),rgba(255,255,255,0))]"></div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+            <div class="max-w-3xl">
+                <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-slate-800/90 border border-slate-700 text-xs font-medium text-teal-400 mb-6">
+                    <span class="flex h-2 w-2 rounded-full bg-teal-400 animate-ping"></span>
+                    <span>Industrial Technology Index 2026 Analysis</span>
+                </div>
+                <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white leading-tight">
+                    El Núcleo Operativo de la <span class="bg-gradient-to-r from-teal-400 via-cyan-300 to-sky-400 bg-clip-text text-transparent">Ingeniería Industrial</span>
+                </h1>
+                <p class="mt-6 text-lg sm:text-xl text-slate-300 leading-relaxed font-light">
+                    2026 marca el fin de la experimentación: la transición definitiva hacia la <strong>IA Agéntica</strong>, donde los objetivos financieros y el retorno de inversión (ROI) sustituyen a la innovación de producto pura.
+                </p>
+            </div>
+
+            <div class="mt-12 grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6">
+                <div class="glass-panel p-5 rounded-2xl border-slate-800 hover:border-teal-500/50 transition group">
+                    <p class="text-xs uppercase tracking-wider text-slate-400 font-medium">Tasa de Adopción</p>
+                    <div class="mt-2 flex items-baseline">
+                        <span class="text-4xl font-extrabold text-white group-hover:text-teal-400 transition font-mono">82%</span>
+                        <span class="ml-2 text-xs text-teal-400 font-medium">de empresas</span>
+                    </div>
+                    <p class="mt-2 text-xs text-slate-400">Implementación activa en al menos un área fabril.</p>
+                </div>
+
+                <div class="glass-panel p-5 rounded-2xl border-slate-800 hover:border-cyan-500/50 transition group">
+                    <p class="text-xs uppercase tracking-wider text-slate-400 font-medium">Uso Extensivo</p>
+                    <div class="mt-2 flex items-baseline">
+                        <span class="text-4xl font-extrabold text-white group-hover:text-cyan-400 transition font-mono">35%</span>
+                        <span class="ml-2 text-xs text-cyan-400 font-medium">escala masiva</span>
+                    </div>
+                    <p class="mt-2 text-xs text-slate-400">Operaciones centrales totalmente integradas con IA.</p>
+                </div>
+
+                <div class="glass-panel p-5 rounded-2xl border-slate-800 hover:border-sky-500/50 transition group">
+                    <p class="text-xs uppercase tracking-wider text-slate-400 font-medium">Mercado Proyectado</p>
+                    <div class="mt-2 flex items-baseline">
+                        <span class="text-4xl font-extrabold text-white group-hover:text-sky-400 transition font-mono">$72.5B</span>
+                        <span class="ml-2 text-xs text-slate-400 font-medium">a 2033</span>
+                    </div>
+                    <p class="mt-2 text-xs text-slate-400">Valor global en automatización fabril inteligente.</p>
+                </div>
+
+                <div class="glass-panel p-5 rounded-2xl border-slate-800 hover:border-emerald-500/50 transition group">
+                    <p class="text-xs uppercase tracking-wider text-slate-400 font-medium">Sim-to-Real</p>
+                    <div class="mt-2 flex items-baseline">
+                        <span class="text-4xl font-extrabold text-white group-hover:text-emerald-400 transition font-mono">99%</span>
+                        <span class="ml-2 text-xs text-emerald-400 font-medium">precisión</span>
+                    </div>
+                    <p class="mt-2 text-xs text-slate-400">Fidelidad de réplica en Gemelos Digitales en vivo.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="tecnologias" class="py-20 border-b border-slate-900 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <h2 class="text-xs font-semibold tracking-wider text-teal-400 uppercase">Innovación Fundamental</h2>
+                <p class="mt-2 text-3xl sm:text-4xl font-bold text-white tracking-tight">Tecnologías de IA Predominantes</p>
+                <p class="mt-4 text-slate-400 text-sm sm:text-base">
+                    El desplazamiento estratégico desde la simple automatización de rutinas repetitivas hacia la autonomía agéntica distribuida en planta.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Tech 1 -->
+                <div class="glass-panel rounded-2xl p-7 border-slate-800 hover:border-teal-500/40 transition duration-300 flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="text-xs font-mono font-semibold px-2.5 py-1 rounded bg-teal-500/20 text-teal-300 border border-teal-500/30">01. PREDICTIVO & PRESCRIPTIVO</span>
+                            <span class="text-xs font-semibold text-emerald-400 flex items-center gap-1">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 17h8m0 0V9m0 8l-8-8-4 4-6-6"/></svg>
+                                26% a 50% Menos Paradas
+                            </span>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-2">Mantenimiento Prescriptivo Autónomo</h3>
+                        <p class="text-slate-300 text-sm leading-relaxed mb-6">
+                            Ya no solo identifica anomalías mediante sensores (vibración, temperatura, acústica). La IA prescriptiva <span class="text-teal-300 font-medium">modula activamente las cargas de trabajo de las máquinas</span> en tiempo real para alargar su ciclo operativo hasta la ventana de intervención idónea.
+                        </p>
+
+                        <div class="space-y-3 bg-slate-900/80 p-4 rounded-xl border border-slate-800 text-xs">
+                            <h4 class="font-semibold text-slate-200 flex items-center gap-2">
+                                <svg class="w-3.5 h-3.5 text-teal-400" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M11.3 1.046A1 1 0 0112 2v5h4a1 1 0 01.82 1.573l-7 10A1 1 0 018 18v-5H4a1 1 0 01-.82-1.573l7-10a1 1 0 011.12-.38z" clip-rule="evenodd"/></svg>
+                                Soluciones Líderes
+                            </h4>
+                            <div class="border-l-2 border-teal-500/40 pl-3 py-1">
+                                <strong class="text-white">Siemens Digital Twin Command:</strong>
+                                <span class="text-slate-400"> Correlaciona cronogramas de producción con costos de mano de obra para ordenar repuestos automáticamente y programar paradas técnicas con costo mínimo.</span>
+                            </div>
+                            <div class="border-l-2 border-teal-500/40 pl-3 py-1">
+                                <strong class="text-white">Factory AI:</strong>
+                                <span class="text-slate-400"> Conexión con CMMS estándar con tiempos récord de despliegue en entornos existentes (brownfield) en menos de 14 días.</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tech 2 -->
+                <div class="glass-panel rounded-2xl p-7 border-slate-800 hover:border-cyan-500/40 transition duration-300 flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="text-xs font-mono font-semibold px-2.5 py-1 rounded bg-cyan-500/20 text-cyan-300 border border-cyan-500/30">02. VISIÓN POR COMPUTADOR</span>
+                            <span class="text-xs font-semibold text-cyan-400 flex items-center gap-1 font-mono">Gartner: 50% Almacenes 2027</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-2">Zero-Shot Inspection & VLM</h3>
+                        <p class="text-slate-300 text-sm leading-relaxed mb-6">
+                            Inspección basada en <em>zero-shot learning</em> (aprendizaje de disparo cero). El modelo comprende la geometría y fisonomía de una pieza ideal y detecta anomalías nunca antes vistas sin necesidad de reentrenamiento con miles de defectos sintéticos.
+                        </p>
+
+                        <div class="space-y-3 bg-slate-900/80 p-4 rounded-xl border border-slate-800 text-xs">
+                            <h4 class="font-semibold text-slate-200 flex items-center gap-2">
+                                <svg class="w-3.5 h-3.5 text-cyan-400" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M11.3 1.046A1 1 0 0112 2v5h4a1 1 0 01.82 1.573l-7 10A1 1 0 018 18v-5H4a1 1 0 01-.82-1.573l7-10a1 1 0 011.12-.38z" clip-rule="evenodd"/></svg>
+                                Soluciones Líderes
+                            </h4>
+                            <div class="border-l-2 border-cyan-500/40 pl-3 py-1">
+                                <strong class="text-white">ABB (CogniWeld):</strong>
+                                <span class="text-slate-400"> Inspección milimétrica de cordones de soldadura robótica en tiempo real durante la operación.</span>
+                            </div>
+                            <div class="border-l-2 border-cyan-500/40 pl-3 py-1">
+                                <strong class="text-white">Modelos Visión-Lenguaje (VLM):</strong>
+                                <span class="text-slate-400"> Detección de fallas estructurales y delaminaciones en materiales compuestos aeroespaciales e industriales.</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tech 3 -->
+                <div class="glass-panel rounded-2xl p-7 border-slate-800 hover:border-indigo-500/40 transition duration-300 flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="text-xs font-mono font-semibold px-2.5 py-1 rounded bg-indigo-500/20 text-indigo-300 border border-indigo-500/30">03. GEMELOS DIGITALES</span>
+                            <span class="text-xs font-semibold text-indigo-400 flex items-center gap-1 font-mono">Fidelidad 99% Sim-to-Real</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-2">Réplicas Virtuales Vivas en Tiempo Real</h3>
+                        <p class="text-slate-300 text-sm leading-relaxed mb-6">
+                            Espejos digitales sincronizados por telemetry stream constante. Permiten a los ingenieros industriales proyectar escenarios de capacidad de planta, simular picos de carga y rediseñar layouts fabriles en entornos con riesgo cero antes de autorizar capex.
+                        </p>
+
+                        <div class="space-y-3 bg-slate-900/80 p-4 rounded-xl border border-slate-800 text-xs">
+                            <h4 class="font-semibold text-slate-200">Impacto en Ingeniería</h4>
+                            <p class="text-slate-400">
+                                Eliminación de paradas de prueba en planta y certidumbre completa para la asignación de inversión en maquinaria de alta velocidad.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tech 4 -->
+                <div class="glass-panel rounded-2xl p-7 border-slate-800 hover:border-amber-500/40 transition duration-300 flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="text-xs font-mono font-semibold px-2.5 py-1 rounded bg-amber-500/20 text-amber-300 border border-amber-500/30">04. IA GENERATIVA & LENGUAJE</span>
+                            <span class="text-xs font-semibold text-amber-400 font-mono">Interfaces HMI Sin Código</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-2">Interacción Natural y Datos Sintéticos</h3>
+                        <p class="text-slate-300 text-sm leading-relaxed mb-6">
+                            Transformación radical de la relación operador-máquina: sustitución de tableros crípticos por consultas de voz y lenguaje natural técnico, complementadas por síntesis de datos para eventos catastróficos inusuales.
+                        </p>
+
+                        <div class="space-y-3 bg-slate-900/80 p-4 rounded-xl border border-slate-800 text-xs">
+                            <h4 class="font-semibold text-slate-200 flex items-center gap-2">
+                                <svg class="w-3.5 h-3.5 text-amber-400" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M11.3 1.046A1 1 0 0112 2v5h4a1 1 0 01.82 1.573l-7 10A1 1 0 018 18v-5H4a1 1 0 01-.82-1.573l7-10a1 1 0 011.12-.38z" clip-rule="evenodd"/></svg>
+                                Soluciones Líderes
+                            </h4>
+                            <div class="border-l-2 border-amber-500/40 pl-3 py-1">
+                                <strong class="text-white">Oracle Fusion Cloud SCM:</strong>
+                                <span class="text-slate-400"> LLMs especializados en manuales técnicos que asisten en la resolución inmediata de anomalías hidráulicas y de presión.</span>
+                            </div>
+                            <div class="border-l-2 border-amber-500/40 pl-3 py-1">
+                                <strong class="text-white">Rockwell Automation (Datos Sintéticos):</strong>
+                                <span class="text-slate-400"> Generación de incidentes críticos atípicos para entrenar modelos altamente resilientes sin riesgos.</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="sectores" class="py-20 border-b border-slate-900 bg-slate-950/80">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row md:items-end justify-between mb-12">
+                <div>
+                    <h2 class="text-xs font-semibold tracking-wider text-teal-400 uppercase">Matriz de Aplicación</h2>
+                    <p class="mt-2 text-3xl font-bold text-white tracking-tight">Casos de Uso por Sector y Función</p>
+                    <p class="mt-3 text-slate-400 text-sm max-w-2xl">
+                        La IA produce los mayores rendimientos en entornos caracterizados por alta variabilidad y múltiples parámetros que interactúan simultáneamente.
+                    </p>
+                </div>
+                <div class="mt-4 md:mt-0">
+                    <span class="inline-flex rounded-lg p-1 bg-slate-900 border border-slate-800 text-xs">
+                        <button id="viewTableBtn" onclick="switchSectorView('table')" class="px-3 py-1.5 rounded-md font-medium text-white bg-slate-800 transition">Tabla Resumen</button>
+                        <button id="viewChartBtn" onclick="switchSectorView('chart')" class="px-3 py-1.5 rounded-md font-medium text-slate-400 hover:text-white transition">Gráfico Comparativo</button>
+                    </span>
+                </div>
+            </div>
+
+            <!-- Table View -->
+            <div id="sectorTableContainer" class="overflow-x-auto rounded-2xl border border-slate-800 glass-panel">
+                <table class="w-full text-left border-collapse text-sm">
+                    <thead>
+                        <tr class="border-b border-slate-800 bg-slate-900/90 text-xs uppercase font-mono text-slate-400">
+                            <th class="py-4 px-6 font-semibold">Sector / Área</th>
+                            <th class="py-4 px-6 font-semibold">Caso de Uso Principal</th>
+                            <th class="py-4 px-6 font-semibold">Beneficio Observado</th>
+                            <th class="py-4 px-6 font-semibold">Nivel de Impacto</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-800/60 font-light">
+                        <tr class="hover:bg-slate-800/30 transition">
+                            <td class="py-4 px-6 font-semibold text-white flex items-center gap-2">
+                                <span class="w-2.5 h-2.5 rounded-full bg-teal-400"></span>
+                                Manufactura de Procesos
+                            </td>
+                            <td class="py-4 px-6 text-slate-300">Optimización fina de transformación química y física continua</td>
+                            <td class="py-4 px-6 font-mono font-medium text-teal-400">Reducción del 28% en consumo total de energía</td>
+                            <td class="py-4 px-6">
+                                <div class="w-full bg-slate-800 rounded-full h-2">
+                                    <div class="bg-teal-400 h-2 rounded-full" style="width: 88%"></div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr class="hover:bg-slate-800/30 transition">
+                            <td class="py-4 px-6 font-semibold text-white flex items-center gap-2">
+                                <span class="w-2.5 h-2.5 rounded-full bg-cyan-400"></span>
+                                Manufactura Discreta
+                            </td>
+                            <td class="py-4 px-6 text-slate-300">Líneas de ensamblaje automatizado y conformado primario</td>
+                            <td class="py-4 px-6 font-mono font-medium text-cyan-400">Mejora del 20% al 22% en KPIs operativos clave</td>
+                            <td class="py-4 px-6">
+                                <div class="w-full bg-slate-800 rounded-full h-2">
+                                    <div class="bg-cyan-400 h-2 rounded-full" style="width: 75%"></div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr class="hover:bg-slate-800/30 transition">
+                            <td class="py-4 px-6 font-semibold text-white flex items-center gap-2">
+                                <span class="w-2.5 h-2.5 rounded-full bg-indigo-400"></span>
+                                Cadena de Suministro
+                            </td>
+                            <td class="py-4 px-6 text-slate-300">Resiliencia predictiva ante contingencias meteorológicas y de congestión</td>
+                            <td class="py-4 px-6 font-mono font-medium text-indigo-400">Aumento del 23% en rentabilidad de la cadena</td>
+                            <td class="py-4 px-6">
+                                <div class="w-full bg-slate-800 rounded-full h-2">
+                                    <div class="bg-indigo-400 h-2 rounded-full" style="width: 80%"></div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr class="hover:bg-slate-800/30 transition">
+                            <td class="py-4 px-6 font-semibold text-white flex items-center gap-2">
+                                <span class="w-2.5 h-2.5 rounded-full bg-amber-400"></span>
+                                Robótica Industrial
+                            </td>
+                            <td class="py-4 px-6 text-slate-300">Cobots adaptables gobernados por modelos fundacionales</td>
+                            <td class="py-4 px-6 font-mono font-medium text-amber-400">0 reprogramación manual para nuevas piezas</td>
+                            <td class="py-4 px-6">
+                                <div class="w-full bg-slate-800 rounded-full h-2">
+                                    <div class="bg-amber-400 h-2 rounded-full" style="width: 95%"></div>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Chart View (Hidden by default) -->
+            <div id="sectorChartContainer" class="hidden glass-panel p-6 rounded-2xl border border-slate-800">
+                <div class="h-80 w-full">
+                    <canvas id="sectorChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="calculadora" class="py-20 border-b border-slate-900 bg-slate-900/30">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-14">
+                <span class="px-3 py-1 rounded-full text-xs font-mono font-semibold bg-teal-500/10 text-teal-400 border border-teal-500/30">HERRAMIENTA INTERACTIVA</span>
+                <h2 class="mt-4 text-3xl sm:text-4xl font-bold text-white tracking-tight">Simulador de Impacto & Retorno (ROI)</h2>
+                <p class="mt-3 text-slate-400 text-sm">
+                    Estima los beneficios económicos basados en las métricas consolidadas del Informe 2026: reducción de 26%-50% en inactividad no planificada y 28% de ahorro en consumo energético.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+                <!-- Inputs Form -->
+                <div class="lg:col-span-6 glass-panel p-6 sm:p-8 rounded-2xl border-slate-800">
+                    <h3 class="text-lg font-bold text-white mb-6 flex items-center gap-2">
+                        <svg class="w-5 h-5 text-teal-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"/></svg>
+                        Parámetros de tu Planta
+                    </h3>
+
+                    <div class="space-y-6">
+                        <div>
+                            <div class="flex justify-between text-sm mb-2">
+                                <label for="inputDowntimeHours" class="text-slate-300 font-medium">Horas de Inactividad No Planificada (Anual)</label>
+                                <span id="displayDowntimeHours" class="font-mono text-teal-400 font-semibold">180 hrs</span>
+                            </div>
+                            <input type="range" id="inputDowntimeHours" min="20" max="600" value="180" step="10" 
+                                class="w-full h-2 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-teal-400"
+                                oninput="calculateSavings()">
+                        </div>
+
+                        <div>
+                            <div class="flex justify-between text-sm mb-2">
+                                <label for="inputHourlyCost" class="text-slate-300 font-medium">Costo Estimado por Hora Parada (USD)</label>
+                                <span id="displayHourlyCost" class="font-mono text-teal-400 font-semibold">$5,000 / hr</span>
+                            </div>
+                            <input type="range" id="inputHourlyCost" min="1000" max="25000" value="5000" step="500" 
+                                class="w-full h-2 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-teal-400"
+                                oninput="calculateSavings()">
+                        </div>
+
+                        <div>
+                            <div class="flex justify-between text-sm mb-2">
+                                <label for="inputEnergyBill" class="text-slate-300 font-medium">Gasto Energético Anual (USD)</label>
+                                <span id="displayEnergyBill" class="font-mono text-teal-400 font-semibold">$450,000</span>
+                            </div>
+                            <input type="range" id="inputEnergyBill" min="50000" max="2000000" value="450000" step="25000" 
+                                class="w-full h-2 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-teal-400"
+                                oninput="calculateSavings()">
+                        </div>
+
+                        <div>
+                            <label class="block text-slate-300 text-sm font-medium mb-2">Eficacia de Mantenimiento Prescriptivo Proyectada</label>
+                            <div class="grid grid-cols-2 gap-3">
+                                <button type="button" onclick="setMaintenanceRate(0.26, this)" class="rate-btn active py-2.5 px-4 rounded-xl text-xs font-semibold border border-teal-500 bg-teal-500/20 text-teal-300 transition">
+                                    Conservadora (26%)
+                                </button>
+                                <button type="button" onclick="setMaintenanceRate(0.50, this)" class="rate-btn py-2.5 px-4 rounded-xl text-xs font-semibold border border-slate-700 bg-slate-800/60 text-slate-400 hover:text-white transition">
+                                    Óptima (50%)
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Outputs Dashboard -->
+                <div class="lg:col-span-6 space-y-4">
+                    <div class="glass-panel p-6 sm:p-8 rounded-2xl border-teal-500/30 bg-gradient-to-br from-slate-900 via-slate-900 to-teal-950/20 relative overflow-hidden">
+                        <div class="absolute -right-8 -bottom-8 w-40 h-40 bg-teal-500/10 rounded-full blur-3xl pointer-events-none"></div>
+                        <p class="text-xs uppercase tracking-wider text-teal-400 font-mono font-semibold">Ahorro Económico Anual Proyectado</p>
+                        <div class="mt-2 text-4xl sm:text-5xl font-black text-white font-mono tracking-tight" id="totalSavingsResult">
+                            $360,000
+                        </div>
+                        <p class="mt-2 text-xs text-slate-400">Sumatoria de mitigación de fallas operativas y optimización de flujos de potencia térmica y motriz.</p>
+
+                        <div class="mt-6 pt-6 border-t border-slate-800 grid grid-cols-2 gap-4">
+                            <div>
+                                <span class="text-xs text-slate-400 block font-medium">Ahorro en Paradas</span>
+                                <span class="text-xl font-bold text-white font-mono" id="downtimeSavingsResult">$234,000</span>
+                                <span class="text-[11px] text-teal-400 block mt-0.5" id="savedHoursResult">46.8 horas recuperadas</span>
+                            </div>
+                            <div>
+                                <span class="text-xs text-slate-400 block font-medium">Ahorro Energético (28%)</span>
+                                <span class="text-xl font-bold text-white font-mono" id="energySavingsResult">$126,000</span>
+                                <span class="text-[11px] text-cyan-400 block mt-0.5">Optimización de procesos</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="glass-panel p-5 rounded-2xl border-slate-800 flex items-start space-x-3.5">
+                        <div class="p-2 rounded-lg bg-teal-500/10 text-teal-400 shrink-0">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                        </div>
+                        <p class="text-xs text-slate-400 leading-relaxed">
+                            <strong class="text-slate-200">Factibilidad Brownfield:</strong> Tecnologías como <em>Factory AI</em> permiten la integración de estos algoritmos en plantas existentes en un tiempo promedio inferior a <strong>14 días</strong> sin sustitución masiva de PLCs heredados.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-20 border-b border-slate-900 bg-slate-950">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-14">
+                <h2 class="text-xs font-semibold tracking-wider text-teal-400 uppercase">Arquitectura del Consenso 2026</h2>
+                <p class="mt-2 text-3xl font-bold text-white tracking-tight">El Continuo Borde-Nube (Edge-to-Cloud)</p>
+                <p class="mt-4 text-slate-400 text-sm">
+                    El modelo híbrido divide de forma estricta las cargas de trabajo según la latencia de respuesta requerida y la magnitud computacional.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 relative">
+                <!-- Edge Side -->
+                <div class="glass-panel rounded-2xl p-7 border-teal-500/30 relative group">
+                    <div class="flex items-center justify-between mb-4">
+                        <span class="px-2.5 py-1 text-xs font-mono font-bold rounded bg-teal-500/20 text-teal-400">EDGE AI (En el Borde)</span>
+                        <span class="text-xs font-mono text-slate-400">Latencia: &lt; 5 ms</span>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">Decisión Crítica en Milisegundos</h3>
+                    <ul class="space-y-3 text-sm text-slate-300">
+                        <li class="flex items-start gap-2">
+                            <svg class="w-4 h-4 text-teal-400 mt-1 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                            <span><strong>Paradas de Emergencia:</strong> Corte automático por detección de colisión o fallo mecánico inmediato.</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <svg class="w-4 h-4 text-teal-400 mt-1 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                            <span><strong>Inspección Zero-Shot en Línea:</strong> Calificación geométrica a alta cadencia sin enviar frames pesados a la red externa.</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <svg class="w-4 h-4 text-teal-400 mt-1 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                            <span><strong>Inmunidad Operativa:</strong> Continúa operando incluso si se corta la conexión satelital o de fibra.</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Cloud Side -->
+                <div class="glass-panel rounded-2xl p-7 border-sky-500/30 relative group">
+                    <div class="flex items-center justify-between mb-4">
+                        <span class="px-2.5 py-1 text-xs font-mono font-bold rounded bg-sky-500/20 text-sky-400">CLOUD AI (En la Nube)</span>
+                        <span class="text-xs font-mono text-slate-400">Escala Multi-Planta</span>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">Estrategia Global y Re-entrenamiento</h3>
+                    <ul class="space-y-3 text-sm text-slate-300">
+                        <li class="flex items-start gap-2">
+                            <svg class="w-4 h-4 text-sky-400 mt-1 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                            <span><strong>Entrenamiento Pesado:</strong> Ajuste fino de Foundation Models y análisis de tendencias macro entre múltiples factorías.</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <svg class="w-4 h-4 text-sky-400 mt-1 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                            <span><strong>Gemelos Digitales Globales:</strong> Simulación de cadena de aprovisionamiento transfronteriza y pronóstico de capex.</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <svg class="w-4 h-4 text-sky-400 mt-1 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                            <span><strong>Generación de Datos Sintéticos:</strong> Creación de catálogos masivos de fallas atípicas (Rockwell Automation).</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="roles" class="py-20 border-b border-slate-900 bg-slate-900/40">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <h2 class="text-xs font-semibold tracking-wider text-teal-400 uppercase">Capital Humano</h2>
+                <p class="mt-2 text-3xl font-bold text-white tracking-tight">Roles Profesionales en la Transformación</p>
+                <p class="mt-3 text-slate-400 text-sm">
+                    Nuevos perfiles especializados requeridos para operar factorías autónomas en 2026.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Role 1 -->
+                <div class="glass-panel p-6 rounded-2xl border-slate-800 hover:border-teal-500/50 transition">
+                    <div class="w-10 h-10 rounded-xl bg-teal-500/10 text-teal-400 flex items-center justify-center font-bold mb-4 font-mono">01</div>
+                    <h3 class="text-base font-bold text-white mb-2">Arquitecto de Automatización de IA</h3>
+                    <p class="text-xs text-slate-300 leading-relaxed mb-4">
+                        El puente maestro entre la tecnología operativa (<strong>OT</strong>) y la informática empresarial (<strong>IT</strong>).
+                    </p>
+                    <div class="text-[11px] font-mono text-teal-400 bg-teal-950/40 p-2.5 rounded-lg border border-teal-800/40">
+                        Función: Conectar telemetría de sensores a plataformas de proyección de ROI y balance financiero.
+                    </div>
+                </div>
+
+                <!-- Role 2 -->
+                <div class="glass-panel p-6 rounded-2xl border-slate-800 hover:border-cyan-500/50 transition">
+                    <div class="w-10 h-10 rounded-xl bg-cyan-500/10 text-cyan-400 flex items-center justify-center font-bold mb-4 font-mono">02</div>
+                    <h3 class="text-base font-bold text-white mb-2">Ingeniero de RAG</h3>
+                    <p class="text-xs text-slate-300 leading-relaxed mb-4">
+                        Especialista en Generación Aumentada por Recuperación en ingeniería.
+                    </p>
+                    <div class="text-[11px] font-mono text-cyan-400 bg-cyan-950/40 p-2.5 rounded-lg border border-cyan-800/40">
+                        Función: Anclar LLMs a planos, tolerancias y manuales técnicos para erradicar cualquier alucinación en planta.
+                    </div>
+                </div>
+
+                <!-- Role 3 -->
+                <div class="glass-panel p-6 rounded-2xl border-slate-800 hover:border-indigo-500/50 transition">
+                    <div class="w-10 h-10 rounded-xl bg-indigo-500/10 text-indigo-400 flex items-center justify-center font-bold mb-4 font-mono">03</div>
+                    <h3 class="text-base font-bold text-white mb-2">Ingeniero de Machine Learning (ML)</h3>
+                    <p class="text-xs text-slate-300 leading-relaxed mb-4">
+                        Custodio del ciclo de vida algorítmico y control de degradación.
+                    </p>
+                    <div class="text-[11px] font-mono text-indigo-400 bg-indigo-950/40 p-2.5 rounded-lg border border-indigo-800/40">
+                        Función: Mitigar la 'deriva del modelo' (model drift) conforme la maquinaria envejece y cambian sus patrones de vibración.
+                    </div>
+                </div>
+
+                <!-- Role 4 -->
+                <div class="glass-panel p-6 rounded-2xl border-slate-800 hover:border-amber-500/50 transition">
+                    <div class="w-10 h-10 rounded-xl bg-amber-500/10 text-amber-400 flex items-center justify-center font-bold mb-4 font-mono">04</div>
+                    <h3 class="text-base font-bold text-white mb-2">Chief Robotics Officer (CRO)</h3>
+                    <p class="text-xs text-slate-300 leading-relaxed mb-4">
+                        Liderazgo ejecutivo de nivel C en gobernanza autónoma y mitigación.
+                    </p>
+                    <div class="text-[11px] font-mono text-amber-400 bg-amber-950/40 p-2.5 rounded-lg border border-amber-800/40">
+                        Función: Gobernanza, marco de compliance y gestión de riesgos sistémicos de flotas robóticas autónomas.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="desafios" class="py-20 bg-slate-950">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <span class="text-xs font-mono font-semibold px-3 py-1 rounded-full bg-rose-500/10 text-rose-400 border border-rose-500/30">RIESGOS Y BARRERAS</span>
+                <h2 class="mt-4 text-3xl font-bold text-white tracking-tight">Desafíos Críticos de Adopción</h2>
+                <p class="mt-3 text-slate-400 text-sm">
+                    Cuatro obstáculos neurálgicos que determinan el éxito o estancamiento de los despliegues de IA en 2026.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Barrier 1 -->
+                <div class="glass-panel p-6 rounded-2xl border-slate-800 flex items-start space-x-4">
+                    <div class="p-3 rounded-xl bg-rose-500/10 text-rose-400 shrink-0">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
+                    </div>
+                    <div>
+                        <div class="flex items-center justify-between">
+                            <h3 class="text-base font-bold text-white">Fragmentación y Calidad de Datos</h3>
+                            <span class="text-xs font-mono font-bold text-rose-400">30% Freno</span>
+                        </div>
+                        <p class="mt-2 text-xs text-slate-300 leading-relaxed">
+                            El 30% de las compañías industriales señalan la escasez o inconsistencia de datos limpios como su mayor obstáculo. Múltiples máquinas heredadas (legacy) operan en silos aislados sin protocolos de comunicación homologados.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Barrier 2 -->
+                <div class="glass-panel p-6 rounded-2xl border-slate-800 flex items-start space-x-4">
+                    <div class="p-3 rounded-xl bg-amber-500/10 text-amber-400 shrink-0">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+                    </div>
+                    <div>
+                        <div class="flex items-center justify-between">
+                            <h3 class="text-base font-bold text-white">EU AI Act & Cumplimiento Normativo</h3>
+                            <span class="text-xs font-mono font-bold text-amber-400">Alto Riesgo</span>
+                        </div>
+                        <p class="mt-2 text-xs text-slate-300 leading-relaxed">
+                            Con la entrada en vigencia plena de la Ley de IA de la UE en 2026, los sistemas autónomos industriales son categorizados como "de alto riesgo", demandando auditorías técnicas rigurosas y mecanismos obligatorios de supervisión humana (<em>human-in-the-loop</em>).
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Barrier 3 -->
+                <div class="glass-panel p-6 rounded-2xl border-slate-800 flex items-start space-x-4">
+                    <div class="p-3 rounded-xl bg-sky-500/10 text-sky-400 shrink-0">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
+                    </div>
+                    <div>
+                        <div class="flex items-center justify-between">
+                            <h3 class="text-base font-bold text-white">Brecha de Alfabetización de Datos</h3>
+                            <span class="text-xs font-mono font-bold text-sky-400">Capacitación</span>
+                        </div>
+                        <p class="mt-2 text-xs text-slate-300 leading-relaxed">
+                            Urgencia crítica de recapacitar al personal técnico y de mantenimiento. Generar alertas algorítmicas no aporta valor si el operador de planta carece del criterio analítico para interpretar recomendaciones prescriptivas complejas.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Barrier 4 -->
+                <div class="glass-panel p-6 rounded-2xl border-slate-800 flex items-start space-x-4">
+                    <div class="p-3 rounded-xl bg-violet-500/10 text-violet-400 shrink-0">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+                    </div>
+                    <div>
+                        <div class="flex items-center justify-between">
+                            <h3 class="text-base font-bold text-white">Ciberseguridad en IIoT</h3>
+                            <span class="text-xs font-mono font-bold text-violet-400">TLS & Blockchain</span>
+                        </div>
+                        <p class="mt-2 text-xs text-slate-300 leading-relaxed">
+                            La multiplicación exponencial de actuadores y sensores conectados eleva la superficie de vulnerabilidad. Se adoptan protocolos criptográficos robustos TLS y registros inmutables distribuidos para salvaguardar la telemetría operativa.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="glass-panel border-t border-slate-900 py-12 text-slate-400 text-xs">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-6">
+            <div class="flex items-center space-x-3">
+                <div class="w-7 h-7 rounded-md bg-teal-500 flex items-center justify-center text-slate-950 font-bold">
+                    IA
+                </div>
+                <div>
+                    <p class="text-white font-semibold">Informe 2026: Inteligencia Artificial en la Ingeniería Industrial</p>
+                    <p class="text-[11px] text-slate-400">Datos consolidados del Industrial Technology Index & Proyecciones Globales</p>
+                </div>
+            </div>
+
+            <div class="flex items-center space-x-6 text-[11px]">
+                <span>Siemens Digital Twin</span>
+                <span class="text-slate-700">•</span>
+                <span>ABB CogniWeld</span>
+                <span class="text-slate-700">•</span>
+                <span>Oracle Cloud SCM</span>
+                <span class="text-slate-700">•</span>
+                <span>Rockwell Automation</span>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        let currentMaintenanceSavingsRate = 0.26;
+
+        function setMaintenanceRate(rate, element) {
+            currentMaintenanceSavingsRate = rate;
+            document.querySelectorAll('.rate-btn').forEach(btn => {
+                btn.classList.remove('border-teal-500', 'bg-teal-500/20', 'text-teal-300');
+                btn.classList.add('border-slate-700', 'bg-slate-800/60', 'text-slate-400');
+            });
+            element.classList.remove('border-slate-700', 'bg-slate-800/60', 'text-slate-400');
+            element.classList.add('border-teal-500', 'bg-teal-500/20', 'text-teal-300');
+            calculateSavings();
+        }
+
+        function calculateSavings() {
+            const downtimeHours = parseFloat(document.getElementById('inputDowntimeHours').value);
+            const hourlyCost = parseFloat(document.getElementById('inputHourlyCost').value);
+            const energyBill = parseFloat(document.getElementById('inputEnergyBill').value);
+
+            // Update displays
+            document.getElementById('displayDowntimeHours').innerText = `${downtimeHours} hrs`;
+            document.getElementById('displayHourlyCost').innerText = `$${hourlyCost.toLocaleString('en-US')} / hr`;
+            document.getElementById('displayEnergyBill').innerText = `$${energyBill.toLocaleString('en-US')}`;
+
+            // Formulas based directly on the PDF report
+            // 1. Downtime reduction: between 26% and 50%
+            const hoursSaved = downtimeHours * currentMaintenanceSavingsRate;
+            const downtimeSavings = hoursSaved * hourlyCost;
+
+            // 2. Energy savings: 28% in process manufacturing
+            const energySavings = energyBill * 0.28;
+
+            const total = downtimeSavings + energySavings;
+
+            document.getElementById('totalSavingsResult').innerText = `$${Math.round(total).toLocaleString('en-US')}`;
+            document.getElementById('downtimeSavingsResult').innerText = `$${Math.round(downtimeSavings).toLocaleString('en-US')}`;
+            document.getElementById('savedHoursResult').innerText = `${hoursSaved.toFixed(1)} horas recuperadas`;
+            document.getElementById('energySavingsResult').innerText = `$${Math.round(energySavings).toLocaleString('en-US')}`;
+        }
+
+        let sectorChartInstance = null;
+
+        function switchSectorView(view) {
+            const tableContainer = document.getElementById('sectorTableContainer');
+            const chartContainer = document.getElementById('sectorChartContainer');
+            const tableBtn = document.getElementById('viewTableBtn');
+            const chartBtn = document.getElementById('viewChartBtn');
+
+            if (view === 'table') {
+                tableContainer.classList.remove('hidden');
+                chartContainer.classList.add('hidden');
+                tableBtn.classList.replace('text-slate-400', 'text-white');
+                tableBtn.classList.replace('bg-transparent', 'bg-slate-800');
+                chartBtn.classList.replace('text-white', 'text-slate-400');
+                chartBtn.classList.replace('bg-slate-800', 'bg-transparent');
+            } else {
+                tableContainer.classList.add('hidden');
+                chartContainer.classList.remove('hidden');
+                chartBtn.classList.replace('text-slate-400', 'text-white');
+                chartBtn.classList.replace('bg-transparent', 'bg-slate-800');
+                tableBtn.classList.replace('text-white', 'text-slate-400');
+                tableBtn.classList.replace('bg-slate-800', 'bg-transparent');
+
+                if (!sectorChartInstance) {
+                    renderSectorChart();
+                }
+            }
+        }
+
+        function renderSectorChart() {
+            const ctx = document.getElementById('sectorChart').getContext('2d');
+            sectorChartInstance = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: [
+                        'Ahorro Energético (Procesos)',
+                        'Mejora KPIs (Discreta)',
+                        'Rentabilidad Cadena Suministro',
+                        'Reducción Paradas (Mantenimiento)'
+                    ],
+                    datasets: [{
+                        label: 'Impacto Cuantitativo Reportado (%)',
+                        data: [28, 22, 23, 38], // 38 is the midpoint of 26-50%
+                        backgroundColor: [
+                            'rgba(20, 184, 166, 0.8)',
+                            'rgba(6, 182, 212, 0.8)',
+                            'rgba(99, 102, 241, 0.8)',
+                            'rgba(16, 185, 129, 0.8)'
+                        ],
+                        borderColor: [
+                            '#14b8a6',
+                            '#06b6d4',
+                            '#6366f1',
+                            '#10b981'
+                        ],
+                        borderWidth: 1.5,
+                        borderRadius: 8
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            labels: {
+                                color: '#94a3b8',
+                                font: { family: 'Inter', size: 12 }
+                            }
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    if (context.dataIndex === 3) {
+                                        return ' Rango: 26% - 50% de reducción en inactividad no planificada';
+                                    }
+                                    return ` Beneficio directo: ${context.parsed.y}%`;
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            max: 60,
+                            ticks: {
+                                color: '#64748b',
+                                callback: function(val) { return val + '%'; }
+                            },
+                            grid: {
+                                color: 'rgba(255, 255, 255, 0.05)'
+                            }
+                        },
+                        x: {
+                            ticks: {
+                                color: '#94a3b8',
+                                font: { size: 11 }
+                            },
+                            grid: {
+                                display: false
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Initialize calculations on load
+        window.addEventListener('DOMContentLoaded', () => {
+            calculateSavings();
+        });
+    </script>
+</body>
+</html>

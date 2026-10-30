@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>La Nueva Era del Software Agéntico | Edentia & Leonardo AI</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#f0fdf4',
+                            100: '#dcfce7',
+                            500: '#22c55e',
+                            600: '#16a34a',
+                            900: '#14532d',
+                            dark: '#090d16',
+                            card: '#111827',
+                            border: '#1f2937'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Google Fonts Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- FontAwesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #090d16; color: #f3f4f6; }
+        .glass-panel { background: rgba(17, 24, 39, 0.75); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.08); }
+        .gradient-text { background: linear-gradient(135deg, #4ade80 0%, #3b82f6 50%, #a855f7 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .glow-effect { box-shadow: 0 0 50px -10px rgba(34, 197, 94, 0.2); }
+    </style>
+</head>
+<body class="bg-brand-dark text-gray-100 antialiased selection:bg-brand-500 selection:text-white">
+
+    <!-- Notification / Message Box (Custom modal instead of alert) -->
+    <div id="custom-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm hidden">
+        <div class="glass-panel p-6 rounded-2xl max-w-md w-full mx-4 border border-emerald-500/30 text-center shadow-2xl">
+            <div id="modal-icon" class="text-4xl text-emerald-400 mb-3"><i class="fa-solid fa-circle-check"></i></div>
+            <h3 id="modal-title" class="text-xl font-bold text-white mb-2">¡Acción Exitosa!</h3>
+            <p id="modal-desc" class="text-gray-300 text-sm mb-6">Contenido copiado o procesado correctamente.</p>
+            <button onclick="closeModal()" class="w-full py-2.5 bg-emerald-600 hover:bg-emerald-500 text-white font-semibold rounded-xl transition shadow-lg">Entendido</button>
+        </div>
+    </div>
+
+    <!-- Top Progress Bar -->
+    <div class="fixed top-0 left-0 w-full h-1 bg-gray-800 z-50">
+        <div id="progress-bar" class="h-full bg-gradient-to-r from-emerald-400 via-blue-500 to-purple-500 w-0 transition-all duration-150"></div>
+    </div>
+
+    <!-- Navigation Bar -->
+    <header class="fixed top-1 left-0 right-0 z-40 glass-panel border-b border-gray-800/60">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-emerald-500 to-blue-600 flex items-center justify-center shadow-lg shadow-emerald-500/20">
+                    <i class="fa-solid fa-microchip text-white text-sm"></i>
+                </div>
+                <span class="font-bold text-lg tracking-tight text-white">Edentia <span class="text-emerald-400 font-normal text-xs px-2 py-0.5 rounded-full bg-emerald-500/10 border border-emerald-500/20">AI Era</span></span>
+            </div>
+            <nav class="hidden md:flex items-center space-x-8 text-sm font-medium text-gray-300">
+                <a href="#vision" class="hover:text-emerald-400 transition">Visión 2026</a>
+                <a href="#moats" class="hover:text-emerald-400 transition">Nuevos Fosos</a>
+                <a href="#types" class="hover:text-emerald-400 transition">8 Tipos de Software</a>
+                <a href="#edentia" class="text-emerald-400 font-semibold transition">Estrategia Edentia</a>
+                <a href="#leonardo" class="text-purple-400 font-semibold transition">Consultoría Leonardo</a>
+            </nav>
+            <div class="flex items-center space-x-3">
+                <button onclick="copySummary()" class="px-4 py-2 text-xs font-semibold bg-gray-800 hover:bg-gray-700 text-gray-200 border border-gray-700 rounded-xl transition flex items-center space-x-2">
+                    <i class="fa-solid fa-copy text-emerald-400"></i>
+                    <span>Copiar Resumen</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="relative pt-32 pb-20 md:pt-44 md:pb-32 overflow-hidden">
+        <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-emerald-900/20 via-brand-dark to-brand-dark pointer-events-none"></div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="text-center max-w-4xl mx-auto">
+                <div class="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-semibold mb-6">
+                    <i class="fa-solid fa-bolt"></i>
+                    <span>Análisis Técnico del Video • Build Great Products</span>
+                </div>
+                <h1 class="text-4xl sm:text-6xl font-extrabold text-white tracking-tight leading-tight mb-6">
+                    Deja de construir SaaS genéricos. <br>
+                    <span class="gradient-text">Construye estos 8 en su lugar.</span>
+                </h1>
+                <p class="text-lg sm:text-xl text-gray-300 mb-10 max-w-2xl mx-auto leading-relaxed">
+                    El software tradicional ha muerto. La era agéntica exige productos nativos de IA basados en experiencia, criterio estético, datos propietarios y resultados.
+                </p>
+                <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+                    <a href="#types" class="w-full sm:w-auto px-8 py-3.5 bg-emerald-600 hover:bg-emerald-500 text-white font-semibold rounded-2xl shadow-lg shadow-emerald-600/30 transition flex items-center justify-center space-x-2">
+                        <span>Explorar los 8 Tipos</span>
+                        <i class="fa-solid fa-arrow-down text-xs"></i>
+                    </a>
+                    <a href="#edentia" class="w-full sm:w-auto px-8 py-3.5 glass-panel hover:bg-gray-800/80 text-white font-semibold rounded-2xl transition flex items-center justify-center space-x-2 border border-gray-700">
+                        <span>Estrategia para Edentia & Leonardo</span>
+                        <i class="fa-solid fa-compass text-xs text-emerald-400"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Core Shift Section (Vision) -->
+    <section id="vision" class="py-20 border-t border-gray-800/60 bg-gray-950/50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-bold text-white mb-4">¿Por qué el SaaS Tradicional ya no funciona?</h2>
+                <p class="text-gray-400 max-w-2xl mx-auto">Tres cambios estructurales fundamentales han transformado la industria del desarrollo de software en la era de los agentes.</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="glass-panel p-8 rounded-3xl border border-gray-800 relative group hover:border-emerald-500/50 transition">
+                    <div class="w-12 h-12 rounded-2xl bg-emerald-500/10 text-emerald-400 flex items-center justify-center text-xl font-bold mb-6">01</div>
+                    <h3 class="text-xl font-semibold text-white mb-3">Construir es Barato</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed">Cualquier aplicación compleja se clona en un fin de semana con agentes como Claude Code y Codex. El código ya no es una barrera de entrada.</p>
+                </div>
+                <div class="glass-panel p-8 rounded-3xl border border-gray-800 relative group hover:border-blue-500/50 transition">
+                    <div class="w-12 h-12 rounded-2xl bg-blue-500/10 text-blue-400 flex items-center justify-center text-xl font-bold mb-6">02</div>
+                    <h3 class="text-xl font-semibold text-white mb-3">Los Agentes son Usuarios</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed">El software ahora tiene dos clientes: el humano que hace clic y el agente autónomo que opera la herramienta directamente mediante CLI, APIs y servidores MCP.</p>
+                </div>
+                <div class="glass-panel p-8 rounded-3xl border border-gray-800 relative group hover:border-purple-500/50 transition">
+                    <div class="w-12 h-12 rounded-2xl bg-purple-500/10 text-purple-400 flex items-center justify-center text-xl font-bold mb-6">03</div>
+                    <h3 class="text-xl font-semibold text-white mb-3">Precios por Resultados</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed">La gente ya no paga por el número de inicios de sesión o características estáticas, sino por obtener un resultado empresarial concreto (*outcome*).</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- New Moats Section -->
+    <section id="moats" class="py-20 border-t border-gray-800/60">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <div>
+                    <span class="text-emerald-400 text-xs font-semibold uppercase tracking-wider px-3 py-1 bg-emerald-500/10 rounded-full border border-emerald-500/20">Defensibilidad</span>
+                    <h2 class="text-3xl font-extrabold text-white mt-4 mb-6">Los Nuevos Fosos Defensivos (*Moats*)</h2>
+                    <p class="text-gray-300 leading-relaxed mb-6">
+                        Como el código ya no es un foso defensivo, la defensibilidad de tu negocio se desplaza hacia cuatro pilares fundamentales que la IA no puede replicar automáticamente:
+                    </p>
+                    <ul class="space-y-4 text-sm text-gray-300">
+                        <li class="flex items-start space-x-3">
+                            <i class="fa-solid fa-check text-emerald-400 mt-1"></i>
+                            <div><strong class="text-white">Experiencia (Expertise):</strong> Traducción de conocimiento de nicho y procesos humanos complejos en software automatizado.</div>
+                        </li>
+                        <li class="flex items-start space-x-3">
+                            <i class="fa-solid fa-check text-emerald-400 mt-1"></i>
+                            <div><strong class="text-white">Gusto y Criterio (Taste):</strong> Calidad de experiencia, diseño intuitivo y exploración rápida de variantes creativas con IA.</div>
+                        </li>
+                        <li class="flex items-start space-x-3">
+                            <i class="fa-solid fa-check text-emerald-400 mt-1"></i>
+                            <div><strong class="text-white">Datos Propietarios (Data):</strong> Información sectorial exclusiva fuera de la distribución pública de los modelos base.</div>
+                        </li>
+                        <li class="flex items-start space-x-3">
+                            <i class="fa-solid fa-check text-emerald-400 mt-1"></i>
+                            <div><strong class="text-white">Distribución (Distribution):</strong> Acceso directo a una comunidad o audiencia fiel que confía en tu criterio.</div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="glass-panel p-8 rounded-3xl border border-gray-800 glow-effect">
+                    <h3 class="text-xl font-bold text-white mb-4 flex items-center space-x-3">
+                        <i class="fa-solid fa-quote-left text-emerald-400"></i>
+                        <span>Cita Clave del Experto</span>
+                    </h3>
+                    <p class="text-gray-300 italic text-base leading-relaxed mb-6">
+                        "Cuidar de un nicho más que nadie es el recurso más escaso. El software no ha muerto, el software genérico sí."
+                    </p>
+                    <div class="flex items-center space-x-3">
+                        <div class="w-10 h-10 rounded-full bg-emerald-500/20 flex items-center justify-center font-bold text-emerald-400">C</div>
+                        <div>
+                            <div class="font-semibold text-white text-sm">Chris</div>
+                            <div class="text-xs text-gray-400">Build Great Products (15 años en diseño y startups)</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- The 8 Types of Software Section -->
+    <section id="types" class="py-20 border-t border-gray-800/60 bg-gray-950/50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <span class="text-emerald-400 text-xs font-semibold uppercase tracking-wider px-3 py-1 bg-emerald-500/10 rounded-full border border-emerald-500/20">Oportunidades Estratégicas</span>
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-white mt-4 mb-4">Los 8 Tipos de Software a Construir Hoy</h2>
+                <p class="text-gray-400 max-w-2xl mx-auto">Selecciona una categoría para ver su descripción detallada, caso de uso y modelo de monetización.</p>
+            </div>
+
+            <!-- Grid of 8 Types -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- 1 -->
+                <div class="glass-panel p-6 rounded-3xl border border-gray-800 hover:border-emerald-500/40 transition flex flex-col justify-between">
+                    <div>
+                        <div class="text-xs text-emerald-400 font-semibold mb-2">01 / SERVICIOS</div>
+                        <h3 class="text-lg font-bold text-white mb-2">Software-Enabled Services</h3>
+                        <p class="text-xs text-gray-400 leading-relaxed mb-4">No vendas software de contabilidad; sé la firma de contabilidad 10x más rápida combinando 2 personas con IA.</p>
+                    </div>
+                    <div class="text-xs font-medium text-emerald-400 bg-emerald-500/10 px-3 py-1.5 rounded-xl border border-emerald-500/20 text-center">Alta rentabilidad operativa</div>
+                </div>
+                <!-- 2 -->
+                <div class="glass-panel p-6 rounded-3xl border border-gray-800 hover:border-emerald-500/40 transition flex flex-col justify-between">
+                    <div>
+                        <div class="text-xs text-emerald-400 font-semibold mb-2">02 / ARNESES</div>
+                        <h3 class="text-lg font-bold text-white mb-2">Vertical Agent Harnesses</h3>
+                        <p class="text-xs text-gray-400 leading-relaxed mb-4">Entornos controlados alrededor del modelo con reglas, herramientas, memoria y flujos para nichos específicos.</p>
+                    </div>
+                    <div class="text-xs font-medium text-emerald-400 bg-emerald-500/10 px-3 py-1.5 rounded-xl border border-emerald-500/20 text-center">Mejora al mejorar la IA</div>
+                </div>
+                <!-- 3 -->
+                <div class="glass-panel p-6 rounded-3xl border border-gray-800 hover:border-emerald-500/40 transition flex flex-col justify-between">
+                    <div>
+                        <div class="text-xs text-emerald-400 font-semibold mb-2">03 / HEADLESS</div>
+                        <h3 class="text-lg font-bold text-white mb-2">Headless AI Software</h3>
+                        <p class="text-xs text-gray-400 leading-relaxed mb-4">Herramientas sin interfaz visual (CLI, APIs, MCP) diseñadas exclusivamente para que los agentes las consuman.</p>
+                    </div>
+                    <div class="text-xs font-medium text-emerald-400 bg-emerald-500/10 px-3 py-1.5 rounded-xl border border-emerald-500/20 text-center">Precios basados en uso</div>
+                </div>
+                <!-- 4 -->
+                <div class="glass-panel p-6 rounded-3xl border border-gray-800 hover:border-emerald-500/40 transition flex flex-col justify-between">
+                    <div>
+                        <div class="text-xs text-emerald-400 font-semibold mb-2">04 / SISTEMAS</div>
+                        <h3 class="text-lg font-bold text-white mb-2">Agent-Native Systems</h3>
+                        <p class="text-xs text-gray-400 leading-relaxed mb-4">Combinación de plugins ejecutados en agentes con un panel de control web (*dashboard*) para supervisar progreso.</p>
+                    </div>
+                    <div class="text-xs font-medium text-emerald-400 bg-emerald-500/10 px-3 py-1.5 rounded-xl border border-emerald-500/20 text-center">Ideal para consultores</div>
+                </div>
+                <!-- 5 -->
+                <div class="glass-panel p-6 rounded-3xl border border-gray-800 hover:border-purple-500/40 transition flex flex-col justify-between">
+                    <div>
+                        <div class="text-xs text-purple-400 font-semibold mb-2">05 / NICHO</div>
+                        <h3 class="text-lg font-bold text-white mb-2">Taste-Led Niche Products</h3>
+                        <p class="text-xs text-gray-400 leading-relaxed mb-4">Apps inspiradas en la pasión para comunidades o creadores, optimizadas por gusto y visión creativa.</p>
+                    </div>
+                    <div class="text-xs font-medium text-purple-400 bg-purple-500/10 px-3 py-1.5 rounded-xl border border-purple-500/20 text-center">Para los 1,000 fans fieles</div>
+                </div>
+                <!-- 6 -->
+                <div class="glass-panel p-6 rounded-3xl border border-gray-800 hover:border-purple-500/40 transition flex flex-col justify-between">
+                    <div>
+                        <div class="text-xs text-purple-400 font-semibold mb-2">06 / CONSUMIDOR</div>
+                        <h3 class="text-lg font-bold text-white mb-2">Ambient Consumer Agents</h3>
+                        <p class="text-xs text-gray-400 leading-relaxed mb-4">Asistentes inteligentes integrados permanentemente en chats grupales cotidianos (WhatsApp, iMessage).</p>
+                    </div>
+                    <div class="text-xs font-medium text-purple-400 bg-purple-500/10 px-3 py-1.5 rounded-xl border border-purple-500/20 text-center">Apuesta de gran escala</div>
+                </div>
+                <!-- 7 -->
+                <div class="glass-panel p-6 rounded-3xl border border-gray-800 hover:border-purple-500/40 transition flex flex-col justify-between">
+                    <div>
+                        <div class="text-xs text-purple-400 font-semibold mb-2">07 / DATOS</div>
+                        <h3 class="text-lg font-bold text-white mb-2">Proprietary Data Products</h3>
+                        <p class="text-xs text-gray-400 leading-relaxed mb-4">Productos basados en información exclusiva fuera de la distribución pública que los agentes pueden consultar.</p>
+                    </div>
+                    <div class="text-xs font-medium text-purple-400 bg-purple-500/10 px-3 py-1.5 rounded-xl border border-purple-500/20 text-center">Foso de datos imbatible</div>
+                </div>
+                <!-- 8 -->
+                <div class="glass-panel p-6 rounded-3xl border border-gray-800 hover:border-purple-500/40 transition flex flex-col justify-between">
+                    <div>
+                        <div class="text-xs text-purple-400 font-semibold mb-2">08 / OPEN SOURCE</div>
+                        <h3 class="text-lg font-bold text-white mb-2">Open-Source Core</h3>
+                        <p class="text-xs text-gray-400 leading-relaxed mb-4">El núcleo del código es gratuito y abierto (marketing), monetizando mediante hosting en la nube y soporte.</p>
+                    </div>
+                    <div class="text-xs font-medium text-purple-400 bg-purple-500/10 px-3 py-1.5 rounded-xl border border-purple-500/20 text-center">Hosting y soporte de pago</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Strategic Section: Edentia -->
+    <section id="edentia" class="py-20 border-t border-gray-800/60">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="glass-panel p-8 md:p-12 rounded-3xl border border-emerald-500/30 glow-effect">
+                <div class="flex items-center space-x-3 mb-6">
+                    <div class="w-10 h-10 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center font-bold">
+                        <i class="fa-solid fa-building"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-2xl font-bold text-white">Aplicación Estratégica para Edentia</h2>
+                        <p class="text-xs text-emerald-400">Cómo aplicar este conocimiento para lograr ventaja competitiva y monetización</p>
+                    </div>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mt-8">
+                    <div class="bg-gray-900/60 p-6 rounded-2xl border border-gray-800">
+                        <h3 class="text-lg font-semibold text-white mb-2 flex items-center space-x-2">
+                            <i class="fa-solid fa-wand-magic-sparkles text-emerald-400"></i>
+                            <span>Servicios Habilitados</span>
+                        </h3>
+                        <p class="text-sm text-gray-300 leading-relaxed">
+                            Transicionar de consultoría de desarrollo a empaquetar servicios de transformación digital operados por flujos internos de agentes. Reducción drástica de tiempos de entrega y márgenes muy superiores.
+                        </p>
+                    </div>
+                    <div class="bg-gray-900/60 p-6 rounded-2xl border border-gray-800">
+                        <h3 class="text-lg font-semibold text-white mb-2 flex items-center space-x-2">
+                            <i class="fa-solid fa-shield-halved text-emerald-400"></i>
+                            <span>Arneses Corporativos</span>
+                        </h3>
+                        <p class="text-sm text-gray-300 leading-relaxed">
+                            Desarrollar entornos controlados (*harnesses*) para clientes corporativos e industriales integrando normativa interna, bases de datos y seguridad empresarial bajo modelos de suscripción B2B.
+                        </p>
+                    </div>
+                    <div class="bg-gray-900/60 p-6 rounded-2xl border border-gray-800">
+                        <h3 class="text-lg font-semibold text-white mb-2 flex items-center space-x-2">
+                            <i class="fa-solid fa-cubes text-emerald-400"></i>
+                            <span>Sistemas Nativos</span>
+                        </h3>
+                        <p class="text-sm text-gray-300 leading-relaxed">
+                            Crear plugins metodológicos y dashboards ejecutivos para que los clientes operen la propiedad intelectual de Edentia directamente dentro de sus herramientas de IA habituales.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Strategic Section: Leonardo -->
+    <section id="leonardo" class="py-20 border-t border-gray-800/60 bg-gray-950/50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="glass-panel p-8 md:p-12 rounded-3xl border border-purple-500/30">
+                <div class="flex items-center space-x-3 mb-6">
+                    <div class="w-10 h-10 rounded-xl bg-purple-500/20 text-purple-400 flex items-center justify-center font-bold">
+                        <i class="fa-solid fa-user-tie"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-2xl font-bold text-white">Recomendaciones para Leonardo (Consultor Senior de IA)</h2>
+                        <p class="text-xs text-purple-400">Cómo mejorar su consultoría en IA y maximizar su monetización</p>
+                    </div>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mt-8">
+                    <div class="bg-gray-900/60 p-6 rounded-2xl border border-gray-800">
+                        <h3 class="text-lg font-semibold text-white mb-2 flex items-center space-x-2">
+                            <i class="fa-solid fa-brain text-purple-400"></i>
+                            <span>Posicionamiento de Criterio</span>
+                        </h3>
+                        <p class="text-sm text-gray-300 leading-relaxed">
+                            Posiciónate en el <strong class="text-white">criterio arquitectónico</strong>, gobernanza (AI TRiSM) y selección de modelos, no en la escritura de código que la IA ya commoditiza.
+                        </p>
+                    </div>
+                    <div class="bg-gray-900/60 p-6 rounded-2xl border border-gray-800">
+                        <h3 class="text-lg font-semibold text-white mb-2 flex items-center space-x-2">
+                            <i class="fa-solid fa-box-archive text-purple-400"></i>
+                            <span>Consultoría por Producto</span>
+                        </h3>
+                        <p class="text-sm text-gray-300 leading-relaxed">
+                            Empaqueta tu experiencia en marcos de trabajo ejecutables y sistemas nativos de agentes, cobrando por resultados implementados y no por horas dispersas de asesoría.
+                        </p>
+                    </div>
+                    <div class="bg-gray-900/60 p-6 rounded-2xl border border-gray-800">
+                        <h3 class="text-lg font-semibold text-white mb-2 flex items-center space-x-2">
+                            <i class="fa-solid fa-code-branch text-purple-400"></i>
+                            <span>Activos Reutilizables</span>
+                        </h3>
+                        <p class="text-sm text-gray-300 leading-relaxed">
+                            Desarrolla utilidades CLI, conectores o librerías open-source como imanes de distribución y atracción comercial para contratos corporativos de alto nivel (*Enterprise*).
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-12 border-t border-gray-800/60 text-center text-sm text-gray-400">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <p>© 2026 Edentia & Leonardo Senior AI Consulting. Basado en el análisis experto de "Build Great Products".</p>
+        </div>
+    </footer>
+
+    <!-- Interactive JavaScript -->
+    <script>
+        // Scroll Progress Bar calculation
+        window.addEventListener('scroll', () => {
+            const winScroll = document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            document.getElementById('progress-bar').style.width = scrolled + '%';
+        });
+
+        // Custom Modal Functions
+        function showModal(title, desc, iconClass = "fa-solid fa-circle-check") {
+            document.getElementById('modal-title').innerText = title;
+            document.getElementById('modal-desc').innerText = desc;
+            document.getElementById('modal-icon').innerHTML = `<i class="${iconClass}"></i>`;
+            document.getElementById('custom-modal').classList.remove('hidden');
+        }
+
+        function closeModal() {
+            document.getElementById('custom-modal').classList.add('hidden');
+        }
+
+        // Copy Summary functionality using document.execCommand for iFrame safety
+        function copySummary() {
+            const textToCopy = `Resumen Ejecutivo - Era del Software Agéntico:
+1. El SaaS tradicional ha muerto por abaratamiento de costos de programación.
+2. Los agentes son los nuevos usuarios de software.
+3. El modelo de precios migra a resultados.
+4. Los 4 fosos: Experiencia, Gusto, Datos Propietarios, Distribución.
+5. Los 8 Tipos: Servicios Habilitados, Arneses Verticales, Headless, Sistemas Nativos, Nicho por Gusto, Agentes Ambientales, Datos Propietarios, Open-Source Core.`;
+
+            const textarea = document.createElement('textarea');
+            textarea.value = textToCopy;
+            document.body.appendChild(textarea);
+            textarea.select();
+            try {
+                document.execCommand('copy');
+                showModal("¡Resumen Copiado!", "El resumen de alto nivel se ha copiado al portapapeles correctamente.");
+            } catch (err) {
+                showModal("Aviso", "No se pudo copiar automáticamente, por favor selecciona el texto manualmente.", "fa-solid fa-triangle-exclamation");
+            }
+            document.body.removeChild(textarea);
+        }
+    </script>
+</body>
+</html>

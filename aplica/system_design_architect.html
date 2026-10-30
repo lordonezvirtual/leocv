@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="es" class="h-full">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>System Design Architect - LinkedIn Case Study</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Inter Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(226, 232, 240, 0.8);
+        }
+        .dark .glass-panel {
+            background: rgba(15, 23, 42, 0.85);
+            border: 1px solid rgba(51, 65, 85, 0.8);
+        }
+    </style>
+</head>
+<body class="h-full bg-slate-50 dark:bg-slate-950 text-slate-800 dark:text-slate-100 transition-colors duration-300 flex flex-col">
+
+    <!-- Top Navigation -->
+    <header class="sticky top-0 z-50 glass-panel border-b border-slate-200 dark:border-slate-800 px-4 py-3 flex items-center justify-between shadow-sm">
+        <div class="flex items-center space-x-3">
+            <div class="bg-blue-600 text-white p-2.5 rounded-xl shadow-lg shadow-blue-500/30 flex items-center justify-center">
+                <i class="fa-solid fa-network-wired text-lg"></i>
+            </div>
+            <div>
+                <h1 class="font-bold text-lg tracking-tight bg-gradient-to-r from-blue-600 to-indigo-600 dark:from-blue-400 dark:to-indigo-400 bg-clip-text text-transparent">SystemDesign Pro</h1>
+                <p class="text-xs text-slate-500 dark:text-slate-400">LinkedIn Search Architecture Masterclass</p>
+            </div>
+        </div>
+        
+        <div class="flex items-center space-x-2">
+            <button id="themeToggle" class="p-2.5 rounded-xl bg-slate-200/60 dark:bg-slate-800/60 text-slate-700 dark:text-slate-200 hover:bg-slate-300 dark:hover:bg-slate-700 transition" title="Cambiar Tema">
+                <i class="fa-solid fa-moon dark:hidden"></i>
+                <i class="fa-solid fa-sun hidden dark:inline"></i>
+            </button>
+            <button onclick="openModal('consultingModal')" class="hidden sm:flex items-center space-x-1.5 px-3.5 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-semibold shadow-md shadow-emerald-600/20 transition">
+                <i class="fa-solid fa-briefcase"></i>
+                <span>Edentia & Consultoría IA</span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Main Content Area -->
+    <main class="flex-1 overflow-y-auto p-4 sm:p-6 max-w-7xl mx-auto w-full space-y-6">
+
+        <!-- Hero / Navigation Tabs -->
+        <div class="flex flex-wrap gap-2 border-b border-slate-200 dark:border-slate-800 pb-4">
+            <button onclick="switchTab('architecture')" id="tab-architecture" class="tab-btn px-4 py-2.5 rounded-xl font-medium text-sm transition bg-blue-600 text-white shadow-md shadow-blue-600/20">
+                <i class="fa-solid fa-sitemap mr-2"></i>Arquitectura Interactiva
+            </button>
+            <button onclick="switchTab('notes')" id="tab-notes" class="tab-btn px-4 py-2.5 rounded-xl font-medium text-sm transition bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-300 dark:hover:bg-slate-700">
+                <i class="fa-solid fa-book-open mr-2"></i>Notas y Marcas de Tiempo
+            </button>
+            <button onclick="switchTab('glossary')" id="tab-glossary" class="tab-btn px-4 py-2.5 rounded-xl font-medium text-sm transition bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-300 dark:hover:bg-slate-700">
+                <i class="fa-solid fa-graduation-cap mr-2"></i>Glosario Técnico
+            </button>
+            <button onclick="switchTab('strategy')" id="tab-strategy" class="tab-btn px-4 py-2.5 rounded-xl font-medium text-sm transition bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-300 dark:hover:bg-slate-700">
+                <i class="fa-solid fa-chart-line mr-2"></i>Estrategia Edentia & Leonardo
+            </button>
+        </div>
+
+        <!-- TAB 1: ARCHITECTURE LAYERS -->
+        <section id="section-architecture" class="space-y-6">
+            <div class="glass-panel p-5 rounded-2xl shadow-sm border border-slate-200/80 dark:border-slate-800">
+                <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-4">
+                    <div>
+                        <h2 class="text-xl font-bold tracking-tight">Evolución de Arquitectura (LinkedIn Job Search)</h2>
+                        <p class="text-sm text-slate-500 dark:text-slate-400">Haz clic en cada capa para explorar componentes críticos, ventajas y compensaciones (*trade-offs*).</p>
+                    </div>
+                    <div class="flex items-center space-x-2 bg-slate-100 dark:bg-slate-900 p-1.5 rounded-xl border border-slate-200 dark:border-slate-800">
+                        <span class="text-xs font-semibold px-2 text-slate-500">Capa Activa:</span>
+                        <span id="activeLayerBadge" class="text-xs font-bold text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-950/50 px-2.5 py-1 rounded-lg">1. Monolito Base</span>
+                    </div>
+                </div>
+
+                <!-- Architecture Layer Cards / Controls -->
+                <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 mb-6">
+                    <button onclick="selectLayer(1)" id="layerBtn1" class="layer-selector p-3 rounded-xl text-left border-2 border-blue-500 bg-blue-50/50 dark:bg-blue-950/30 transition">
+                        <div class="text-xs font-bold text-blue-600 dark:text-blue-400">Fase 1</div>
+                        <div class="text-sm font-semibold mt-1">Monolito & DB</div>
+                    </button>
+                    <button onclick="selectLayer(2)" id="layerBtn2" class="layer-selector p-3 rounded-xl text-left border-2 border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 hover:border-slate-300 transition">
+                        <div class="text-xs font-bold text-slate-400">Fase 2</div>
+                        <div class="text-sm font-semibold mt-1">Load Balancer</div>
+                    </button>
+                    <button onclick="selectLayer(3)" id="layerBtn3" class="layer-selector p-3 rounded-xl text-left border-2 border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 hover:border-slate-300 transition">
+                        <div class="text-xs font-bold text-slate-400">Fase 3</div>
+                        <div class="text-sm font-semibold mt-1">Índices & Redis</div>
+                    </button>
+                    <button onclick="selectLayer(4)" id="layerBtn4" class="layer-selector p-3 rounded-xl text-left border-2 border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 hover:border-slate-300 transition">
+                        <div class="text-xs font-bold text-slate-400">Fase 4</div>
+                        <div class="text-sm font-semibold mt-1">Réplicas & CDN</div>
+                    </button>
+                    <button onclick="selectLayer(5)" id="layerBtn5" class="layer-selector p-3 rounded-xl text-left border-2 border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 hover:border-slate-300 transition">
+                        <div class="text-xs font-bold text-slate-400">Fase 5</div>
+                        <div class="text-sm font-semibold mt-1">Microservicios</div>
+                    </button>
+                    <button onclick="selectLayer(6)" id="layerBtn6" class="layer-selector p-3 rounded-xl text-left border-2 border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 hover:border-slate-300 transition">
+                        <div class="text-xs font-bold text-slate-400">Fase 6</div>
+                        <div class="text-sm font-semibold mt-1">Kafka & ES / BFF</div>
+                    </button>
+                </div>
+
+                <!-- Layer Detail View -->
+                <div id="layerDetailContent" class="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm space-y-4">
+                    <!-- Dynamic Content injected via JS -->
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 2: DETAILED NOTES -->
+        <section id="section-notes" class="hidden space-y-6">
+            <div class="glass-panel p-6 rounded-2xl shadow-sm border border-slate-200/80 dark:border-slate-800 space-y-4">
+                <div class="flex justify-between items-center flex-wrap gap-4">
+                    <div>
+                        <h2 class="text-xl font-bold tracking-tight">Notas Cronológicas del Curso</h2>
+                        <p class="text-sm text-slate-500">Transcripción estructurada con marcas de tiempo (HH:MM:SS).</p>
+                    </div>
+                    <div class="relative w-full sm:w-72">
+                        <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-slate-400"><i class="fa-solid fa-search"></i></span>
+                        <input type="text" id="noteSearch" oninput="filterNotes()" placeholder="Buscar concepto..." class="w-full pl-10 pr-4 py-2 text-sm rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    </div>
+                </div>
+
+                <div id="notesContainer" class="space-y-4 pt-2">
+                    <!-- Populated by JS -->
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 3: GLOSSARY -->
+        <section id="section-glossary" class="hidden space-y-6">
+            <div class="glass-panel p-6 rounded-2xl shadow-sm border border-slate-200/80 dark:border-slate-800 space-y-4">
+                <h2 class="text-xl font-bold tracking-tight">Glosario Técnico Explicado</h2>
+                <p class="text-sm text-slate-500">Definiciones claras de todos los acrónimos y conceptos mencionados en la sesión.</p>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 pt-2" id="glossaryContainer">
+                    <!-- Populated by JS -->
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 4: STRATEGY (EDENTIA & LEONARDO) -->
+        <section id="section-strategy" class="hidden space-y-6">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <!-- Edentia Strategy Card -->
+                <div class="glass-panel p-6 rounded-2xl shadow-sm border border-slate-200/80 dark:border-slate-800 space-y-4 flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center space-x-3 mb-3">
+                            <div class="bg-emerald-600 text-white p-3 rounded-xl shadow-md">
+                                <i class="fa-solid fa-building text-lg"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-bold text-lg">Aplicación para Edentia</h3>
+                                <p class="text-xs text-emerald-600 dark:text-emerald-400 font-semibold">Monetización y Ventaja Competitiva</p>
+                            </div>
+                        </div>
+                        <ul class="space-y-3 text-sm text-slate-600 dark:text-slate-300">
+                            <li class="flex items-start space-x-2">
+                                <i class="fa-solid fa-check-circle text-emerald-500 mt-1"></i>
+                                <span><strong>Arquitectura IA-Native Enterprise:</strong> Empaquetar este modelo de diseño en ofertas de consultoría para modernizar bases de datos legadas en sector público y corporativo.</span>
+                            </li>
+                            <li class="flex items-start space-x-2">
+                                <i class="fa-solid fa-check-circle text-emerald-500 mt-1"></i>
+                                <span><strong>Búsqueda Semántica con Elasticsearch:</strong> Sustituir búsquedas SQL lentas por motores híbridos de recuperación para alimentar agentes de IA y RAG corporativos.</span>
+                            </li>
+                            <li class="flex items-start space-x-2">
+                                <i class="fa-solid fa-check-circle text-emerald-500 mt-1"></i>
+                                <span><strong>Servicios Asíncronos con Kafka:</strong> Ofrecer soluciones de integración de datos tolerantes a fallos para grandes volúmenes transaccionales.</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <button onclick="openModal('edentiaModal')" class="w-full py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-sm font-semibold transition shadow-md">
+                        Ver Propuesta Comercial Completa
+                    </button>
+                </div>
+
+                <!-- Leonardo Strategy Card -->
+                <div class="glass-panel p-6 rounded-2xl shadow-sm border border-slate-200/80 dark:border-slate-800 space-y-4 flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center space-x-3 mb-3">
+                            <div class="bg-blue-600 text-white p-3 rounded-xl shadow-md">
+                                <i class="fa-solid fa-user-tie text-lg"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-bold text-lg">Recomendaciones para Leonardo</h3>
+                                <p class="text-xs text-blue-600 dark:text-blue-400 font-semibold">Consultor Senior de IA</p>
+                            </div>
+                        </div>
+                        <ul class="space-y-3 text-sm text-slate-600 dark:text-slate-300">
+                            <li class="flex items-start space-x-2">
+                                <i class="fa-solid fa-check-circle text-blue-500 mt-1"></i>
+                                <span><strong>Elevación Técnica Consultiva:</strong> Fundamentar las propuestas de IA hablando no solo de modelos, sino de infraestructura de datos, consistencia eventual y latencia.</span>
+                            </li>
+                            <li class="flex items-start space-x-2">
+                                <i class="fa-solid fa-check-circle text-blue-500 mt-1"></i>
+                                <span><strong>Auditorías de Preparación Tecnológica (*Readiness Audits*):</strong> Crear un servicio preventa de auditoría de arquitectura para justificar proyectos de IA de alto valor.</span>
+                            </li>
+                            <li class="flex items-start space-x-2">
+                                <i class="fa-solid fa-check-circle text-blue-500 mt-1"></i>
+                                <span><strong>Posicionamiento de Nivel Principal/Staff:</strong> Demostrar dominio en compensaciones de diseño (*trade-offs*) para cerrar contratos corporativos complejos.</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <button onclick="openModal('leonardoModal')" class="w-full py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold transition shadow-md">
+                        Ver Guía de Posicionamiento Senior
+                    </button>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- MODALS -->
+    <!-- Modal Edentia -->
+    <div id="edentiaModal" class="fixed inset-0 z-50 hidden bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4">
+        <div class="glass-panel max-w-lg w-full p-6 rounded-2xl space-y-4 shadow-2xl relative bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
+            <div class="flex justify-between items-center">
+                <h3 class="text-lg font-bold text-emerald-600 dark:text-emerald-400">Estrategia de Monetización para Edentia</h3>
+                <button onclick="closeModal('edentiaModal')" class="text-slate-400 hover:text-slate-600 dark:hover:text-slate-200"><i class="fa-solid fa-xmark text-lg"></i></button>
+            </div>
+            <p class="text-sm text-slate-600 dark:text-slate-300">
+                Edentia puede posicionarse como un integrador tecnológico de alto nivel en Latinoamérica empaquetando consultorías de modernización de arquitecturas orientadas a IA. Al dominar patrones como bases de datos relacionales con réplicas de lectura, bus de eventos con Kafka y motores de búsqueda híbridos, Edentia ofrece a corporativos soluciones robustas y escalables para sus datos.
+            </p>
+            <div class="bg-emerald-50 dark:bg-emerald-950/40 p-3.5 rounded-xl border border-emerald-200 dark:border-emerald-800 text-xs text-emerald-800 dark:text-emerald-300">
+                <strong>Valor Diferencial:</strong> Transición exitosa de sistemas monolíticos obsoletos a arquitecturas nativas de IA altamente disponibles.
+            </div>
+            <button onclick="closeModal('edentiaModal')" class="w-full py-2 rounded-xl bg-emerald-600 text-white text-sm font-medium">Entendido</button>
+        </div>
+    </div>
+
+    <!-- Modal Leonardo -->
+    <div id="leonardoModal" class="fixed inset-0 z-50 hidden bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4">
+        <div class="glass-panel max-w-lg w-full p-6 rounded-2xl space-y-4 shadow-2xl relative bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
+            <div class="flex justify-between items-center">
+                <h3 class="text-lg font-bold text-blue-600 dark:text-blue-400">Recomendaciones para Leonardo (Consultor Senior de IA)</h3>
+                <button onclick="closeModal('leonardoModal')" class="text-slate-400 hover:text-slate-600 dark:hover:text-slate-200"><i class="fa-solid fa-xmark text-lg"></i></button>
+            </div>
+            <p class="text-sm text-slate-600 dark:text-slate-300">
+                Para destacar como Consultor Senior y Principal de IA, Leonardo debe vincular la IA generativa con la infraestructura subyacente. Los clientes corporativos exigen saber cómo se maneja la latencia, la consistencia de datos y la escalabilidad de las búsquedas al desplegar agentes y modelos en producción. Dominar estos conceptos garantiza autoridad técnica en negociaciones de alto nivel.
+            </p>
+            <div class="bg-blue-50 dark:bg-blue-950/40 p-3.5 rounded-xl border border-blue-200 dark:border-blue-800 text-xs text-blue-800 dark:text-blue-300">
+                <strong>Enfoque Senior:</strong> Siempre argumentar las compensaciones (*trade-offs*) entre consistencia y disponibilidad al proponer arquitecturas de datos e IA.
+            </div>
+            <button onclick="closeModal('leonardoModal')" class="w-full py-2 rounded-xl bg-blue-600 text-white text-sm font-medium">Entendido</button>
+        </div>
+    </div>
+
+    <!-- Footer / Bottom Note -->
+    <footer class="py-4 text-center text-xs text-slate-500 dark:text-slate-400 border-t border-slate-200 dark:border-slate-800">
+        SystemDesign Pro PWA &bull; LinkedIn Job Search Architecture &bull; Hecho para Edentia & Leonardo
+    </footer>
+
+    <!-- App JavaScript Logic -->
+    <script>
+        // Data Store for Architecture Layers
+        const architectureLayers = {
+            1: {
+                title: "Fase 1: Monolito Base y Base de Datos Relacional",
+                subtitle: "Requisitos funcionales y modelo inicial",
+                desc: "Construcción inicial de historias de usuario (búsqueda de empleo, visualización, aplicación) conectadas a un servidor monolítico y PostgreSQL.",
+                components: [
+                    { name: "Cliente SPA", role: "Interfaz de usuario en navegador renderizando vistas." },
+                    { name: "Servidor Monolítico", role: "Procesa lógica de negocio y consultas directas." },
+                    { name: "PostgreSQL", role: "Base de datos ACID elegida por integridad referencial y soporte transaccional." },
+                    { name: "Blob Storage", role: "Almacenamiento separado para logos de empresas y CVs (ej. AWS S3)." }
+                ],
+                tradeoffs: "Fácil de implementar y depurar en fases iniciales, pero altamente vulnerable a cuellos de botella por saturación de tráfico y consultas crecientes."
+            },
+            2: {
+                title: "Fase 2: Escalado de Servidores y Balanceo de Carga",
+                subtitle: "Mitigación de picos de tráfico",
+                desc: "Introducción de un Balanceador de Carga para distribuir solicitudes uniformemente entre múltiples instancias de servidor apátridas (Stateless).",
+                components: [
+                    { name: "Load Balancer", role: "Distribuye tráfico mediante algoritmos como Round Robin." },
+                    { name: "Fleet of Servers", role: "Instancias de servidor horizontales y apátridas." }
+                ],
+                tradeoffs: "Permite escalar servidores económicos bajo demanda sin costosos tiempos de inactividad, exigiendo que todo estado resida estrictamente en la base de datos."
+            },
+            3: {
+                title: "Fase 3: Índices de Base de Datos y Caché con Redis",
+                subtitle: "Optimización de lecturas y mitigación de picos",
+                desc: "Implementación de índices B-Tree en PostgreSQL para acelerar búsquedas de O(n) a O(log n) e introducción de Redis para almacenar búsquedas populares.",
+                components: [
+                    { name: "B-Tree Indexes", role: "Estructuras de datos paralelas que evitan escaneos completos de tablas." },
+                    { name: "Redis Cache", role: "Almacén en memoria con TTL de 60 segundos para consultas repetitivas." }
+                ],
+                tradeoffs: "Reduce drásticamente el tiempo de respuesta (de segundos a milisegundos), pero incrementa el uso de disco y el tiempo de escritura."
+            },
+            4: {
+                title: "Fase 4: Réplicas Geográficas y CDN",
+                subtitle: "Reducción de latencia física",
+                desc: "Despliegue de réplicas de lectura de bases de datos y servidores en distintas regiones, junto con una Red de Entrega de Contenido (CDN) para activos estáticos.",
+                components: [
+                    { name: "Read Replicas", role: "Copias de solo lectura sincronizadas con la base de datos primaria." },
+                    { name: "CDN Edge Nodes", role: "Distribución global de recursos estáticos y respuestas HTML." }
+                ],
+                tradeoffs: "Mejora masiva de la latencia global, pero introduce consistencia eventual con un desfase de sincronización de ~200ms."
+            },
+            5: {
+                title: "Fase 5: Descomposición en Microservicios y API Gateway",
+                subtitle: "Independencia de equipos y escalado especializado",
+                desc: "Separación del monolito en microservicios independientes (Búsqueda, Publicación, Aplicaciones) gestionados por una puerta de enlace con alta disponibilidad.",
+                components: [
+                    { name: "API Gateway (x2)", role: "Enrutamiento inteligente de solicitudes con redundancia activa." },
+                    { name: "Job Search Service", role: "Microservicio especializado en consultas y lecturas rápidas." },
+                    { name: "Job & Application Services", role: "Microservicios de escritura conectados a la DB primaria." }
+                ],
+                tradeoffs: "Aumenta la autonomía y escalabilidad por dominios, pero añade complejidad operativa y sobrecarga de comunicación."
+            },
+            6: {
+                title: "Fase 6: Kafka, Elasticsearch y BFF (GraphQL)",
+                subtitle: "Arquitectura orientada a eventos y búsqueda avanzada",
+                desc: "Implementación de Apache Kafka como bus de eventos asíncronos, Elasticsearch para ranking avanzado de empleos y capas BFF con GraphQL para clientes web y móviles.",
+                components: [
+                    { name: "Apache Kafka", role: "Bus de eventos duradero para notificaciones, analítica y sincronización." },
+                    { name: "Elasticsearch", role: "Motor de búsqueda con frecuencia invertida y sharding nativo." },
+                    { name: "Web / Mobile BFF", role: "Backends for Frontend con GraphQL para optimizar consumo de datos." }
+                ],
+                tradeoffs: "Máxima escalabilidad, rendimiento de búsqueda y autonomía de frontend, a cambio de una curva de complejidad técnica muy elevada."
+            }
+        };
+
+        // Data Store for Notes
+        const notesData = [
+            { time: "00:00:00", title: "Introducción y Alcance", text: "Construcción del sistema de búsqueda de empleos de LinkedIn. Uso de API Gateways, balanceadores, escalabilidad, bases de datos, caché, Elasticsearch y arquitectura orientada a eventos." },
+            { time: "00:01:30", title: "Definición de Requisitos", text: "División entre funcionales (búsqueda, visualización, postulación) y no funcionales. Importancia del teorema CAP: priorizar Disponibilidad sobre Consistencia." },
+            { time: "00:03:30", title: "Estimaciones en Servilleta", text: "120M de visualizaciones diarias (~1,400 RPS) y 330K publicaciones diarias (~4 escrituras/s). Relación Lectura/Escritura de 500:1." },
+            { time: "00:05:15", title: "Modelado de Datos y API REST", text: "Entidades principales (JobPosting, Company). Diseño RESTful con sustantivos en plural (/jobs). Diferencia clave entre Offset (catálogos) y Cursor (feeds)." },
+            { time: "00:14:32", title: "Escalado y Balanceo de Carga", text: "Uso de balanceadores de carga y principios Stateless (apátridas) para asegurar que el estado resida en la base de datos." },
+            { time: "00:17:35", title: "Índices de Base de Datos", text: "Creación de índices B-Tree para reducir la complejidad de búsqueda de O(n) a O(log n), bajando tiempos de respuesta de 2.1s a 15ms." },
+            { time: "00:20:12", title: "Caché con Redis", text: "Implementación de Redis con TTL de 60 segundos para mitigar picos de tráfico en consultas repetitivas." },
+            { time: "00:22:58", title: "Réplicas de Lectura y Consistencia Eventual", text: "Despliegue de réplicas geográficas para reducir latencia física. Introducción de consistencia eventual con un desfase de ~200ms." },
+            { time: "00:29:21", title: "Microservicios y API Gateway", text: "Descomposición del monolito en servicios especializados (búsqueda, publicaciones, aplicaciones) protegidos por puertas de enlace redundantes." },
+            { time: "00:33:41", title: "Arquitectura Orientada a Eventos con Kafka", text: "Uso de Apache Kafka para tareas asíncronas (correos, analítica, recomendaciones) garantizando durabilidad y procesamiento único." },
+            { time: "00:37:25", title: "Elasticsearch para Búsqueda Avanzada", text: "Incorporación de Elasticsearch como base de lectura especializada con análisis de frecuencia invertida y sharding para ranking de empleos." },
+            { time: "00:41:14", title: "Backend for Frontend (BFF) y GraphQL", text: "Creación de capas BFF especializadas para web y móvil utilizando GraphQL para desacoplar el frontend y optimizar el consumo de datos." }
+        ];
+
+        // Data Store for Glossary
+        const glossaryData = [
+            { term: "API Gateway", def: "Servidor que actúa como punto de entrada único para microservicios, gestionando enrutamiento y seguridad." },
+            { term: "Load Balancer", def: "Componente que distribuye el tráfico de red entre múltiples servidores backend para evitar sobrecargas." },
+            { term: "Teorema CAP", def: "Principio que establece que un sistema distribuido solo puede garantizar dos de tres: Consistencia, Disponibilidad, Tolerancia a Particiones." },
+            { term: "Consistencia Eventual", def: "Modelo donde los datos replicados convergen de forma asíncrona en todos los nodos tras un breve lapso." },
+            { term: "Índice B-Tree", def: "Estructura de datos auto-balanceada que acelera la recuperación de registros en bases de datos relacionales." },
+            { term: "Redis", def: "Almacén en memoria de ultra alta velocidad utilizado comúnmente como caché." },
+            { term: "CDN", def: "Red de servidores geográficamente distribuidos que almacenan copias de contenido estático cerca del usuario." },
+            { term: "Apache Kafka", def: "Plataforma de transmisión de eventos distribuida de alto rendimiento basada en tópicos y publicación-suscripción." },
+            { term: "Elasticsearch", def: "Motor de búsqueda y análisis distribuido optimizado para búsquedas de texto completo y alta relevancia." },
+            { term: "BFF (Backend for Frontend)", def: "Patrón arquitectónico donde se crea un backend especializado para cada tipo de cliente (web, móvil)." }
+        ];
+
+        // Tab Switching
+        function switchTab(tabId) {
+            document.querySelectorAll('main > section').forEach(sec => sec.classList.add('hidden'));
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('bg-blue-600', 'text-white', 'shadow-md', 'shadow-blue-600/20');
+                btn.classList.add('bg-slate-200', 'dark:bg-slate-800', 'text-slate-700', 'dark:text-slate-300');
+            });
+
+            document.getElementById(`section-${tabId}`).classList.remove('hidden');
+            const activeBtn = document.getElementById(`tab-${tabId}`);
+            activeBtn.classList.remove('bg-slate-200', 'dark:bg-slate-800', 'text-slate-700', 'dark:text-slate-300');
+            activeBtn.classList.add('bg-blue-600', 'text-white', 'shadow-md', 'shadow-blue-600/20');
+        }
+
+        // Layer Selection Logic
+        function selectLayer(layerNum) {
+            // Update active buttons
+            for (let i = 1; i <= 6; i++) {
+                const btn = document.getElementById(`layerBtn${i}`);
+                if (i === layerNum) {
+                    btn.className = "layer-selector p-3 rounded-xl text-left border-2 border-blue-500 bg-blue-50/50 dark:bg-blue-950/30 transition";
+                    btn.querySelector('div:first-child').className = "text-xs font-bold text-blue-600 dark:text-blue-400";
+                } else {
+                    btn.className = "layer-selector p-3 rounded-xl text-left border-2 border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 hover:border-slate-300 transition";
+                    btn.querySelector('div:first-child').className = "text-xs font-bold text-slate-400";
+                }
+            }
+
+            const data = architectureLayers[layerNum];
+            document.getElementById('activeLayerBadge').innerText = data.title.split(':')[0];
+
+            let componentsHtml = data.components.map(c => `
+                <div class="bg-slate-50 dark:bg-slate-800/60 p-3.5 rounded-xl border border-slate-200 dark:border-slate-800">
+                    <div class="font-semibold text-sm text-blue-600 dark:text-blue-400"><i class="fa-solid fa-cube mr-2"></i>${c.name}</div>
+                    <div class="text-xs text-slate-600 dark:text-slate-300 mt-1">${c.role}</div>
+                </div>
+            `).join('');
+
+            document.getElementById('layerDetailContent').innerHTML = `
+                <div class="space-y-3">
+                    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2">
+                        <h3 class="text-lg font-bold">${data.title}</h3>
+                        <span class="text-xs font-medium px-3 py-1 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300">${data.subtitle}</span>
+                    </div>
+                    <p class="text-sm text-slate-600 dark:text-slate-300">${data.desc}</p>
+                    
+                    <div class="pt-2">
+                        <h4 class="text-xs font-bold uppercase tracking-wider text-slate-400 mb-2">Componentes Clave</h4>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                            ${componentsHtml}
+                        </div>
+                    </div>
+
+                    <div class="mt-4 p-3.5 rounded-xl bg-amber-50 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-800/60 text-xs text-amber-900 dark:text-amber-300 flex items-start space-x-2">
+                        <i class="fa-solid fa-scale-balanced mt-0.5 text-amber-600 dark:text-amber-400"></i>
+                        <div><strong>Compensación (Trade-off):</strong> ${data.tradeoffs}</div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Filter Notes
+        function filterNotes() {
+            const query = document.getElementById('noteSearch').value.toLowerCase();
+            const container = document.getElementById('notesContainer');
+            const filtered = notesData.filter(n => n.title.toLowerCase().includes(query) || n.text.toLowerCase().includes(query));
+            
+            container.innerHTML = filtered.map(n => `
+                <div class="p-4 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-1.5">
+                    <div class="flex items-center justify-between">
+                        <h3 class="font-bold text-sm text-blue-600 dark:text-blue-400">${n.title}</h3>
+                        <span class="text-xs font-mono font-semibold px-2 py-0.5 rounded-md bg-slate-200 dark:bg-slate-800 text-slate-600 dark:text-slate-300">
+                            <i class="fa-regular fa-clock mr-1"></i>${n.time}
+                        </span>
+                    </div>
+                    <p class="text-sm text-slate-600 dark:text-slate-300">${n.text}</p>
+                </div>
+            `).join('');
+        }
+
+        // Render Initial Notes & Glossary
+        function initApp() {
+            // Render Notes
+            document.getElementById('notesContainer').innerHTML = notesData.map(n => `
+                <div class="p-4 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-1.5">
+                    <div class="flex items-center justify-between">
+                        <h3 class="font-bold text-sm text-blue-600 dark:text-blue-400">${n.title}</h3>
+                        <span class="text-xs font-mono font-semibold px-2 py-0.5 rounded-md bg-slate-200 dark:bg-slate-800 text-slate-600 dark:text-slate-300">
+                            <i class="fa-regular fa-clock mr-1"></i>${n.time}
+                        </span>
+                    </div>
+                    <p class="text-sm text-slate-600 dark:text-slate-300">${n.text}</p>
+                </div>
+            `).join('');
+
+            // Render Glossary
+            document.getElementById('glossaryContainer').innerHTML = glossaryData.map(g => `
+                <div class="p-4 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-1">
+                    <div class="font-bold text-sm text-indigo-600 dark:text-indigo-400"><i class="fa-solid fa-bookmark mr-2"></i>${g.term}</div>
+                    <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">${g.def}</p>
+                </div>
+            `).join('');
+
+            // Select Layer 1 initially
+            selectLayer(1);
+        }
+
+        // Modals
+        function openModal(id) { document.getElementById(id).classList.remove('hidden'); }
+        function closeModal(id) { document.getElementById(id).classList.add('hidden'); }
+
+        // Theme Toggle
+        const themeToggleBtn = document.getElementById('themeToggle');
+        themeToggleBtn.addEventListener('click', () => {
+            document.documentElement.classList.toggle('dark');
+            localStorage.setItem('theme', document.documentElement.classList.contains('dark') ? 'dark' : 'light');
+        });
+
+        if (localStorage.getItem('theme') === 'dark' || (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        }
+
+        window.onload = initApp;
+    </script>
+</body>
+</html>

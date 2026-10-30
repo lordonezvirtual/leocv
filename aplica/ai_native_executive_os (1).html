@@ -1,0 +1,1335 @@
+<!DOCTYPE html>
+<html lang="es" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI-Native OS | Rentabilidad & Consultoría Estratégica</title>
+  <!-- PWA Settings -->
+  <meta name="theme-color" content="#0f172a">
+  <meta name="description" content="Executive PWA para diseñar empresas AI-Native, simular Juntas Asesoras y estructurar consultoría de alto impacto.">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220%22 width=%2232%22 height=%2232%22 fill=%22%236366f1%22><path d=%22M12 2a10 10 0 0 1 10 10c0 5.523-4.477 10-10 10S2 17.523 2 12A10 10 0 0 1 12 2zm0 4a6 6 0 1 0 0 12A6 6 0 0 0 12 6z%22/></svg>">
+
+  <!-- Tailwind CSS & Fonts -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#eef2ff',
+              100: '#e0e7ff',
+              500: '#6366f1',
+              600: '#4f46e5',
+              700: '#4338ca',
+              900: '#312e81',
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      -webkit-tap-highlight-color: transparent;
+      transition: background-color 0.25s ease, color 0.25s ease;
+    }
+    code, pre, .font-mono {
+      font-family: 'JetBrains Mono', monospace;
+    }
+    /* Custom subtle scrollbar */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: rgba(15, 23, 42, 0.6);
+    }
+    ::-webkit-scrollbar-thumb {
+      background: rgba(100, 116, 139, 0.4);
+      border-radius: 9999px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: rgba(100, 116, 139, 0.7);
+    }
+
+    /* Light Theme Styling Overrides */
+    html:not(.dark) body {
+      background-color: #f8fafc;
+      color: #0f172a;
+    }
+    html:not(.dark) header {
+      background-color: rgba(255, 255, 255, 0.88) !important;
+      border-color: #e2e8f0 !important;
+    }
+    html:not(.dark) .bg-slate-950 {
+      background-color: #ffffff !important;
+      color: #0f172a !important;
+      border-color: #e2e8f0 !important;
+    }
+    html:not(.dark) .bg-slate-900 {
+      background-color: #ffffff !important;
+      color: #0f172a !important;
+      border-color: #e2e8f0 !important;
+      box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.05), 0 1px 2px -1px rgba(0, 0, 0, 0.05);
+    }
+    html:not(.dark) .bg-slate-800 {
+      background-color: #f1f5f9 !important;
+      color: #1e293b !important;
+      border-color: #cbd5e1 !important;
+    }
+    html:not(.dark) .bg-slate-800\/60,
+    html:not(.dark) .border-slate-800,
+    html:not(.dark) .border-slate-700 {
+      border-color: #e2e8f0 !important;
+    }
+    html:not(.dark) .text-white,
+    html:not(.dark) .text-slate-100 {
+      color: #0f172a !important;
+    }
+    html:not(.dark) .text-slate-200 {
+      color: #1e293b !important;
+    }
+    html:not(.dark) .text-slate-300 {
+      color: #334155 !important;
+    }
+    html:not(.dark) .text-slate-400 {
+      color: #64748b !important;
+    }
+    html:not(.dark) input,
+    html:not(.dark) select,
+    html:not(.dark) textarea {
+      background-color: #ffffff !important;
+      color: #0f172a !important;
+      border-color: #cbd5e1 !important;
+    }
+    html:not(.dark) input:focus,
+    html:not(.dark) select:focus,
+    html:not(.dark) textarea:focus {
+      border-color: #6366f1 !important;
+      background-color: #ffffff !important;
+    }
+    html:not(.dark) input::placeholder,
+    html:not(.dark) textarea::placeholder {
+      color: #94a3b8 !important;
+    }
+    html:not(.dark) .bg-gradient-to-r.from-slate-900 {
+      background-image: linear-gradient(to right, #f8fafc, #eef2ff, #f8fafc) !important;
+      border-color: #c7d2fe !important;
+    }
+    html:not(.dark) .bg-indigo-950\/40,
+    html:not(.dark) .bg-indigo-950\/30 {
+      background-color: #eef2ff !important;
+      border-color: #c7d2fe !important;
+    }
+    html:not(.dark) .bg-rose-950\/20 {
+      background-color: #fff1f2 !important;
+      border-color: #fecdd3 !important;
+    }
+  </style>
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col selection:bg-indigo-500 selection:text-white">
+
+  <!-- Top Global Header -->
+  <header class="sticky top-0 z-50 backdrop-blur-md bg-slate-900/80 border-b border-slate-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-indigo-600 to-violet-500 flex items-center justify-center shadow-lg shadow-indigo-500/20 font-bold text-white tracking-wider">
+          AI
+        </div>
+        <div>
+          <div class="flex items-center gap-2">
+            <h1 class="font-bold text-base sm:text-lg tracking-tight text-white leading-tight">AI-Native OS</h1>
+            <span class="px-2 py-0.5 text-xs font-semibold rounded-full bg-indigo-500/10 text-indigo-400 border border-indigo-500/20">30X Framework</span>
+          </div>
+          <p class="text-xs text-slate-400 hidden sm:block">Velocidad de Decisión, Mapa de Rentabilidad & Juntas Virtuales</p>
+        </div>
+      </div>
+
+      <!-- Header actions -->
+      <div class="flex items-center gap-2">
+        <button id="pwa-install-btn" class="hidden sm:flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 transition-all">
+          <svg class="w-4 h-4 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+          Instalar App
+        </button>
+        <button id="theme-toggle-btn" onclick="toggleTheme()" class="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-slate-800 text-slate-300 hover:text-white border border-slate-700 transition-colors shadow-sm" title="Cambiar Tema" aria-label="Cambiar Tema">
+          <span id="theme-icon-wrapper">
+            <svg id="theme-icon" class="w-4 h-4 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
+          </span>
+          <span id="theme-label" class="text-xs font-medium hidden sm:inline text-slate-300">Modo Claro</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Navigation Tabs -->
+    <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex space-x-1 sm:space-x-4 overflow-x-auto no-scrollbar border-t border-slate-800/60 text-xs sm:text-sm">
+      <button onclick="switchTab('tab-map')" id="btn-tab-map" class="tab-btn active py-3 px-3 border-b-2 border-indigo-500 font-medium text-indigo-400 flex items-center gap-2 whitespace-nowrap">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
+        Mapa de Rentabilidad
+      </button>
+      <button onclick="switchTab('tab-board')" id="btn-tab-board" class="tab-btn py-3 px-3 border-b-2 border-transparent text-slate-400 hover:text-slate-200 font-medium flex items-center gap-2 whitespace-nowrap">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 100-6 3 3 0 000 6z"/></svg>
+        Junta Asesora Virtual
+      </button>
+      <button onclick="switchTab('tab-edentia')" id="btn-tab-edentia" class="tab-btn py-3 px-3 border-b-2 border-transparent text-slate-400 hover:text-slate-200 font-medium flex items-center gap-2 whitespace-nowrap">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"/></svg>
+        Edentia Playbook
+      </button>
+      <button onclick="switchTab('tab-leonardo')" id="btn-tab-leonardo" class="tab-btn py-3 px-3 border-b-2 border-transparent text-slate-400 hover:text-slate-200 font-medium flex items-center gap-2 whitespace-nowrap">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+        Leonardo Consultor Senior
+      </button>
+      <button onclick="switchTab('tab-notes')" id="btn-tab-notes" class="tab-btn py-3 px-3 border-b-2 border-transparent text-slate-400 hover:text-slate-200 font-medium flex items-center gap-2 whitespace-nowrap">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
+        Notas & Glosario
+      </button>
+    </nav>
+  </header>
+
+  <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6">
+
+    <!-- TAB 1: MAPA DE RENTABILIDAD -->
+    <section id="tab-map" class="space-y-6">
+      <!-- Quick Info Banner -->
+      <div class="bg-gradient-to-r from-slate-900 via-indigo-950/40 to-slate-900 rounded-2xl p-5 border border-indigo-500/20 shadow-xl flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div>
+          <div class="flex items-center gap-2">
+            <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-semibold bg-indigo-500/20 text-indigo-300 border border-indigo-500/30">Framework 30X</span>
+            <span class="text-xs text-slate-400">Sebastián Gallo (ex-COO Torre)</span>
+          </div>
+          <h2 class="text-xl sm:text-2xl font-bold text-white mt-1">Mapa de Rentabilidad Operativa</h2>
+          <p class="text-sm text-slate-300 max-w-2xl mt-1">
+            "Más herramientas no te hacen AI-native". Completa la arquitectura de rentabilidad real de tu empresa, asigna dolientes obligatorios y audita el impacto financiero.
+          </p>
+        </div>
+        <div class="flex flex-wrap items-center gap-2">
+          <button onclick="loadExampleMap('next')" class="px-3 py-2 text-xs font-semibold rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white transition-all shadow-md">
+            Cargar Caso Next Fellow
+          </button>
+          <button onclick="loadExampleMap('edentia')" class="px-3 py-2 text-xs font-semibold rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 transition-all">
+            Cargar Caso Edentia
+          </button>
+          <button onclick="exportMapJson()" class="p-2 text-xs font-medium rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700" title="Exportar JSON">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Main Form Grid -->
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        
+        <!-- Left: Form Input Column -->
+        <div class="lg:col-span-2 space-y-6">
+          
+          <!-- 1. North Star Metric -->
+          <div class="bg-slate-900 rounded-xl p-5 border border-slate-800 space-y-3">
+            <div class="flex items-center justify-between">
+              <label class="text-sm font-bold text-indigo-400 flex items-center gap-2 uppercase tracking-wider">
+                <span class="w-6 h-6 rounded-full bg-indigo-500/20 text-indigo-400 flex items-center justify-center text-xs">1</span>
+                North Star Metric (Métrica de Rentabilidad)
+              </label>
+              <span class="text-xs text-slate-400">¿Para qué carajos existe tu empresa?</span>
+            </div>
+            <p class="text-xs text-slate-400 italic">"Me importa un carajo la misión y la visión si no tengo con qué pagar la nómina". Debe ser cuantificable y ligada a rentabilidad.</p>
+            <input type="text" id="map-north-star" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-4 py-2.5 text-sm text-white focus:outline-none focus:border-indigo-500 transition-colors" placeholder="Ej: Pasar de cursos aislados a $30,000 USD de MRR recurrente con 70% margen bruto">
+          </div>
+
+          <!-- 2. Palancas de Negocio (Business Levers) -->
+          <div class="bg-slate-900 rounded-xl p-5 border border-slate-800 space-y-4">
+            <div class="flex items-center justify-between">
+              <label class="text-sm font-bold text-indigo-400 flex items-center gap-2 uppercase tracking-wider">
+                <span class="w-6 h-6 rounded-full bg-indigo-500/20 text-indigo-400 flex items-center justify-center text-xs">2</span>
+                Palancas de Negocio (Business Levers)
+              </label>
+              <button onclick="addLeverRow()" class="text-xs text-indigo-400 hover:text-indigo-300 font-semibold flex items-center gap-1">
+                + Añadir Palanca
+              </button>
+            </div>
+            <p class="text-xs text-slate-400">Factores que realmente mueven la aguja (Recordar: el cirujano no necesitaba más leads, necesitaba subir la tasa de consulta a cirugía).</p>
+            
+            <div id="levers-container" class="space-y-3">
+              <!-- Dynamically populated lever items -->
+            </div>
+          </div>
+
+          <!-- 3. Acciones, Dolientes e Impacto en Plata -->
+          <div class="bg-slate-900 rounded-xl p-5 border border-slate-800 space-y-4">
+            <div class="flex items-center justify-between">
+              <label class="text-sm font-bold text-indigo-400 flex items-center gap-2 uppercase tracking-wider">
+                <span class="w-6 h-6 rounded-full bg-indigo-500/20 text-indigo-400 flex items-center justify-center text-xs">3</span>
+                Condiciones, Dolientes [0 / X / H] e Impacto ($)
+              </label>
+              <button onclick="addActionRow()" class="text-xs text-indigo-400 hover:text-indigo-300 font-semibold flex items-center gap-1">
+                + Añadir Condición
+              </button>
+            </div>
+
+            <!-- Legend for Dolientes -->
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 text-xs bg-slate-950 p-2.5 rounded-lg border border-slate-800">
+              <div class="flex items-center gap-1.5"><span class="px-1.5 py-0.5 rounded bg-rose-500/20 text-rose-400 font-bold">[ 0 ]</span> Vacío / Nadie responde</div>
+              <div class="flex items-center gap-1.5"><span class="px-1.5 py-0.5 rounded bg-amber-500/20 text-amber-400 font-bold">[ X2+ ]</span> Compartido / Caos</div>
+              <div class="flex items-center gap-1.5"><span class="px-1.5 py-0.5 rounded bg-blue-500/20 text-blue-400 font-bold">[ H ]</span> Por historia / Inercia</div>
+              <div class="flex items-center gap-1.5"><span class="px-1.5 py-0.5 rounded bg-emerald-500/20 text-emerald-400 font-bold">[ ✔ ]</span> Doliente único claro</div>
+            </div>
+
+            <div id="actions-container" class="space-y-3">
+              <!-- Dynamically populated action items -->
+            </div>
+          </div>
+
+          <!-- 4. ¿Qué me da Sustico? -->
+          <div class="bg-slate-900 rounded-xl p-5 border border-rose-900/40 bg-gradient-to-b from-slate-900 to-rose-950/20 space-y-3">
+            <label class="text-sm font-bold text-rose-400 flex items-center gap-2 uppercase tracking-wider">
+              <span class="w-6 h-6 rounded-full bg-rose-500/20 text-rose-400 flex items-center justify-center text-xs">4</span>
+              ¿Qué me da Sustico? (Riesgo Real & Emocional)
+            </label>
+            <p class="text-xs text-slate-400">"A los humanos nos mueven los miedos y lo que perdemos". Escribe la verdad incómoda: ¿la gente actual no sirve?, ¿se acaba la caja?, ¿riesgo reputacional?</p>
+            <textarea id="map-fear" rows="3" class="w-full bg-slate-950 border border-slate-700 rounded-lg p-3 text-sm text-white focus:outline-none focus:border-rose-500 transition-colors" placeholder="Ej: Lanzar la suscripción y darnos cuenta de que la gente no paga porque solo quieren la validación del fundador; tener que despedir a dos personas del equipo tradicional que no se adaptan."></textarea>
+          </div>
+
+        </div>
+
+        <!-- Right: Real-time Scorecard & Recommendations -->
+        <div class="space-y-6">
+          
+          <div class="bg-slate-900 rounded-xl p-5 border border-slate-800 space-y-5 sticky top-24">
+            <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+              <h3 class="font-bold text-sm text-white flex items-center gap-2">
+                <svg class="w-4 h-4 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                Auditoría AI-Native en Vivo
+              </h3>
+              <span id="audit-badge" class="px-2 py-0.5 rounded text-xs font-bold bg-amber-500/20 text-amber-400">Auditoría Pendiente</span>
+            </div>
+
+            <!-- Metric Summary Cards -->
+            <div class="grid grid-cols-2 gap-3">
+              <div class="bg-slate-950 p-3 rounded-lg border border-slate-800">
+                <span class="text-xs text-slate-400">Impacto Estimado</span>
+                <div id="stat-total-impact" class="text-lg font-bold text-emerald-400">$0 USD</div>
+                <span class="text-[10px] text-slate-400">Potencial anualizado</span>
+              </div>
+              <div class="bg-slate-950 p-3 rounded-lg border border-slate-800">
+                <span class="text-xs text-slate-400">Índice de Fricción</span>
+                <div id="stat-friction-score" class="text-lg font-bold text-amber-400">0%</div>
+                <span class="text-[10px] text-slate-400">% Tareas en riesgo</span>
+              </div>
+            </div>
+
+            <!-- Risk diagnosis -->
+            <div class="space-y-2">
+              <h4 class="text-xs font-semibold text-slate-300 uppercase tracking-wider">Diagnóstico de Dolientes</h4>
+              <div id="dolientes-breakdown" class="space-y-1.5 text-xs">
+                <!-- Injected via JS -->
+              </div>
+            </div>
+
+            <!-- Quick Action Triggers -->
+            <div class="pt-2 border-t border-slate-800 space-y-2">
+              <button onclick="sendToVirtualBoard()" class="w-full py-2.5 px-4 rounded-lg bg-gradient-to-r from-indigo-600 to-violet-600 hover:from-indigo-500 hover:to-violet-500 text-white font-semibold text-xs transition-all shadow-lg shadow-indigo-600/20 flex items-center justify-center gap-2">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                Auditar con Junta Asesora Virtual
+              </button>
+              <button onclick="saveCurrentMap()" class="w-full py-2 px-4 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 font-medium text-xs border border-slate-700 transition-all flex items-center justify-center gap-1.5">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4"/></svg>
+                Guardar en Almacenamiento Local
+              </button>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- TAB 2: JUNTA ASESORA VIRTUAL -->
+    <section id="tab-board" class="hidden space-y-6">
+      <div class="bg-gradient-to-r from-slate-900 via-indigo-950/40 to-slate-900 rounded-2xl p-5 border border-indigo-500/20 shadow-xl flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div>
+          <div class="flex items-center gap-2">
+            <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-semibold bg-violet-500/20 text-violet-300 border border-violet-500/30">Motor de Simulación Sintética</span>
+            <span class="text-xs text-slate-400">Multi-Agente & Primeros Principios</span>
+          </div>
+          <h2 class="text-xl sm:text-2xl font-bold text-white mt-1">Junta Asesora Virtual (Deliberación en Vivo)</h2>
+          <p class="text-sm text-slate-300 max-w-2xl mt-1">
+            Recrea la experiencia de Sebastián Gallo: somete las decisiones y debilidades de tu mapa ante un comité sintético despiadado que audita activos, incentivos y negociaciones.
+          </p>
+        </div>
+
+        <!-- Audio Deliberation Trigger -->
+        <div class="flex items-center gap-3">
+          <button id="board-audio-btn" onclick="toggleBoardDeliberation()" class="px-4 py-2.5 rounded-xl bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-500 hover:to-indigo-500 text-white text-xs font-bold shadow-lg shadow-violet-500/20 flex items-center gap-2 transition-all">
+            <svg id="play-icon" class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd"/></svg>
+            <span id="board-audio-text">Escuchar Deliberación (Audio)</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Deliberation Cards -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+
+        <!-- Member 1: Operator / Value -->
+        <div class="bg-slate-900 rounded-xl p-5 border border-slate-800 flex flex-col justify-between space-y-4">
+          <div>
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-full bg-blue-500/20 text-blue-400 flex items-center justify-center font-bold text-sm">
+                SV
+              </div>
+              <div>
+                <h4 class="text-sm font-bold text-white">Director de Valor & Redes</h4>
+                <p class="text-xs text-blue-400">Tesis: Red vs. Biblioteca</p>
+              </div>
+            </div>
+            <div class="mt-4 p-3 bg-slate-950 rounded-lg border border-slate-800/80 text-xs text-slate-300 leading-relaxed italic">
+              "¿Están vendiendo clases pregrabadas más una sesión al mes? Están vendiendo el activo equivocado y barato. Una red nunca se cobra por contenido; se cobra por pertenencia. ¿Qué pierde alguien el día que deja de pagar?"
+            </div>
+          </div>
+          <div class="text-[11px] text-slate-400 bg-slate-900 border-t border-slate-800 pt-2 flex justify-between">
+            <span>Filtro de Retención:</span>
+            <span class="text-blue-400 font-semibold">Test de Cancelación</span>
+          </div>
+        </div>
+
+        <!-- Member 2: First Principles / Velocity -->
+        <div class="bg-slate-900 rounded-xl p-5 border border-slate-800 flex flex-col justify-between space-y-4">
+          <div>
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-full bg-purple-500/20 text-purple-400 flex items-center justify-center font-bold text-sm">
+                FP
+              </div>
+              <div>
+                <h4 class="text-sm font-bold text-white">Operador de Primeros Principios</h4>
+                <p class="text-xs text-purple-400">Tesis: Costo de Inacción & Estructura</p>
+              </div>
+            </div>
+            <div class="mt-4 p-3 bg-slate-950 rounded-lg border border-slate-800/80 text-xs text-slate-300 leading-relaxed italic">
+              "¿Quién los obligó a que durara 8 semanas? Diseñaron un corte arbitrario y ahora inventan un producto para resolver su propio error de diseño. Y si la casilla de responsable sigue vacía, no lanzaron un producto: añadieron una línea al catálogo que morirá en 3 meses."
+            </div>
+          </div>
+          <div class="text-[11px] text-slate-400 bg-slate-900 border-t border-slate-800 pt-2 flex justify-between">
+            <span>Filtro de Responsabilidad:</span>
+            <span class="text-purple-400 font-semibold">Doliente Único</span>
+          </div>
+        </div>
+
+        <!-- Member 3: Master Negotiator -->
+        <div class="bg-slate-900 rounded-xl p-5 border border-slate-800 flex flex-col justify-between space-y-4">
+          <div>
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-full bg-amber-500/20 text-amber-400 flex items-center justify-center font-bold text-sm">
+                CV
+              </div>
+              <div>
+                <h4 class="text-sm font-bold text-white">Chris Voss (Estratega de Negociación)</h4>
+                <p class="text-xs text-amber-400">Tesis: Preguntas Orientadas al NO</p>
+              </div>
+            </div>
+            <div class="mt-4 p-3 bg-slate-950 rounded-lg border border-slate-800/80 text-xs text-slate-300 leading-relaxed italic">
+              "Hay dos clientes en la sala: el papá que paga y el hijo que vive el programa. No le vendas al papá eufórico en el Demo Day: dirá sí y cancelará el lunes. Aplica Labeling y pregunta orientada al no: '¿Sería una terrible idea que ella siga construyendo con nosotros?'"
+            </div>
+          </div>
+          <div class="text-[11px] text-slate-400 bg-slate-900 border-t border-slate-800 pt-2 flex justify-between">
+            <span>Táctica Clave:</span>
+            <span class="text-amber-400 font-semibold">No-Oriented Questioning</span>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Transcript & Interactive Prompt Engine -->
+      <div class="bg-slate-900 rounded-xl p-6 border border-slate-800 space-y-4">
+        <div class="flex items-center justify-between">
+          <h3 class="font-bold text-base text-white flex items-center gap-2">
+            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+            Deliberación Completa Transcrita
+          </h3>
+          <button onclick="copyBoardTranscript()" class="text-xs text-slate-400 hover:text-white flex items-center gap-1">
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
+            Copiar Transcripción
+          </button>
+        </div>
+
+        <div id="board-transcript-container" class="bg-slate-950 rounded-xl p-4 border border-slate-800 space-y-3 text-xs sm:text-sm text-slate-300 max-h-96 overflow-y-auto leading-relaxed">
+          <!-- Populated by JS -->
+        </div>
+
+        <!-- The 3 Board Closing Questions -->
+        <div class="p-4 bg-indigo-950/30 border border-indigo-500/30 rounded-xl space-y-3">
+          <h4 class="text-xs font-bold text-indigo-300 uppercase tracking-wider">Las 3 Preguntas Inevitables de la Junta</h4>
+          <ul class="space-y-2 text-xs text-slate-200">
+            <li class="flex items-start gap-2">
+              <span class="text-indigo-400 font-bold">1.</span>
+              <span><strong>¿Quién con nombre propio va a perder algo personal</strong> el día que un graduado o cliente no renueve? Si nadie pierde, la suscripción no tiene dueño, tiene autor.</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-indigo-400 font-bold">2.</span>
+              <span><strong>Si el usuario final quiere quedarse y el decisor económico no quiere pagar</strong>, ¿qué argumentos y herramientas le faltan al usuario para venderlo él mismo?</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-indigo-400 font-bold">3.</span>
+              <span><strong>La Pregunta Incómoda:</strong> ¿Qué pierde exactamente el cliente el día que deja de pagar? Si la respuesta es solo "contenido grabado", todavía no tienes una suscripción real.</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 3: EDENTIA PLAYBOOK -->
+    <section id="tab-edentia" class="hidden space-y-6">
+      <div class="bg-gradient-to-r from-slate-900 via-indigo-950/40 to-slate-900 rounded-2xl p-5 border border-indigo-500/20 shadow-xl">
+        <div class="flex items-center gap-2">
+          <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-semibold bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">Estrategia B2B / Spatial AI</span>
+          <span class="text-xs text-slate-400">Extended Reality & Inteligencia Artificial</span>
+        </div>
+        <h2 class="text-xl sm:text-2xl font-bold text-white mt-1">Edentia: Ventaja Competitiva & Monetización</h2>
+        <p class="text-sm text-slate-300 max-w-3xl mt-1">
+          Cómo aplicar el aprendizaje de Next Fellow y Sebastián Gallo para transformar Edentia de una agencia/academia de proyectos transaccionales a un ecosistema XR/AI escalable.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+        <!-- Pillar 1: El Error vs La Oportunidad -->
+        <div class="bg-slate-900 rounded-xl p-5 border border-slate-800 space-y-4">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-xl bg-rose-500/20 text-rose-400 flex items-center justify-center font-bold">
+              ✕
+            </div>
+            <div>
+              <h3 class="text-base font-bold text-white">El Error Tradicional en XR & Formación</h3>
+              <p class="text-xs text-slate-400">Vender proyectos aislados o cursos cerrados</p>
+            </div>
+          </div>
+          <ul class="text-xs text-slate-300 space-y-2.5">
+            <li class="flex items-start gap-2">
+              <span class="text-rose-400 font-bold">•</span>
+              <span><strong>Vender desde cero cada mes:</strong> Entregar un desarrollo VR/AR o taller inmersivo y reiniciar el embudo de ventas al mes siguiente.</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-rose-400 font-bold">•</span>
+              <span><strong>Vender activos de biblioteca:</strong> Pretender cobrar una suscripción por tutoriales de Blender o Unity pregrabados (fácilmente pirateables o sustituibles).</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-rose-400 font-bold">•</span>
+              <span><strong>Decisiones lentas por comités:</strong> Cotizaciones que tardan 3 semanas mientras startups AI-Native prototipan en 48 horas.</span>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Pillar 2: La Solución AI-Native Edentia -->
+        <div class="bg-slate-900 rounded-xl p-5 border border-slate-800 space-y-4">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center font-bold">
+              ✓
+            </div>
+            <div>
+              <h3 class="text-base font-bold text-white">La Solución AI-Native para Edentia</h3>
+              <p class="text-xs text-slate-400">Ecosistema recurrente y pertenencia</p>
+            </div>
+          </div>
+          <ul class="text-xs text-slate-300 space-y-2.5">
+            <li class="flex items-start gap-2">
+              <span class="text-emerald-400 font-bold">•</span>
+              <span><strong>Ecosistema de Infraestructura XR:</strong> Los clientes no compran un curso; compran acceso a la biblioteca de componentes 3D listos para desplegar, SDKs y soporte en vivo.</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-emerald-400 font-bold">•</span>
+              <span><strong>El Test de Cancelación:</strong> Si una empresa o alumno cancela, pierde la red de contactos con clientes B2B y las herramientas propietarias de renderizado con IA generativa.</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-emerald-400 font-bold">•</span>
+              <span><strong>Sprint de Prototipado 7 Días:</strong> Monetizar la velocidad: ofrecer a corporativos su gemelo digital o simulación funcional en 7 días con IA generativa espacial.</span>
+            </li>
+          </ul>
+        </div>
+
+      </div>
+
+      <!-- Strategy Cards -->
+      <div class="bg-slate-900 rounded-xl p-6 border border-slate-800 space-y-5">
+        <h3 class="text-base font-bold text-white">Roadmap de Monetización Edentia</h3>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-2">
+            <span class="text-xs font-bold text-indigo-400 uppercase tracking-wide">Fase 1: Entrada</span>
+            <h4 class="font-bold text-sm text-white">Inmersivo / Sprint Prototipo</h4>
+            <p class="text-xs text-slate-400">Entrega de un prototipo interactivo en 7 días mediante agentes de IA. Precio: $3,000 - $6,000 USD.</p>
+          </div>
+          <div class="bg-slate-950 p-4 rounded-xl border border-indigo-500/30 space-y-2">
+            <span class="text-xs font-bold text-emerald-400 uppercase tracking-wide">Fase 2: Retención</span>
+            <h4 class="font-bold text-sm text-white">Hub de Activos & API Espacial</h4>
+            <p class="text-xs text-slate-400">Membresía B2B para mantener los mundos virtuales alojados y actualizados. MRR: $500 - $1,500 USD/mes por cliente.</p>
+          </div>
+          <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-2">
+            <span class="text-xs font-bold text-violet-400 uppercase tracking-wide">Fase 3: Red</span>
+            <h4 class="font-bold text-sm text-white">Red Privada de Creadores XR</h4>
+            <p class="text-xs text-slate-400">Acceso a talento validado y proyectos internacionales. Si cancelan, pierden el flujo de prospectos compartidos.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 4: LEONARDO CONSULTOR SENIOR -->
+    <section id="tab-leonardo" class="hidden space-y-6">
+      <div class="bg-gradient-to-r from-slate-900 via-indigo-950/40 to-slate-900 rounded-2xl p-5 border border-indigo-500/20 shadow-xl flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div>
+          <div class="flex items-center gap-2">
+            <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-semibold bg-indigo-500/20 text-indigo-300 border border-indigo-500/30">Workspace Consultivo Senior</span>
+            <span class="text-xs text-slate-400">Leonardo | Consultor Estratégico en IA</span>
+          </div>
+          <h2 class="text-xl sm:text-2xl font-bold text-white mt-1">Herramientas de Monetización de Alto Ticket</h2>
+          <p class="text-sm text-slate-300 max-w-2xl mt-1">
+            Deja de vender talleres genéricos de ChatGPT. Empaqueta auditorías de fricción de decisiones, juntas sintéticas y contratos basados en velocidad operativa.
+          </p>
+        </div>
+      </div>
+
+      <!-- Proposal Generator & Pitch Script Tool -->
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+
+        <!-- Pitch Script Builder (Chris Voss Method) -->
+        <div class="lg:col-span-2 space-y-6">
+          <div class="bg-slate-900 rounded-xl p-6 border border-slate-800 space-y-5">
+            <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+              <h3 class="font-bold text-base text-white flex items-center gap-2">
+                <svg class="w-5 h-5 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"/></svg>
+                Generador de Argumentario de Cierre (Método Chris Voss)
+              </h3>
+              <span class="text-xs text-indigo-400">Negociación Inversa</span>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label class="text-xs font-semibold text-slate-400">Nombre del Prospecto / Cargo</label>
+                <input type="text" id="pitch-client" class="w-full mt-1 bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-indigo-500" value="Gerente General / Junta Directiva">
+              </div>
+              <div>
+                <label class="text-xs font-semibold text-slate-400">Fricción Identificada</label>
+                <input type="text" id="pitch-friction" class="w-full mt-1 bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white" value="Tardan 18 días en aprobar cotizaciones complejas">
+              </div>
+            </div>
+
+            <!-- The generated 3-step script -->
+            <div class="space-y-3">
+              <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-2">
+                <span class="text-xs font-bold text-amber-400 uppercase">Paso 1: Etiquetado Emocional (Labeling)</span>
+                <p id="pitch-labeling" class="text-xs text-slate-300 italic">
+                  "Parece que lo que realmente les preocupa no es la tecnología, sino el riesgo de comprometer la operación actual mientras la competencia responde a cotizaciones en 2 horas."
+                </p>
+              </div>
+
+              <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-2">
+                <span class="text-xs font-bold text-blue-400 uppercase">Paso 2: Cuestionamiento desde Primeros Principios</span>
+                <p id="pitch-principles" class="text-xs text-slate-300 italic">
+                  "¿Quién con nombre y apellido pierde dinero cuando este proceso tarda 18 días? Si la respuesta es 'nadie en particular', estamos pagando una nómina alta para proteger una inercia histórica."
+                </p>
+              </div>
+
+              <div class="bg-slate-950 p-4 rounded-xl border border-indigo-500/40 space-y-2">
+                <span class="text-xs font-bold text-emerald-400 uppercase">Paso 3: Pregunta Orientada al NO (Cierre)</span>
+                <p id="pitch-no" class="text-xs text-slate-300 italic font-medium">
+                  "¿Sería una terrible idea si ejecutamos un sprint de 10 días para auditar este cuello de botella y reducir el ciclo de decisión a 48 horas antes de aprobar cualquier inversión en licencias?"
+                </p>
+              </div>
+            </div>
+
+            <button onclick="copyPitchScript()" class="w-full py-2.5 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-semibold flex items-center justify-center gap-2 transition-all">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"/></svg>
+              Copiar Argumentario Completo
+            </button>
+
+          </div>
+        </div>
+
+        <!-- Tier Calculator / Products -->
+        <div class="space-y-4">
+          <div class="bg-slate-900 rounded-xl p-5 border border-slate-800 space-y-4">
+            <h3 class="font-bold text-sm text-white">Catálogo de Alto Ticket de Leonardo</h3>
+            
+            <div class="p-3 bg-slate-950 rounded-lg border border-slate-800 space-y-1.5">
+              <div class="flex justify-between items-center">
+                <h4 class="text-xs font-bold text-indigo-400">1. Sprint de Diagnóstico & Fricción</h4>
+                <span class="text-xs font-bold text-emerald-400">$3,500 USD</span>
+              </div>
+              <p class="text-[11px] text-slate-400">Auditoría de tiempos de decisión y mapa de rentabilidad en 10 días.</p>
+            </div>
+
+            <div class="p-3 bg-slate-950 rounded-lg border border-indigo-500/30 space-y-1.5">
+              <div class="flex justify-between items-center">
+                <h4 class="text-xs font-bold text-violet-400">2. Junta Asesora Sintética (Setup)</h4>
+                <span class="text-xs font-bold text-emerald-400">$6,000 USD</span>
+              </div>
+              <p class="text-[11px] text-slate-400">Implementación de agentes persistentes conectados a transcripciones y finanzas.</p>
+            </div>
+
+            <div class="p-3 bg-slate-950 rounded-lg border border-slate-800 space-y-1.5">
+              <div class="flex justify-between items-center">
+                <h4 class="text-xs font-bold text-amber-400">3. Retainer de Eficiencia AI-Native</h4>
+                <span class="text-xs font-bold text-emerald-400">$2,000/mes</span>
+              </div>
+              <p class="text-[11px] text-slate-400">Mantenimiento de agentes, afinamiento de prompts y auditoría mensual de dolientes.</p>
+            </div>
+
+            <div class="pt-2 border-t border-slate-800">
+              <div class="flex justify-between text-xs font-bold text-slate-300">
+                <span>Contrato Tipo (Setup + 6m Retainer):</span>
+                <span class="text-emerald-400">$18,000 USD</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- TAB 5: NOTAS, PROS/CONS & GLOSARIO -->
+    <section id="tab-notes" class="hidden space-y-6">
+      <!-- Search and filter -->
+      <div class="flex flex-col sm:flex-row gap-3 items-center justify-between bg-slate-900 p-4 rounded-xl border border-slate-800">
+        <div class="relative w-full sm:w-80">
+          <input type="text" id="notes-search" oninput="filterNotes()" placeholder="Buscar conceptos, términos o timestamps..." class="w-full bg-slate-950 border border-slate-700 rounded-lg pl-9 pr-3 py-2 text-xs text-white focus:outline-none focus:border-indigo-500">
+          <svg class="w-4 h-4 text-slate-500 absolute left-2.5 top-2.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+        </div>
+        <div class="flex gap-2">
+          <button onclick="toggleSection('all-notes')" class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-xs font-medium text-slate-300">Notas de Video</button>
+          <button onclick="toggleSection('pros-cons')" class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-xs font-medium text-slate-300">12 Pros & Contras</button>
+          <button onclick="toggleSection('glossary')" class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-xs font-medium text-slate-300">Glosario Técnico</button>
+        </div>
+      </div>
+
+      <!-- Section: Detailed Timestamped Notes -->
+      <div id="section-all-notes" class="space-y-4">
+        <h3 class="text-base font-bold text-white flex items-center gap-2">
+          <svg class="w-4 h-4 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+          Notas Estructuradas con Timestamps (HH:MM:SS)
+        </h3>
+
+        <div class="space-y-3" id="notes-list">
+
+          <div class="note-card bg-slate-900 rounded-xl p-4 border border-slate-800 space-y-2">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-bold text-indigo-400 font-mono">[00:00:09] Mito del Taller de 90 Minutos</span>
+              <span class="text-[11px] px-2 py-0.5 rounded bg-slate-800 text-slate-400">Mentalidad</span>
+            </div>
+            <p class="text-xs text-slate-300">Nadie sale siendo "AI-native" en un taller de 90 minutos. Adoptar herramientas a ciegas sin tener clara la métrica de negocio para la que se optimiza solo incrementa costos fijos y dispersión.</p>
+          </div>
+
+          <div class="note-card bg-slate-900 rounded-xl p-4 border border-slate-800 space-y-2">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-bold text-indigo-400 font-mono">[00:05:06] La Brecha Real: Velocidad de Decisión</span>
+              <span class="text-[11px] px-2 py-0.5 rounded bg-slate-800 text-slate-400">Operaciones</span>
+            </div>
+            <p class="text-xs text-slate-300">La diferencia entre una empresa tradicional y una nativa en IA no radica en qué suite usan (ej. Microsoft Copilot vs Claude), sino en lo que tardan en tomar decisiones. El flujo corporativo tradicional pasa por analistas, reuniones intermedias y juntas lentas que distorsionan los datos.</p>
+          </div>
+
+          <div class="note-card bg-slate-900 rounded-xl p-4 border border-slate-800 space-y-2">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-bold text-indigo-400 font-mono">[00:09:44] El Fin de los "Job Descriptions"</span>
+              <span class="text-[11px] px-2 py-0.5 rounded bg-slate-800 text-slate-400">Talento</span>
+            </div>
+            <p class="text-xs text-slate-300">Sebastián Gallo (cofundador de Torre): Se acabaron los roles que se limitan a seguir un manual de funciones estático. En empresas AI-native se necesita una persona responsable directa de un resultado de negocio concreto, no un cargo descriptivo.</p>
+          </div>
+
+          <div class="note-card bg-slate-900 rounded-xl p-4 border border-slate-800 space-y-2">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-bold text-indigo-400 font-mono">[00:12:05] Audio Matutino del Asistente Personal</span>
+              <span class="text-[11px] px-2 py-0.5 rounded bg-slate-800 text-slate-400">Infraestructura</span>
+            </div>
+            <p class="text-xs text-slate-300">Sebastián comparte el audio real que escucha todas las mañanas al tomar el sol: su agente sintético le reporta caídas técnicas (Stripe desincronizado por 45h, chequeo de salud de Bolt), biometría de sueño y HRV (Recovery en 86) y prioridades críticas del día.</p>
+          </div>
+
+          <div class="note-card bg-slate-900 rounded-xl p-4 border border-slate-800 space-y-2">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-bold text-indigo-400 font-mono">[00:17:46] Analogías: Fútbol de Cantera y el Cirujano</span>
+              <span class="text-[11px] px-2 py-0.5 rounded bg-slate-800 text-slate-400">Estrategia</span>
+            </div>
+            <p class="text-xs text-slate-300"><strong>Envigado FC:</strong> No optimiza por ganar copas internacionales; optimiza por vender canteranos (James, Quintero). <strong>El Cirujano:</strong> Su cuello de botella no es la pauta para más leads, sino la conversión de consulta a cirugía (pasar de 50 consultas a 20 para cerrar una cirugía duplica su margen neto).</p>
+          </div>
+
+          <div class="note-card bg-slate-900 rounded-xl p-4 border border-slate-800 space-y-2">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-bold text-indigo-400 font-mono">[00:44:06] La Junta Virtual Sintética y Chris Voss</span>
+              <span class="text-[11px] px-2 py-0.5 rounded bg-slate-800 text-slate-400">Negociación</span>
+            </div>
+            <p class="text-xs text-slate-300">La deliberación destruye el plan de vender videos pregrabados en Next: <em>"Una red nunca se cobra por contenido, se cobra por pertenencia"</em>. Además, el exjefe del FBI Chris Voss explica por qué no se debe cerrar al papá emocionado el sábado del Demo Day y recomienda preguntas orientadas al 'No'.</p>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Section: Pros and Cons -->
+      <div id="section-pros-cons" class="space-y-4">
+        <h3 class="text-base font-bold text-white">12 Ideas Clave: Pros & Contras del Enfoque AI-Native</h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div class="bg-slate-900 p-4 rounded-xl border border-emerald-500/20 space-y-2">
+            <h4 class="text-xs font-bold text-emerald-400 uppercase tracking-wider">Pros & Ventajas Competitivas</h4>
+            <ul class="text-xs text-slate-300 space-y-2">
+              <li><strong>1. Velocidad de Decisión:</strong> Reducción drástica del ciclo entre detectar un cuello de botella y ejecutar una solución.</li>
+              <li><strong>2. Equipos Hiper-Ligeros:</strong> Operación con nóminas bajas de alto impacto asistidas por flujos autónomos de IA.</li>
+              <li><strong>3. Enfoque Financiero Real:</strong> Priorización del margen neto y flujo de caja sobre métricas de vanidad o marketing difuso.</li>
+              <li><strong>4. Cuestionamiento desde Primeros Principios:</strong> Romper supuestos heredados que nadie en la organización se atreve a criticar.</li>
+              <li><strong>5. Monitoreo Holístico Continuo:</strong> Agentes que correlacionan el estado del software, pasarelas de cobro y energía biológica.</li>
+              <li><strong>6. Destrucción de la Inercia Burocrática:</strong> Eliminar la asignación de tareas por historia [H] y responsabilizar a un doliente único.</li>
+            </ul>
+          </div>
+          <div class="bg-slate-900 p-4 rounded-xl border border-rose-500/20 space-y-2">
+            <h4 class="text-xs font-bold text-rose-400 uppercase tracking-wider">Contras & Riesgos Críticos</h4>
+            <ul class="text-xs text-slate-300 space-y-2">
+              <li><strong>7. Ilusión de Omnipotencia:</strong> Creer que pagar OpenAI o Claude sustituye la validación de mercado o el producto real.</li>
+              <li><strong>8. Error de Biblioteca de Contenido:</strong> Monetizar videos pregrabados en vez de comunidad y pertenencia, provocando un churn masivo.</li>
+              <li><strong>9. Respuestas Alucinadas Vacías:</strong> Tratar a los LLMs como bolas de cristal ("hazme millonario") en lugar de darles datos duros de la empresa.</li>
+              <li><strong>10. Obsolescencia Acelerada:</strong> Dominar herramientas pasajeras en vez de la arquitectura de pensamiento y optimización de resultados.</li>
+              <li><strong>11. Fricción Cultural Interna:</strong> Resistencia severa al señalar que ciertos roles históricos ya no aportan valor a la rentabilidad.</li>
+              <li><strong>12. Ventas en Falso Positivo:</strong> Cerrar clientes por euforia momentánea sin validar si el usuario final y el decisor económico están alineados.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Section: Glossary -->
+      <div id="section-glossary" class="space-y-4">
+        <h3 class="text-base font-bold text-white">Glosario de Términos Estratégicos</h3>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+          <div class="bg-slate-900 p-3 rounded-lg border border-slate-800">
+            <span class="text-xs font-bold text-indigo-400">AI-Native Company</span>
+            <p class="text-[11px] text-slate-300 mt-1">Empresa construida para tomar decisiones a alta velocidad, diseñada en reversa desde el resultado de negocio y apalancada en flujos de IA.</p>
+          </div>
+          <div class="bg-slate-900 p-3 rounded-lg border border-slate-800">
+            <span class="text-xs font-bold text-indigo-400">North Star Metric</span>
+            <p class="text-[11px] text-slate-300 mt-1">La métrica de rentabilidad central que sostiene la salud financiera y la viabilidad a largo plazo de la compañía.</p>
+          </div>
+          <div class="bg-slate-900 p-3 rounded-lg border border-slate-800">
+            <span class="text-xs font-bold text-indigo-400">Business Lever (Palanca)</span>
+            <p class="text-[11px] text-slate-300 mt-1">Factor determinante que, al ser movido con precisión, produce el mayor impacto porcentual sobre la métrica estrella.</p>
+          </div>
+          <div class="bg-slate-900 p-3 rounded-lg border border-slate-800">
+            <span class="text-xs font-bold text-indigo-400">Doliente Único</span>
+            <p class="text-[11px] text-slate-300 mt-1">Persona con nombre y apellido que pierde personalmente algo si la métrica o condición no se cumple. Opuesto a tareas compartidas [X2].</p>
+          </div>
+          <div class="bg-slate-900 p-3 rounded-lg border border-slate-800">
+            <span class="text-xs font-bold text-indigo-400">Asignación por Historia [H]</span>
+            <p class="text-[11px] text-slate-300 mt-1">Responsabilidades mantenidas exclusivamente por tradición o inercia ("siempre lo ha hecho fulanito") sin justificación operativa.</p>
+          </div>
+          <div class="bg-slate-900 p-3 rounded-lg border border-slate-800">
+            <span class="text-xs font-bold text-indigo-400">No-Oriented Questioning</span>
+            <p class="text-[11px] text-slate-300 mt-1">Técnica de Chris Voss: formular preguntas donde el cliente responde 'No' para bajar sus defensas ("¿Sería una mala idea probar esto?").</p>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+  </main>
+
+  <!-- Audio Briefing Floating Bar (Optional Player) -->
+  <div id="audio-player-bar" class="hidden fixed bottom-4 right-4 max-w-sm w-full bg-slate-900/95 backdrop-blur-md border border-indigo-500/40 rounded-2xl p-4 shadow-2xl z-50 flex items-center justify-between gap-3 animate-bounce-short">
+    <div class="flex items-center gap-3">
+      <div class="w-8 h-8 rounded-full bg-indigo-500/20 text-indigo-400 flex items-center justify-center animate-pulse">
+        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"/></svg>
+      </div>
+      <div>
+        <h5 class="text-xs font-bold text-white" id="audio-title">Voz de la Junta en Reproducción...</h5>
+        <p class="text-[10px] text-slate-400" id="audio-subtitle">Sintetizador de Deliberación Activo</p>
+      </div>
+    </div>
+    <button onclick="stopBoardDeliberation()" class="p-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white">
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+    </button>
+  </div>
+
+  <!-- Notification Toast -->
+  <div id="toast" class="fixed bottom-4 left-1/2 -translate-x-1/2 z-50 transform translate-y-20 opacity-0 transition-all duration-300 bg-slate-800 border border-slate-700 text-white text-xs px-4 py-2.5 rounded-xl shadow-xl flex items-center gap-2 pointer-events-none">
+    <span id="toast-message">Operación realizada</span>
+  </div>
+
+  <script>
+    // State storage for Rentability Map
+    const defaultNextState = {
+      northStar: "Modelo de suscripción recurrente mensual (MRR escalable) reteniendo al 30% de los 900 graduados.",
+      levers: [
+        { id: 1, text: "Cohortes mes a mes y talleres presenciales (Motor de caja actual)" },
+        { id: 2, text: "Tasa de conversión directa de graduados a membresía recurrente" },
+        { id: 3, text: "Red de contactos activa e incentivos de permanencia entre pares (Alumni YC model)" }
+      ],
+      actions: [
+        { id: 1, text: "Lanzar suscripción mensual post-graduación", doliente: "0", ownerName: "Nadie (Vacío)", impact: 45000 },
+        { id: 2, text: "Grabar sesiones y desbloquear módulos mensuales", doliente: "X2", ownerName: "Fundadoras (Cami y Nata)", impact: 15000 },
+        { id: 3, text: "Definir pricing basado en costos de herramientas de IA", doliente: "H", ownerName: "Contador histórico", impact: 10000 },
+        { id: 4, text: "Entrenar a jóvenes para vender continuidad al papá en Demo Day", doliente: "clear", ownerName: "Líder de Admisiones", impact: 35000 }
+      ],
+      fear: "Lanzar una suscripción que se perciba como una biblioteca de videos grabados y que los papás cancelen en masa al segundo mes; no tener quién venda en el Demo Day."
+    };
+
+    const defaultEdentiaState = {
+      northStar: "Consolidar $40,000 USD/mes de ARR recurrente mediante Hub de Activos Espaciales & IA en empresas B2B.",
+      levers: [
+        { id: 1, text: "Sprint de Prototipado en 7 Días (Venta consultiva de alto ticket)" },
+        { id: 2, text: "Membresía recurrente de hosting y despliegue de experiencias XR corporativas" },
+        { id: 3, text: "Comunidad privada de creadores y desarrolladores certificados en Spatial AI" }
+      ],
+      actions: [
+        { id: 1, text: "Cerrar piloto de gemelo digital con industria manufacturera", doliente: "clear", ownerName: "Leonardo (Consultor Lead)", impact: 25000 },
+        { id: 2, text: "Crear plataforma compartida de SDKs y componentes 3D con IA", doliente: "X2", ownerName: "Equipo de Devs", impact: 30000 },
+        { id: 3, text: "Facturar mantenimiento recurrente de mundos virtuales", doliente: "0", ownerName: "Nadie asignado", impact: 20000 }
+      ],
+      fear: "Quedar atrapados en la trampa de consultoría tradicional facturando horas hombre en lugar de licencias y propiedad intelectual escalable."
+    };
+
+    let currentMap = JSON.parse(localStorage.getItem('ai_native_map')) || defaultNextState;
+
+    // Initialize View
+    window.addEventListener('DOMContentLoaded', () => {
+      initTheme();
+      renderMap();
+      renderBoardTranscript();
+      setupPWAInstall();
+    });
+
+    // Tab Navigation
+    function switchTab(tabId) {
+      document.querySelectorAll('main > section').forEach(sec => sec.classList.add('hidden'));
+      document.getElementById(tabId).classList.remove('hidden');
+
+      document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.classList.remove('active', 'border-indigo-500', 'text-indigo-400');
+        btn.classList.add('border-transparent', 'text-slate-400');
+      });
+
+      const activeBtn = document.getElementById(`btn-${tabId}`);
+      if (activeBtn) {
+        activeBtn.classList.add('active', 'border-indigo-500', 'text-indigo-400');
+        activeBtn.classList.remove('border-transparent', 'text-slate-400');
+      }
+    }
+
+    // Render Map Form
+    function renderMap() {
+      document.getElementById('map-north-star').value = currentMap.northStar || '';
+      document.getElementById('map-fear').value = currentMap.fear || '';
+
+      // Levers
+      const leversContainer = document.getElementById('levers-container');
+      leversContainer.innerHTML = '';
+      currentMap.levers.forEach((lever, idx) => {
+        const div = document.createElement('div');
+        div.className = "flex items-center gap-2";
+        div.innerHTML = `
+          <span class="text-xs font-mono text-slate-500 w-4">${idx + 1}.</span>
+          <input type="text" value="${escapeHtml(lever.text)}" onchange="updateLever(${lever.id}, this.value)" class="flex-1 bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-indigo-500" placeholder="Descripción de la palanca">
+          <button onclick="removeLever(${lever.id})" class="text-slate-500 hover:text-rose-400 p-1">
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+          </button>
+        `;
+        leversContainer.appendChild(div);
+      });
+
+      // Actions
+      const actionsContainer = document.getElementById('actions-container');
+      actionsContainer.innerHTML = '';
+      currentMap.actions.forEach(action => {
+        const div = document.createElement('div');
+        div.className = "bg-slate-950 p-3 rounded-lg border border-slate-800 space-y-2";
+        div.innerHTML = `
+          <div class="flex items-center gap-2">
+            <input type="text" value="${escapeHtml(action.text)}" onchange="updateActionText(${action.id}, this.value)" class="flex-1 bg-slate-900 border border-slate-700 rounded-md px-2.5 py-1.5 text-xs text-white focus:outline-none focus:border-indigo-500" placeholder="¿Qué tiene que ocurrir?">
+            <button onclick="removeAction(${action.id})" class="text-slate-500 hover:text-rose-400 p-1">
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+            </button>
+          </div>
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs">
+            <div>
+              <label class="text-[10px] text-slate-400">Tipo de Doliente</label>
+              <select onchange="updateActionDoliente(${action.id}, this.value)" class="w-full bg-slate-900 border border-slate-700 rounded px-2 py-1 text-xs text-white">
+                <option value="0" ${action.doliente === '0' ? 'selected' : ''}>[ 0 ] Vacío / Nadie</option>
+                <option value="X2" ${action.doliente === 'X2' ? 'selected' : ''}>[ X2+ ] Compartido</option>
+                <option value="H" ${action.doliente === 'H' ? 'selected' : ''}>[ H ] Por Historia</option>
+                <option value="clear" ${action.doliente === 'clear' ? 'selected' : ''}>[ ✔ ] Doliente Claro</option>
+              </select>
+            </div>
+            <div>
+              <label class="text-[10px] text-slate-400">Nombre del Responsable</label>
+              <input type="text" value="${escapeHtml(action.ownerName || '')}" onchange="updateActionOwner(${action.id}, this.value)" class="w-full bg-slate-900 border border-slate-700 rounded px-2 py-1 text-xs text-white" placeholder="Persona específica">
+            </div>
+            <div>
+              <label class="text-[10px] text-slate-400">Impacto Anual ($ USD)</label>
+              <input type="number" value="${action.impact || 0}" onchange="updateActionImpact(${action.id}, this.value)" class="w-full bg-slate-900 border border-slate-700 rounded px-2 py-1 text-xs text-emerald-400 font-mono">
+            </div>
+          </div>
+        `;
+        actionsContainer.appendChild(div);
+      });
+
+      calculateAudit();
+    }
+
+    function calculateAudit() {
+      const totalImpact = currentMap.actions.reduce((acc, curr) => acc + (parseFloat(curr.impact) || 0), 0);
+      const riskyActions = currentMap.actions.filter(a => a.doliente !== 'clear');
+      const frictionPercent = currentMap.actions.length > 0 
+        ? Math.round((riskyActions.length / currentMap.actions.length) * 100) 
+        : 0;
+
+      document.getElementById('stat-total-impact').textContent = `$${totalImpact.toLocaleString()} USD`;
+      document.getElementById('stat-friction-score').textContent = `${frictionPercent}%`;
+
+      const auditBadge = document.getElementById('audit-badge');
+      if (frictionPercent > 50) {
+        auditBadge.className = "px-2 py-0.5 rounded text-xs font-bold bg-rose-500/20 text-rose-400 border border-rose-500/30";
+        auditBadge.textContent = "Alerta: Alta Fricción";
+      } else if (frictionPercent > 20) {
+        auditBadge.className = "px-2 py-0.5 rounded text-xs font-bold bg-amber-500/20 text-amber-400 border border-amber-500/30";
+        auditBadge.textContent = "Fricción Moderada";
+      } else {
+        auditBadge.className = "px-2 py-0.5 rounded text-xs font-bold bg-emerald-500/20 text-emerald-400 border border-emerald-500/30";
+        auditBadge.textContent = "AI-Native Óptimo";
+      }
+
+      // Breakdown
+      const breakdown = document.getElementById('dolientes-breakdown');
+      const count0 = currentMap.actions.filter(a => a.doliente === '0').length;
+      const countX = currentMap.actions.filter(a => a.doliente === 'X2').length;
+      const countH = currentMap.actions.filter(a => a.doliente === 'H').length;
+      const countClear = currentMap.actions.filter(a => a.doliente === 'clear').length;
+
+      breakdown.innerHTML = `
+        <div class="flex justify-between items-center text-rose-400">
+          <span>Vacío [0] (Crítico):</span> <span class="font-bold">${count0}</span>
+        </div>
+        <div class="flex justify-between items-center text-amber-400">
+          <span>Compartido [X2+]:</span> <span class="font-bold">${countX}</span>
+        </div>
+        <div class="flex justify-between items-center text-blue-400">
+          <span>Por Historia [H]:</span> <span class="font-bold">${countH}</span>
+        </div>
+        <div class="flex justify-between items-center text-emerald-400">
+          <span>Doliente Único [✔]:</span> <span class="font-bold">${countClear}</span>
+        </div>
+      `;
+    }
+
+    // Levers CRUD
+    function addLeverRow() {
+      const newId = Date.now();
+      currentMap.levers.push({ id: newId, text: "" });
+      renderMap();
+    }
+    function updateLever(id, val) {
+      const item = currentMap.levers.find(l => l.id === id);
+      if (item) item.text = val;
+    }
+    function removeLever(id) {
+      currentMap.levers = currentMap.levers.filter(l => l.id !== id);
+      renderMap();
+    }
+
+    // Actions CRUD
+    function addActionRow() {
+      const newId = Date.now();
+      currentMap.actions.push({ id: newId, text: "", doliente: "0", ownerName: "", impact: 10000 });
+      renderMap();
+    }
+    function updateActionText(id, val) {
+      const item = currentMap.actions.find(a => a.id === id);
+      if (item) item.text = val;
+    }
+    function updateActionDoliente(id, val) {
+      const item = currentMap.actions.find(a => a.id === id);
+      if (item) item.doliente = val;
+      calculateAudit();
+    }
+    function updateActionOwner(id, val) {
+      const item = currentMap.actions.find(a => a.id === id);
+      if (item) item.ownerName = val;
+    }
+    function updateActionImpact(id, val) {
+      const item = currentMap.actions.find(a => a.id === id);
+      if (item) item.impact = parseFloat(val) || 0;
+      calculateAudit();
+    }
+    function removeAction(id) {
+      currentMap.actions = currentMap.actions.filter(a => a.id !== id);
+      renderMap();
+    }
+
+    // Examples Loader
+    function loadExampleMap(type) {
+      if (type === 'next') {
+        currentMap = JSON.parse(JSON.stringify(defaultNextState));
+      } else {
+        currentMap = JSON.parse(JSON.stringify(defaultEdentiaState));
+      }
+      renderMap();
+      showToast(`Cargado ejemplo: ${type.toUpperCase()}`);
+    }
+
+    function saveCurrentMap() {
+      currentMap.northStar = document.getElementById('map-north-star').value;
+      currentMap.fear = document.getElementById('map-fear').value;
+      localStorage.setItem('ai_native_map', JSON.stringify(currentMap));
+      showToast("Mapa guardado en memoria local");
+    }
+
+    function exportMapJson() {
+      saveCurrentMap();
+      const str = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(currentMap, null, 2));
+      const a = document.createElement('a');
+      a.setAttribute("href", str);
+      a.setAttribute("download", `mapa_rentabilidad_${Date.now()}.json`);
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      showToast("Archivo JSON descargado");
+    }
+
+    function sendToVirtualBoard() {
+      saveCurrentMap();
+      switchTab('tab-board');
+      showToast("Datos cargados a la Junta Virtual");
+    }
+
+    // Board Audio & Deliberation Engine (Web Speech Synthesis Simulation)
+    let isSpeaking = false;
+    let synth = window.speechSynthesis;
+
+    const boardTranscriptData = [
+      { speaker: "Sebastián Gallo (Moderador)", text: "Iniciamos la sesión de Junta Asesora del Colombia TechFest. Analizamos los datos del Mapa de Rentabilidad sometido. Se propone una suscripción con clases pregrabadas y mentorías mensuales, pero la casilla de responsable de conversión está vacía." },
+      { speaker: "Director de Red & Valor", text: "Empiezo corrigiendo la pregunta: ¿Creen que están decidiendo si lanzan una suscripción? El producto que ya construyeron no es el programa de 8 semanas: son 900 fundadores en 11 países. Una red nunca se cobra por contenido, se cobra por pertenencia. Si cancelan y solo pierden videos, tienen una biblioteca, no una suscripción." },
+      { speaker: "Operador de Primeros Principios", text: "Pregúntense qué les cuesta no lanzar: cada cohorte que se gradúa sin oferta es dinero que no se posterga, se pierde para siempre. Pero si lanzan con esa casilla vacía, no habrán lanzado un producto: habrán añadido una línea al catálogo que morirá sola en 3 meses." },
+      { speaker: "Chris Voss (Negociador FBI)", text: "En la sala del Demo Day hay dos clientes: el papá que paga y el hijo que vive el programa. No le vendas al papá en caliente porque dirá que sí por emoción y pedirá reembolso el lunes. Aplica labeling y usa una pregunta orientada al NO: '¿Sería una terrible idea que su hija continúe construyendo con nosotros?'" }
+    ];
+
+    function renderBoardTranscript() {
+      const container = document.getElementById('board-transcript-container');
+      container.innerHTML = '';
+      boardTranscriptData.forEach(item => {
+        const div = document.createElement('div');
+        div.className = "p-3 rounded-lg bg-slate-900 border border-slate-800/80 space-y-1";
+        div.innerHTML = `
+          <div class="text-xs font-bold text-indigo-400 flex items-center justify-between">
+            <span>${escapeHtml(item.speaker)}</span>
+          </div>
+          <p class="text-xs text-slate-300 leading-relaxed">${escapeHtml(item.text)}</p>
+        `;
+        container.appendChild(div);
+      });
+    }
+
+    function toggleBoardDeliberation() {
+      if (isSpeaking) {
+        stopBoardDeliberation();
+        return;
+      }
+
+      if (!synth) {
+        showToast("Síntesis de voz no disponible en este navegador");
+        return;
+      }
+
+      isSpeaking = true;
+      document.getElementById('board-audio-text').textContent = "Detener Deliberación";
+      document.getElementById('play-icon').innerHTML = `<path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zM7 8a1 1 0 012 0v4a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v4a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd"/>`;
+      document.getElementById('audio-player-bar').classList.remove('hidden');
+
+      let utteranceIndex = 0;
+
+      function speakNext() {
+        if (!isSpeaking || utteranceIndex >= boardTranscriptData.length) {
+          stopBoardDeliberation();
+          return;
+        }
+
+        const currentItem = boardTranscriptData[utteranceIndex];
+        document.getElementById('audio-title').textContent = currentItem.speaker;
+        document.getElementById('audio-subtitle').textContent = `Fragmento ${utteranceIndex + 1} de ${boardTranscriptData.length}`;
+
+        const utterance = new SpeechSynthesisUtterance(currentItem.text);
+        utterance.lang = 'es-ES';
+        utterance.rate = 1.05;
+
+        utterance.onend = () => {
+          utteranceIndex++;
+          speakNext();
+        };
+
+        utterance.onerror = () => {
+          stopBoardDeliberation();
+        };
+
+        synth.speak(utterance);
+      }
+
+      speakNext();
+    }
+
+    function stopBoardDeliberation() {
+      if (synth) synth.cancel();
+      isSpeaking = false;
+      document.getElementById('board-audio-text').textContent = "Escuchar Deliberación (Audio)";
+      document.getElementById('play-icon').innerHTML = `<path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd"/>`;
+      document.getElementById('audio-player-bar').classList.add('hidden');
+    }
+
+    function copyBoardTranscript() {
+      const fullText = boardTranscriptData.map(d => `${d.speaker}:\n"${d.text}"\n`).join('\n');
+      copyToClipboard(fullText);
+      showToast("Transcripción copiada al portapapeles");
+    }
+
+    // Leonardo Consultant Script Copy
+    function copyPitchScript() {
+      const client = document.getElementById('pitch-client').value;
+      const friction = document.getElementById('pitch-friction').value;
+      const text = `ARGUMENTARIO DE CONSULTORÍA SENIOR EN IA (LEONARDO)
+Para: ${client}
+Fricción: ${friction}
+
+1. LABELING (Etiquetado):
+${document.getElementById('pitch-labeling').innerText}
+
+2. PRIMEROS PRINCIPIOS:
+${document.getElementById('pitch-principles').innerText}
+
+3. CIERRE ORIENTADO AL NO:
+${document.getElementById('pitch-no').innerText}`;
+
+      copyToClipboard(text);
+      showToast("Argumentario de venta copiado");
+    }
+
+    // Notes Filtering
+    function filterNotes() {
+      const query = document.getElementById('notes-search').value.toLowerCase();
+      document.querySelectorAll('.note-card').forEach(card => {
+        const text = card.textContent.toLowerCase();
+        card.style.display = text.includes(query) ? 'block' : 'none';
+      });
+    }
+
+    function toggleSection(secName) {
+      document.getElementById('section-all-notes').classList.add('hidden');
+      document.getElementById('section-pros-cons').classList.add('hidden');
+      document.getElementById('section-glossary').classList.add('hidden');
+
+      if (secName === 'all-notes') document.getElementById('section-all-notes').classList.remove('hidden');
+      if (secName === 'pros-cons') document.getElementById('section-pros-cons').classList.remove('hidden');
+      if (secName === 'glossary') document.getElementById('section-glossary').classList.remove('hidden');
+    }
+
+    // Theme Management (Dark & Light Mode)
+    function initTheme() {
+      const savedTheme = localStorage.getItem('theme_preference');
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      const isDark = savedTheme ? savedTheme === 'dark' : (prefersDark !== false);
+
+      if (isDark) {
+        document.documentElement.classList.add('dark');
+      } else {
+        document.documentElement.classList.remove('dark');
+      }
+      updateThemeUI(isDark);
+    }
+
+    function toggleTheme() {
+      const isDark = document.documentElement.classList.toggle('dark');
+      localStorage.setItem('theme_preference', isDark ? 'dark' : 'light');
+      updateThemeUI(isDark);
+      showToast(isDark ? "Modo Oscuro activado" : "Modo Claro activado");
+    }
+
+    function updateThemeUI(isDark) {
+      const wrapper = document.getElementById('theme-icon-wrapper');
+      const label = document.getElementById('theme-label');
+      const btn = document.getElementById('theme-toggle-btn');
+
+      if (!wrapper) return;
+
+      if (isDark) {
+        // In dark mode: button offers to switch to light mode (shows sun icon)
+        wrapper.innerHTML = `
+          <svg class="w-4 h-4 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/>
+          </svg>`;
+        if (label) label.textContent = "Modo Claro";
+        if (btn) btn.setAttribute('title', "Cambiar a Modo Claro");
+      } else {
+        // In light mode: button offers to switch to dark mode (shows moon icon)
+        wrapper.innerHTML = `
+          <svg class="w-4 h-4 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/>
+          </svg>`;
+        if (label) label.textContent = "Modo Oscuro";
+        if (btn) btn.setAttribute('title', "Cambiar a Modo Oscuro");
+      }
+    }
+
+    // PWA Support Mock / Offline Manifest Registration
+    let deferredPrompt;
+    function setupPWAInstall() {
+      window.addEventListener('beforeinstallprompt', (e) => {
+        e.preventDefault();
+        deferredPrompt = e;
+        const installBtn = document.getElementById('pwa-install-btn');
+        if (installBtn) installBtn.classList.remove('hidden');
+      });
+
+      const installBtn = document.getElementById('pwa-install-btn');
+      if (installBtn) {
+        installBtn.addEventListener('click', async () => {
+          if (deferredPrompt) {
+            deferredPrompt.prompt();
+            const { outcome } = await deferredPrompt.userChoice;
+            deferredPrompt = null;
+            installBtn.classList.add('hidden');
+          } else {
+            showToast("Añade esta página a tu pantalla de inicio desde el menú de tu navegador");
+          }
+        });
+      }
+    }
+
+    // Helper functions
+    function copyToClipboard(str) {
+      const el = document.createElement('textarea');
+      el.value = str;
+      el.setAttribute('readonly', '');
+      el.style.position = 'absolute';
+      el.style.left = '-9999px';
+      document.body.appendChild(el);
+      el.select();
+      document.execCommand('copy');
+      document.body.removeChild(el);
+    }
+
+    function showToast(msg) {
+      const toast = document.getElementById('toast');
+      const toastMsg = document.getElementById('toast-message');
+      toastMsg.textContent = msg;
+      toast.classList.remove('translate-y-20', 'opacity-0');
+      toast.classList.add('translate-y-0', 'opacity-100');
+      setTimeout(() => {
+        toast.classList.remove('translate-y-0', 'opacity-100');
+        toast.classList.add('translate-y-20', 'opacity-0');
+      }, 2500);
+    }
+
+    function escapeHtml(string) {
+      return String(string).replace(/[&<>"']/g, function (s) {
+        return {
+          "&": "&amp;",
+          "<": "&lt;",
+          ">": "&gt;",
+          '"': "&quot;",
+          "'": "&#39;"
+        }[s];
+      });
+    }
+  </script>
+</body>
+</html>

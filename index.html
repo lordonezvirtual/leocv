@@ -16,67 +16,124 @@
 :root{
   --font-sans:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;
   --font-label:'Inter',system-ui,sans-serif;
-  --bg:#020611; --fg:#e8f0ff; --mut:#8fa6cf; --dim:#5d739c;
-  --blue:#2f7bff; --cyan:#5fd8ff; --violet:#8a5cff; --pink:#ff5fb0; --amber:#ffb15f;
-  --line:rgba(110,170,255,.22);
-  --glass:linear-gradient(180deg,rgba(24,56,128,.34),rgba(7,16,42,.52));
+  --bg:#020611;
+  --bg-grad:radial-gradient(1200px 700px at 78% 8%,rgba(47,123,255,.20),transparent 60%),radial-gradient(900px 600px at 10% 60%,rgba(138,92,255,.12),transparent 60%),#020611;
+  --veil:linear-gradient(90deg,rgba(2,6,17,.64) 0,rgba(2,6,17,.14) 42%,transparent 65%),radial-gradient(ellipse at 50% 50%,transparent 55%,rgba(2,6,17,.55) 100%);
+  --nav-bg:linear-gradient(180deg,rgba(2,6,17,.90),rgba(2,6,17,0));
+  --fg:#eef4ff; --lead:#d4e2fc; --body-sec:#bdcfe9; --fg-soft:#dce8fc;
+  --mut:#9eb5dc; --dim:#7e97c4;
+  --blue:#2f7bff; --cyan:#5fd8ff; --violet:#8a5cff; --pink:#ff70b8; --amber:#ffb866;
+  --grad-text:linear-gradient(95deg,#7fd0ff,#d4ebff 42%,#9aaaff);
+  --line:rgba(110,170,255,.24);
+  --glass:linear-gradient(180deg,rgba(20,48,112,.46),rgba(6,14,38,.68));
+  --glass-shadow:0 18px 50px -24px rgba(0,10,40,.9),inset 0 1px 0 rgba(160,210,255,.10);
+  --card-hover-shadow:0 18px 50px -20px rgba(47,123,255,.5);
+  --surface-pill:rgba(10,26,66,.58);
+  --pill-border:rgba(95,216,255,.45);
+  --icb-bg:rgba(10,26,66,.55);
+  --icb-border:rgba(95,216,255,.38);
+  --role-bg:rgba(95,216,255,.07);
+  --role-border:rgba(95,216,255,.16);
+  --stage-bg:rgba(2,6,17,.78);
+  --footer-bg:rgba(2,6,17,.86);
+  --featured-bg:linear-gradient(165deg,rgba(46,34,18,.58),rgba(10,22,54,.72));
+  --step-watermark:rgba(95,216,255,.07);
+  --chip-on-fg:#021024;
+  --chip-on-bg:linear-gradient(135deg,#5fd8ff,#8fb4ff);
+  --avatar-fg:#021024;
+}
+html[data-theme="light"]{
+  --bg:#f4f7fc;
+  --bg-grad:radial-gradient(1200px 700px at 78% 8%,rgba(29,78,216,.10),transparent 60%),radial-gradient(900px 600px at 10% 60%,rgba(91,33,182,.08),transparent 60%),#f4f7fc;
+  --veil:linear-gradient(90deg,rgba(244,247,252,.84) 0,rgba(244,247,252,.32) 45%,transparent 68%),radial-gradient(ellipse at 50% 50%,transparent 58%,rgba(226,235,248,.65) 100%);
+  --nav-bg:linear-gradient(180deg,rgba(244,247,252,.95),rgba(244,247,252,0));
+  --fg:#0b1730; --lead:#1d3158; --body-sec:#283e66; --fg-soft:#142647;
+  --mut:#3f567f; --dim:#4c648f;
+  --blue:#1d4ed8; --cyan:#005a8d; --violet:#5b21b6; --pink:#9d174d; --amber:#9a3412;
+  --grad-text:linear-gradient(95deg,#0044aa,#026aa7 45%,#5b21b6);
+  --line:rgba(15,42,96,.16);
+  --glass:linear-gradient(180deg,rgba(255,255,255,.90),rgba(242,247,255,.95));
+  --glass-shadow:0 16px 40px -20px rgba(15,35,75,.14),inset 0 1px 0 rgba(255,255,255,.95);
+  --card-hover-shadow:0 20px 44px -18px rgba(29,78,216,.22);
+  --surface-pill:rgba(255,255,255,.88);
+  --pill-border:rgba(0,90,141,.38);
+  --icb-bg:rgba(0,90,141,.08);
+  --icb-border:rgba(0,90,141,.30);
+  --role-bg:rgba(0,90,141,.06);
+  --role-border:rgba(0,90,141,.18);
+  --stage-bg:rgba(255,255,255,.90);
+  --footer-bg:rgba(236,242,251,.94);
+  --featured-bg:linear-gradient(165deg,rgba(254,243,199,.82),rgba(255,255,255,.96));
+  --step-watermark:rgba(15,42,96,.06);
+  --chip-on-fg:#ffffff;
+  --chip-on-bg:linear-gradient(135deg,#005a8d,#1d4ed8);
+  --avatar-fg:#ffffff;
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
 body{font-family:var(--font-sans);font-weight:300;color:var(--fg);line-height:1.6;overflow-x:hidden;
-  background:radial-gradient(1200px 700px at 78% 8%,rgba(47,123,255,.20),transparent 60%),radial-gradient(900px 600px at 10% 60%,rgba(138,92,255,.12),transparent 60%),var(--bg)}
+  background:var(--bg-grad);transition:background .35s ease,color .25s ease}
 a{color:inherit}
 #scene{position:fixed;inset:0;width:100%;height:100%;z-index:0;display:block}
-.veil{position:fixed;inset:0;z-index:1;pointer-events:none;background:linear-gradient(90deg,rgba(2,6,17,.62) 0,rgba(2,6,17,.12) 42%,transparent 65%),radial-gradient(ellipse at 50% 50%,transparent 55%,rgba(2,6,17,.55) 100%)}
+.veil{position:fixed;inset:0;z-index:1;pointer-events:none;background:var(--veil);transition:background .35s ease}
 main,footer{position:relative;z-index:2}
 .ic{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.4;stroke-linecap:round;stroke-linejoin:round;flex:none}
 
 /* nav */
-nav{position:fixed;top:0;left:0;right:0;z-index:20;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:16px;padding:18px clamp(18px,4vw,64px);background:linear-gradient(180deg,rgba(2,6,17,.88),rgba(2,6,17,0))}
-.logo{display:flex;align-items:center;gap:12px;text-decoration:none;font-family:var(--font-label);font-size:12px;font-weight:500;letter-spacing:.24em;text-transform:uppercase}
+nav{position:fixed;top:0;left:0;right:0;z-index:20;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:16px;padding:18px clamp(18px,4vw,64px);background:var(--nav-bg)}
+.logo{display:flex;align-items:center;gap:12px;text-decoration:none;font-family:var(--font-label);font-size:12px;font-weight:500;letter-spacing:.24em;text-transform:uppercase;color:var(--fg)}
 .logo svg{width:26px;height:26px}
 .links{display:flex;gap:6px;justify-self:center}
 .links a{font-size:13px;font-weight:400;text-decoration:none;color:var(--mut);padding:8px 14px;border-radius:999px;transition:.25s;white-space:nowrap}
 .links a:hover{color:var(--fg)}
-.links a.on{color:var(--fg);background:rgba(95,216,255,.10);box-shadow:inset 0 0 0 1px rgba(95,216,255,.28)}
-.navcta{justify-self:end}
-@media(max-width:900px){nav{grid-template-columns:1fr;justify-items:start}.links{overflow-x:auto;max-width:100%;justify-self:start;scrollbar-width:none}.navcta{display:none}}
+.links a.on{color:var(--fg);background:var(--role-bg);box-shadow:inset 0 0 0 1px var(--icb-border);font-weight:500}
+.nav-actions{display:flex;align-items:center;gap:10px;justify-self:end}
+.theme-btn{display:inline-flex;align-items:center;gap:8px;padding:9px 15px;border-radius:999px;font:500 12.5px var(--font-sans);color:var(--fg);background:var(--surface-pill);border:1px solid var(--pill-border);cursor:pointer;backdrop-filter:blur(10px);transition:.25s;letter-spacing:.02em}
+.theme-btn:hover{border-color:var(--cyan);transform:translateY(-1px);box-shadow:0 6px 20px -6px rgba(0,90,141,.35)}
+.theme-btn .ic{width:16px;height:16px;stroke-width:1.8;color:var(--cyan)}
+.theme-btn .icon-moon{display:none}
+html[data-theme="light"] .theme-btn .icon-sun{display:none}
+html[data-theme="light"] .theme-btn .icon-moon{display:block}
+@media(max-width:900px){nav{grid-template-columns:1fr auto;gap:10px}.links{grid-column:1 / -1;overflow-x:auto;max-width:100%;justify-self:start;scrollbar-width:none}.navcta{display:none}}
 
 /* stage indicator */
-.stage{position:fixed;left:50%;bottom:16px;transform:translateX(-50%);z-index:15;display:flex;align-items:center;gap:14px;font-family:var(--font-label);font-size:10.5px;letter-spacing:.3em;color:var(--dim);text-transform:uppercase;pointer-events:none;padding:9px 20px;border-radius:999px;background:rgba(2,6,17,.72);border:1px solid var(--line);backdrop-filter:blur(10px)}
+.stage{position:fixed;left:50%;bottom:16px;transform:translateX(-50%);z-index:15;display:flex;align-items:center;gap:14px;font-family:var(--font-label);font-size:10.5px;letter-spacing:.3em;color:var(--dim);text-transform:uppercase;pointer-events:none;padding:9px 20px;border-radius:999px;background:var(--stage-bg);border:1px solid var(--line);backdrop-filter:blur(10px);box-shadow:var(--glass-shadow)}
 .stage i{display:block;width:44px;height:1px;background:var(--line)}
-.stage b{font-weight:400;transition:.4s}
-.stage b.on{color:var(--cyan);text-shadow:0 0 14px rgba(95,216,255,.7)}
+.stage b{font-weight:500;transition:.4s}
+.stage b.on{color:var(--cyan)}
 @media(max-width:700px){.stage{display:none}}
 
 section{position:relative;padding:clamp(90px,13vh,150px) clamp(20px,7vw,120px);min-height:100vh;display:flex;flex-direction:column;justify-content:center}
 .wrap{max-width:1200px;width:100%;margin:0 auto}
-.kicker{font-family:var(--font-label);font-size:11.5px;font-weight:400;letter-spacing:.28em;text-transform:uppercase;color:var(--cyan);margin-bottom:18px;display:flex;align-items:center;gap:14px}
+.kicker{font-family:var(--font-label);font-size:11.5px;font-weight:500;letter-spacing:.28em;text-transform:uppercase;color:var(--cyan);margin-bottom:18px;display:flex;align-items:center;gap:14px}
 .kicker em{font-style:normal;color:var(--mut)}
-h1,h2{font-weight:300;letter-spacing:-.025em;line-height:1.04}
+h1,h2{font-weight:300;letter-spacing:-.025em;line-height:1.04;color:var(--fg)}
 h1{font-size:clamp(38px,5.3vw,78px);line-height:1.04}
 h1 .l1{display:block}
-h1 .l2{display:block;margin-top:.35em;font-size:.42em;font-weight:300;letter-spacing:.01em;color:var(--cyan)}
+h1 .l2{display:block;margin-top:.35em;font-size:.42em;font-weight:400;letter-spacing:.01em;color:var(--cyan)}
 h1 strong,h2 strong{font-weight:500}
 h2{font-size:clamp(34px,5.2vw,72px);margin-bottom:22px}
-h3{font-size:18px;font-weight:500;letter-spacing:-.005em;margin-bottom:6px}
+h3{font-size:18px;font-weight:500;letter-spacing:-.005em;margin-bottom:6px;color:var(--fg)}
 .arrow{display:inline-block;margin:0 .1em;color:var(--cyan)}
-.grad{background:linear-gradient(95deg,#7fd0ff,#c7e4ff 40%,#8a9cff);-webkit-background-clip:text;background-clip:text;color:transparent}
-p.lead{font-size:clamp(17px,1.6vw,21px);color:#c3d3f2;max-width:560px;font-weight:300}
-.hero-sub{color:#aebfdf;font-size:16px;max-width:490px;margin-top:16px;line-height:1.65}
-.sub{color:var(--mut);max-width:680px;margin-bottom:36px;font-size:17px}
+.grad{background:var(--grad-text);-webkit-background-clip:text;background-clip:text;color:transparent}
+p.lead{font-size:clamp(17px,1.6vw,21px);color:var(--lead);max-width:560px;font-weight:300}
+.sub{color:var(--mut);max-width:680px;margin-bottom:36px;font-size:17px;font-weight:400}
 
-.btn{display:inline-flex;align-items:center;gap:12px;padding:13px 24px;border-radius:999px;text-decoration:none;font-size:14px;font-weight:400;color:var(--fg);background:rgba(10,26,66,.45);border:1px solid rgba(95,216,255,.45);backdrop-filter:blur(10px);transition:.3s;box-shadow:0 0 0 0 rgba(95,216,255,0)}
-.btn:hover{border-color:var(--cyan);box-shadow:0 0 28px -4px rgba(95,216,255,.55);transform:translateY(-1px)}
-.btn.pri{background:linear-gradient(135deg,rgba(47,123,255,.9),rgba(138,92,255,.85));border-color:transparent}
+.btn{display:inline-flex;align-items:center;gap:12px;padding:13px 24px;border-radius:999px;text-decoration:none;font-size:14px;font-weight:500;color:var(--fg);background:var(--surface-pill);border:1px solid var(--pill-border);backdrop-filter:blur(10px);transition:.3s}
+.btn:hover{border-color:var(--cyan);box-shadow:var(--card-hover-shadow);transform:translateY(-1px)}
+.btn.pri{color:#ffffff;background:linear-gradient(135deg,#1d5eff,#6d28d9);border-color:transparent}
 .btns{display:flex;gap:12px;flex-wrap:wrap;margin-top:32px}
 
-.glass{background:var(--glass);border:1px solid var(--line);border-radius:16px;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);box-shadow:0 18px 50px -24px rgba(0,10,40,.9),inset 0 1px 0 rgba(160,210,255,.08)}
-.card{padding:22px;transition:.35s}
+.glass{background:var(--glass);border:1px solid var(--line);border-radius:16px;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);box-shadow:var(--glass-shadow)}
+.card{padding:22px;transition:transform .32s cubic-bezier(.22,1,.36,1),border-color .32s ease,box-shadow .32s ease,background .32s ease}
 .card.oli{overflow:hidden}
-.card:hover{border-color:rgba(95,216,255,.55);transform:translateY(-3px);box-shadow:0 18px 50px -20px rgba(47,123,255,.5)}
-.card p{color:#aebfdf;font-size:15px}
-.card ul{margin:10px 0 0 18px;color:#aebfdf;font-size:14.5px}
+.card h3{transition:color .28s ease}
+.card:hover{border-color:#2f7bff;transform:translateY(-4px);box-shadow:0 0 28px -2px rgba(47,123,255,.62),0 14px 34px -12px rgba(47,123,255,.45),inset 0 0 20px rgba(95,216,255,.22)}
+html[data-theme="light"] .card:hover{border-color:#2563eb;background:linear-gradient(180deg,rgba(239,246,255,.98),rgba(219,234,254,.95));box-shadow:0 0 26px -2px rgba(37,99,235,.48),0 14px 30px -10px rgba(29,78,216,.28),inset 0 0 16px rgba(59,130,246,.16)}
+.card:hover h3{color:var(--cyan)}
+html[data-theme="light"] .card:hover h3{color:#1d4ed8}
+.card p{color:var(--body-sec);font-size:15px;font-weight:400}
+.card ul{margin:10px 0 0 18px;color:var(--body-sec);font-size:14.5px;font-weight:400}
 .card li{margin-bottom:4px}
 .grid{display:grid;gap:16px}
 .g2{grid-template-columns:repeat(2,minmax(0,1fr))}
@@ -84,45 +141,51 @@ p.lead{font-size:clamp(17px,1.6vw,21px);color:#c3d3f2;max-width:560px;font-weigh
 .g4{grid-template-columns:repeat(4,minmax(0,1fr))}
 @media(max-width:980px){.g3,.g4{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:640px){.g2,.g3,.g4{grid-template-columns:1fr}}
-.tag{display:inline-block;font-family:var(--font-label);font-size:10.5px;font-weight:400;letter-spacing:.12em;text-transform:uppercase;padding:4px 10px;border-radius:999px;border:1px solid var(--line);color:var(--cyan);margin:0 6px 8px 0}
-.tag.warm{color:var(--amber)}
-.tag.pink{color:var(--pink)}
-.h4{font-family:var(--font-label);font-size:11.5px;letter-spacing:.26em;color:var(--mut);text-transform:uppercase;margin:28px 0 14px}
+.tag{display:inline-block;font-family:var(--font-label);font-size:10.5px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;padding:4px 10px;border-radius:999px;border:1px solid var(--line);color:var(--cyan);background:var(--role-bg);margin:0 6px 8px 0}
+.tag.warm{color:var(--amber);border-color:rgba(180,83,9,.28)}
+.tag.pink{color:var(--pink);border-color:rgba(190,24,93,.28)}
+.h4{font-family:var(--font-label);font-size:11.5px;font-weight:600;letter-spacing:.26em;color:var(--mut);text-transform:uppercase;margin:28px 0 14px}
 
 /* split bands (hero / transformación / inteligencia) */
 .split{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:40px;align-items:center}
 @media(max-width:900px){.split{grid-template-columns:1fr}}
 .side{display:grid;gap:12px;justify-self:end;width:min(100%,330px)}
-.side .blurb{color:#c3d3f2;font-size:15px;margin-bottom:6px}
+.side .blurb{color:var(--lead);font-size:15px;margin-bottom:6px;font-weight:400}
 .side ul{list-style:none;display:grid;gap:12px}
-.side li{display:flex;align-items:center;gap:14px;font-size:14.5px;color:#cfdcf5}
-.icb{display:grid;place-items:center;width:38px;height:38px;border-radius:50%;border:1px solid rgba(95,216,255,.35);color:var(--cyan);background:rgba(10,26,66,.5)}
-.pcard{display:flex;align-items:center;gap:16px;padding:16px 20px}
+.side li{display:flex;align-items:center;gap:14px;font-size:14.5px;color:var(--fg-soft);font-weight:400}
+.icb{display:grid;place-items:center;width:38px;height:38px;border-radius:50%;border:1px solid var(--icb-border);color:var(--cyan);background:var(--icb-bg);transition:.32s ease}
+.pcard{display:flex;align-items:center;gap:16px;padding:16px 20px;cursor:pointer;transition:transform .32s cubic-bezier(.22,1,.36,1),border-color .32s ease,box-shadow .32s ease,background .32s ease}
 .pcard .icb{width:44px;height:44px}
-.pcard b{display:block;font-weight:500;font-size:16px}
-.pcard span{font-size:13px;color:var(--mut)}
+.pcard b{display:block;font-weight:500;font-size:16px;color:var(--fg);transition:color .28s ease}
+.pcard span{font-size:13px;color:var(--mut);font-weight:400;transition:color .28s ease}
+.glass.pcard:hover{border-color:#2f7bff;transform:translateY(-3px) translateX(-3px);box-shadow:0 0 28px -2px rgba(47,123,255,.62),0 14px 34px -12px rgba(47,123,255,.45),inset 0 0 20px rgba(95,216,255,.22)}
+html[data-theme="light"] .glass.pcard:hover{border-color:#2563eb;background:linear-gradient(180deg,rgba(239,246,255,.98),rgba(219,234,254,.95));box-shadow:0 0 26px -2px rgba(37,99,235,.48),0 14px 30px -10px rgba(29,78,216,.28),inset 0 0 16px rgba(59,130,246,.16)}
+.pcard:hover .icb{background:var(--blue);color:#ffffff;border-color:var(--cyan);box-shadow:0 0 18px rgba(47,123,255,.75);transform:scale(1.06)}
+.pcard:hover b{color:var(--cyan)}
+html[data-theme="light"] .pcard:hover b{color:#1d4ed8}
 .panel{padding:22px 24px}
-.panel .kick{font-family:var(--font-label);font-size:10.5px;letter-spacing:.3em;color:var(--mut);text-transform:uppercase;text-align:center;padding-bottom:14px;border-bottom:1px solid var(--line);margin-bottom:6px}
-.panel .pcard{padding:14px 4px}
-.scrollhint{margin-top:48px;font-family:var(--font-label);font-size:10.5px;letter-spacing:.3em;color:var(--dim);display:flex;align-items:center;gap:12px;text-transform:uppercase}
+.panel .kick{font-family:var(--font-label);font-size:10.5px;font-weight:600;letter-spacing:.3em;color:var(--mut);text-transform:uppercase;text-align:center;padding-bottom:14px;border-bottom:1px solid var(--line);margin-bottom:6px}
+.panel .pcard{padding:12px 10px;border-radius:12px}
+.panel .pcard:hover{background:rgba(47,123,255,.12);box-shadow:inset 0 0 0 1px rgba(47,123,255,.38),0 0 20px -4px rgba(47,123,255,.4)}
+.scrollhint{margin-top:48px;font-family:var(--font-label);font-size:10.5px;font-weight:500;letter-spacing:.3em;color:var(--dim);display:flex;align-items:center;gap:12px;text-transform:uppercase}
 .scrollhint::before{content:"";width:1px;height:38px;background:linear-gradient(var(--cyan),transparent);animation:drip 2.2s infinite}
 @keyframes drip{0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}51%{transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
 
 /* identidad + cifras */
 .ident{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.6fr);gap:40px;align-items:center}
 @media(max-width:980px){.ident{grid-template-columns:1fr}}
-.ident h2{font-size:clamp(30px,3.6vw,46px);padding-left:20px;border-left:1px solid rgba(95,216,255,.6)}
-.ident p{color:#aebfdf;max-width:420px;padding-left:20px;font-size:15px}
+.ident h2{font-size:clamp(30px,3.6vw,46px);padding-left:20px;border-left:2px solid var(--cyan)}
+.ident p{color:var(--body-sec);max-width:420px;padding-left:20px;font-size:15px;font-weight:400}
 .nums{display:grid;grid-template-columns:repeat(5,minmax(0,1fr))}
 .nums div{padding:6px 18px;border-left:1px solid var(--line)}
-.nums b{display:block;font-size:clamp(28px,3.2vw,44px);font-weight:200;letter-spacing:-.02em;color:#dbeaff}
-.nums b.c{color:var(--cyan)}
-.nums span{font-size:13px;color:var(--mut);display:block;line-height:1.35}
+.nums b{display:block;font-size:clamp(28px,3.2vw,44px);font-weight:300;letter-spacing:-.02em;color:var(--fg)}
+.nums b.c{color:var(--cyan);font-weight:400}
+.nums span{font-size:13px;color:var(--mut);display:block;line-height:1.35;font-weight:400}
 @media(max-width:900px){.nums{grid-template-columns:repeat(2,1fr);gap:18px 0}}
 .who{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:18px;margin-top:56px;padding-top:28px;border-top:1px solid var(--line)}
 .who .me{display:flex;align-items:center;gap:16px}
-.avatar{width:54px;height:54px;border-radius:50%;display:grid;place-items:center;font-weight:500;font-size:16px;letter-spacing:.06em;color:#021024;background:linear-gradient(135deg,var(--cyan),var(--violet))}
-.who small{display:block;color:var(--mut);font-size:13px}
+.avatar{width:54px;height:54px;border-radius:50%;display:grid;place-items:center;font-weight:600;font-size:16px;letter-spacing:.06em;color:var(--avatar-fg);background:linear-gradient(135deg,var(--cyan),var(--violet))}
+.who small{display:block;color:var(--mut);font-size:13px;font-weight:400}
 
 /* timeline */
 .cols{display:grid;grid-template-columns:1.35fr 1fr;gap:40px}
@@ -130,55 +193,68 @@ p.lead{font-size:clamp(17px,1.6vw,21px);color:#c3d3f2;max-width:560px;font-weigh
 .tl{position:relative;padding-left:30px}
 .tl::before{content:"";position:absolute;left:6px;top:6px;bottom:6px;width:1px;background:linear-gradient(var(--cyan),var(--violet),transparent)}
 .tl .it{position:relative;padding:0 0 24px}
-.tl .it::before{content:"";position:absolute;left:-30px;top:8px;width:13px;height:13px;border-radius:50%;background:var(--bg);border:1px solid var(--cyan);box-shadow:0 0 14px rgba(95,216,255,.8)}
-.tl time{font-family:var(--font-label);font-size:11.5px;color:var(--cyan);letter-spacing:.18em}
+.tl .it::before{content:"";position:absolute;left:-30px;top:8px;width:13px;height:13px;border-radius:50%;background:var(--bg);border:2px solid var(--cyan);box-shadow:0 0 12px rgba(0,90,141,.45)}
+.tl time{font-family:var(--font-label);font-size:11.5px;font-weight:600;color:var(--cyan);letter-spacing:.18em}
 .tl h3{margin:3px 0 4px}
-.tl p{color:#aebfdf;font-size:15px;max-width:760px}
+.tl p{color:var(--body-sec);font-size:15px;max-width:760px;font-weight:400}
 .mini{display:grid;gap:10px}
 .mini .row{padding:14px 18px}
-.mini .row b{display:block;font-size:15px;font-weight:500}
-.mini .row span{font-size:13px;color:var(--mut)}
+.mini .row b{display:block;font-size:15px;font-weight:500;color:var(--fg)}
+.mini .row span{font-size:13px;color:var(--mut);font-weight:400}
 
 /* labs */
 .lab{position:relative;overflow:hidden}
-.lab::after{content:"";position:absolute;right:-70px;top:-70px;width:200px;height:200px;border-radius:50%;filter:blur(56px);opacity:.4;pointer-events:none}
+.lab::after{content:"";position:absolute;right:-70px;top:-70px;width:200px;height:200px;border-radius:50%;filter:blur(56px);opacity:.25;pointer-events:none}
 .lab.ia::after{background:var(--blue)}
 .lab.xr::after{background:var(--violet)}
 .lab h3{font-size:26px;font-weight:400}
 .roles{counter-reset:r;display:grid;gap:8px;margin-top:12px;list-style:none}
-.roles li{counter-increment:r;padding:10px 12px 10px 44px;border-radius:12px;background:rgba(95,216,255,.06);border:1px solid rgba(95,216,255,.10);position:relative;font-size:14px;color:#cfdcf5}
-.roles li::before{content:counter(r);position:absolute;left:14px;top:9px;color:var(--cyan);font-size:13px}
+.roles li{counter-increment:r;padding:10px 12px 10px 44px;border-radius:12px;background:var(--role-bg);border:1px solid var(--role-border);position:relative;font-size:14px;color:var(--fg-soft);font-weight:400}
+.roles li::before{content:counter(r);position:absolute;left:14px;top:9px;color:var(--cyan);font-size:13px;font-weight:600}
 
 /* proyectos */
 .chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:22px}
-.chip{font:400 13px var(--font-sans);color:var(--mut);background:rgba(10,26,66,.45);border:1px solid var(--line);padding:8px 16px;border-radius:999px;cursor:pointer;transition:.25s;backdrop-filter:blur(8px)}
+.chip{font:500 13px var(--font-sans);color:var(--mut);background:var(--surface-pill);border:1px solid var(--line);padding:8px 16px;border-radius:999px;cursor:pointer;transition:.25s;backdrop-filter:blur(8px)}
 .chip:hover{color:var(--fg);border-color:var(--cyan)}
-.chip.on{color:#021024;background:linear-gradient(135deg,var(--cyan),#8fb4ff);border-color:transparent;font-weight:500}
-.chip small{opacity:.7;margin-left:6px}
+.chip.on{color:var(--chip-on-fg);background:var(--chip-on-bg);border-color:transparent;font-weight:600}
+.chip small{opacity:.8;margin-left:6px}
 
-.cover{position:relative;height:138px;margin:-22px -22px 16px;border-radius:16px 16px 0 0;overflow:hidden;
+.cover{position:relative;height:162px;margin:-22px -22px 16px;border-radius:16px 16px 0 0;overflow:hidden;
   background:radial-gradient(150px 90px at 72% 28%,hsla(var(--h),95%,60%,.5),transparent 72%),radial-gradient(120px 80px at 15% 90%,hsla(calc(var(--h) + 40),90%,55%,.28),transparent 70%),linear-gradient(135deg,hsl(var(--h),62%,17%),hsl(calc(var(--h) + 28),58%,6%))}
 .cover::before{content:"";position:absolute;inset:0;background-image:radial-gradient(rgba(190,225,255,.5) 1px,transparent 1.3px);background-size:15px 15px;opacity:.16;mask-image:linear-gradient(180deg,#000,transparent 90%);-webkit-mask-image:linear-gradient(180deg,#000,transparent 90%)}
-.cover::after{content:"";position:absolute;inset:auto 0 0 0;height:50%;background:linear-gradient(180deg,transparent,rgba(5,12,34,.65))}
+.cover::after{content:"";position:absolute;inset:auto 0 0 0;height:36%;z-index:3;pointer-events:none;background:linear-gradient(180deg,transparent,rgba(5,12,34,.55))}
 .cover .mo{position:absolute;left:50%;top:14px;transform:translateX(-50%);height:calc(100% - 28px);z-index:1;fill:none;stroke:hsl(var(--h),100%,82%);stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;filter:drop-shadow(0 0 7px hsla(var(--h),100%,65%,.95));transition:.5s}
 .card:hover .cover .mo{transform:translateX(-50%) scale(1.07)}
-.cover img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:2}
-.proj{overflow:hidden}
-.proj{display:flex;flex-direction:column;text-decoration:none}
+.cover img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:2;transition:transform .55s cubic-bezier(.22,1,.36,1),filter .4s}
+.card:hover .cover img{transform:scale(1.05);filter:brightness(1.08)}
+.proj{overflow:hidden;display:flex;flex-direction:column;text-decoration:none}
 .proj p{margin-bottom:4px}
-.proj .tag{align-self:flex-start}
-.proj .go{margin-top:auto;padding-top:12px;font-family:var(--font-label);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--cyan)}
+.proj .tag{align-self:flex-start;transition:background .28s ease,color .28s ease,border-color .28s ease,box-shadow .28s ease}
+.proj:hover .tag{background:var(--blue);color:#ffffff;border-color:var(--cyan);box-shadow:0 0 14px rgba(47,123,255,.65)}
+.proj .go{margin-top:auto;padding-top:12px;font-family:var(--font-label);font-size:11px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--cyan);transition:color .28s ease,transform .28s ease}
+.proj:hover .go{color:#5fd8ff;transform:translateX(4px)}
+html[data-theme="light"] .proj:hover .go{color:#1d4ed8}
 
-/* comunidad */
+/* comunidad · módulos */
+.mod-route{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;margin-bottom:18px}
+@media(max-width:980px){.mod-route{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:640px){.mod-route{grid-template-columns:1fr}}
+.mod-card{position:relative;display:flex;flex-direction:column;justify-content:space-between;padding:24px;overflow:hidden;border-top:2px solid var(--cyan)}
+.mod-card::before{content:attr(data-step);position:absolute;right:18px;bottom:8px;font-size:54px;font-weight:600;line-height:1;color:var(--step-watermark);pointer-events:none;font-family:var(--font-label)}
+.mod-card.featured{border-top-color:var(--amber);background:var(--featured-bg)}
+.mod-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:14px}
+.mod-head .tag{margin:0}
+.mod-foot{margin-top:16px;padding-top:12px;border-top:1px solid var(--line);font-family:var(--font-label);font-size:11px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--cyan);display:flex;align-items:center;justify-content:space-between}
+.mod-card.featured .mod-foot{color:var(--amber)}
 .cal{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px;margin-top:10px}
 @media(max-width:900px){.cal{grid-template-columns:repeat(2,1fr)}}
 .cal div{padding:16px;text-align:center}
-.cal b{display:block;font-size:30px;font-weight:200;color:var(--amber)}
-.cal span{font-size:12.5px;color:var(--mut)}
+.cal b{display:block;font-size:30px;font-weight:400;color:var(--amber)}
+.cal span{font-size:12.5px;color:var(--mut);font-weight:400}
 
-footer{padding:44px clamp(20px,7vw,120px) 80px;border-top:1px solid var(--line);background:rgba(2,6,17,.82);backdrop-filter:blur(8px);font-size:14px;color:var(--mut)}
+footer{padding:44px clamp(20px,7vw,120px) 80px;border-top:1px solid var(--line);background:var(--footer-bg);backdrop-filter:blur(8px);font-size:14px;color:var(--mut);font-weight:400}
 footer .row{max-width:1200px;margin:0 auto;display:flex;flex-wrap:wrap;gap:16px 36px;justify-content:space-between}
-footer a{color:var(--fg);text-decoration:none;margin-right:18px}
+footer a{color:var(--fg);text-decoration:none;margin-right:18px;font-weight:500}
 footer a:hover{color:var(--cyan)}
 
 .rv{opacity:0;transform:translateY(26px);transition:opacity .9s ease,transform .9s ease}
@@ -208,7 +284,7 @@ footer a:hover{color:var(--cyan)}
 
 <nav aria-label="Principal">
   <a class="logo" href="#inicio" aria-label="Inicio">
-    <svg viewBox="0 0 26 26" fill="none" stroke="#5fd8ff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 3v15a3 3 0 003 3h13"/><path d="M11 3l8 10" stroke="#8a5cff"/></svg>
+    <svg viewBox="0 0 26 26" fill="none" stroke="var(--cyan)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 3v15a3 3 0 003 3h13"/><path d="M11 3l8 10" stroke="var(--violet)"/></svg>
     <span>Leonardo Ordóñez</span>
   </a>
   <div class="links">
@@ -219,7 +295,14 @@ footer a:hover{color:var(--cyan)}
     <a href="#comunidad" data-nav="comunidad">Comunidad</a>
     <a href="#contacto" data-nav="contacto">Contacto</a>
   </div>
-  <a class="btn navcta" href="#contacto">Conectar</a>
+  <div class="nav-actions">
+    <button class="theme-btn" id="themeToggle" type="button" aria-label="Cambiar a tema claro" title="Cambiar entre tema claro y oscuro">
+      <svg class="ic icon-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+      <svg class="ic icon-moon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+      <span id="themeLabel">Tema claro</span>
+    </button>
+    <a class="btn navcta" href="#contacto">Conectar</a>
+  </div>
 </nav>
 
 <div class="stage" aria-hidden="true"><b id="st0" class="on">ADN</b><i></i><b id="st1">Energía</b><i></i><b id="st2">Inteligencia</b></div>
@@ -231,8 +314,7 @@ footer a:hover{color:var(--cyan)}
     <div>
       <div class="kicker">Forward Deployed Engineer (FDE)</div>
       <h1><span class="l1">Sistemas <strong class="grad">auto-optimizados</strong></span><span class="l2">agentes de mejora continua</span></h1>
-      <p class="lead" style="margin-top:26px">Del conocimiento en tu ADN, a la inteligencia que transforma realidades.</p>
-      <p class="hero-sub">“Transformo problemas complejos de negocio en sistemas de inteligencia artificial que funcionan en el mundo real.” Diseño arquitecturas de IA, despliego agentes inteligentes y rediseño procesos y roles empresariales. Se trata de rediseñar cómo trabaja la organización.</p>
+      <p class="lead" style="margin-top:26px">El ADN es el método: especificar, gobernar, repetir. La neurona es el sistema que aprende y opera en producción. Soy <strong style="font-weight:500">Leonardo Ordóñez Lozano</strong>: llevo la IA del problema ambiguo a tu operación real.</p>
       <div class="btns"><a class="btn" href="#hv">Explorar mi perfil <svg class="ic"><use href="#i-arrow"/></svg></a></div>
       <div class="scrollhint">Desliza · la hélice se convierte en red</div>
     </div>
@@ -399,7 +481,7 @@ footer a:hover{color:var(--cyan)}
 <section id="productos" data-scene="productos" data-nav="productos" data-mix="2">
   <div class="wrap">
     <div class="kicker rv"><span>06</span><em>Proyectos</em></div>
-    <h2 class="rv">23 sistemas, <strong class="grad">todos en producción</strong></h2>
+    <h2 class="rv">36 sistemas, <strong class="grad">todos en producción</strong></h2>
     <p class="sub rv">Plataformas, aplicaciones interactivas y metodologías. Filtra por categoría y abre cada proyecto en vivo.</p>
     <div class="chips rv" id="chips" role="tablist" aria-label="Categorías de proyectos"></div>
     <div class="grid g3" id="projGrid"></div>
@@ -411,18 +493,60 @@ footer a:hover{color:var(--cyan)}
 <!-- COMUNIDAD -->
 <section id="comunidad" data-scene="comunidad" data-nav="comunidad" data-mix="2">
   <div class="wrap">
-    <div class="kicker rv"><span>07</span><em>Comunidad</em></div>
+    <div class="kicker rv"><span>07</span><em>Comunidad · Ruta de Aprendizaje</em></div>
     <h2 class="rv">Aprende a implementar IA <strong class="grad">gobernada</strong>, en comunidad</h2>
-    <p class="sub rv">Para consultores y educadores de habla hispana. Metodología abierta (SDD y ODD), proyectos en público y conversación sobre lo que significa ser Forward Deployed Engineer.</p>
-    <div class="grid g3">
-      <div class="card glass rv"><span class="tag">Pilar 1</span><h3>FDE y carrera</h3><p>Descubrir el problema del cliente y pasar de programar a ingeniería de producto.</p></div>
-      <div class="card glass rv"><span class="tag">Pilar 2</span><h3>Metodología</h3><p>SDD vs ODD, specs como contrato y el fin del vibe coding.</p></div>
-      <div class="card glass rv"><span class="tag">Pilar 3</span><h3>Gobernanza y harness</h3><p>Guardrails, hooks, memoria, revisión con varios LLM y post mortem.</p></div>
-      <div class="card glass rv"><span class="tag">Pilar 4</span><h3>Proyectos en público</h3><p>El agente de diagnóstico, el gemelo en el móvil y el lab XR paso a paso.</p></div>
-      <div class="card glass rv"><span class="tag">Pilar 5</span><h3>Mentalidad</h3><p>PROPENSAR aplicado a la adopción de IA y carga cognitiva humana.</p></div>
-      <div class="card glass rv"><span class="tag warm">Empieza aquí</span><h3>Recurso gratis</h3><p>Checklist de diagnóstico de IA para empresas y plantilla de spec para clonar.</p></div>
+    <p class="sub rv">Para consultores y educadores de habla hispana. Seis módulos progresivos con metodología abierta (SDD y ODD), proyectos en público y práctica real como Forward Deployed Engineer.</p>
+    <div class="mod-route">
+      <article class="card glass mod-card rv" data-step="01">
+        <div>
+          <div class="mod-head"><span class="tag">Módulo 1</span><span class="icb"><svg class="ic"><use href="#i-bulb"/></svg></span></div>
+          <h3>Mentalidad y PROPENSAR</h3>
+          <p>Modelos mentales aplicados a la adopción de IA, gestión de la carga cognitiva humana y liderazgo del cambio organizacional.</p>
+        </div>
+        <div class="mod-foot"><span>Fundamento cognitivo</span><span>01 / 06</span></div>
+      </article>
+      <article class="card glass mod-card rv" data-step="02">
+        <div>
+          <div class="mod-head"><span class="tag">Módulo 2</span><span class="icb"><svg class="ic"><use href="#i-person"/></svg></span></div>
+          <h3>FDE y carrera</h3>
+          <p>Inmersión en la operación real: descubrir el problema del cliente y pasar de programar a ingeniería de producto y resultados.</p>
+        </div>
+        <div class="mod-foot"><span>Despliegue en terreno</span><span>02 / 06</span></div>
+      </article>
+      <article class="card glass mod-card rv" data-step="03">
+        <div>
+          <div class="mod-head"><span class="tag">Módulo 3</span><span class="icb"><svg class="ic"><use href="#i-cycle"/></svg></span></div>
+          <h3>Metodología SDD y ODD</h3>
+          <p>Spec-Driven vs Organic-Driven Development, especificaciones como contrato ejecutable y el fin definitivo del vibe coding.</p>
+        </div>
+        <div class="mod-foot"><span>Ingeniería determinista</span><span>03 / 06</span></div>
+      </article>
+      <article class="card glass mod-card rv" data-step="04">
+        <div>
+          <div class="mod-head"><span class="tag">Módulo 4</span><span class="icb"><svg class="ic"><use href="#i-shield"/></svg></span></div>
+          <h3>Gobernanza y harness</h3>
+          <p>Guardrails, hooks, memoria, revisión cruzada con varios LLM, trazabilidad normativa (ISO 42001 / Ley 1581) y post mortem.</p>
+        </div>
+        <div class="mod-foot"><span>Control y auditoría</span><span>04 / 06</span></div>
+      </article>
+      <article class="card glass mod-card rv" data-step="05">
+        <div>
+          <div class="mod-head"><span class="tag">Módulo 5</span><span class="icb"><svg class="ic"><use href="#i-agents"/></svg></span></div>
+          <h3>Proyectos en público</h3>
+          <p>Construcción abierta paso a paso: el agente de diagnóstico empresarial, el gemelo offline en el móvil y el laboratorio XR.</p>
+        </div>
+        <div class="mod-foot"><span>Build in public</span><span>05 / 06</span></div>
+      </article>
+      <article class="card glass mod-card featured rv" data-step="06">
+        <div>
+          <div class="mod-head"><span class="tag warm">Módulo 6 · Empieza aquí</span><span class="icb" style="border-color:rgba(255,177,95,.45);color:var(--amber)"><svg class="ic"><use href="#i-check"/></svg></span></div>
+          <h3>Kit de inicio y recurso gratis</h3>
+          <p>Checklist ejecutivo de diagnóstico de IA para empresas y plantilla base de especificación (SDD) lista para clonar.</p>
+        </div>
+        <div class="mod-foot"><span>Acceso abierto</span><span>Kit práctico →</span></div>
+      </article>
     </div>
-    <div class="h4">Cadencia</div>
+    <div class="h4" style="margin-top:36px">Cadencia de los módulos en vivo</div>
     <div class="cal rv">
       <div class="glass"><b>3</b><span>posts por semana en LinkedIn</span></div>
       <div class="glass"><b>1</b><span>artículo o tutorial semanal</span></div>
@@ -432,8 +556,9 @@ footer a:hover{color:var(--cyan)}
     </div>
     <div class="btns">
       <a class="btn pri" href="https://wa.me/573017541994?text=Hola%20Leonardo%2C%20quiero%20unirme%20a%20la%20comunidad%20de%20IA%20y%20FDE" target="_blank" rel="noopener">Unirme por WhatsApp</a>
-      <a class="btn" href="https://linkedin.com/in/leonardo-ordo%C3%B1ez-lozano" target="_blank" rel="noopener">Seguir en LinkedIn</a>
-      <a class="btn" href="https://youtube.com/@edentialabs" target="_blank" rel="noopener">Canal de YouTube</a>
+      <a class="btn" href="https://www.linkedin.com/in/leonardoordonezlozano/" target="_blank" rel="noopener">Seguir en LinkedIn</a>
+      <a class="btn" href="https://www.youtube.com/@lordonezvirtual/videos" target="_blank" rel="noopener">Canal de YouTube</a>
+      <a class="btn" href="https://edentiav.com.co/leo/002.html" target="_blank" rel="noopener">Linktree</a>
     </div>
   </div>
 </section>
@@ -447,6 +572,7 @@ footer a:hover{color:var(--cyan)}
     <div class="btns rv">
       <a class="btn pri" href="mailto:leonzoro@gmail.com">leonzoro@gmail.com</a>
       <a class="btn" href="https://wa.me/573017541994" target="_blank" rel="noopener">WhatsApp</a>
+      <a class="btn" href="https://edentiav.com.co/leo/002.html" target="_blank" rel="noopener">Linktree · Redes</a>
     </div>
   </div>
 </section>
@@ -456,9 +582,10 @@ footer a:hover{color:var(--cyan)}
   <div class="row">
     <div>© 2026 Leonardo Ordóñez Lozano · Bogotá · Popayán · Barranquilla, Colombia</div>
     <div>
-      <a href="https://linkedin.com/in/leonardo-ordo%C3%B1ez-lozano" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="https://edentiav.com.co/leo/002.html" target="_blank" rel="noopener">Linktree</a>
+      <a href="https://www.linkedin.com/in/leonardoordonezlozano/" target="_blank" rel="noopener">LinkedIn</a>
       <a href="https://x.com/lordonezvirtual" target="_blank" rel="noopener">X</a>
-      <a href="https://youtube.com/@edentialabs" target="_blank" rel="noopener">YouTube</a>
+      <a href="https://www.youtube.com/@lordonezvirtual/videos" target="_blank" rel="noopener">YouTube</a>
       <a href="https://edentiav.com.co" target="_blank" rel="noopener">Edentia</a>
     </div>
   </div>
@@ -493,32 +620,45 @@ var cio = new IntersectionObserver(function(es){
 document.querySelectorAll('[data-n]').forEach(function(el){ cio.observe(el); });
 
 /* ---------- Proyectos ---------- */
-var AP='https://leocv.vercel.app/aplica/';
+var AP='aplica/';
 var CATS={all:'Todos',gov:'GovTech y finanzas',agentes:'Agentes y plataformas',consultoria:'Consultoría y método',plateada:'Economía plateada y XR',formacion:'Formación y libros'};
 var PROJ=[
-['gov','GovTech · Hacienda','SIGIG-MIAC','Inteligencia tributaria multiagente para 8 impuestos de Cundinamarca (Ley 1581, ISO 42001).','https://sigig-miac-delta.vercel.app/'],
-['gov','Fintech · 1.er lugar','AntiCoomeva AI','Banca conversacional con voz afectiva Zero-UI para economía plateada.','https://anticoomevaai.vercel.app/dashboard'],
-['gov','Simulador','Simulador de adopción IA BICE','ROI, ahorro de horas y curva de absorción de agentes en banca, con Montecarlo.','https://simulador-ia-bice.vercel.app/'],
-['gov','Sector público','DTI Pereira y Risaralda','Destino turístico inteligente: agentes de orientación, afluencia y rutas patrimoniales.','https://secturismo.vercel.app/'],
-['agentes','Retail','OFRE Retail','Surtido y precios con agentes, SDD y arneses de prueba deterministas.','https://ofre-git-main-leonardos-projects-1487c1e5.vercel.app/'],
-['agentes','MCP','AgentOS 02','Centro de comando para flotas de agentes: MCP, RAG y observabilidad.','https://agentos02.vercel.app/'],
-['agentes','PWA','FDE Studio','Modela specs (SDD), prueba contratos MCP y orquesta flujos de agentes.',AP+'fde_studio_progressive_web_app.html'],
-['agentes','Ciencia','Sistema de investigación científica IA','Síntesis de literatura, bibliometría y apoyo a hipótesis de I+D.','https://sistema-investigacion-ia-edentia.vercel.app/'],
-['consultoria','Diagnóstico','Madura.IA','Madurez organizacional en IA en 5 dimensiones, con roadmap ejecutivo.','https://edentiav.com.co/madurezia/001.html'],
-['consultoria','Valor económico','McKinsey + Edentia','Estimador de captura de valor de IA por dominio funcional.','https://mckinsey-edentia.vercel.app/'],
-['consultoria','Estrategia','Diseño empresarial con IA','Canvas dinámico, propuestas de valor y roles aumentados.','https://diseempresarial.vercel.app/'],
-['consultoria','PWA · Metodología','AI Design Sprint FDE','Sprint de 5 etapas para diseñar agentes: del problema de negocio a producción.',AP+'ai_design_sprint_fde_enterprise_suite_pwa.html'],
-['consultoria','Guía','Metodologías de adopción e industrialización','De la PoC al sistema industrial: ágil, CRISP-DM, IBM y harness testing.',AP+'metodolog_as_de_adopci_n_e_industrializaci_n_de_ia.html'],
-['consultoria','Infografía','Marco metodológico de IA corporativa','Capas, roles, ciclos de retroalimentación y gobernanza en un tablero.',AP+'infograf_a_marco_metodol_gico_de_ia_corporativa.html'],
-['consultoria','Infografía','Transición de IA en América Latina','Soberanía, brecha de habilidades, cómputo y políticas públicas.',AP+'infograf_a_ejecutiva_transici_n_ia_am_rica_latina.html'],
-['consultoria','PWA · Economía','Acemoglu AI Economics','Simulador de automatización vs aumentación laboral.',AP+'acemoglu_ai_economics_strategy_pwa.html'],
-['plateada','Framework','Metodología Silver IA','Sistemas de IA para personas mayores: salud predictiva, autonomía y compañía.',AP+'metodolog_a_silver_ia.html'],
-['plateada','Consultiva','Silver Economy AI Advisory','Oportunidades de mercado B2C, B2G y B2B2C en economía plateada.',AP+'silver_economy_ai_advisory_ecosystem.html'],
-['plateada','Reporte','Silver Economy IA Interactive Report','Demografía, gasto del consumidor senior y casos de telecuidado.',AP+'silver_economy_ia_interactive_report.html'],
-['plateada','XR','SilverXR Community Blueprint','Plano de espacios comunitarios inmersivos para la tercera edad.',AP+'silverxr_community_blueprint%20%283%29.html'],
-['plateada','XR · HCI','XR y Nueva Longevidad','Interfaces inmersivas: Ley de Fitts, contraste y comandos por voz.',AP+'xr_y_nueva_longevidad%20%281%29.html'],
-['formacion','LMS','Academia Virtual Edentia','Campus en IA aplicada, XR y metodología FDE.','https://academia-edentiav.vercel.app/'],
-['formacion','Editorial','Biblioteca digital y catálogo','17+ libros: Neurohack Revolution, Cuentos Cuánticos y SmartCities.','https://edentiav.com/libros/index.html']
+['gov','GovTech · Hacienda','SIGIG-MIAC','Inteligencia tributaria multiagente para 8 impuestos de Cundinamarca (Ley 1581, ISO 42001).','https://sigig-miac-delta.vercel.app/','bank'],
+['gov','GovTech · Auditoría IA','VIGÍA-IA · SECOP y DIAN','Detección de patrones de riesgo, cruce de datos tributarios y auditoría forense sobre contratación pública.',AP+'plataforma_de_detecci_n_de_patrones_secop_y_dian.html','magnify'],
+['gov','Fintech · 1.er lugar','AntiCoomeva AI','Banca conversacional con voz afectiva Zero-UI para economía plateada.','https://anticoomevaai.vercel.app/dashboard','voice'],
+['gov','Simulador','Simulador de adopción IA BICE','ROI, ahorro de horas y curva de absorción de agentes en banca, con Montecarlo.','https://simulador-ia-bice.vercel.app/','chart'],
+['gov','Sector público','DTI Pereira y Risaralda','Destino turístico inteligente: agentes de orientación, afluencia y rutas patrimoniales.','https://secturismo.vercel.app/','map'],
+['agentes','Retail','OFRE Retail','Surtido y precios con agentes, SDD y arneses de prueba deterministas.','https://ofre-git-main-leonardos-projects-1487c1e5.vercel.app/','cart'],
+['agentes','MCP','AgentOS 02','Centro de comando para flotas de agentes: MCP, RAG y observabilidad.','https://agentos02.vercel.app/','hub'],
+['agentes','PWA','FDE Studio','Modela specs (SDD), prueba contratos MCP y orquesta flujos de agentes.',AP+'fde_studio_progressive_web_app.html','code'],
+['agentes','PWA · Gobernanza','AI Agent Governance','Dashboard ejecutivo de observabilidad, trazabilidad, políticas de control y auditoría de agentes en producción.',AP+'ai_agent_governance_pwa.html','shield'],
+['agentes','PWA · Harness²','Harness² Edentia Enterprise','Gobernanza de IA, guardrails dinámicos, evaluación multi-LLM y bancos de pruebas deterministas para agentes autónomos.',AP+'harness_executive_pwa.html','dash'],
+['agentes','Arquitectura Agéntica','La Era del Software Agéntico','Los 8 arquetipos de sistemas agénticos de alto valor que reemplazan al SaaS genérico tradicional.',AP+'landing_page_progresiva_la_era_del_software_ag_ntico.html','hub'],
+['agentes','Blueprint · 8 Capas','Blueprint AI-Ready Olímpica','Arquitectura empresarial objetivo en 8 capas para adopción e integración de agentes sobre sistemas core.',AP+'D-E1_Blueprint_AI-Ready_Arquitectura.html','layers'],
+['agentes','Arquitectura · Sistemas','System Design Architect','Caso de estudio interactivo de diseño de sistemas distribuidos, escalabilidad y arquitecturas de IA.',AP+'system_design_architect.html','code'],
+['agentes','Ciencia','Sistema de investigación científica IA','Síntesis de literatura, bibliometría y apoyo a hipótesis de I+D.','https://sistema-investigacion-ia-edentia.vercel.app/','flask'],
+['consultoria','Diagnóstico','Madura.IA','Madurez organizacional en IA en 5 dimensiones, con roadmap ejecutivo.','https://edentiav.com.co/madurezia/001.html','radar'],
+['consultoria','Valor económico','McKinsey + Edentia','Estimador de captura de valor de IA por dominio funcional.','https://mckinsey-edentia.vercel.app/','bars'],
+['consultoria','Estrategia','Diseño empresarial con IA','Canvas dinámico, propuestas de valor y roles aumentados.','https://diseempresarial.vercel.app/','canvas'],
+['consultoria','PWA · Metodología','AI Design Sprint FDE','Sprint de 5 etapas para diseñar agentes: del problema de negocio a producción.',AP+'ai_design_sprint_fde_enterprise_suite_pwa.html','sprint'],
+['consultoria','Metodología · SDD vs ODD','ODD vs SDD: Gobernanza de IA','El fin del vibe coding: comparativa práctica entre Spec-Driven Development y Organic-Driven Development.',AP+'landing_page_odd_vs_sdd_edentia_leonardo.html','scale'],
+['consultoria','Ciclo Operativo','Ciclo de IA Empresarial','Mapa interactivo del ciclo completo de implementación, adopción, gobierno y escalamiento de IA en la empresa.',AP+'Ciclo%20de%20IA%20Empresarial.html','sprint'],
+['consultoria','Executive OS','AI-Native Executive OS','Sistema operativo de rentabilidad, diseño organizacional AI-Native y consultoría estratégica para alta dirección.',AP+'ai_native_executive_os%20%281%29.html','bars'],
+['consultoria','PWA · Sistemas OS','Top 1% Systems OS (15 Marcos)','PWA interactiva con 15 sistemas de organización ejecutiva, gestión cognitiva y productividad aumentada con IA.',AP+'15_sistemas_de_organizaci_n_pwa_interactiva.html','canvas'],
+['consultoria','Informe 2026','IA en la Ingeniería Industrial','El núcleo operativo de la IA aplicada a manufactura, costos, calidad, cadena de suministro y procesos.',AP+'plataforma_informe_ia_industrial_2026.html','chart'],
+['consultoria','Guía','Metodologías de adopción e industrialización','De la PoC al sistema industrial: ágil, CRISP-DM, IBM y harness testing.',AP+'metodolog_as_de_adopci_n_e_industrializaci_n_de_ia.html','stairs'],
+['consultoria','Infografía','Marco metodológico de IA corporativa','Capas, roles, ciclos de retroalimentación y gobernanza en un tablero.',AP+'infograf_a_marco_metodol_gico_de_ia_corporativa.html','layers'],
+['consultoria','Infografía','Transición de IA en América Latina','Soberanía, brecha de habilidades, cómputo y políticas públicas.',AP+'infograf_a_ejecutiva_transici_n_ia_am_rica_latina.html','globe'],
+['consultoria','PWA · Economía','Acemoglu AI Economics','Simulador de automatización vs aumentación laboral.',AP+'acemoglu_ai_economics_strategy_pwa.html','scale'],
+['plateada','Framework','Metodología Silver IA','Sistemas de IA para personas mayores: salud predictiva, autonomía y compañía.',AP+'metodolog_a_silver_ia.html','heart'],
+['plateada','Consultiva','Silver Economy AI Advisory','Oportunidades de mercado B2C, B2G y B2B2C en economía plateada.',AP+'silver_economy_ai_advisory_ecosystem.html','compass'],
+['plateada','Reporte','Silver Economy IA Interactive Report','Demografía, gasto del consumidor senior y casos de telecuidado.',AP+'silver_economy_ia_interactive_report.html','pie'],
+['plateada','XR','SilverXR Community Blueprint','Plano de espacios comunitarios inmersivos para la tercera edad.',AP+'silverxr_community_blueprint%20%283%29.html','headset'],
+['plateada','XR · HCI','XR y Nueva Longevidad','Interfaces inmersivas: Ley de Fitts, contraste y comandos por voz.',AP+'xr_y_nueva_longevidad%20%281%29.html','eye'],
+['formacion','Ingeniería de Software','Evolución del Software en la Era IA','De la programación tradicional a SDD, Augmented Coding, AI Pair Programming y flotas de agentes autónomos.',AP+'evoluci_n_del_desarrollo_de_software_la_era_de_la_ia%20%281%29.html','stairs'],
+['formacion','Modelos Mentales','Metacognición y Replanteamiento','Aplicación interactiva de pensamiento crítico, desaprender y actualización de creencias basada en Adam Grant.',AP+'metacognici_n_en_pi_nsalo_otra_vez.html','compass'],
+['formacion','LMS','Academia Virtual Edentia','Campus en IA aplicada, XR y metodología FDE.','https://academia-edentiav.vercel.app/','cap'],
+['formacion','Editorial','Biblioteca digital y catálogo','17+ libros: Neurohack Revolution, Cuentos Cuánticos y SmartCities.','https://edentiav.com/libros/index.html','books']
 ];
 var OLI=[
 ['Agendamiento CEDI','Turnos, muelles y recepción en centros de distribución.'],
@@ -532,7 +672,53 @@ var OLI=[
 ];
 function esc(t){ return String(t).replace(/&/g,'&amp;').replace(/</g,'&lt;'); }
 /* Portadas ilustradas por proyecto. Para usar una foto real: PHOTOS['Nombre del proyecto']='https://…/foto.jpg' */
-var PHOTOS = {};
+var CV = AP + 'covers/';
+var PHOTOS = {
+  'SIGIG-MIAC': CV + 'sigig-miac.jpg',
+  'VIGÍA-IA · SECOP y DIAN': CV + 'vigia-secop-dian.jpg',
+  'AntiCoomeva AI': CV + 'anticoomeva-ai.jpg',
+  'Simulador de adopción IA BICE': CV + 'simulador-bice.jpg',
+  'DTI Pereira y Risaralda': CV + 'dti-pereira.jpg',
+  'OFRE Retail': CV + 'ofre-retail.jpg',
+  'AgentOS 02': CV + 'agentos-02.jpg',
+  'FDE Studio': CV + 'fde-studio.jpg',
+  'AI Agent Governance': CV + 'ai-agent-governance.jpg',
+  'Harness² Edentia Enterprise': CV + 'harness-executive.jpg',
+  'La Era del Software Agéntico': CV + 'software-agentico.jpg',
+  'Blueprint AI-Ready Olímpica': CV + 'blueprint-ai-ready.jpg',
+  'System Design Architect': CV + 'system-design-architect.jpg',
+  'Sistema de investigación científica IA': CV + 'investigacion-cientifica.jpg',
+  'Madura.IA': CV + 'madura-ia.jpg',
+  'McKinsey + Edentia': CV + 'mckinsey-edentia.jpg',
+  'Diseño empresarial con IA': CV + 'diseno-empresarial.jpg',
+  'AI Design Sprint FDE': CV + 'ai-design-sprint.jpg',
+  'ODD vs SDD: Gobernanza de IA': CV + 'odd-vs-sdd.jpg',
+  'Ciclo de IA Empresarial': CV + 'ciclo-ia-empresarial.jpg',
+  'AI-Native Executive OS': CV + 'ai-native-executive-os.jpg',
+  'Top 1% Systems OS (15 Marcos)': CV + 'top-1-systems-os.jpg',
+  'IA en la Ingeniería Industrial': CV + 'ia-ingenieria-industrial.jpg',
+  'Metodologías de adopción e industrialización': CV + 'metodologias-adopcion.jpg',
+  'Marco metodológico de IA corporativa': CV + 'marco-ia-corporativa.jpg',
+  'Transición de IA en América Latina': CV + 'transicion-ia-latam.jpg',
+  'Acemoglu AI Economics': CV + 'acemoglu-ai-economics.jpg',
+  'Metodología Silver IA': CV + 'metodologia-silver-ia.jpg',
+  'Silver Economy AI Advisory': CV + 'silver-economy-advisory.jpg',
+  'Silver Economy IA Interactive Report': CV + 'silver-economy-report.jpg',
+  'SilverXR Community Blueprint': CV + 'silverxr-blueprint.jpg',
+  'XR y Nueva Longevidad': CV + 'xr-nueva-longevidad.jpg',
+  'Evolución del Software en la Era IA': CV + 'evolucion-software-ia.jpg',
+  'Metacognición y Replanteamiento': CV + 'metacognicion-repensar.jpg',
+  'Academia Virtual Edentia': CV + 'academia-edentia.jpg',
+  'Biblioteca digital y catálogo': CV + 'biblioteca-digital.jpg',
+  'Agendamiento CEDI': CV + 'oli-1.jpg',
+  'Agente Turno BI': CV + 'oli-2.jpg',
+  'GovTI 360': CV + 'oli-3.jpg',
+  'Extracción de hallazgos': CV + 'oli-4.jpg',
+  'Ofertas inteligentes': CV + 'oli-5.jpg',
+  'Insights y predicción de incidentes': CV + 'oli-6.jpg',
+  'Automatización de correo': CV + 'oli-7.jpg',
+  'Asistente de conocimiento': CV + 'oli-8.jpg'
+};
 var MS = {
 bank:'<path d="M20 34L60 12l40 22zM28 38v22M48 38v22M72 38v22M92 38v22M20 64h80M16 70h88"/>',
 voice:'<path d="M12 40h8M28 28v24M40 18v44M52 30v20M64 22v36M76 32v16M88 36v8M98 40h6"/><circle cx="102" cy="18" r="8"/>',
@@ -580,7 +766,7 @@ function cover(name,motif,hue){
   var cur='all';
   function draw(){
     grid.innerHTML = PROJ.filter(function(p){ return cur==='all'||p[0]===cur; }).map(function(p){
-      return '<a class="card glass proj in" href="'+p[4]+'" target="_blank" rel="noopener">'+cover(p[2],MOT[PROJ.indexOf(p)],HUE[p[0]])+'<span class="tag">'+esc(p[1])+'</span><h3>'+esc(p[2])+'</h3><p>'+esc(p[3])+'</p><span class="go">Abrir proyecto →</span></a>';
+      return '<a class="card glass proj in" href="'+p[4]+'" target="_blank" rel="noopener">'+cover(p[2],p[5]||MOT[PROJ.indexOf(p)%MOT.length],HUE[p[0]])+'<span class="tag">'+esc(p[1])+'</span><h3>'+esc(p[2])+'</h3><p>'+esc(p[3])+'</p><span class="go">Abrir proyecto →</span></a>';
     }).join('');
     Array.prototype.forEach.call(chips.children,function(c){ c.classList.toggle('on',c.dataset.k===cur); c.setAttribute('aria-selected',c.dataset.k===cur); });
   }
@@ -621,6 +807,26 @@ function onScroll(){
   stageEls.forEach(function(e,k){ e.classList.toggle('on',k===st); });
 }
 window.addEventListener('scroll', onScroll, {passive:true}); window.addEventListener('resize', onScroll); onScroll();
+
+/* ---------- Tema Claro / Oscuro ---------- */
+var isLight = false, onTheme3D = null;
+var themeBtn = document.getElementById('themeToggle'), themeLabel = document.getElementById('themeLabel');
+function setTheme(light){
+  isLight = !!light;
+  if(isLight){
+    document.documentElement.setAttribute('data-theme','light');
+    if(themeLabel) themeLabel.textContent = 'Tema oscuro';
+    if(themeBtn) themeBtn.setAttribute('aria-label','Cambiar a tema oscuro');
+  }else{
+    document.documentElement.removeAttribute('data-theme');
+    if(themeLabel) themeLabel.textContent = 'Tema claro';
+    if(themeBtn) themeBtn.setAttribute('aria-label','Cambiar a tema claro');
+  }
+  try{ localStorage.setItem('leo_theme', isLight ? 'light' : 'dark'); }catch(e){}
+  if(onTheme3D) onTheme3D(isLight);
+}
+try{ if(localStorage.getItem('leo_theme') === 'light') setTheme(true); }catch(e){}
+if(themeBtn){ themeBtn.addEventListener('click', function(){ setTheme(!isLight); }); }
 
 /* ---------- 3D: ADN → energía → neurona ---------- */
 if(typeof THREE === 'undefined'){ return; }
@@ -779,13 +985,13 @@ lg.setAttribute('aS', new THREE.BufferAttribute(mkF(1),1));
 lg.setAttribute('aW', new THREE.BufferAttribute(mkF(0),1));
 
 var uni = {
-  uMix:{value:0}, uTime:{value:0}, uPulse:{value:0}, uAlpha:{value:1},
-  uSize:{value:mobile?2.6:2.5}, uPx:{value:renderer.getPixelRatio()}, uLineA:{value:0.36},
+  uMix:{value:0}, uTime:{value:0}, uPulse:{value:0}, uAlpha:{value:1}, uLight:{value:isLight?1:0},
+  uSize:{value:mobile?2.6:2.5}, uPx:{value:renderer.getPixelRatio()}, uLineA:{value:isLight?0.44:0.36},
   uC1:{value:new THREE.Color('#2f7bff')}, uC2:{value:new THREE.Color('#5fd8ff')}, uC3:{value:new THREE.Color('#8a5cff')}
 };
 var VS = [
   'attribute vec3 aB; attribute vec3 aC; attribute float aT1; attribute float aT2; attribute float aT3; attribute float aR; attribute float aS; attribute float aW;',
-  'uniform float uMix,uTime,uPulse,uSize,uPx; uniform vec3 uC1,uC2,uC3;',
+  'uniform float uMix,uTime,uPulse,uSize,uPx,uLight; uniform vec3 uC1,uC2,uC3;',
   'varying vec3 vC;',
   'vec3 pal(float t){ t=clamp(t,0.0,1.0); return t<0.5 ? mix(uC1,uC2,t*2.0) : mix(uC2,uC3,(t-0.5)*2.0); }',
   'void main(){',
@@ -798,11 +1004,11 @@ var VS = [
   '  p += 0.025*vec3(sin(uTime*0.8+aR*40.0), cos(uTime*0.9+aR*31.0), sin(uTime*0.7+aR*17.0));',
   '  float t = mix(mix(aT1, aT3, m1), aT2, m2);',
   '  vec3 col = pal(t);',
-  '  col = mix(col, vec3(1.0,0.62,0.25), aW*m2*0.9);',
+  '  col = mix(col, mix(vec3(1.0,0.62,0.25), vec3(0.82,0.28,0.04), uLight), aW*m2*0.9);',
   '  float flow = m1*(1.0-m2)*max(0.0, sin(uTime*2.4 - aT3*16.0 + aR*2.0))*1.3;',
   '  float fire = m2*uPulse*max(0.0, sin(uTime*2.2 - aT2*14.0))*1.2;',
   '  float glow = 1.0 + flow + fire;',
-  '  vC = col*(0.8+0.5*glow);',
+  '  vC = mix(col*(0.8+0.5*glow), col*0.85, uLight);',
   '  vec4 mv = modelViewMatrix * vec4(p,1.0);',
   '  #ifdef IS_POINTS',
   '  gl_PointSize = uSize*uPx*aS*(0.5+aR*0.6)*(0.9+0.4*glow)*(11.0/-mv.z);',
@@ -811,17 +1017,18 @@ var VS = [
   '}'
 ].join('\n');
 var pmat = new THREE.ShaderMaterial({
-  uniforms:uni, transparent:true, depthWrite:false, blending:THREE.AdditiveBlending, defines:{IS_POINTS:1},
+  uniforms:uni, transparent:true, depthWrite:false, blending:isLight?THREE.NormalBlending:THREE.AdditiveBlending, defines:{IS_POINTS:1},
   vertexShader:VS,
   fragmentShader:[
-    'uniform float uAlpha; varying vec3 vC;',
+    'uniform float uAlpha, uLight; varying vec3 vC;',
     'void main(){ float d = length(gl_PointCoord-0.5)*2.0; if(d>1.0) discard;',
     '  float halo = pow(1.0-d,2.6)*0.55; float core = smoothstep(0.62,0.34,d);',
-    '  gl_FragColor = vec4(vC*(0.75+core*1.0), (halo+core)*uAlpha); }'
+    '  vec3 cOut = mix(vC*(0.75+core*1.0), vC*(0.9-core*0.25), uLight);',
+    '  gl_FragColor = vec4(cOut, (halo+core)*uAlpha); }'
   ].join('\n')
 });
 var lmat = new THREE.ShaderMaterial({
-  uniforms:uni, transparent:true, depthWrite:false, blending:THREE.AdditiveBlending,
+  uniforms:uni, transparent:true, depthWrite:false, blending:isLight?THREE.NormalBlending:THREE.AdditiveBlending,
   vertexShader:VS,
   fragmentShader:'uniform float uAlpha,uLineA; varying vec3 vC; void main(){ gl_FragColor = vec4(vC, uAlpha*uLineA); }'
 });
@@ -830,17 +1037,26 @@ group.add(new THREE.LineSegments(lg, lmat));
 group.add(new THREE.Points(pg, pmat));
 scene.add(group);
 
+onTheme3D = function(light){
+  uni.uLight.value = light ? 1 : 0;
+  uni.uLineA.value = light ? 0.44 : 0.36;
+  pmat.blending = light ? THREE.NormalBlending : THREE.AdditiveBlending;
+  lmat.blending = light ? THREE.NormalBlending : THREE.AdditiveBlending;
+  pmat.needsUpdate = true;
+  lmat.needsUpdate = true;
+};
+
 /* estados por sección */
 var states = {
-  hero:     {x:0.55, s:1.2,  a:1,   rz:-0.3,  pulse:0,  c:['#2f7bff','#5fd8ff','#8a5cff']},
-  trans:    {x:0.9,  s:1.3,   a:1,   rz:0,     pulse:0,  c:['#2f7bff','#5fd8ff','#8a5cff']},
-  intel:    {x:1.9,  s:1.22,  a:1,   rz:0,     pulse:1,  c:['#2f7bff','#5fd8ff','#a46bff']},
-  ident:    {x:0,    s:1.5,  a:.5,  rz:0,     pulse:.5, c:['#2f7bff','#5fd8ff','#8a5cff']},
-  hv:       {x:0,    s:1.6,  a:.34, rz:0,     pulse:.3, c:['#2f7bff','#5fd8ff','#8a5cff']},
-  labs:     {x:0,    s:1.55, a:.42, rz:0,     pulse:.5, c:['#2f7bff','#8a5cff','#ff5fb0']},
-  productos:{x:0,    s:1.6,  a:.3,  rz:0,     pulse:.2, c:['#2f7bff','#5fd8ff','#8a5cff']},
-  comunidad:{x:0,    s:1.5,  a:.5,  rz:0,     pulse:1,  c:['#ffb15f','#ff5fb0','#8a5cff']},
-  contacto: {x:0,    s:1.4,  a:.5,  rz:0,     pulse:.6, c:['#2f7bff','#5fd8ff','#8a5cff']}
+  hero:     {x:0.55, s:1.2,  a:1,   rz:-0.3,  pulse:0,  c:['#2f7bff','#5fd8ff','#8a5cff'], cl:['#0f4cd9','#0077b6','#5b21b6']},
+  trans:    {x:0.9,  s:1.3,   a:1,   rz:0,     pulse:0,  c:['#2f7bff','#5fd8ff','#8a5cff'], cl:['#0f4cd9','#0077b6','#5b21b6']},
+  intel:    {x:1.9,  s:1.22,  a:1,   rz:0,     pulse:1,  c:['#2f7bff','#5fd8ff','#a46bff'], cl:['#0f4cd9','#0284c7','#6d28d9']},
+  ident:    {x:0,    s:1.5,  a:.5,  rz:0,     pulse:.5, c:['#2f7bff','#5fd8ff','#8a5cff'], cl:['#1d4ed8','#0077b6','#5b21b6']},
+  hv:       {x:0,    s:1.6,  a:.34, rz:0,     pulse:.3, c:['#2f7bff','#5fd8ff','#8a5cff'], cl:['#1d4ed8','#0077b6','#5b21b6']},
+  labs:     {x:0,    s:1.55, a:.42, rz:0,     pulse:.5, c:['#2f7bff','#8a5cff','#ff5fb0'], cl:['#1d4ed8','#5b21b6','#be185d']},
+  productos:{x:0,    s:1.6,  a:.3,  rz:0,     pulse:.2, c:['#2f7bff','#5fd8ff','#8a5cff'], cl:['#1d4ed8','#0077b6','#5b21b6']},
+  comunidad:{x:0,    s:1.5,  a:.5,  rz:0,     pulse:1,  c:['#ffb15f','#ff5fb0','#8a5cff'], cl:['#b45309','#be185d','#5b21b6']},
+  contacto: {x:0,    s:1.4,  a:.5,  rz:0,     pulse:.6, c:['#2f7bff','#5fd8ff','#8a5cff'], cl:['#0f4cd9','#0077b6','#5b21b6']}
 };
 var cur = {x:0.55, s:1, a:1, rz:-0.42, pulse:0};
 var cols = [new THREE.Color(), new THREE.Color(), new THREE.Color()];
@@ -862,9 +1078,11 @@ function frame(){
   var dt = Math.min(clock.getDelta(), 0.05), t = clock.elapsedTime;
   var st = states[active] || states.hero, k = 1 - Math.pow(0.0015, dt);
   var tx = mobile ? 0 : st.x, ta = mobile ? Math.min(st.a, st.a*0.55+0.05) : st.a;
+  if(isLight) ta = Math.min(0.88, ta * 0.92);
   mixV += (mixT - mixV) * (1 - Math.pow(0.01, dt));
   cur.x += (tx - cur.x)*k; cur.s += (st.s - cur.s)*k; cur.a += (ta - cur.a)*k; cur.rz += (st.rz - cur.rz)*k; cur.pulse += (st.pulse - cur.pulse)*k;
-  for(var c=0;c<3;c++){ cols[c].set(st.c[c]); }
+  var palCols = (isLight && st.cl) ? st.cl : st.c;
+  for(var c=0;c<3;c++){ cols[c].set(palCols[c]); }
   uni.uC1.value.lerp(cols[0], k); uni.uC2.value.lerp(cols[1], k); uni.uC3.value.lerp(cols[2], k);
   mx += (tmx-mx)*0.05; my += (tmy-my)*0.05;
   if(!reduce) rotY += dt*(0.2*(1-Math.min(1,mixV)) + 0.03);

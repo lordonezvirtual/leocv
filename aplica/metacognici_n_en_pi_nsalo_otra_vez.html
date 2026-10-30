@@ -1,0 +1,901 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Metacognición y Replanteamiento: Análisis Basado en 'Piénsalo Otra Vez' de Adam Grant</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Chosen Palette: Warm Minimalist Mind -->
+    <!-- Application Structure Plan:
+         1. Hero Header & Quick Nav: Visión general, métricas clave del informe y simulador del caso Mann Gulch.
+         2. Módulo 1: Los 4 Modos Mentales de la Cognición (Predicador, Fiscal, Político, Científico) con test de autodiagnóstico.
+         3. Módulo 2: Ciclos Cognitivos (Exceso de Confianza vs Replanteamiento) y gráfico Chart.js de la curva Dunning-Kruger.
+         4. Módulo 3: El Enfoque Científico en Startups (RCT Bocconi) con gráfico comparativo de ingresos/pivotes y herramienta Pre-Mortem.
+         5. Módulo 4: Dinámicas Interpersonales (Conflicto Tarea/Relación, Harish Natarajan vs IA, Entrevista Motivacional OARS).
+         6. Módulo 5: Superpronóstico y Matriz de Seguridad Psicológica (Matriz 2x2 interactiva de Amy Edmondson).
+         7. Módulo 6: Auditoría de Carrera y Prevención del Sobrepensamiento (Tabla comparativa y checklist de salud mental).
+    -->
+    <!-- Visualization & Content Choices:
+         - Mann Gulch Case: Interactive step-by-step decision tree (HTML/JS) -> Teach Heuristic rigidity vs. Metacognitive agility.
+         - Curva Dunning-Kruger & Humildad Confiada: Chart.js Line Chart -> Compare confidence vs real competence.
+         - RCT Startups (Bocconi): Chart.js Bar Chart -> Show treatment vs control revenue edge (€28,000) and pivot frequency.
+         - Matriz de Amy Edmondson: Interactive HTML 2x2 Grid -> Clickable quadrants for Psychological Safety vs Accountability.
+         - Entrevista Motivacional: Practice Widget -> Distinguish "Charla de Cambio" vs "Charla de Mantenimiento".
+    -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+
+    <style>
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 650px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 320px;
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 360px;
+            }
+        }
+        .nav-link.active {
+            border-bottom: 3px solid #3a6073;
+            color: #16222f;
+            font-weight: 700;
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #f1f0ea;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #c2bdb3;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body class="bg-[#fbf9f5] text-[#2c2825] font-sans antialiased leading-relaxed custom-scrollbar">
+
+    <!-- Header & Navigation -->
+    <header class="sticky top-0 z-50 bg-[#fbf9f5]/95 backdrop-blur border-b border-[#e8e4dc]">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center space-x-3">
+                    <span class="w-8 h-8 rounded-lg bg-[#3a6073] text-white flex items-center justify-center font-bold text-lg">
+                        <i class="fa-solid fa-[#brain]"></i>
+                    </span>
+                    <div>
+                        <h1 class="font-bold text-lg text-[#16222f]">Metacognición & Replanteamiento</h1>
+                        <p class="text-xs text-[#635e59]">Basado en 'Piénsalo Otra Vez' de Adam Grant</p>
+                    </div>
+                </div>
+                <nav class="hidden md:flex space-x-6 text-sm font-medium text-[#635e59]">
+                    <a href="#intro" class="nav-link active py-5 hover:text-[#16222f] transition">Inicio</a>
+                    <a href="#modos" class="nav-link py-5 hover:text-[#16222f] transition">Modos Mentales</a>
+                    <a href="#ciclos" class="nav-link py-5 hover:text-[#16222f] transition">Ciclos Cognitivos</a>
+                    <a href="#startups" class="nav-link py-5 hover:text-[#16222f] transition">Método Científico</a>
+                    <a href="#persuasion" class="nav-link py-5 hover:text-[#16222f] transition">Persuasión & MI</a>
+                    <a href="#cultura" class="nav-link py-5 hover:text-[#16222f] transition">Culturas & Matriz</a>
+                    <a href="#autodiagnostico" class="nav-link py-5 hover:text-[#16222f] transition">Autodiagnóstico</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section & Key Indicators -->
+    <section id="intro" class="py-12 bg-white border-b border-[#e8e4dc]">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                <div class="lg:col-span-7">
+                    <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-[#f0f4f6] text-[#3a6073] text-xs font-semibold mb-4">
+                        <i class="fa-solid fa-fire-flame-curved"></i>
+                        <span>El Imperativo del Desaprendizaje</span>
+                    </div>
+                    <h2 class="text-3xl sm:text-4xl font-extrabold text-[#16222f] tracking-tight">
+                        La sabiduría no es saberlo todo, sino la conciencia de lo que ignoras.
+                    </h2>
+                    <p class="mt-4 text-base text-[#635e59] text-justify">
+                        En entornos volátiles, las herramientas y creencias que garantizan el éxito inicial pueden convertirse en anclas mortales. La metacognición (pensar sobre el propio pensamiento) es el mecanismo adaptativo fundamental para revisar supuestos, flexibilizar identidades y desaprender heurísticas obsoletas.
+                    </p>
+                    
+                    <!-- Metrics Grid -->
+                    <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-8">
+                        <div class="p-4 rounded-xl bg-[#fbf9f5] border border-[#e8e4dc]">
+                            <p class="text-2xl font-bold text-[#3a6073]">1,500+</p>
+                            <p class="text-xs text-[#635e59] mt-1">Estudiantes analizados (Falacia del Primer Instinto)</p>
+                        </div>
+                        <div class="p-4 rounded-xl bg-[#fbf9f5] border border-[#e8e4dc]">
+                            <p class="text-2xl font-bold text-[#4a7c59]">+28.000€</p>
+                            <p class="text-xs text-[#635e59] mt-1">Ventaja en Startups con Modo Científico</p>
+                        </div>
+                        <div class="p-4 rounded-xl bg-[#fbf9f5] border border-[#e8e4dc]">
+                            <p class="text-2xl font-bold text-[#c86d51]">400M</p>
+                            <p class="text-xs text-[#635e59] mt-1">Documentos en Debate IA vs Natarajan</p>
+                        </div>
+                        <div class="p-4 rounded-xl bg-[#fbf9f5] border border-[#e8e4dc]">
+                            <p class="text-2xl font-bold text-[#16222f]">4 Zonas</p>
+                            <p class="text-xs text-[#635e59] mt-1">Matriz de Seguridad Psicológica</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Interactive Scenario: Mann Gulch Case -->
+                <div class="lg:col-span-5 bg-[#fbf9f5] p-6 rounded-2xl border border-[#e8e4dc] shadow-sm">
+                    <h3 class="font-bold text-lg text-[#16222f] flex items-center justify-between">
+                        <span><i class="fa-solid fa-compass text-[#c86d51] mr-2"></i>El Dilema de Mann Gulch (1949)</span>
+                        <span class="text-xs bg-[#e8e4dc] text-[#2c2825] px-2 py-0.5 rounded">Caso Real</span>
+                    </h3>
+                    <p class="text-xs text-[#635e59] mt-2">
+                        Un fuego avanza a velocidad letal. Eres el capataz Wagner Dodge. ¿Qué dicta tu condicionamiento e instinto?
+                    </p>
+                    
+                    <div id="mann-gulch-widget" class="mt-4 p-4 bg-white rounded-xl border border-[#e8e4dc]">
+                        <p id="mann-text" class="text-sm font-medium text-[#2c2825]">
+                            Las llamas suben por la ladera. Tus compañeros corren cargando sus pesadas hachas y palas (su identidad profesional).
+                        </p>
+                        <div id="mann-options" class="mt-4 space-y-2">
+                            <button onclick="playMannGulch(1)" class="w-full text-left p-2.5 text-xs rounded-lg border border-[#e8e4dc] hover:bg-[#f0f4f6] hover:border-[#3a6073] transition">
+                                <i class="fa-solid fa-person-running text-[#3a6073] mr-2"></i> Opcion A: Mantener tus herramientas y correr lo más rápido posible.
+                            </button>
+                            <button onclick="playMannGulch(2)" class="w-full text-left p-2.5 text-xs rounded-lg border border-[#e8e4dc] hover:bg-[#f0f4f6] hover:border-[#3a6073] transition">
+                                <i class="fa-solid fa-fire text-[#c86d51] mr-2"></i> Opcion B: Detenerte, encender un fuego frente a ti y recostarte en las cenizas.
+                            </button>
+                        </div>
+                        <div id="mann-result" class="hidden mt-4 p-3 rounded-lg text-xs"></div>
+                    </div>
+                    <button onclick="resetMannGulch()" class="mt-3 text-xs text-[#3a6073] hover:underline flex items-center">
+                        <i class="fa-solid fa-rotate-right mr-1"></i> Reiniciar caso
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- MÓDULO 1: Los 4 Modos Mentales de la Cognición -->
+    <section id="modos" class="py-12 border-b border-[#e8e4dc]">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="mb-8">
+                <span class="text-xs font-bold text-[#3a6073] tracking-widest uppercase">Arquitectura Conceptual</span>
+                <h2 class="text-2xl sm:text-3xl font-bold text-[#16222f] mt-1">Los Cuatro Modos Profesionales de la Cognición</h2>
+                <p class="text-sm text-[#635e59] mt-2 max-w-3xl">
+                    Basado en la taxonomía de Philip Tetlock analizada en el informe, los seres humanos asumimos subconscientemente cuatro arquetipos al enfrentar fricciones ideológicas o incertidumbre. Salvo el modo <strong>Científico</strong>, todos los demás distorsionan el procesamiento imparcial de la información.
+                </p>
+            </div>
+
+            <!-- Mode Selector Grid -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+                <button onclick="selectMode('predicador')" id="btn-predicador" class="mode-card p-5 rounded-xl border-2 border-[#e8e4dc] bg-white text-left hover:border-[#3a6073] transition">
+                    <div class="w-10 h-10 rounded-full bg-[#fef3c7] text-[#d97706] flex items-center justify-center font-bold mb-3">
+                        <i class="fa-solid fa-bullhorn"></i>
+                    </div>
+                    <h3 class="font-bold text-base text-[#16222f]">Predicador</h3>
+                    <p class="text-xs text-[#635e59] mt-1">Defiende ideales atrincherados e imparte sermones dogmáticos.</p>
+                </button>
+
+                <button onclick="selectMode('fiscal')" id="btn-fiscal" class="mode-card p-5 rounded-xl border-2 border-[#e8e4dc] bg-white text-left hover:border-[#3a6073] transition">
+                    <div class="w-10 h-10 rounded-full bg-[#fee2e2] text-[#dc2626] flex items-center justify-center font-bold mb-3">
+                        <i class="fa-solid fa-gavel"></i>
+                    </div>
+                    <h3 class="font-bold text-base text-[#16222f]">Fiscal</h3>
+                    <p class="text-xs text-[#635e59] mt-1">Busca fallas en el oponente para ganar el argumento a toda costa.</p>
+                </button>
+
+                <button onclick="selectMode('politico')" id="btn-politico" class="mode-card p-5 rounded-xl border-2 border-[#e8e4dc] bg-white text-left hover:border-[#3a6073] transition">
+                    <div class="w-10 h-10 rounded-full bg-[#e0e7ff] text-[#4f46e5] flex items-center justify-center font-bold mb-3">
+                        <i class="fa-solid fa-users"></i>
+                    </div>
+                    <h3 class="font-bold text-base text-[#16222f]">Político</h3>
+                    <p class="text-xs text-[#635e59] mt-1">Adapta sus creencias para obtener la aclamación y la aprobación tribal.</p>
+                </button>
+
+                <button onclick="selectMode('cientifico')" id="btn-cientifico" class="mode-card p-5 rounded-xl border-2 border-[#3a6073] bg-[#f0f4f6] text-left hover:border-[#3a6073] transition">
+                    <div class="w-10 h-10 rounded-full bg-[#dcfce7] text-[#166534] flex items-center justify-center font-bold mb-3">
+                        <i class="fa-solid fa-flask"></i>
+                    </div>
+                    <h3 class="font-bold text-base text-[#16222f]">Científico</h3>
+                    <p class="text-xs text-[#635e59] mt-1">Trata opiniones como hipótesis a probar y busca evidencias refutatorias.</p>
+                </button>
+            </div>
+
+            <!-- Dynamic Detail Box -->
+            <div id="mode-detail" class="p-6 bg-white rounded-2xl border border-[#e8e4dc] shadow-sm">
+                <!-- Javascript populates details here -->
+            </div>
+
+            <!-- Quiz Interactive Widget -->
+            <div class="mt-8 p-6 bg-[#f0f4f6] rounded-2xl border border-[#cbd5e1]">
+                <h3 class="font-bold text-lg text-[#16222f] mb-2"><i class="fa-solid fa-clipboard-question text-[#3a6073] mr-2"></i>Mini Autodiagnóstico de Modo Cognitivo</h3>
+                <p class="text-xs text-[#635e59] mb-4">Responde con honestidad a la siguiente situación operativa para identificar tu impulso subconsciente:</p>
+                
+                <div id="quiz-container" class="bg-white p-4 rounded-xl border border-[#e8e4dc]">
+                    <p class="text-sm font-semibold text-[#16222f]">Un colega presenta datos que contradicen directamente tu estrategia de proyecto actual. ¿Cuál es tu primera reacción interna?</p>
+                    <div class="mt-3 space-y-2">
+                        <button onclick="answerQuiz('A')" class="w-full text-left p-3 text-xs rounded-lg border border-[#e8e4dc] hover:bg-[#fbf9f5] transition">
+                            A) Pensar en cómo demostrar que sus fuentes de datos son erróneas y desmontar su argumento.
+                        </button>
+                        <button onclick="answerQuiz('B')" class="w-full text-left p-3 text-xs rounded-lg border border-[#e8e4dc] hover:bg-[#fbf9f5] transition">
+                            B) Sentir la necesidad de defender los principios fundamentales y valores de tu proyecto.
+                        </button>
+                        <button onclick="answerQuiz('C')" class="w-full text-left p-3 text-xs rounded-lg border border-[#e8e4dc] hover:bg-[#fbf9f5] transition">
+                            C) Evaluar qué opina la mayoría del equipo o la alta dirección antes de dar una posición fija.
+                        </button>
+                        <button onclick="answerQuiz('D')" class="w-full text-left p-3 text-xs rounded-lg border border-[#e8e4dc] hover:bg-[#fbf9f5] transition">
+                            D) Experimentar curiosidad y preguntarte: "¿Qué evidencia tiene él que yo he pasado por alto?"
+                        </button>
+                    </div>
+                    <div id="quiz-result" class="hidden mt-4 p-3 rounded-lg text-xs font-medium"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- MÓDULO 2: Ciclos Cognitivos - Exceso de Confianza vs Replanteamiento -->
+    <section id="ciclos" class="py-12 bg-white border-b border-[#e8e4dc]">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="mb-8">
+                <span class="text-xs font-bold text-[#3a6073] tracking-widest uppercase">Dinámicas Neurológicas</span>
+                <h2 class="text-2xl sm:text-3xl font-bold text-[#16222f] mt-1">Los Dos Bucles de Retroalimentación Cognitiva</h2>
+                <p class="text-sm text-[#635e59] mt-2 max-w-3xl">
+                    El informe contrasta el <strong>Ciclo de Exceso de Confianza</strong> (impulsado por orgullo intelectual, sesgo de confirmación y el efecto Dunning-Kruger) con el <strong>Ciclo de Replanteamiento</strong> (fundamentado en la Humildad Confiada y la curiosidad estructurada).
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                <!-- Interactive Cycle Diagram -->
+                <div class="lg:col-span-6 bg-[#fbf9f5] p-6 rounded-2xl border border-[#e8e4dc]">
+                    <div class="flex space-x-2 border-b border-[#e8e4dc] pb-3 mb-4">
+                        <button onclick="toggleCycle('confianza')" id="tab-cycle-confianza" class="px-4 py-2 text-xs font-bold rounded-lg bg-[#dc2626] text-white">
+                            Ciclo de Exceso de Confianza
+                        </button>
+                        <button onclick="toggleCycle('replanteamiento')" id="tab-cycle-replanteamiento" class="px-4 py-2 text-xs font-bold rounded-lg bg-[#cbd5e1] text-[#2c2825]">
+                            Ciclo de Replanteamiento
+                        </button>
+                    </div>
+
+                    <div id="cycle-content" class="space-y-4">
+                        <!-- JS injected cycle flow -->
+                    </div>
+                </div>
+
+                <!-- Chart.js Visualization: Curva Dunning-Kruger vs Humildad Confiada -->
+                <div class="lg:col-span-6 bg-white p-6 rounded-2xl border border-[#e8e4dc] shadow-sm">
+                    <h3 class="font-bold text-base text-[#16222f] mb-1">Evolución de la Confianza vs Competencia Real</h3>
+                    <p class="text-xs text-[#635e59] mb-4">Visualización de la "Montaña de la Estupidez" frente al desarrollo de la Humildad Confiada (Efecto Yoda).</p>
+                    
+                    <div class="chart-container">
+                        <canvas id="dunningKrugerChart"></canvas>
+                    </div>
+                    <div class="mt-4 p-3 bg-[#fbf9f5] rounded-xl border border-[#e8e4dc] text-xs text-[#635e59]">
+                        <strong>Nota metacognitiva:</strong> La <em>Humildad Confiada</em> no es falta de autoestima; es la certeza en tu capacidad de aprender acoplada con la conciencia de tus puntos ciegos actuales.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- MÓDULO 3: El Método Científico en la Estrategia Organizacional -->
+    <section id="startups" class="py-12 border-b border-[#e8e4dc]">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="mb-8">
+                <span class="text-xs font-bold text-[#3a6073] tracking-widest uppercase">Evidencia Empírica RCT</span>
+                <h2 class="text-2xl sm:text-3xl font-bold text-[#16222f] mt-1">El Enfoque Científico en Startups y Decisiones Estratégicas</h2>
+                <p class="text-sm text-[#635e59] mt-2 max-w-3xl">
+                    Los ensayos controlados aleatorizados (Camuffo, Gambardella, Spina) demostraron que enseñar a emprendedores a actuar como científicos (formular hipótesis, medir métricas refutatorias y ejecutar pivotes) genera retornos económicos superiores y evita costes hundidos.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+                <!-- Bar Chart RCT Results -->
+                <div class="lg:col-span-6 bg-white p-6 rounded-2xl border border-[#e8e4dc] shadow-sm">
+                    <h3 class="font-bold text-base text-[#16222f] mb-1">Resultados Económicos RCT (Universidad Bocconi)</h3>
+                    <p class="text-xs text-[#635e59] mb-4">Comparativa entre startups entrenadas en Modo Científico (Tratamiento) vs Control.</p>
+                    
+                    <div class="chart-container">
+                        <canvas id="bocconiChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- 4-Phase Pivot Simulator -->
+                <div class="lg:col-span-6 bg-white p-6 rounded-2xl border border-[#e8e4dc] shadow-sm">
+                    <h3 class="font-bold text-base text-[#16222f] mb-2"><i class="fa-solid fa-arrows-spin text-[#3a6073] mr-2"></i>El Protocolo del Pivote Científico (4 Fases)</h3>
+                    <p class="text-xs text-[#635e59] mb-4">Haz clic en cada fase para explorar el protocolo utilizado por los emprendedores científicamente entrenados:</p>
+
+                    <div class="grid grid-cols-2 gap-2 mb-4">
+                        <button onclick="showPivotPhase(1)" id="pivot-btn-1" class="p-3 text-xs font-bold rounded-lg border border-[#3a6073] bg-[#f0f4f6] text-[#3a6073]">1. Reconocimiento</button>
+                        <button onclick="showPivotPhase(2)" id="pivot-btn-2" class="p-3 text-xs font-bold rounded-lg border border-[#e8e4dc] bg-white text-[#635e59]">2. Generación</button>
+                        <button onclick="showPivotPhase(3)" id="pivot-btn-3" class="p-3 text-xs font-bold rounded-lg border border-[#e8e4dc] bg-white text-[#635e59]">3. Captura & Prueba</button>
+                        <button onclick="showPivotPhase(4)" id="pivot-btn-4" class="p-3 text-xs font-bold rounded-lg border border-[#e8e4dc] bg-white text-[#635e59]">4. Reconfiguración</button>
+                    </div>
+
+                    <div id="pivot-content" class="p-4 bg-[#fbf9f5] rounded-xl border border-[#e8e4dc] text-xs">
+                        <!-- JS injected -->
+                    </div>
+
+                    <!-- Pre-Mortem Tool Interactive -->
+                    <div class="mt-6 pt-4 border-t border-[#e8e4dc]">
+                        <h4 class="font-bold text-xs uppercase text-[#3a6073] mb-2"><i class="fa-solid fa-skull mr-1"></i>Herramienta Profiláctica: El Pre-Mortem de Gary Klein</h4>
+                        <p class="text-xs text-[#635e59]">
+                            En lugar de preguntar <em>"¿Qué podría salir mal?"</em>, transporta mentalmente al equipo al futuro: <strong>"Asumamos que el proyecto ha colapsado de forma catastrófica. ¿Qué lo destruyó?"</strong> Esto desactiva el sesgo de deseabilidad y autoriza la disidencia.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- MÓDULO 4: Dinámicas Interpersonales: Conflicto y Persuasión -->
+    <section id="persuasion" class="py-12 bg-white border-b border-[#e8e4dc]">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="mb-8">
+                <span class="text-xs font-bold text-[#3a6073] tracking-widest uppercase">Resolución & Negociación</span>
+                <h2 class="text-2xl sm:text-3xl font-bold text-[#16222f] mt-1">Conflicto de Tareas vs. Conflicto de Relación</h2>
+                <p class="text-sm text-[#635e59] mt-2 max-w-3xl">
+                    Para replantear en equipo es vital separar el intellecto de la identidad. El conflicto personal devasta la creatividad, mientras que el conflicto despersonalizado de tareas incrementa drásticamente la precisión estratégica.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-12">
+                <!-- Case Study: Natarajan vs IBM Project Debater -->
+                <div class="lg:col-span-6 bg-[#fbf9f5] p-6 rounded-2xl border border-[#e8e4dc]">
+                    <h3 class="font-bold text-base text-[#16222f] mb-2">
+                        <i class="fa-solid fa-bolt text-[#c86d51] mr-2"></i>El Enfoque Metacognitivo: Harish Natarajan vs IBM
+                    </h3>
+                    <p class="text-xs text-[#635e59] text-justify mb-4">
+                        En 2019, el campeón mundial de debate Harish Natarajan derrotó a <em>Project Debater</em> (IA de IBM cargada con 400M de documentos). Mientras la IA desplegó una táctica de saturación de datos, Natarajan utilizó la "Danza Argumentativa":
+                    </p>
+                    <ul class="space-y-2 text-xs text-[#2c2825]">
+                        <li class="flex items-start"><i class="fa-solid fa-check text-[#4a7c59] mt-0.5 mr-2"></i><span><strong>Concesiones estratégicas:</strong> Validó los puntos lógicos del rival disolviendo la polarización artificial.</span></li>
+                        <li class="flex items-start"><i class="fa-solid fa-check text-[#4a7c59] mt-0.5 mr-2"></i><span><strong>Selección rigurosa:</strong> Redujo sus argumentos a un núcleo pequeño e irrefutable en lugar de abrumar.</span></li>
+                        <li class="flex items-start"><i class="fa-solid fa-check text-[#4a7c59] mt-0.5 mr-2"></i><span><strong>Complejificación:</strong> Introdujo matices que obligaron a la audiencia a considerar dilemas éticos profundos.</span></li>
+                    </ul>
+                </div>
+
+                <!-- Motivational Interviewing (MI) & OARS Framework -->
+                <div class="lg:col-span-6 bg-white p-6 rounded-2xl border border-[#e8e4dc] shadow-sm">
+                    <h3 class="font-bold text-base text-[#16222f] mb-2">
+                        <i class="fa-solid fa-comments text-[#3a6073] mr-2"></i>Entrevista Motivacional (MI) & Protocolo OARS
+                    </h3>
+                    <p class="text-xs text-[#635e59] mb-4">
+                        Desarrollada por Miller y Rollnick, la MI desactiva la "reactancia psicológica" renunciando al "Reflejo Corrector" (imponer soluciones).
+                    </p>
+
+                    <div class="grid grid-cols-2 gap-2 text-xs">
+                        <div class="p-3 bg-[#fbf9f5] rounded-xl border border-[#e8e4dc]">
+                            <p class="font-bold text-[#3a6073]">O - Open Questions</p>
+                            <p class="text-[#635e59] mt-1">Preguntas abiertas que revelan lagunas explicativas.</p>
+                        </div>
+                        <div class="p-3 bg-[#fbf9f5] rounded-xl border border-[#e8e4dc]">
+                            <p class="font-bold text-[#3a6073]">A - Affirmations</p>
+                            <p class="text-[#635e59] mt-1">Reconocimiento explícito de fortalezas y valores.</p>
+                        </div>
+                        <div class="p-3 bg-[#fbf9f5] rounded-xl border border-[#e8e4dc]">
+                            <p class="font-bold text-[#3a6073]">R - Reflective Listening</p>
+                            <p class="text-[#635e59] mt-1">Espejo acústico para devolver el pensamiento al emisor.</p>
+                        </div>
+                        <div class="p-3 bg-[#fbf9f5] rounded-xl border border-[#e8e4dc]">
+                            <p class="font-bold text-[#3a6073]">S - Summarizing</p>
+                            <p class="text-[#635e59] mt-1">Condensación para encauzar la conversación hacia el cambio.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Practice Classifier: Change Talk vs Sustain Talk -->
+            <div class="p-6 bg-[#f0f4f6] rounded-2xl border border-[#cbd5e1]">
+                <h3 class="font-bold text-base text-[#16222f] mb-2"><i class="fa-solid fa-[#dumbbell] text-[#3a6073] mr-2"></i>Ejercicio Práctico: Clasificación Lingüística MI</h3>
+                <p class="text-xs text-[#635e59] mb-4">Clasifica cada afirmación para entrenar tu oído a detectar la disposición al replanteamiento:</p>
+
+                <div id="mi-practice" class="bg-white p-4 rounded-xl border border-[#e8e4dc]">
+                    <p id="mi-statement" class="text-sm font-semibold text-[#16222f] mb-3">"Sé que este proceso antiguo es ineficiente, pero siempre lo hemos hecho así y cambiarlo requiere demasiado tiempo."</p>
+                    <div class="flex space-x-3">
+                        <button onclick="checkMI('sustain')" class="px-4 py-2 bg-[#fee2e2] text-[#dc2626] font-bold text-xs rounded-lg hover:bg-[#fca5a5] transition">
+                            Charla de Mantenimiento (Sustain Talk)
+                        </button>
+                        <button onclick="checkMI('change')" class="px-4 py-2 bg-[#dcfce7] text-[#166534] font-bold text-xs rounded-lg hover:bg-[#86efac] transition">
+                            Charla de Cambio (Change Talk)
+                        </button>
+                    </div>
+                    <div id="mi-feedback" class="hidden mt-3 p-2.5 rounded-lg text-xs font-medium"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- MÓDULO 5: Superpronóstico y Culturas de Aprendizaje -->
+    <section id="cultura" class="py-12 border-b border-[#e8e4dc]">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="mb-8">
+                <span class="text-xs font-bold text-[#3a6073] tracking-widest uppercase">Estructura Organizacional</span>
+                <h2 class="text-2xl sm:text-3xl font-bold text-[#16222f] mt-1">Seguridad Psicológica y Matriz de Amy Edmondson</h2>
+                <p class="text-sm text-[#635e59] mt-2 max-w-3xl">
+                    El replanteamiento colectivo requiere una arquitectura institucional equilibrada. La Seguridad Psicológica sin Responsabilidad (Accountability) genera confort inerte; la Responsabilidad sin Seguridad produce ansiedad paralizante.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                <!-- Clickable Interactive 2x2 Matrix -->
+                <div class="lg:col-span-7 bg-white p-6 rounded-2xl border border-[#e8e4dc] shadow-sm">
+                    <h3 class="font-bold text-base text-[#16222f] mb-1">Matriz de Clima Organizacional (Edmondson)</h3>
+                    <p class="text-xs text-[#635e59] mb-4">Haz clic en cada cuadrante para explorar los comportamientos y riesgos sintomáticos:</p>
+
+                    <div class="grid grid-cols-2 gap-3 relative">
+                        <!-- Top Left: Comfort Zone -->
+                        <div onclick="selectQuadrant('confort')" id="quad-confort" class="quadrant-card p-4 rounded-xl border-2 border-[#e8e4dc] bg-[#fbf9f5] cursor-pointer hover:border-[#3a6073]">
+                            <span class="text-xs font-bold text-[#d97706] block">Zona de Confort</span>
+                            <p class="text-[11px] text-[#635e59] mt-1">Alta Seg. Psicológica / Baja Responsabilidad</p>
+                        </div>
+
+                        <!-- Top Right: Learning Zone -->
+                        <div onclick="selectQuadrant('aprendizaje')" id="quad-aprendizaje" class="quadrant-card p-4 rounded-xl border-2 border-[#4a7c59] bg-[#f0fdf4] cursor-pointer hover:shadow-md">
+                            <span class="text-xs font-bold text-[#166534] flex items-center">
+                                <i class="fa-solid fa-star text-[#4a7c59] mr-1"></i>Zona de Aprendizaje
+                            </span>
+                            <p class="text-[11px] text-[#635e59] mt-1">Alta Seg. Psicológica / Alta Responsabilidad</p>
+                        </div>
+
+                        <!-- Bottom Left: Apathy Zone -->
+                        <div onclick="selectQuadrant('apatia')" id="quad-apatia" class="quadrant-card p-4 rounded-xl border-2 border-[#e8e4dc] bg-[#fbf9f5] cursor-pointer hover:border-[#3a6073]">
+                            <span class="text-xs font-bold text-[#64748b] block">Zona de Apatía</span>
+                            <p class="text-[11px] text-[#635e59] mt-1">Baja Seg. Psicológica / Baja Responsabilidad</p>
+                        </div>
+
+                        <!-- Bottom Right: Anxiety Zone -->
+                        <div onclick="selectQuadrant('ansiedad')" id="quad-ansiedad" class="quadrant-card p-4 rounded-xl border-2 border-[#e8e4dc] bg-[#fbf9f5] cursor-pointer hover:border-[#3a6073]">
+                            <span class="text-xs font-bold text-[#dc2626] block">Zona de Ansiedad Estructural</span>
+                            <p class="text-[11px] text-[#635e59] mt-1">Baja Seg. Psicológica / Alta Responsabilidad</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Matrix Dynamic Output Details -->
+                <div class="lg:col-span-5 bg-[#fbf9f5] p-6 rounded-2xl border border-[#e8e4dc]">
+                    <div id="quadrant-detail">
+                        <!-- JS injected quadrant breakdown -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Superforecasting Section -->
+            <div class="mt-8 p-6 bg-white rounded-2xl border border-[#e8e4dc] shadow-sm">
+                <h3 class="font-bold text-base text-[#16222f] mb-2"><i class="fa-solid fa-chart-line text-[#3a6073] mr-2"></i>Calibración Bayesiana y los "Superpronosticadores" (Philip Tetlock)</h3>
+                <p class="text-xs text-[#635e59] text-justify leading-relaxed">
+                    Los superpronosticadores superan a analistas con información clasificada porque evitan las grandes narrativas ideológicas y operan en "beta perpetua". Al evaluar eventos complejos (como la exhumación de Yasser Arafat o crisis geopolíticas), descomponen las preguntas en factores cuantitativos objetivos y actualizan de forma continua sus probabilidades exactas mediante la regla Bayesiana cada vez que entra un nuevo dato refutatorio.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- MÓDULO 6: Autodiagnóstico y Prevención de Patologías Cognitivas -->
+    <section id="autodiagnostico" class="py-12 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="mb-8">
+                <span class="text-xs font-bold text-[#3a6073] tracking-widest uppercase">Desarrollo Personal</span>
+                <h2 class="text-2xl sm:text-3xl font-bold text-[#16222f] mt-1">Higiene Metacognitiva e Identidad</h2>
+                <p class="text-sm text-[#635e59] mt-2 max-w-3xl">
+                    Prevenir el "cierre prematuro de identidad" y diferenciar la duda productiva del bucle paralizante de rumiación (sobrepensamiento) son requisitos esenciales para la longevidad mental.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+                <!-- Comparison Table: Rethinking vs Overthinking -->
+                <div class="lg:col-span-7 bg-[#fbf9f5] p-6 rounded-2xl border border-[#e8e4dc]">
+                    <h3 class="font-bold text-base text-[#16222f] mb-4">Diferencia Crítica: Replanteamiento Activo vs. Sobrepensamiento</h3>
+                    
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left text-xs border-collapse">
+                            <thead>
+                                <tr class="border-b border-[#cbd5e1] text-[#16222f]">
+                                    <th class="py-2 px-3 font-bold">Dimensión</th>
+                                    <th class="py-2 px-3 font-bold text-[#4a7c59]">Replanteamiento Activo</th>
+                                    <th class="py-2 px-3 font-bold text-[#dc2626]">Sobrepensamiento (Overthinking)</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-[#e8e4dc] text-[#635e59]">
+                                <tr>
+                                    <td class="py-2 px-3 font-semibold text-[#16222f]">Motivación</td>
+                                    <td class="py-2 px-3">Curiosidad y búsqueda empírica de la verdad.</td>
+                                    <td class="py-2 px-3">Ansiedad, miedo y necesidad de control egoico.</td>
+                                </tr>
+                                <tr>
+                                    <td class="py-2 px-3 font-semibold text-[#16222f]">Mecanismo</td>
+                                    <td class="py-2 px-3">Experimentos concretos y contraste externo.</td>
+                                    <td class="py-2 px-3">Rumiación interna y simulación apocalíptica.</td>
+                                </tr>
+                                <tr>
+                                    <td class="py-2 px-3 font-semibold text-[#16222f]">Resultado</td>
+                                    <td class="py-2 px-3">Conclusiones actualizadas y acción adaptativa.</td>
+                                    <td class="py-2 px-3">Parálisis, agotamiento neuroquímico y estasis.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Career Checkup Checklist -->
+                <div class="lg:col-span-5 bg-white p-6 rounded-2xl border border-[#e8e4dc] shadow-sm">
+                    <h3 class="font-bold text-base text-[#16222f] mb-2">
+                        <i class="fa-solid fa-user-check text-[#3a6073] mr-2"></i>Auditoría de Carrera Semestral
+                    </h3>
+                    <p class="text-xs text-[#635e59] mb-4">
+                        Evita la falacia del costo hundido realizando estas tres preguntas reflexivas dos veces al año:
+                    </p>
+
+                    <div class="space-y-3 text-xs">
+                        <label class="flex items-start space-x-2 p-2 rounded hover:bg-[#fbf9f5] cursor-pointer">
+                            <input type="checkbox" class="mt-0.5 rounded text-[#3a6073]">
+                            <span>¿Las decisiones profesionales tomadas por mi 'yo de hace 3 años' siguen sirviendo a mis valores actuales?</span>
+                        </label>
+                        <label class="flex items-start space-x-2 p-2 rounded hover:bg-[#fbf9f5] cursor-pointer">
+                            <input type="checkbox" class="mt-0.5 rounded text-[#3a6073]">
+                            <span>¿Estoy persiguiendo un objetivo por convicción genuina o por justificar mis sacrificios pasados?</span>
+                        </label>
+                        <label class="flex items-start space-x-2 p-2 rounded hover:bg-[#fbf9f5] cursor-pointer">
+                            <input type="checkbox" class="mt-0.5 rounded text-[#3a6073]">
+                            <span>¿He desvinculado mi autoestima del título del puesto para permitirme aprender nuevos roles?</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-[#16222f] text-[#cbd5e1] py-8 border-t border-[#334155]">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-xs space-y-2">
+            <p class="font-semibold text-white">Plataforma Interactiva de Metacognición & Replanteamiento</p>
+            <p>Síntesis del informe exhaustivo sobre la obra de Adam Grant <em>'Piénsalo Otra Vez'</em></p>
+            <p class="text-[#94a3b8] pt-2">Diseñado con HTML/CSS/JS Vanilla y Chart.js — Sin gráficos SVG ni dependencias de Mermaid JS.</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript Application Logic -->
+    <script>
+        // Data Structures
+        const modesData = {
+            predicador: {
+                title: "Modo Predicador (Preacher)",
+                icon: "fa-bullhorn",
+                color: "text-[#d97706]",
+                badgeBg: "bg-[#fef3c7]",
+                objective: "Proteger y evangelizar valores sacred o dogmas atrincherados.",
+                trigger: "Sentir que una creencia fundamental está bajo ataque.",
+                blindSpot: "Incapacidad para tolerar matices lógicos; la información es solo combustible propagandístico.",
+                example: "Un directivo rechazando datos de mercado porque 'contradicen la filosofía original de la empresa'."
+            },
+            fiscal: {
+                title: "Modo Fiscal (Prosecutor)",
+                icon: "fa-gavel",
+                color: "text-[#dc2626]",
+                badgeBg: "bg-[#fee2e2]",
+                objective: "Detectar y destruir los errores en el argumento del adversario.",
+                trigger: "Entornos competitivos o debates de alto estatus.",
+                blindSpot: "Ceguera absoluta hacia las fallas de la propia evidencia o propuesta.",
+                example: "Un abogado o analista enfocado únicamente en desarmar al rival sin evaluar si el rival tiene parte de razón."
+            },
+            politico: {
+                title: "Modo Político (Politician)",
+                icon: "fa-users",
+                color: "text-[#4f46e5]",
+                badgeBg: "bg-[#e0e7ff]",
+                objective: "Obtener validación social, consenso y aclamación de su grupo.",
+                trigger: "Presión de grupo, jerarquías rígidas y deseo de pertenencia.",
+                blindSpot: "Cambios de opinión superficiales impulsados por conveniencia sociopolítica y no por evidencia.",
+                example: "Un empleado que asiente a todas las ideas del CEO independientemente de la viabilidad técnica."
+            },
+            cientifico: {
+                title: "Modo Científico (Scientist) - El Ideal Metacognitivo",
+                icon: "fa-flask",
+                color: "text-[#166534]",
+                badgeBg: "bg-[#dcfce7]",
+                objective: "Descubrir la verdad mediante la prueba activa de hipótesis falsables.",
+                trigger: "Curiosidad intelectual y reconocimiento de la propia falibilidad.",
+                blindSpot: "Requiere esfuerzo consciente para no caer de forma automática en los otros tres modos.",
+                example: "Un fundador de startup que diseña un experimento con métricas claras para probar que su propia idea es errónea."
+            }
+        };
+
+        const pivotData = {
+            1: { title: "1. Reconocimiento Espiando el Fracaso", text: "Identificación objetiva y temprana de fallas fundamentales en el modelo a través de métricas frías, suprimiendo la negación psicológica." },
+            2: { title: "2. Generación de Alternativas", text: "Formulación teórica de nuevas hipótesis de modelo de negocio sin apego emocional a la versión previa." },
+            3: { title: "3. Captura & Prueba Experimentos", text: "Despliegue rápido de experimentos aislados y prueba de mercado para validar la nueva hipótesis." },
+            4: { title: "4. Reconfiguración de Recursos", text: "Transición rápida de capital y talento hacia el modelo empíricamente validado, abandonando el costo hundido." }
+        };
+
+        const quadrantData = {
+            confort: {
+                title: "Zona de Confort (Comfort Zone)",
+                bg: "bg-[#fef3c7]",
+                border: "border-[#d97706]",
+                text: "Ambiente cálido e interactivo pero clínicamente anestesiado. Abunda la simpatía pero se evitan las críticas rigurosas. La innovación se estanca porque nadie desafía las ideas mediocres."
+            },
+            aprendizaje: {
+                title: "Zona de Aprendizaje Continuo (Learning Zone) - Cúspide Epistémica",
+                bg: "bg-[#dcfce7]",
+                border: "border-[#166534]",
+                text: "El estándar de oro. Existe la libertad absoluta de reportar errores y discutir vulnerabilidades (Seguridad Psicológica), acoplado a altos estándares e inspección de procesos (Responsabilidad). Los fracasos inteligentes se celebran como datos valiosos."
+            },
+            apatia: {
+                title: "Zona de Apatía Organizacional (Apathy Zone)",
+                bg: "bg-[#f1f5f9]",
+                border: "border-[#64748b]",
+                text: "Alienación masiva y cinismo burocrático. La fuerza laboral hace el esfuerzo mínimo indispensable porque el entorno no valora su aporte ni los responsabiliza de resultados."
+            },
+            ansiedad: {
+                title: "Zona de Ansiedad Estructural (Anxiety Zone)",
+                bg: "bg-[#fee2e2]",
+                border: "border-[#dc2626]",
+                text: "Entorno altamente punitivo. La alta dirección exige metas agresivas (Responsabilidad) pero castiga con severidad el error (Baja Seguridad). Resultado: la gente oculta fallas, sufre agotamiento (burnout) y paraliza la creatividad."
+            }
+        };
+
+        const miStatements = [
+            { text: '"Sé que este proceso antiguo es ineficiente, pero siempre lo hemos hecho así y cambiarlo requiere demasiado tiempo."', type: 'sustain', expl: 'Es Charla de Mantenimiento: justifica mantener el statu quo citando barreras y tradición.' },
+            { text: '"A veces me pregunto si nuestro enfoque de marketing está perdiendo relevancia en la generación más joven."', type: 'change', expl: 'Es Charla de Cambio: expresa una duda interna e inclinación a considerar alternativas.' },
+            { text: '"No necesito ver más datos; mi intuición de 20 años en la industria vale más que cualquier estudio."', type: 'sustain', expl: 'Es Charla de Mantenimiento: se atrincherada en el orgullo intelectual y rechaza evidencia.' },
+            { text: '"Si pudiéramos pilotar la nueva herramienta en un departamento pequeño, podríamos medir el impacto real."', type: 'change', expl: 'Es Charla de Cambio: muestra voluntad de experimentar y actuar como científico.' }
+        ];
+        let currentMIIndex = 0;
+
+        // Interactive Functions
+        function playMannGulch(option) {
+            const res = document.getElementById('mann-result');
+            res.classList.remove('hidden', 'bg-[#fee2e2]', 'bg-[#dcfce7]', 'text-[#dc2626]', 'text-[#166534]');
+            if(option === 1) {
+                res.classList.add('bg-[#fee2e2]', 'text-[#dc2626]');
+                res.innerHTML = "<strong>Resultado Trágico:</strong> Trágicamente, la mayoría de los bomberos mantuvieron sus herramientas por inercia e identidad profesional. La velocidad del avance del fuego los alcanzó. Cayeron en la trampa del condicionamiento rudo.";
+            } else {
+                res.classList.add('bg-[#dcfce7]', 'text-[#166534]');
+                res.innerHTML = "<strong>Resultado Victorioso (Wagner Dodge):</strong> Dodge sobrevivió porque fue capaz de repensar en segundos. Abandonó las herramientas, inventó el 'fuego de escape' quemando el pasto cercano y permaneció en las cenizas mientras el incendio principal pasó por encima.";
+            }
+        }
+
+        function resetMannGulch() {
+            document.getElementById('mann-result').classList.add('hidden');
+        }
+
+        function selectMode(key) {
+            const data = modesData[key];
+            const detailBox = document.getElementById('mode-detail');
+            
+            // Reset card styling
+            document.querySelectorAll('.mode-card').forEach(c => {
+                c.classList.remove('border-[#3a6073]', 'bg-[#f0f4f6]');
+                c.classList.add('border-[#e8e4dc]', 'bg-white');
+            });
+            document.getElementById(`btn-${key}`).classList.add('border-[#3a6073]', 'bg-[#f0f4f6]');
+
+            detailBox.innerHTML = `
+                <div class="flex items-center space-x-3 mb-3">
+                    <span class="w-8 h-8 rounded-full ${data.badgeBg} ${data.color} flex items-center justify-center font-bold">
+                        <i class="fa-solid ${data.icon}"></i>
+                    </span>
+                    <h4 class="font-bold text-lg text-[#16222f]">${data.title}</h4>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
+                    <div class="p-3 bg-[#fbf9f5] rounded-xl border border-[#e8e4dc]">
+                        <strong class="text-[#16222f] block mb-1">Objetivo Primario:</strong>
+                        <p class="text-[#635e59]">${data.objective}</p>
+                    </div>
+                    <div class="p-3 bg-[#fbf9f5] rounded-xl border border-[#e8e4dc]">
+                        <strong class="text-[#16222f] block mb-1">Detonante (Trigger):</strong>
+                        <p class="text-[#635e59]">${data.trigger}</p>
+                    </div>
+                    <div class="p-3 bg-[#fbf9f5] rounded-xl border border-[#e8e4dc]">
+                        <strong class="text-[#dc2626] block mb-1">Punto Ciego Metacognitivo:</strong>
+                        <p class="text-[#635e59]">${data.blindSpot}</p>
+                    </div>
+                    <div class="p-3 bg-[#fbf9f5] rounded-xl border border-[#e8e4dc]">
+                        <strong class="text-[#3a6073] block mb-1">Ejemplo Cotidiano:</strong>
+                        <p class="text-[#635e59]">${data.example}</p>
+                    </div>
+                </div>
+            `;
+        }
+
+        function answerQuiz(option) {
+            const res = document.getElementById('quiz-result');
+            res.classList.remove('hidden', 'bg-[#fef3c7]', 'bg-[#fee2e2]', 'bg-[#e0e7ff]', 'bg-[#dcfce7]');
+            
+            if(option === 'A') {
+                res.classList.add('bg-[#fee2e2]', 'text-[#dc2626]');
+                res.innerHTML = "<strong>Tu impulso actual: MODO FISCAL.</strong> Tu primera reacción es desmontar al oponente en lugar de cuestionar tus datos. Intenta desacelerar y activar el modo científico.";
+            } else if(option === 'B') {
+                res.classList.add('bg-[#fef3c7]', 'text-[#d97706]');
+                res.innerHTML = "<strong>Tu impulso actual: MODO PREDICADOR.</strong> Percibes la crítica como un ataque a tus principios. Recuerda desvincular tus valores supremos de tus estrategias operativas.";
+            } else if(option === 'C') {
+                res.classList.add('bg-[#e0e7ff]', 'text-[#4f46e5]');
+                res.innerHTML = "<strong>Tu impulso actual: MODO POLÍTICO.</strong> Buscas la aprobación del grupo en lugar de la verdad empírica. Cuidado con ceder al consenso superficial.";
+            } else {
+                res.classList.add('bg-[#dcfce7]', 'text-[#166534]');
+                res.innerHTML = "<strong>¡Excelente! MODO CIENTÍFICO.</strong> Ves los datos contradictorios como una oportunidad para actualizar tu hipótesis y descubrir puntos ciegos.";
+            }
+        }
+
+        function toggleCycle(type) {
+            const content = document.getElementById('cycle-content');
+            const btnConf = document.getElementById('tab-cycle-confianza');
+            const btnRepl = document.getElementById('tab-cycle-replanteamiento');
+
+            if(type === 'confianza') {
+                btnConf.className = "px-4 py-2 text-xs font-bold rounded-lg bg-[#dc2626] text-white";
+                btnRepl.className = "px-4 py-2 text-xs font-bold rounded-lg bg-[#cbd5e1] text-[#2c2825]";
+
+                content.innerHTML = `
+                    <div class="p-3 bg-white rounded-lg border-l-4 border-[#dc2626] text-xs">
+                        <strong class="text-[#dc2626]">1. Orgullo e Infalibilidad:</strong> Éxitos pasados generan sobreconfianza.
+                    </div>
+                    <div class="p-3 bg-white rounded-lg border-l-4 border-[#dc2626] text-xs">
+                        <strong class="text-[#dc2626]">2. Filtros Perceptivos:</strong> Activación del sesgo de confirmación y deseabilidad.
+                    </div>
+                    <div class="p-3 bg-white rounded-lg border-l-4 border-[#dc2626] text-xs">
+                        <strong class="text-[#dc2626]">3. Validación Artificial:</strong> Se repele toda disonancia cognitiva.
+                    </div>
+                    <div class="p-3 bg-white rounded-lg border-l-4 border-[#dc2626] text-xs">
+                        <strong class="text-[#dc2626]">4. Dogmatismo y Ceguera:</strong> Inercia letal ante cambios del entorno.
+                    </div>
+                `;
+            } else {
+                btnConf.className = "px-4 py-2 text-xs font-bold rounded-lg bg-[#cbd5e1] text-[#2c2825]";
+                btnRepl.className = "px-4 py-2 text-xs font-bold rounded-lg bg-[#4a7c59] text-white";
+
+                content.innerHTML = `
+                    <div class="p-3 bg-white rounded-lg border-l-4 border-[#4a7c59] text-xs">
+                        <strong class="text-[#4a7c59]">1. Humildad Confiada:</strong> Reconocimiento solemne de la propia falibilidad.
+                    </div>
+                    <div class="p-3 bg-white rounded-lg border-l-4 border-[#4a7c59] text-xs">
+                        <strong class="text-[#4a7c59]">2. Duda Productiva:</strong> Cuestionamiento continuo del conocimiento presente.
+                    </div>
+                    <div class="p-3 bg-white rounded-lg border-l-4 border-[#4a7c59] text-xs">
+                        <strong class="text-[#4a7c59]">3. Curiosidad Estructurada:</strong> Búsqueda activa de datos que refuten la hipótesis.
+                    </div>
+                    <div class="p-3 bg-white rounded-lg border-l-4 border-[#4a7c59] text-xs">
+                        <strong class="text-[#4a7c59]">4. Descubrimiento e Iteración:</strong> Expansión del conocimiento y renovación adaptativa.
+                    </div>
+                `;
+            }
+        }
+
+        function showPivotPhase(phase) {
+            for(let i=1; i<=4; i++) {
+                const btn = document.getElementById(`pivot-btn-${i}`);
+                if(i === phase) {
+                    btn.className = "p-3 text-xs font-bold rounded-lg border border-[#3a6073] bg-[#f0f4f6] text-[#3a6073]";
+                } else {
+                    btn.className = "p-3 text-xs font-bold rounded-lg border border-[#e8e4dc] bg-white text-[#635e59]";
+                }
+            }
+            const data = pivotData[phase];
+            document.getElementById('pivot-content').innerHTML = `
+                <strong class="text-[#16222f] text-sm block mb-1">${data.title}</strong>
+                <p class="text-[#635e59] leading-relaxed">${data.text}</p>
+            `;
+        }
+
+        function selectQuadrant(key) {
+            const data = quadrantData[key];
+            document.getElementById('quadrant-detail').innerHTML = `
+                <div class="p-4 rounded-xl ${data.bg} border ${data.border}">
+                    <h4 class="font-bold text-sm text-[#16222f] mb-2">${data.title}</h4>
+                    <p class="text-xs text-[#2c2825] leading-relaxed">${data.text}</p>
+                </div>
+            `;
+        }
+
+        function checkMI(userChoice) {
+            const current = miStatements[currentMIIndex];
+            const feedback = document.getElementById('mi-feedback');
+            feedback.classList.remove('hidden', 'bg-[#dcfce7]', 'bg-[#fee2e2]', 'text-[#166534]', 'text-[#dc2626]');
+
+            if(userChoice === current.type) {
+                feedback.classList.add('bg-[#dcfce7]', 'text-[#166534]');
+                feedback.innerHTML = `<strong>¡Correcto!</strong> ${current.expl}`;
+            } else {
+                feedback.classList.add('bg-[#fee2e2]', 'text-[#dc2626]');
+                feedback.innerHTML = `<strong>Incorrecto.</strong> ${current.expl}`;
+            }
+
+            setTimeout(() => {
+                currentMIIndex = (currentMIIndex + 1) % miStatements.length;
+                document.getElementById('mi-statement').innerText = miStatements[currentMIIndex].text;
+                feedback.classList.add('hidden');
+            }, 3500);
+        }
+
+        // Initialize Charts on Load
+        document.addEventListener('DOMContentLoaded', () => {
+            // Initializing Mode Detail & Cycle Box
+            selectMode('cientifico');
+            toggleCycle('confianza');
+            showPivotPhase(1);
+            selectQuadrant('aprendizaje');
+
+            // Chart 1: Dunning-Kruger vs Humildad Confiada
+            const ctx1 = document.getElementById('dunningKrugerChart').getContext('2d');
+            new Chart(ctx1, {
+                type: 'line',
+                data: {
+                    labels: ['Principiante', 'Montaña de la Estupidez', 'Valle de la Desesperanza', 'Pendiente de Iluminación', 'Humildad Confiada'],
+                    datasets: [
+                        {
+                            label: 'Confianza Percibida',
+                            data: [20, 95, 25, 60, 80],
+                            borderColor: '#dc2626',
+                            backgroundColor: 'rgba(220, 38, 38, 0.1)',
+                            borderWidth: 2,
+                            fill: true,
+                            tension: 0.3
+                        },
+                        {
+                            label: 'Competencia Real',
+                            data: [10, 25, 45, 70, 90],
+                            borderColor: '#3a6073',
+                            borderDash: [5, 5],
+                            borderWidth: 2,
+                            fill: false,
+                            tension: 0.3
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { position: 'bottom', labels: { boxWidth: 12, font: { size: 11 } } }
+                    },
+                    scales: {
+                        y: { beginAtZero: true, max: 100, title: { display: true, text: 'Nivel (%)', font: { size: 10 } } }
+                    }
+                }
+            });
+
+            // Chart 2: Bocconi Startup RCT Results
+            const ctx2 = document.getElementById('bocconiChart').getContext('2d');
+            new Chart(ctx2, {
+                type: 'bar',
+                data: {
+                    labels: ['Grupo Control (Tradicional)', 'Grupo Tratamiento (Científico)'],
+                    datasets: [
+                        {
+                            label: 'Ingresos Promedio Generados (€)',
+                            data: [12000, 40000],
+                            backgroundColor: '#3a6073',
+                            borderRadius: 6
+                        },
+                        {
+                            label: 'Pivotes Estratégicos Ejecutados',
+                            data: [1.2, 3.8],
+                            backgroundColor: '#c86d51',
+                            borderRadius: 6
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { position: 'bottom', labels: { boxWidth: 12, font: { size: 11 } } },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return context.dataset.label + ': ' + context.raw;
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        y: { beginAtZero: true }
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>

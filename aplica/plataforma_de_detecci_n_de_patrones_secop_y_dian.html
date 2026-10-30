@@ -1,0 +1,1429 @@
+<!DOCTYPE html>
+<html lang="es" class="h-full bg-slate-950 text-slate-100">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#020617">
+  <meta name="description" content="VIGÍA-IA: Plataforma Forense de Detección de Patrones, Colusión y Transparencia Fiscal entre SECOP y DIAN">
+  <title>VIGÍA-IA | Auditoría Forense SECOP & DIAN</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+          },
+          colors: {
+            brand: {
+              50: '#eef2ff',
+              100: '#e0e7ff',
+              400: '#818cf8',
+              500: '#6366f1',
+              600: '#4f46e5',
+              700: '#4338ca',
+            }
+          }
+        }
+      }
+    };
+  </script>
+
+  <style>
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #090d16;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #1e293b;
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #334155;
+    }
+    .node-pulse {
+      animation: pulseGlow 2.2s infinite;
+    }
+    @keyframes pulseGlow {
+      0%, 100% { opacity: 0.95; filter: drop-shadow(0 0 5px rgba(239, 68, 68, 0.7)); }
+      50% { opacity: 0.45; filter: drop-shadow(0 0 14px rgba(239, 68, 68, 0.95)); }
+    }
+    .grid-bg {
+      background-image: radial-gradient(rgba(255, 255, 255, 0.06) 1px, transparent 1px);
+      background-size: 24px 24px;
+    }
+  </style>
+
+  <link rel="manifest" href="data:application/manifest+json;utf-8,%7B%22name%22%3A%22VigiaIA%20Auditoria%20SECOP-DIAN%22%2C%22short_name%22%3A%22VigiaIA%22%2C%22start_url%22%3A%22.%22%2C%22display%22%3A%22standalone%22%2C%22background_color%22%3A%22%23020617%22%2C%22theme_color%22%3A%22%23020617%22%2C%22description%22%3A%22Plataforma%20de%20deteccion%20de%20patrones%20y%20transparencia%20fiscal%22%7D">
+</head>
+<body class="h-full flex flex-col font-sans antialiased selection:bg-brand-500 selection:text-white bg-slate-950 text-slate-100">
+
+  <header class="border-b border-slate-800 bg-slate-900/90 backdrop-blur-md sticky top-0 z-40 shrink-0">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16">
+        <!-- Logo & Branding -->
+        <div class="flex items-center space-x-3">
+          <div class="h-10 w-10 rounded-xl bg-gradient-to-tr from-indigo-600 via-brand-500 to-emerald-400 p-[2px] flex items-center justify-center shadow-lg shadow-indigo-500/20">
+            <div class="h-full w-full bg-slate-950 rounded-[10px] flex items-center justify-center">
+              <svg class="w-5 h-5 text-indigo-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"/>
+                <path d="m4.93 4.93 4.24 4.24"/>
+                <path d="m14.83 9.17 4.24-4.24"/>
+                <path d="m14.83 14.83 4.24 4.24"/>
+                <path d="m9.17 14.83-4.24 4.24"/>
+                <circle cx="12" cy="12" r="4"/>
+              </svg>
+            </div>
+          </div>
+          <div>
+            <div class="flex items-center space-x-2">
+              <span class="font-extrabold tracking-tight text-lg text-white">VIGÍA<span class="text-indigo-400 font-light ml-0.5">·IA</span></span>
+              <span class="bg-indigo-500/10 text-indigo-400 text-[10px] font-semibold px-2 py-0.5 rounded-full border border-indigo-500/30">SECOP + DIAN</span>
+            </div>
+            <p class="text-[11px] text-slate-400 font-mono tracking-tight hidden sm:block">Plataforma de Detección de Patrones & Transparencia Fiscal</p>
+          </div>
+        </div>
+
+        <!-- Telemetry Indicators -->
+        <div class="hidden lg:flex items-center space-x-6 text-xs font-mono">
+          <div class="flex items-center space-x-2">
+            <span class="relative flex h-2 w-2">
+              <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+              <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+            </span>
+            <span class="text-slate-300">Modelos Activos: <strong class="text-emerald-400">GNN & Autoencoder</strong></span>
+          </div>
+          <div class="text-slate-400 border-l border-slate-800 pl-4">
+            <span>Entidades Cruzadas: <strong class="text-indigo-300">142.850</strong></span>
+          </div>
+          <div class="text-slate-400 border-l border-slate-800 pl-4">
+            <span>Riesgo Crítico: <span class="bg-red-500/20 text-red-400 px-1.5 py-0.5 rounded font-bold">18 Alertas</span></span>
+          </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="flex items-center space-x-2">
+          <button id="btnPwaInstall" class="hidden items-center space-x-1.5 text-xs bg-indigo-600 hover:bg-indigo-500 text-white px-3 py-1.5 rounded-lg shadow-sm font-medium transition-all">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+            <span>Instalar App</span>
+          </button>
+          <button onclick="triggerQuickAudio('click'); openModal('modalAbout')" class="p-2 rounded-lg bg-slate-800/80 hover:bg-slate-700 text-slate-300 hover:text-white border border-slate-700/60 transition" title="Guía Metodológica">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <nav class="flex space-x-1 overflow-x-auto py-2 scrollbar-none border-t border-slate-800/80 text-xs sm:text-sm">
+        <button onclick="switchTab('tab-layers')" id="nav-tab-layers" class="tab-btn px-3 py-2 rounded-lg font-medium transition flex items-center space-x-2 text-indigo-400 bg-slate-800/90 shadow-sm shrink-0">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
+          <span>1. Arquitectura de Capas</span>
+        </button>
+        <button onclick="switchTab('tab-graph')" id="nav-tab-graph" class="tab-btn px-3 py-2 rounded-lg font-medium transition flex items-center space-x-2 text-slate-400 hover:text-slate-200 hover:bg-slate-800/50 shrink-0">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="6" cy="6" r="3"/><circle cx="18" cy="18" r="3"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="6" r="3"/><line x1="8.5" y1="7.5" x2="15.5" y2="16.5"/><line x1="8.5" y1="16.5" x2="15.5" y2="7.5"/></svg>
+          <span>2. Grafo de Red & Colusión</span>
+        </button>
+        <button onclick="switchTab('tab-radar')" id="nav-tab-radar" class="tab-btn px-3 py-2 rounded-lg font-medium transition flex items-center space-x-2 text-slate-400 hover:text-slate-200 hover:bg-slate-800/50 shrink-0">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 2v20"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+          <span>3. Monitor de Banderas Rojas</span>
+        </button>
+        <button onclick="switchTab('tab-simulator')" id="nav-tab-simulator" class="tab-btn px-3 py-2 rounded-lg font-medium transition flex items-center space-x-2 text-slate-400 hover:text-slate-200 hover:bg-slate-800/50 shrink-0">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
+          <span>4. Simulador Forense DIAN vs SECOP</span>
+        </button>
+        <button onclick="switchTab('tab-governance')" id="nav-tab-governance" class="tab-btn px-3 py-2 rounded-lg font-medium transition flex items-center space-x-2 text-slate-400 hover:text-slate-200 hover:bg-slate-800/50 shrink-0">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          <span>5. Privacidad & Secreto Fiscal</span>
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <main class="flex-1 overflow-y-auto max-w-7xl w-full mx-auto p-4 sm:p-6 lg:p-8 space-y-6">
+
+    <!-- ========================================== -->
+    <!-- TAB 1: ARQUITECTURA DE CAPAS (INTERACTIVA) -->
+    <!-- ========================================== -->
+    <section id="tab-layers" class="tab-content space-y-6">
+      <div class="bg-gradient-to-r from-slate-900 via-slate-900 to-indigo-950/40 p-6 rounded-2xl border border-slate-800 shadow-xl">
+        <div class="max-w-3xl">
+          <span class="inline-flex items-center space-x-1.5 text-xs font-semibold uppercase tracking-wider text-indigo-400 bg-indigo-500/10 px-2.5 py-1 rounded-full mb-3 border border-indigo-500/20">
+            Arquitectura Analítica en Producción
+          </span>
+          <h2 class="text-2xl sm:text-3xl font-bold tracking-tight text-white">Ecosistema por Capas: SECOP & DIAN</h2>
+          <p class="text-slate-300 mt-2 text-sm sm:text-base leading-relaxed">
+            Haga clic en cualquiera de las 5 capas operativas para auditar la tecnología, ontología relacional y algoritmos de explicabilidad aplicados para identificar colusiones y empresas ficticias.
+          </p>
+        </div>
+
+        <!-- Layer Selector Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-5 gap-3 mt-6">
+          <button onclick="showLayerDetail(1)" id="btn-layer-1" class="layer-step-btn text-left p-3.5 rounded-xl border border-indigo-500 bg-indigo-950/40 transition hover:border-indigo-400">
+            <span class="text-[10px] font-mono font-bold text-indigo-400 uppercase tracking-wider">Capa 01</span>
+            <h4 class="font-semibold text-sm text-white mt-1">Ingesta & Entidades</h4>
+            <p class="text-[11px] text-slate-400 mt-0.5">OCDS, RUT, Factura Electrónica y Resolución Canónica</p>
+          </button>
+          <button onclick="showLayerDetail(2)" id="btn-layer-2" class="layer-step-btn text-left p-3.5 rounded-xl border border-slate-800 bg-slate-900/60 transition hover:border-slate-700">
+            <span class="text-[10px] font-mono font-bold text-slate-400 uppercase tracking-wider">Capa 02</span>
+            <h4 class="font-semibold text-sm text-white mt-1">Grafo de Red</h4>
+            <p class="text-[11px] text-slate-400 mt-0.5">Ontología Neo4j, Louvain, Centralidad y Ciclos</p>
+          </button>
+          <button onclick="showLayerDetail(3)" id="btn-layer-3" class="layer-step-btn text-left p-3.5 rounded-xl border border-slate-800 bg-slate-900/60 transition hover:border-slate-700">
+            <span class="text-[10px] font-mono font-bold text-slate-400 uppercase tracking-wider">Capa 03</span>
+            <h4 class="font-semibold text-sm text-white mt-1">Motores de IA</h4>
+            <p class="text-[11px] text-slate-400 mt-0.5">GNN, Autoencoders y Detección de Banderas Rojas</p>
+          </button>
+          <button onclick="showLayerDetail(4)" id="btn-layer-4" class="layer-step-btn text-left p-3.5 rounded-xl border border-slate-800 bg-slate-900/60 transition hover:border-slate-700">
+            <span class="text-[10px] font-mono font-bold text-slate-400 uppercase tracking-wider">Capa 04</span>
+            <h4 class="font-semibold text-sm text-white mt-1">LLMs & XAI</h4>
+            <p class="text-[11px] text-slate-400 mt-0.5">Pliegos Sastre y Dictámenes Forenses Explicables</p>
+          </button>
+          <button onclick="showLayerDetail(5)" id="btn-layer-5" class="layer-step-btn text-left p-3.5 rounded-xl border border-slate-800 bg-slate-900/60 transition hover:border-slate-700">
+            <span class="text-[10px] font-mono font-bold text-slate-400 uppercase tracking-wider">Capa 05</span>
+            <h4 class="font-semibold text-sm text-white mt-1">Secreto Fiscal</h4>
+            <p class="text-[11px] text-slate-400 mt-0.5">Privacidad Diferencial, Logs Inmutables y TEE</p>
+          </button>
+        </div>
+      </div>
+
+      <!-- Layer Detailed Container -->
+      <div id="layer-detail-card" class="bg-slate-900 rounded-2xl border border-slate-800 p-6 space-y-6">
+        <!-- Injected via JavaScript -->
+      </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- TAB 2: GRAFO DE RED & COLUSIÓN (CANVAS)    -->
+    <!-- ========================================== -->
+    <section id="tab-graph" class="tab-content hidden space-y-6">
+      <div class="grid grid-cols-1 lg:grid-cols-4 gap-6">
+        
+        <!-- Controls & Legend Panel -->
+        <div class="lg:col-span-1 bg-slate-900 rounded-2xl border border-slate-800 p-5 space-y-5">
+          <div>
+            <h3 class="font-bold text-white text-base flex items-center space-x-2">
+              <span>Topología de Red</span>
+              <span class="text-xs bg-indigo-500/20 text-indigo-300 px-2 py-0.5 rounded font-mono">Neo4j</span>
+            </h3>
+            <p class="text-xs text-slate-400 mt-1">
+              Visualice las relaciones encubiertas entre contratistas, empresas de papel, facturas DIAN y entidades estatales.
+            </p>
+          </div>
+
+          <!-- Filter clusters -->
+          <div class="space-y-2">
+            <label class="text-xs font-semibold text-slate-300 block uppercase tracking-wider">Filtrar por Tipología</label>
+            <select id="graphFilterSelect" onchange="applyGraphFilter()" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-xs text-slate-200 focus:outline-none focus:border-indigo-500">
+              <option value="all">Ver Red Completa (Todos los Nodos)</option>
+              <option value="cartel">Clúster de Cartelización / Colusión</option>
+              <option value="shell">Empresa Fachada (Facturación Cero)</option>
+              <option value="split">Fraccionamiento Sistemático</option>
+            </select>
+          </div>
+
+          <!-- Graph Metrics -->
+          <div class="bg-slate-950 p-3.5 rounded-xl border border-slate-800 space-y-2.5 font-mono text-xs">
+            <div class="flex justify-between items-center text-slate-400">
+              <span>Nodos Activos:</span>
+              <span id="metricNodeCount" class="text-white font-bold">12</span>
+            </div>
+            <div class="flex justify-between items-center text-slate-400">
+              <span>Densidad del Grafo:</span>
+              <span class="text-amber-400 font-bold">0.71 (Alta)</span>
+            </div>
+            <div class="flex justify-between items-center text-slate-400">
+              <span>Comunidad Louvain:</span>
+              <span class="text-indigo-400 font-bold">Consorcio Vías-3</span>
+            </div>
+            <div class="flex justify-between items-center text-slate-400">
+              <span>Score GNN Colusión:</span>
+              <span class="text-red-400 font-bold">94.8%</span>
+            </div>
+          </div>
+
+          <!-- Node Types Legend -->
+          <div class="space-y-2 text-xs">
+            <h4 class="font-semibold text-slate-300 uppercase tracking-wider text-[11px]">Leyenda de Entidades</h4>
+            <div class="space-y-1.5">
+              <div class="flex items-center space-x-2 text-slate-300">
+                <span class="w-3 h-3 rounded-full bg-indigo-500 inline-block shadow"></span>
+                <span>Entidad Pública (SECOP)</span>
+              </div>
+              <div class="flex items-center space-x-2 text-slate-300">
+                <span class="w-3 h-3 rounded-full bg-amber-500 inline-block shadow"></span>
+                <span>Contratista / Proponente</span>
+              </div>
+              <div class="flex items-center space-x-2 text-slate-300">
+                <span class="w-3 h-3 rounded-full bg-red-500 inline-block shadow"></span>
+                <span>Socio Oculto / Beneficiario Final</span>
+              </div>
+              <div class="flex items-center space-x-2 text-slate-300">
+                <span class="w-3 h-3 rounded-full bg-emerald-500 inline-block shadow"></span>
+                <span>Factura Electrónica (DIAN)</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Reset Simulation Button -->
+          <button onclick="restartGraphPhysics()" class="w-full bg-slate-800 hover:bg-slate-700 text-slate-200 py-2 rounded-xl text-xs font-medium border border-slate-700 transition flex items-center justify-center space-x-1.5">
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
+            <span>Reorganizar Simulación</span>
+          </button>
+        </div>
+
+        <!-- Canvas Container -->
+        <div class="lg:col-span-3 bg-slate-900 rounded-2xl border border-slate-800 p-4 flex flex-col relative overflow-hidden min-h-[520px]">
+          <div class="flex justify-between items-center mb-2 z-10">
+            <div class="flex items-center space-x-2">
+              <span class="inline-block w-2.5 h-2.5 rounded-full bg-red-500 node-pulse"></span>
+              <span class="text-xs font-semibold text-slate-300">Grafo Interactivo (Haga clic o arrastre cualquier nodo)</span>
+            </div>
+            <span class="text-[11px] font-mono text-slate-500">Motor de Fuerzas Fruchterman-Reingold</span>
+          </div>
+
+          <!-- The Canvas -->
+          <div class="flex-1 w-full h-full relative rounded-xl border border-slate-800/80 bg-slate-950 grid-bg overflow-hidden min-h-[460px]">
+            <canvas id="networkCanvas" class="w-full h-full block cursor-grab active:cursor-grabbing"></canvas>
+            
+            <!-- Hover Node Tooltip Overlay -->
+            <div id="nodeDetailOverlay" class="absolute bottom-4 left-4 right-4 sm:right-auto sm:max-w-md bg-slate-900/95 backdrop-blur-md p-4 rounded-xl border border-indigo-500/40 shadow-2xl transition-all duration-200 hidden">
+              <div class="flex justify-between items-start">
+                <div>
+                  <span id="overlayNodeType" class="text-[10px] font-mono font-bold uppercase tracking-wider text-indigo-400 bg-indigo-500/10 px-2 py-0.5 rounded">TIPO</span>
+                  <h4 id="overlayNodeTitle" class="text-sm font-bold text-white mt-1">Nombre</h4>
+                </div>
+                <button onclick="closeNodeOverlay()" class="text-slate-400 hover:text-white text-xs p-1">✕</button>
+              </div>
+              <p id="overlayNodeDesc" class="text-xs text-slate-300 mt-2 leading-relaxed">Descripción</p>
+              <div id="overlayNodeBadges" class="flex flex-wrap gap-1.5 mt-3"></div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- TAB 3: MONITOR DE BANDERAS ROJAS           -->
+    <!-- ========================================== -->
+    <section id="tab-radar" class="tab-content hidden space-y-6">
+      
+      <!-- Top Alert Summary -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div class="bg-slate-900 p-4 rounded-2xl border border-slate-800">
+          <div class="flex items-center justify-between text-xs text-slate-400 font-mono">
+            <span>COLUSIÓN / CÁRTELES</span>
+            <span class="bg-red-500/20 text-red-400 px-2 py-0.5 rounded font-bold">Crítico</span>
+          </div>
+          <div class="text-2xl font-extrabold text-white mt-2">18 Casos</div>
+          <p class="text-xs text-slate-400 mt-1">Ofertas con IP idéntica y socios compartidos en SECOP II.</p>
+        </div>
+
+        <div class="bg-slate-900 p-4 rounded-2xl border border-slate-800">
+          <div class="flex items-center justify-between text-xs text-slate-400 font-mono">
+            <span>EMPRESAS FACHADA</span>
+            <span class="bg-amber-500/20 text-amber-400 px-2 py-0.5 rounded font-bold">Alto</span>
+          </div>
+          <div class="text-2xl font-extrabold text-white mt-2">34 Casos</div>
+          <p class="text-xs text-slate-400 mt-1">Contratos > $5.000M con cero nómina reportada en DIAN / PILA.</p>
+        </div>
+
+        <div class="bg-slate-900 p-4 rounded-2xl border border-slate-800">
+          <div class="flex items-center justify-between text-xs text-slate-400 font-mono">
+            <span>FRACCIONAMIENTO</span>
+            <span class="bg-indigo-500/20 text-indigo-400 px-2 py-0.5 rounded font-bold">Medio</span>
+          </div>
+          <div class="text-2xl font-extrabold text-white mt-2">61 Casos</div>
+          <p class="text-xs text-slate-400 mt-1">Multiplicidad de contratos directos por debajo del tope legal.</p>
+        </div>
+
+        <div class="bg-slate-900 p-4 rounded-2xl border border-slate-800">
+          <div class="flex items-center justify-between text-xs text-slate-400 font-mono">
+            <span>BRECHA FISCAL / IVA</span>
+            <span class="bg-red-500/20 text-red-400 px-2 py-0.5 rounded font-bold">Crítico</span>
+          </div>
+          <div class="text-2xl font-extrabold text-white mt-2">$84.200M</div>
+          <p class="text-xs text-slate-400 mt-1">Diferencial entre cobros al Estado y factura electrónica radicada.</p>
+        </div>
+      </div>
+
+      <!-- Filterable Audit Table -->
+      <div class="bg-slate-900 rounded-2xl border border-slate-800 p-6 space-y-4">
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+          <div>
+            <h3 class="text-lg font-bold text-white">Casos Detectados en Cuarentena de Auditoría</h3>
+            <p class="text-xs text-slate-400">Resultados del cruce algorítmico entre SECOP y registros tributarios de la DIAN.</p>
+          </div>
+          
+          <div class="flex flex-wrap items-center gap-2">
+            <input type="text" id="filterAuditInput" oninput="filterAuditTable()" placeholder="Buscar por NIT, Contratista o Entidad..." class="bg-slate-950 border border-slate-700 rounded-xl px-3 py-1.5 text-xs text-slate-200 focus:outline-none focus:border-indigo-500 w-64">
+            <select id="filterSeveritySelect" onchange="filterAuditTable()" class="bg-slate-950 border border-slate-700 rounded-xl px-3 py-1.5 text-xs text-slate-200 focus:outline-none focus:border-indigo-500">
+              <option value="all">Todas las severidades</option>
+              <option value="CRÍTICO">Crítico</option>
+              <option value="ALTO">Alto</option>
+              <option value="MEDIO">Medio</option>
+            </select>
+            <button onclick="exportAuditDossier()" class="bg-indigo-600 hover:bg-indigo-500 text-white px-3 py-1.5 rounded-xl text-xs font-semibold flex items-center space-x-1.5 transition">
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              <span>Copiar Dossier XAI</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="overflow-x-auto">
+          <table class="w-full text-left text-xs">
+            <thead>
+              <tr class="border-b border-slate-800 text-slate-400 font-mono uppercase text-[11px] bg-slate-950/60">
+                <th class="p-3">Expediente / NIT</th>
+                <th class="p-3">Contratista & Entidad</th>
+                <th class="p-3">Tipología de Riesgo</th>
+                <th class="p-3">Inconsistencia Cuantitativa</th>
+                <th class="p-3">Score IA</th>
+                <th class="p-3 text-right">Acción</th>
+              </tr>
+            </thead>
+            <tbody id="auditTableBody" class="divide-y divide-slate-800/60">
+              <!-- Injected by JS -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- TAB 4: SIMULADOR FORENSE DIAN vs SECOP     -->
+    <!-- ========================================== -->
+    <section id="tab-simulator" class="tab-content hidden space-y-6">
+      <div class="bg-slate-900 rounded-2xl border border-slate-800 p-6 space-y-6">
+        <div>
+          <span class="text-xs font-mono font-bold text-amber-400 uppercase tracking-wider bg-amber-500/10 px-2 py-0.5 rounded border border-amber-500/20">
+            Laboratorio de Inferencia Predictiva
+          </span>
+          <h2 class="text-xl sm:text-2xl font-bold text-white mt-2">Simulador de Riesgo Multidimensional</h2>
+          <p class="text-xs sm:text-sm text-slate-300 mt-1 max-w-3xl">
+            Modifique los parámetros de un contrato público adjudicado en SECOP y contrástelos con los registros tributarios de la DIAN para calcular en tiempo real el índice de sospecha mediante modelos de gradiente y autoencoders.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          <!-- Parameter Inputs -->
+          <div class="lg:col-span-1 bg-slate-950 p-5 rounded-xl border border-slate-800 space-y-4">
+            <h4 class="font-bold text-white text-sm flex items-center space-x-2">
+              <svg class="w-4 h-4 text-indigo-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 20v-6M6 20V10M18 20V4"/></svg>
+              <span>Parámetros del Caso</span>
+            </h4>
+
+            <div>
+              <label class="text-xs font-semibold text-slate-300 block mb-1">Monto del Contrato SECOP (COP)</label>
+              <div class="flex items-center space-x-2">
+                <input type="range" id="simContractAmount" min="50" max="15000" step="50" value="4800" oninput="runSimulation()" class="w-full accent-indigo-500">
+                <span id="lblSimContractAmount" class="font-mono text-xs font-bold text-indigo-300 w-24 text-right">$4.800 M</span>
+              </div>
+            </div>
+
+            <div>
+              <label class="text-xs font-semibold text-slate-300 block mb-1">Ingresos Declarados DIAN (Último Año)</label>
+              <div class="flex items-center space-x-2">
+                <input type="range" id="simTaxIncome" min="10" max="15000" step="50" value="650" oninput="runSimulation()" class="w-full accent-indigo-500">
+                <span id="lblSimTaxIncome" class="font-mono text-xs font-bold text-emerald-300 w-24 text-right">$650 M</span>
+              </div>
+            </div>
+
+            <div>
+              <label class="text-xs font-semibold text-slate-300 block mb-1">Antigüedad del RUT (Meses)</label>
+              <div class="flex items-center space-x-2">
+                <input type="range" id="simRutAge" min="1" max="120" step="1" value="4" oninput="runSimulation()" class="w-full accent-indigo-500">
+                <span id="lblSimRutAge" class="font-mono text-xs font-bold text-slate-300 w-24 text-right">4 meses</span>
+              </div>
+            </div>
+
+            <div>
+              <label class="text-xs font-semibold text-slate-300 block mb-1">Número de Empleados en Nómina (PILA)</label>
+              <div class="flex items-center space-x-2">
+                <input type="range" id="simEmployees" min="0" max="150" step="1" value="1" oninput="runSimulation()" class="w-full accent-indigo-500">
+                <span id="lblSimEmployees" class="font-mono text-xs font-bold text-slate-300 w-24 text-right">1 empl.</span>
+              </div>
+            </div>
+
+            <div class="pt-2 border-t border-slate-800 space-y-2">
+              <label class="flex items-center space-x-2 text-xs text-slate-300 cursor-pointer">
+                <input type="checkbox" id="simSharedAddress" checked onchange="runSimulation()" class="rounded border-slate-700 text-indigo-600 focus:ring-0">
+                <span>Comparte dirección fiscal con otro proponente</span>
+              </label>
+              <label class="flex items-center space-x-2 text-xs text-slate-300 cursor-pointer">
+                <input type="checkbox" id="simDirectAward" checked onchange="runSimulation()" class="rounded border-slate-700 text-indigo-600 focus:ring-0">
+                <span>Adjudicación directa / Oferente único</span>
+              </label>
+            </div>
+          </div>
+
+          <!-- Simulation Visual Results -->
+          <div class="lg:col-span-2 space-y-4">
+            <!-- Score Meter -->
+            <div class="bg-slate-950 p-5 rounded-xl border border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-4">
+              <div>
+                <span class="text-xs font-mono text-slate-400 uppercase">Índice Compuesto de Anomalía</span>
+                <div class="flex items-baseline space-x-2 mt-1">
+                  <span id="simRiskScoreText" class="text-4xl font-black text-red-500">89.4%</span>
+                  <span id="simRiskLabel" class="text-xs font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-red-500/20 text-red-400">Riesgo Crítico</span>
+                </div>
+                <p id="simVerdictDesc" class="text-xs text-slate-300 mt-2">
+                  Patrón compatible con <strong>Empresa Fachada o Red de Colusión</strong>. Fuerte desbalance entre capacidad y cuantía.
+                </p>
+              </div>
+
+              <!-- Bar gauge display -->
+              <div class="w-full sm:w-48 bg-slate-900 p-3 rounded-lg border border-slate-800">
+                <div class="text-[11px] font-mono text-slate-400 mb-1 flex justify-between">
+                  <span>Severidad</span>
+                  <span id="simGaugePercent">89%</span>
+                </div>
+                <div class="w-full h-3 bg-slate-800 rounded-full overflow-hidden">
+                  <div id="simGaugeBar" class="h-full bg-gradient-to-r from-emerald-500 via-amber-500 to-red-600 transition-all duration-300" style="width: 89%;"></div>
+                </div>
+                <div class="flex justify-between text-[10px] font-mono text-slate-500 mt-1">
+                  <span>Normal</span>
+                  <span>Alerta</span>
+                  <span>Forense</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- XAI / SHAP Feature Importance Breakdown -->
+            <div class="bg-slate-950 p-5 rounded-xl border border-slate-800 space-y-3">
+              <div class="flex justify-between items-center">
+                <h4 class="font-bold text-white text-sm flex items-center space-x-2">
+                  <svg class="w-4 h-4 text-emerald-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                  <span>Explicabilidad Algorítmica (Aproximación de Valores SHAP)</span>
+                </h4>
+                <span class="text-[11px] font-mono text-slate-500">Factores determinantes</span>
+              </div>
+
+              <div id="shapFactorsList" class="space-y-2 text-xs">
+                <!-- Dynamically populated -->
+              </div>
+            </div>
+
+            <!-- Narrative Generation Simulation -->
+            <div class="bg-indigo-950/30 p-4 rounded-xl border border-indigo-500/30 space-y-2">
+              <div class="flex items-center space-x-2 text-indigo-300 font-mono text-xs font-semibold">
+                <svg class="w-4 h-4 animate-spin text-indigo-400" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path></svg>
+                <span>Dictamen Automático Generado por LLM Jurídico:</span>
+              </div>
+              <p id="simNarrativeText" class="text-xs text-slate-200 leading-relaxed font-sans italic bg-slate-950/70 p-3 rounded-lg border border-slate-800">
+                <!-- Narrative text -->
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- TAB 5: PRIVACIDAD & GOBERNANZA FISCAL      -->
+    <!-- ========================================== -->
+    <section id="tab-governance" class="tab-content hidden space-y-6">
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        
+        <div class="lg:col-span-2 bg-slate-900 rounded-2xl border border-slate-800 p-6 space-y-5">
+          <div>
+            <span class="text-xs font-mono font-bold text-emerald-400 uppercase tracking-wider bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/20">
+              Marco de Cumplimiento Constitucional
+            </span>
+            <h3 class="text-xl font-bold text-white mt-2">Gobernanza del Secreto Fiscal y Privacidad Diferencial</h3>
+            <p class="text-xs sm:text-sm text-slate-300 mt-1 leading-relaxed">
+              El cruce de bases de contratación abierta (SECOP) con datos tributarios reservados (DIAN, Art. 583 del Estatuto Tributario) exige un riguroso cerco criptográfico y normativo para salvaguardar la reserva tributaria y garantizar el debido proceso.
+            </p>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-2">
+              <div class="flex items-center space-x-2 text-indigo-400 font-bold text-sm">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                <span>Privacidad Diferencial (&epsilon;, &delta;)</span>
+              </div>
+              <p class="text-xs text-slate-400 leading-relaxed">
+                Inyección de ruido matemático calibrado en las consultas analíticas agregadas para imposibilitar la reconstrucción del patrimonio exacto de personas naturales no requeridas.
+              </p>
+            </div>
+
+            <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-2">
+              <div class="flex items-center space-x-2 text-emerald-400 font-bold text-sm">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect width="18" height="18" x="3" y="3" rx="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></svg>
+                <span>Entorno Seguro Federado (TEE)</span>
+              </div>
+              <p class="text-xs text-slate-400 leading-relaxed">
+                Los datos tributarios no abandonan las bóvedas de la DIAN. Los modelos analíticos se ejecutan dentro de enclaves protegidos (*Confidential Computing*), extrayendo únicamente el vector de bandera roja.
+              </p>
+            </div>
+
+            <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-2">
+              <div class="flex items-center space-x-2 text-amber-400 font-bold text-sm">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+                <span>Bitácora Criptográfica Inmutable</span>
+              </div>
+              <p class="text-xs text-slate-400 leading-relaxed">
+                Cada consulta ejecutada por un auditor deja un hash inalterable con sello de tiempo, justificación legal del requerimiento y token del funcionario, previniendo el uso indebido.
+              </p>
+            </div>
+
+            <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-2">
+              <div class="flex items-center space-x-2 text-red-400 font-bold text-sm">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+                <span>Principio de No Exclusión Automática</span>
+              </div>
+              <p class="text-xs text-slate-400 leading-relaxed">
+                La IA no revoca licitaciones automáticamente. El puntaje actúa estrictamente como mecanismo de alerta temprana para motivar visitas de inspección de la SNR, Contraloría o Fiscalía.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Reference Normative Card -->
+        <div class="bg-slate-900 rounded-2xl border border-slate-800 p-5 space-y-4">
+          <h4 class="font-bold text-white text-sm">Normativa Colombiana Aplicable</h4>
+          <ul class="space-y-3 text-xs">
+            <li class="p-3 bg-slate-950 rounded-xl border border-slate-800">
+              <strong class="text-indigo-400 block font-mono">Estatuto Tributario (Art. 583 y 585)</strong>
+              <span class="text-slate-400 mt-1 block">Regula la reserva legal sobre declaraciones y excepciones de intercambio institucional con órganos de control del Estado.</span>
+            </li>
+            <li class="p-3 bg-slate-950 rounded-xl border border-slate-800">
+              <strong class="text-indigo-400 block font-mono">Ley 1712 de 2014 (Transparencia)</strong>
+              <span class="text-slate-400 mt-1 block">Fundamento del principio de máxima publicidad para los contratos celebrados con recursos públicos en SECOP I y II.</span>
+            </li>
+            <li class="p-3 bg-slate-950 rounded-xl border border-slate-800">
+              <strong class="text-indigo-400 block font-mono">Ley 2195 de 2022 (Anticorrupción)</strong>
+              <span class="text-slate-400 mt-1 block">Crea el Registro Único de Beneficiarios Finales (RUB) y fortalece los instrumentos contra la cartelización y el desvío de recursos.</span>
+            </li>
+          </ul>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- MODAL: DETALLE DEL EXPEDIENTE FORENSE -->
+  <div id="modalAuditCase" class="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/80 backdrop-blur-sm p-4 hidden">
+    <div class="bg-slate-900 border border-slate-700 max-w-2xl w-full rounded-2xl p-6 shadow-2xl space-y-4 max-h-[90vh] overflow-y-auto">
+      <div class="flex justify-between items-start border-b border-slate-800 pb-3">
+        <div>
+          <span id="modalCaseCategory" class="text-[10px] font-mono font-bold uppercase tracking-wider text-red-400 bg-red-500/10 px-2 py-0.5 rounded border border-red-500/30">CATEGORÍA</span>
+          <h3 id="modalCaseTitle" class="text-lg font-bold text-white mt-1">Expediente</h3>
+        </div>
+        <button onclick="closeModal('modalAuditCase')" class="text-slate-400 hover:text-white p-1 text-base">✕</button>
+      </div>
+
+      <div class="grid grid-cols-2 gap-3 text-xs bg-slate-950 p-4 rounded-xl border border-slate-800 font-mono">
+        <div><span class="text-slate-500">NIT Contratista:</span> <p id="modalCaseNit" class="text-slate-200 font-bold mt-0.5"></p></div>
+        <div><span class="text-slate-500">Entidad Compradora:</span> <p id="modalCaseEntity" class="text-slate-200 font-bold mt-0.5"></p></div>
+        <div><span class="text-slate-500">Monto SECOP:</span> <p id="modalCaseSecop" class="text-amber-400 font-bold mt-0.5"></p></div>
+        <div><span class="text-slate-500">Reporte DIAN:</span> <p id="modalCaseDian" class="text-emerald-400 font-bold mt-0.5"></p></div>
+      </div>
+
+      <div class="space-y-2 text-xs">
+        <h4 class="font-bold text-slate-200 uppercase tracking-wider text-[11px]">Evidencia Forense y Hallazgos</h4>
+        <p id="modalCaseFindings" class="text-slate-300 leading-relaxed bg-slate-950/50 p-3 rounded-xl border border-slate-800"></p>
+      </div>
+
+      <div class="space-y-2 text-xs">
+        <h4 class="font-bold text-slate-200 uppercase tracking-wider text-[11px]">Recomendación de Acción Judicial / Disciplinaria</h4>
+        <p id="modalCaseAction" class="text-indigo-300 font-medium bg-indigo-950/30 p-3 rounded-xl border border-indigo-500/20"></p>
+      </div>
+
+      <div class="flex justify-end space-x-2 pt-2">
+        <button onclick="closeModal('modalAuditCase')" class="px-4 py-2 rounded-xl text-xs bg-slate-800 hover:bg-slate-700 text-slate-300 transition">Cerrar</button>
+        <button onclick="copySingleCaseDossier()" class="px-4 py-2 rounded-xl text-xs bg-indigo-600 hover:bg-indigo-500 text-white font-semibold transition flex items-center space-x-1.5">
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1" ry="1"/></svg>
+          <span>Copiar Ficha Forense</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: ACERCA DE / GUÍA METODOLÓGICA -->
+  <div id="modalAbout" class="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/80 backdrop-blur-sm p-4 hidden">
+    <div class="bg-slate-900 border border-slate-700 max-w-xl w-full rounded-2xl p-6 shadow-2xl space-y-4">
+      <div class="flex justify-between items-center border-b border-slate-800 pb-3">
+        <h3 class="text-base font-bold text-white flex items-center space-x-2">
+          <span>Manual Metodológico VIGÍA-IA</span>
+        </h3>
+        <button onclick="closeModal('modalAbout')" class="text-slate-400 hover:text-white p-1">✕</button>
+      </div>
+      <div class="text-xs text-slate-300 space-y-3 leading-relaxed">
+        <p>
+          <strong>VIGÍA-IA</strong> es una plataforma de análisis predictivo y forense diseñada para cruzar la contratación pública (SECOP I y II) con los registros fiscales protegidos (DIAN) con fines preventivos de anticorrupción.
+        </p>
+        <div class="bg-slate-950 p-3 rounded-xl border border-slate-800">
+          <span class="font-bold text-indigo-400 block mb-1">Pilares de Funcionamiento:</span>
+          <ul class="list-disc pl-4 space-y-1 text-slate-400">
+            <li><strong>Resolución Canónica:</strong> Identifica al mismo contratista a pesar de cambios de razón social o uniones temporales.</li>
+            <li><strong>Grafos y GNN:</strong> Calcula la proximidad entre oferentes para detectar colusión o socios comunes en licitaciones paralelas.</li>
+            <li><strong>Explicabilidad SHAP:</strong> Detalla con precisión matemática el impacto de cada discrepancia fiscal sobre el score de riesgo.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="flex justify-end">
+        <button onclick="closeModal('modalAbout')" class="px-4 py-2 rounded-xl text-xs bg-indigo-600 hover:bg-indigo-500 text-white font-medium transition">Entendido</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- NOTIFICATION TOAST -->
+  <div id="toastMessage" class="fixed bottom-5 right-5 z-50 bg-indigo-600 text-white text-xs px-4 py-3 rounded-xl shadow-2xl flex items-center space-x-2 transition-all transform translate-y-20 opacity-0 pointer-events-none">
+    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+    <span id="toastText">Mensaje</span>
+  </div>
+
+  <script>
+    /* ============================================================
+       APPLICATION STATE & MOCK AUDIT DATA (COLOMBIA SECOP & DIAN)
+       ============================================================ */
+    const auditDatabase = [
+      {
+        id: "EXP-2026-081",
+        nit: "901.458.219-4",
+        company: "Construcciones & Pavimentos Caribe S.A.S.",
+        entity: "Gobernación del Atlántico / ORIP",
+        category: "Colusión / Cartelización",
+        severity: "CRÍTICO",
+        secopAmount: "$12.450M",
+        dianAmount: "$1.200M (Facturado)",
+        discrepancy: "Subfacturación DIAN del 90%",
+        aiScore: 94.8,
+        findings: "Participó en consorcio con 'Vías del Norte S.A.S.' compartiendo el mismo representante legal y dirección IP en la plataforma SECOP II. Cero facturas electrónicas de compra de asfalto reportadas ante la DIAN para la vigencia del contrato.",
+        action: "Remisión inmediata a la Delegatura de Protección de la Competencia (SIC) y apertura de investigación penal por fraude procesal."
+      },
+      {
+        id: "EXP-2026-094",
+        nit: "900.882.103-1",
+        company: "Insumos Hospitalarios Andinos S.A.S.",
+        entity: "Subred Integrada de Servicios de Salud Bogotá",
+        category: "Empresa Fachada / Papel",
+        severity: "CRÍTICO",
+        secopAmount: "$6.800M",
+        dianAmount: "$0 M (Sin Nómina PILA)",
+        discrepancy: "Cero empleados registrados",
+        aiScore: 92.1,
+        findings: "Sociedad matriculada hace 3 meses con capital suscrito de $2M. Recibió contrato de suministros de alta complejidad. La consulta al Registro Único Tributario (RUT) arroja dirección residencial deshabitada.",
+        action: "Suspensión cautelar de giros de tesorería y traslado a la Dirección de Fiscalización de la DIAN para declaratoria de proveedor ficticio."
+      },
+      {
+        id: "EXP-2026-112",
+        nit: "800.194.550-8",
+        company: "Soluciones Tecnológicas & Archivo Digital",
+        entity: "Superintendencia de Notariado y Registro",
+        category: "Fraccionamiento de Contratos",
+        severity: "ALTO",
+        secopAmount: "$1.980M",
+        dianAmount: "$1.980M (Ok)",
+        discrepancy: "14 contratos directos en 60 días",
+        aiScore: 84.5,
+        findings: "Fraccionamiento sistemático de contratos de digitalización y escaneo de protocolos notariales para no superar el umbral de menor cuantía. Objeto contractual idéntico distribuido entre varias dependencias.",
+        action: "Apertura de pliego de cargos disciplinarios por presunta evasión de la licitación pública ordinaria (Ley 80 de 1993)."
+      },
+      {
+        id: "EXP-2026-128",
+        nit: "901.773.491-0",
+        company: "Logística y Dotaciones del Llano",
+        entity: "Alcaldía de Villavicencio",
+        category: "Inconsistencia Fiscal / Evasión",
+        severity: "ALTO",
+        secopAmount: "$4.150M",
+        dianAmount: "$450M (IVA Declarado)",
+        discrepancy: "Omisión de retenciones e IVA",
+        aiScore: 78.9,
+        findings: "Incongruencia entre los comprobantes de pago de la entidad estatal en el portal de transparencia y las declaraciones bimestrales de IVA radicadas por el proponente.",
+        action: "Requerimiento especial de fiscalización por inexactitud tributaria y bloqueo preventivo del certificado del Registro Único de Proponentes (RUP)."
+      },
+      {
+        id: "EXP-2026-145",
+        nit: "900.541.229-3",
+        company: "Consultorías Ambientales del Valle",
+        entity: "Corporación Autónoma Regional (CVC)",
+        category: "Conflictos de Interés / Red Oculta",
+        severity: "MEDIO",
+        secopAmount: "$890M",
+        dianAmount: "$890M (Ok)",
+        discrepancy: "Vínculo de consanguinidad de socio",
+        aiScore: 68.2,
+        findings: "El beneficiario final registrado en el RUB (Registro Único de Beneficiarios Finales de la DIAN) tiene parentesco en segundo grado con el ordenador del gasto de la entidad contratante.",
+        action: "Compulsa de copias a la Procuraduría Delegada para la Vigilancia Administrativa por violación al régimen de inhabilidades e incompatibilidades."
+      }
+    ];
+
+    let currentSelectedCase = auditDatabase[0];
+
+    function triggerQuickAudio(type) {
+      try {
+        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+
+        if (type === 'click') {
+          osc.frequency.setValueAtTime(440, audioCtx.currentTime);
+          osc.frequency.exponentialRampToValueAtTime(880, audioCtx.currentTime + 0.05);
+          gain.gain.setValueAtTime(0.04, audioCtx.currentTime);
+          gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.05);
+          osc.start();
+          osc.stop(audioCtx.currentTime + 0.05);
+        } else if (type === 'alert') {
+          osc.frequency.setValueAtTime(587.33, audioCtx.currentTime);
+          osc.frequency.setValueAtTime(880, audioCtx.currentTime + 0.08);
+          gain.gain.setValueAtTime(0.08, audioCtx.currentTime);
+          gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.2);
+          osc.start();
+          osc.stop(audioCtx.currentTime + 0.2);
+        }
+      } catch (e) {
+        // AudioContext silent fallback
+      }
+    }
+
+    function showToast(msg) {
+      const toast = document.getElementById('toastMessage');
+      const text = document.getElementById('toastText');
+      text.textContent = msg;
+      toast.classList.remove('translate-y-20', 'opacity-0', 'pointer-events-none');
+      setTimeout(() => {
+        toast.classList.add('translate-y-20', 'opacity-0', 'pointer-events-none');
+      }, 3000);
+    }
+
+    function openModal(modalId) {
+      document.getElementById(modalId).classList.remove('hidden');
+    }
+
+    function closeModal(modalId) {
+      document.getElementById(modalId).classList.add('hidden');
+    }
+
+    function switchTab(targetId) {
+      triggerQuickAudio('click');
+      document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+      document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.classList.remove('text-indigo-400', 'bg-slate-800/90', 'shadow-sm');
+        btn.classList.add('text-slate-400');
+      });
+
+      document.getElementById(targetId).classList.remove('hidden');
+      const activeNavBtn = document.getElementById('nav-' + targetId);
+      if (activeNavBtn) {
+        activeNavBtn.classList.remove('text-slate-400');
+        activeNavBtn.classList.add('text-indigo-400', 'bg-slate-800/90', 'shadow-sm');
+      }
+
+      if (targetId === 'tab-graph') {
+        resizeCanvas();
+        restartGraphPhysics();
+      }
+    }
+
+    const layerSpecs = {
+      1: {
+        title: "Capa 1: Ingesta, Normalización y Entidades Canónicas",
+        tag: "EXTRACCIÓN & RESOLUCIÓN",
+        desc: "Ingesta continua de datos heterogéneos provenientes de SECOP I, SECOP II (estándar OCDS) y bases fiscales de la DIAN.",
+        techs: ["Apache Kafka", "OCDS JSON Schema", "Deduplicación Probabilística", "Algoritmo Jaro-Winkler"],
+        highlights: [
+          "<strong>Unificación de Identidad:</strong> Vinculación del NIT, Cédula de Ciudadanía y razones sociales modificadas en un ID Canónico Único.",
+          "<strong>Validación de Estados Tributarios:</strong> Cruce en tiempo real con el Registro Único Tributario (RUT) y estado activo/cancelado del RUT.",
+          "<strong>Extracción de Consorcios:</strong> Desagregación automática de participantes en Uniones Temporales para analizar responsabilidades individuales."
+        ],
+        codePreview: `// Pipeline de Normalización Canónica (PySpark / Kafka)
+def resolver_entidad_canonico(row):
+    nit_limpio = regex_extract(row['nit'], r'\\d{9,10}')
+    rut_hash = sha256(nit_limpio + row['primer_apellido'])
+    return EntityRecord(id_canonico=rut_hash, secop_id=row['id_contratista'])`
+      },
+      2: {
+        title: "Capa 2: Grafo de Conocimiento y Ontología Relacional",
+        tag: "KNOWLEDGE GRAPH & CYCLIC ANALYSIS",
+        desc: "Mapeo topológico de todas las interacciones contractuales, societarias y de facturación en una base de datos de grafos orientada a la auditoría.",
+        techs: ["Neo4j Enterprise", "Algoritmo Louvain", "Betweenness Centrality", "Cypher Queries"],
+        highlights: [
+          "<strong>Nodos Clave:</strong> Contratista, Entidad Pública, Contrato, Representante Legal, Beneficiario Final (RUB), Factura.",
+          "<strong>Detección de Comunidades:</strong> Identificación de clústeres cerrados de empresas que postulan de forma conjunta para rotarse licitaciones.",
+          "<strong>Caminos Circulares:</strong> Detección de triangulación de recursos mediante subcontratistas vinculados al mismo grupo empresarial."
+        ],
+        codePreview: `// Detección de Colusión en Cypher
+MATCH (p1:Contratista)-[:PARTICIPA_EN]->(c:Licitacion)<-[:PARTICIPA_EN]-(p2:Contratista)
+MATCH (p1)-[:MISMO_REPRESENTANTE|MISMA_DIRECCION]->(p2)
+RETURN p1.nombre, p2.nombre, c.objeto, c.monto`
+      },
+      3: {
+        title: "Capa 3: Motores de Detección de Patrones e Inferencia",
+        tag: "MACHINE LEARNING MULTIDIMENSIONAL",
+        desc: "Modelos supervisados y no supervisados que evalúan simultáneamente la capacidad operativa, el comportamiento en subastas y la coherencia fiscal.",
+        techs: ["Graph Convolutional Networks (GCN)", "XGBoost Classifier", "Isolation Forest", "Autoencoders"],
+        highlights: [
+          "<strong>GNN (Redes Neuronales de Grafos):</strong> Predicción de aristas sospechosas no declaradas entre proponentes.",
+          "<strong>Autoencoders para Desviación Fiscal:</strong> Reconstrucción del perfil tributario por código CIIU y detección de anomalías en ingresos.",
+          "<strong>Puntaje Compuesto de Riesgo:</strong> Ponderación de 0 a 100 de factores como: oferta única, cercanía con elecciones y diferencial DIAN."
+        ],
+        codePreview: `// Autoencoder para Detección de Inconsistencias Fiscales
+class FiscalAutoencoder(nn.Module):
+    def __init__(self):
+        super().__init__()
+        self.encoder = nn.Sequential(nn.Linear(24, 8), nn.ReLU(), nn.Linear(8, 3))
+        self.decoder = nn.Sequential(nn.Linear(3, 8), nn.ReLU(), nn.Linear(8, 24))`
+      },
+      4: {
+        title: "Capa 4: LLMs para Procesamiento de Pliegos y Explicabilidad (XAI)",
+        tag: "NLP & EXPLAINABLE AI",
+        desc: "Agentes de lenguaje natural que auditan pliegos de condiciones y traducen los vectores numéricos de riesgo en dictámenes jurídicos accionables.",
+        techs: ["Gemini Models API", "Valores de Shapley (SHAP)", "RAG Jurídico", "Vector Embeddings"],
+        highlights: [
+          "<strong>Detección de 'Pliegos Sastre':</strong> Extracción de requisitos técnicos absurdamente restrictivos diseñados para favorecer a un solo proponente.",
+          "<strong>SHAP Feature Importance:</strong> Desglose exacto de los motivos por los que el sistema clasificó un contrato como de riesgo crítico.",
+          "<strong>Redacción Automatizada de Traslados:</strong> Generación del borrador formal de compulsa de copias hacia los organismos de control."
+        ],
+        codePreview: `// Prompt Estructurado para Auditoría Jurídica
+prompt = "Analice este anexo técnico de SECOP II frente al Decreto 1082 de 2015.
+Identifique cláusulas desproporcionadas en capacidad residual y experiencia específica."`
+      },
+      5: {
+        title: "Capa 5: Gobernanza, Seguridad y Secreto Fiscal",
+        tag: "COMPLIANCE & PRIVACIDAD DIFERENCIAL",
+        desc: "Marco técnico de confidencialidad para operar con reserva tributaria (Art. 583 E.T.) sin frenar la labor de auditoría del gasto público.",
+        techs: ["Differential Privacy", "Confidential Computing (TEE)", "Logs Criptográficos SHA-256", "RBAC Granular"],
+        highlights: [
+          "<strong>Consultas con Privacidad Diferencial:</strong> Los analistas no ven números de cuenta ni declaraciones individuales sin orden judicial expresa.",
+          "<strong>Inmutabilidad de Auditoría:</strong> Registro forense de cada operador que accede o consulta una alerta dentro de la plataforma.",
+          "<strong>Garantía de Debido Proceso:</strong> La clasificación algorítmica es un insumo preliminar y no constituye sanción administrativa anticipada."
+        ],
+        codePreview: `// Aplicación de Privacidad Diferencial en Consultas DIAN
+def aplicar_ruido_laplace(ingreso_declarado, epsilon=0.5):
+    escala = sensibilidad / epsilon
+    ruido = np.random.laplace(0, escala)
+    return ingreso_declarado + ruido`
+      }
+    };
+
+    function showLayerDetail(layerNum) {
+      triggerQuickAudio('click');
+      for (let i = 1; i <= 5; i++) {
+        const btn = document.getElementById(`btn-layer-${i}`);
+        if (i === layerNum) {
+          btn.className = "layer-step-btn text-left p-3.5 rounded-xl border border-indigo-500 bg-indigo-950/40 transition";
+          btn.querySelector('span').className = "text-[10px] font-mono font-bold text-indigo-400 uppercase tracking-wider";
+        } else {
+          btn.className = "layer-step-btn text-left p-3.5 rounded-xl border border-slate-800 bg-slate-900/60 transition hover:border-slate-700";
+          btn.querySelector('span').className = "text-[10px] font-mono font-bold text-slate-400 uppercase tracking-wider";
+        }
+      }
+
+      const spec = layerSpecs[layerNum];
+      const container = document.getElementById('layer-detail-card');
+      container.innerHTML = `
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-3 border-b border-slate-800 pb-4">
+          <div>
+            <span class="text-xs font-mono font-bold text-indigo-400 bg-indigo-500/10 px-2.5 py-1 rounded-full border border-indigo-500/20">${spec.tag}</span>
+            <h3 class="text-xl font-bold text-white mt-2">${spec.title}</h3>
+          </div>
+          <div class="flex flex-wrap gap-1.5">
+            ${spec.techs.map(t => `<span class="bg-slate-950 border border-slate-800 text-slate-300 text-[11px] font-mono px-2 py-0.5 rounded">${t}</span>`).join('')}
+          </div>
+        </div>
+
+        <p class="text-sm text-slate-300 leading-relaxed">${spec.desc}</p>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 pt-2">
+          <div class="space-y-3">
+            <h4 class="text-xs font-bold uppercase tracking-wider text-slate-400 font-mono">Capacidades Operativas</h4>
+            <ul class="space-y-2 text-xs text-slate-300">
+              ${spec.highlights.map(h => `<li class="flex items-start space-x-2"><span class="text-indigo-400 font-bold">›</span><span>${h}</span></li>`).join('')}
+            </ul>
+          </div>
+          <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 font-mono text-[11px] text-indigo-300 overflow-x-auto">
+            <div class="text-[10px] text-slate-500 uppercase tracking-wider mb-2 font-bold flex justify-between">
+              <span>Módulo Técnico</span>
+              <span>Python / Cypher</span>
+            </div>
+            <pre><code>${spec.codePreview}</code></pre>
+          </div>
+        </div>
+      `;
+    }
+
+    const canvas = document.getElementById('networkCanvas');
+    const ctx = canvas.getContext('2d');
+
+    const graphNodes = [
+      { id: "ent1", label: "Gob. Atlántico", type: "entity", x: 140, y: 160, radius: 18, color: "#6366f1", group: "main" },
+      { id: "ent2", label: "SNR Central", type: "entity", x: 500, y: 120, radius: 18, color: "#6366f1", group: "snr" },
+      { id: "cont1", label: "Construcciones Caribe", type: "proponent", x: 260, y: 220, radius: 14, color: "#f59e0b", group: "cartel" },
+      { id: "cont2", label: "Vías del Norte", type: "proponent", x: 270, y: 350, radius: 14, color: "#f59e0b", group: "cartel" },
+      { id: "rep1", label: "Dr. Mendoza (Socio Oculto)", type: "person", x: 390, y: 280, radius: 12, color: "#ef4444", group: "cartel" },
+      { id: "tax1", label: "Factura DIAN #0091 ($1.2M)", type: "tax", x: 120, y: 330, radius: 10, color: "#10b981", group: "cartel" },
+      
+      { id: "shell1", label: "Insumos Andinos S.A.S.", type: "proponent", x: 440, y: 410, radius: 14, color: "#f59e0b", group: "shell" },
+      { id: "rep2", label: "Testaferro Pérez", type: "person", x: 580, y: 390, radius: 12, color: "#ef4444", group: "shell" },
+      { id: "tax2", label: "PILA DIAN (Cero Nómina)", type: "tax", x: 350, y: 470, radius: 10, color: "#10b981", group: "shell" },
+
+      { id: "tech1", label: "Soluciones Digitales", type: "proponent", x: 630, y: 200, radius: 14, color: "#f59e0b", group: "split" },
+      { id: "split1", label: "Contrato Menor #1", type: "tax", x: 740, y: 140, radius: 9, color: "#818cf8", group: "split" },
+      { id: "split2", label: "Contrato Menor #2", type: "tax", x: 750, y: 250, radius: 9, color: "#818cf8", group: "split" },
+    ];
+
+    const graphEdges = [
+      { from: "ent1", to: "cont1", label: "Adjudicado $12.450M", suspicious: true },
+      { from: "ent1", to: "cont2", label: "Postulación Sombra", suspicious: true },
+      { from: "cont1", to: "rep1", label: "Control Efectivo (RUB)", suspicious: true },
+      { from: "cont2", to: "rep1", label: "Misma Dirección & IP", suspicious: true },
+      { from: "cont1", to: "tax1", label: "Subfacturación DIAN", suspicious: true },
+
+      { from: "shell1", to: "rep2", label: "Representante", suspicious: false },
+      { from: "shell1", to: "tax2", label: "Sin Aportes Seg. Social", suspicious: true },
+      { from: "ent2", to: "shell1", label: "Adjudicación Exprés", suspicious: true },
+
+      { from: "ent2", to: "tech1", label: "Contratación Fraccionada", suspicious: true },
+      { from: "tech1", to: "split1", label: "Giro 1", suspicious: false },
+      { from: "tech1", to: "split2", label: "Giro 2", suspicious: false },
+    ];
+
+    let draggedNode = null;
+    let hoveredNode = null;
+
+    function resizeCanvas() {
+      if (!canvas || !canvas.parentElement) return;
+      canvas.width = canvas.parentElement.clientWidth;
+      canvas.height = canvas.parentElement.clientHeight || 480;
+    }
+
+    function drawGraph() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      const filterVal = document.getElementById('graphFilterSelect').value;
+
+      // Draw Edges
+      graphEdges.forEach(edge => {
+        const fromNode = graphNodes.find(n => n.id === edge.from);
+        const toNode = graphNodes.find(n => n.id === edge.to);
+
+        if (!fromNode || !toNode) return;
+
+        const visible = filterVal === 'all' || fromNode.group === filterVal || toNode.group === filterVal;
+        if (!visible) return;
+
+        ctx.beginPath();
+        ctx.moveTo(fromNode.x, fromNode.y);
+        ctx.lineTo(toNode.x, toNode.y);
+
+        if (edge.suspicious) {
+          ctx.strokeStyle = "rgba(239, 68, 68, 0.8)";
+          ctx.lineWidth = 2;
+          ctx.setLineDash([4, 4]);
+        } else {
+          ctx.strokeStyle = "rgba(100, 116, 139, 0.4)";
+          ctx.lineWidth = 1.2;
+          ctx.setLineDash([]);
+        }
+        ctx.stroke();
+        ctx.setLineDash([]);
+
+        // Label in mid point
+        const midX = (fromNode.x + toNode.x) / 2;
+        const midY = (fromNode.y + toNode.y) / 2;
+        ctx.fillStyle = edge.suspicious ? "#fca5a5" : "#94a3b8";
+        ctx.font = "9px 'JetBrains Mono', monospace";
+        ctx.fillText(edge.label, midX + 4, midY - 4);
+      });
+
+      // Draw Nodes
+      graphNodes.forEach(node => {
+        const visible = filterVal === 'all' || node.group === filterVal;
+        if (!visible) return;
+
+        ctx.beginPath();
+        ctx.arc(node.x, node.y, node.radius, 0, Math.PI * 2);
+        ctx.fillStyle = node.color;
+        ctx.shadowColor = node.color;
+        ctx.shadowBlur = node === hoveredNode ? 16 : 6;
+        ctx.fill();
+        ctx.shadowBlur = 0;
+
+        ctx.lineWidth = node === hoveredNode ? 2.5 : 1.5;
+        ctx.strokeStyle = "#ffffff";
+        ctx.stroke();
+
+        ctx.fillStyle = "#f8fafc";
+        ctx.font = "10px Inter, sans-serif";
+        ctx.textAlign = "center";
+        ctx.fillText(node.label, node.x, node.y + node.radius + 14);
+      });
+
+      requestAnimationFrame(drawGraph);
+    }
+
+    function applyGraphFilter() {
+      triggerQuickAudio('click');
+      const val = document.getElementById('graphFilterSelect').value;
+      const visibleCount = val === 'all' ? graphNodes.length : graphNodes.filter(n => n.group === val).length;
+      document.getElementById('metricNodeCount').textContent = visibleCount;
+    }
+
+    function restartGraphPhysics() {
+      triggerQuickAudio('click');
+      const cx = canvas.width / 2;
+      const cy = canvas.height / 2;
+      graphNodes.forEach((node, i) => {
+        const angle = (i / graphNodes.length) * Math.PI * 2;
+        const dist = 140 + (i % 3) * 45;
+        node.x = Math.max(40, Math.min(canvas.width - 40, cx + Math.cos(angle) * dist));
+        node.y = Math.max(40, Math.min(canvas.height - 40, cy + Math.sin(angle) * dist));
+      });
+      showToast("Topología de red reorganizada");
+    }
+
+    function getCanvasCoordinates(e) {
+      const rect = canvas.getBoundingClientRect();
+      const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+      const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+      return {
+        x: clientX - rect.left,
+        y: clientY - rect.top
+      };
+    }
+
+    function handleStart(e) {
+      const pos = getCanvasCoordinates(e);
+      draggedNode = graphNodes.find(n => {
+        const dx = n.x - pos.x;
+        const dy = n.y - pos.y;
+        return Math.sqrt(dx * dx + dy * dy) <= n.radius + 6;
+      });
+      if (draggedNode) {
+        triggerQuickAudio('click');
+        showNodeOverlay(draggedNode);
+      }
+    }
+
+    function handleMove(e) {
+      const pos = getCanvasCoordinates(e);
+      if (draggedNode) {
+        draggedNode.x = Math.max(draggedNode.radius, Math.min(canvas.width - draggedNode.radius, pos.x));
+        draggedNode.y = Math.max(draggedNode.radius, Math.min(canvas.height - draggedNode.radius, pos.y));
+      } else {
+        hoveredNode = graphNodes.find(n => {
+          const dx = n.x - pos.x;
+          const dy = n.y - pos.y;
+          return Math.sqrt(dx * dx + dy * dy) <= n.radius + 6;
+        });
+      }
+    }
+
+    function handleEnd() {
+      draggedNode = null;
+    }
+
+    canvas.addEventListener('mousedown', handleStart);
+    window.addEventListener('mousemove', handleMove);
+    window.addEventListener('mouseup', handleEnd);
+
+    canvas.addEventListener('touchstart', handleStart, { passive: true });
+    window.addEventListener('touchmove', handleMove, { passive: true });
+    window.addEventListener('touchend', handleEnd);
+
+    function showNodeOverlay(node) {
+      const overlay = document.getElementById('nodeDetailOverlay');
+      const typeEl = document.getElementById('overlayNodeType');
+      const titleEl = document.getElementById('overlayNodeTitle');
+      const descEl = document.getElementById('overlayNodeDesc');
+      const badgesEl = document.getElementById('overlayNodeBadges');
+
+      typeEl.textContent = node.type.toUpperCase();
+      titleEl.textContent = node.label;
+
+      let desc = "";
+      let badges = [];
+
+      if (node.type === 'entity') {
+        desc = "Entidad del Estado que expidió la convocatoria en SECOP II. Cuenta con presupuesto sujeto a control fiscal.";
+        badges = ["SECOP II", "Ordenador de Gasto", "Presupuesto General"];
+      } else if (node.type === 'proponent') {
+        desc = "Persona jurídica registrada en Cámara de Comercio y clasificada en el RUP. Presentó oferta formal y pólizas.";
+        badges = ["RUP", "RUT DIAN Activo", "Proponente Calificado"];
+      } else if (node.type === 'person') {
+        desc = "Persona natural con participación accionaria o representación compartida detectada en el Registro de Beneficiarios Finales (RUB).";
+        badges = ["Beneficiario Final", "Poder Notarial", "Vínculo Societario"];
+      } else if (node.type === 'tax') {
+        desc = "Registro tributario oficial emitido o recibido por la DIAN (facturación electrónica, retenciones en la fuente o seguridad social).";
+        badges = ["Art. 583 E.T.", "Trazabilidad Bancaria", "XML Validado"];
+      }
+
+      descEl.textContent = desc;
+      badgesEl.innerHTML = badges.map(b => `<span class="bg-slate-800 text-indigo-300 font-mono text-[10px] px-2 py-0.5 rounded border border-slate-700">${b}</span>`).join('');
+      overlay.classList.remove('hidden');
+    }
+
+    function closeNodeOverlay() {
+      document.getElementById('nodeDetailOverlay').classList.add('hidden');
+    }
+
+    function renderAuditTable(data = auditDatabase) {
+      const tbody = document.getElementById('auditTableBody');
+      tbody.innerHTML = "";
+
+      if (data.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="6" class="p-4 text-center text-slate-500">No se encontraron expedientes con los criterios seleccionados.</td></tr>`;
+        return;
+      }
+
+      data.forEach(item => {
+        const tr = document.createElement('tr');
+        tr.className = "hover:bg-slate-800/40 transition cursor-pointer";
+        tr.onclick = (e) => {
+          if (!e.target.closest('button')) {
+            openCaseDetail(item.id);
+          }
+        };
+
+        const sevBadge = item.severity === 'CRÍTICO' 
+          ? `<span class="bg-red-500/20 text-red-400 font-bold px-2 py-0.5 rounded border border-red-500/30">CRÍTICO</span>`
+          : item.severity === 'ALTO'
+          ? `<span class="bg-amber-500/20 text-amber-400 font-bold px-2 py-0.5 rounded border border-amber-500/30">ALTO</span>`
+          : `<span class="bg-indigo-500/20 text-indigo-400 font-bold px-2 py-0.5 rounded border border-indigo-500/30">MEDIO</span>`;
+
+        tr.innerHTML = `
+          <td class="p-3">
+            <span class="font-mono font-bold text-white">${item.id}</span>
+            <span class="block text-[11px] text-slate-400 font-mono">${item.nit}</span>
+          </td>
+          <td class="p-3">
+            <strong class="text-slate-200 block">${item.company}</strong>
+            <span class="text-slate-400 text-[11px]">${item.entity}</span>
+          </td>
+          <td class="p-3">
+            <span class="text-slate-300 font-medium">${item.category}</span>
+            <div class="mt-1">${sevBadge}</div>
+          </td>
+          <td class="p-3">
+            <div class="font-mono text-slate-300">SECOP: <strong class="text-amber-400">${item.secopAmount}</strong></div>
+            <div class="font-mono text-slate-400 text-[11px]">DIAN: ${item.dianAmount}</div>
+          </td>
+          <td class="p-3">
+            <div class="flex items-center space-x-2">
+              <span class="font-mono font-bold ${item.aiScore > 90 ? 'text-red-400' : 'text-amber-400'}">${item.aiScore}%</span>
+              <div class="w-16 h-1.5 bg-slate-800 rounded-full overflow-hidden">
+                <div class="h-full ${item.aiScore > 90 ? 'bg-red-500' : 'bg-amber-500'}" style="width: ${item.aiScore}%"></div>
+              </div>
+            </div>
+          </td>
+          <td class="p-3 text-right">
+            <button onclick="openCaseDetail('${item.id}')" class="bg-slate-800 hover:bg-slate-700 text-slate-200 px-2.5 py-1 rounded text-[11px] font-medium border border-slate-700 transition">
+              Auditar
+            </button>
+          </td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    function filterAuditTable() {
+      const q = document.getElementById('filterAuditInput').value.toLowerCase();
+      const sev = document.getElementById('filterSeveritySelect').value;
+
+      const filtered = auditDatabase.filter(item => {
+        const matchesQuery = item.company.toLowerCase().includes(q) ||
+                             item.nit.toLowerCase().includes(q) ||
+                             item.entity.toLowerCase().includes(q) ||
+                             item.id.toLowerCase().includes(q);
+        const matchesSev = sev === 'all' || item.severity === sev;
+        return matchesQuery && matchesSev;
+      });
+
+      renderAuditTable(filtered);
+    }
+
+    function openCaseDetail(id) {
+      triggerQuickAudio('click');
+      const item = auditDatabase.find(x => x.id === id);
+      if (!item) return;
+      currentSelectedCase = item;
+
+      document.getElementById('modalCaseCategory').textContent = `${item.category} | SEVERIDAD: ${item.severity}`;
+      document.getElementById('modalCaseTitle').textContent = `${item.company} (${item.id})`;
+      document.getElementById('modalCaseNit').textContent = item.nit;
+      document.getElementById('modalCaseEntity').textContent = item.entity;
+      document.getElementById('modalCaseSecop').textContent = item.secopAmount;
+      document.getElementById('modalCaseDian').textContent = item.dianAmount;
+      document.getElementById('modalCaseFindings').textContent = item.findings;
+      document.getElementById('modalCaseAction').textContent = item.action;
+
+      openModal('modalAuditCase');
+    }
+
+    function copySingleCaseDossier() {
+      triggerQuickAudio('click');
+      const text = `--- EXPEDIENTE DE AUDITORÍA FORENSE (VIGÍA-IA) ---
+ID: ${currentSelectedCase.id}
+CONTRATISTA: ${currentSelectedCase.company} (NIT: ${currentSelectedCase.nit})
+ENTIDAD: ${currentSelectedCase.entity}
+TIPOLOGÍA: ${currentSelectedCase.category} (Score IA: ${currentSelectedCase.aiScore}%)
+DISCREPANCIA FINANCIERA: SECOP ${currentSelectedCase.secopAmount} vs DIAN ${currentSelectedCase.dianAmount}
+HALLAZGOS: ${currentSelectedCase.findings}
+MEDIDA RECOMENDADA: ${currentSelectedCase.action}
+BASE LEGAL: Estatuto Anticorrupción Ley 2195 de 2022 / Estatuto Tributario Art. 583.`;
+
+      copyToClipboardText(text);
+      showToast("Ficha forense copiada al portapapeles");
+    }
+
+    function exportAuditDossier() {
+      triggerQuickAudio('alert');
+      let text = `=== INFORME CONSOLIDADO DE ALERTAS SECOP & DIAN (OCTUBRE 2026) ===\nTotal Expedientes Auditados: ${auditDatabase.length}\n\n`;
+      auditDatabase.forEach(c => {
+        text += `[${c.id}] ${c.company} | NIT ${c.nit}\n- Entidad: ${c.entity}\n- Riesgo: ${c.category} (${c.severity} - ${c.aiScore}%)\n- Cuantías: SECOP ${c.secopAmount} vs DIAN ${c.dianAmount}\n- Hallazgo: ${c.findings}\n- Acción: ${c.action}\n\n`;
+      });
+      copyToClipboardText(text);
+      showToast("Dossier consolidado copiado al portapapeles");
+    }
+
+    function copyToClipboardText(str) {
+      const el = document.createElement('textarea');
+      el.value = str;
+      el.setAttribute('readonly', '');
+      el.style.position = 'absolute';
+      el.style.left = '-9999px';
+      document.body.appendChild(el);
+      el.select();
+      try {
+        document.execCommand('copy');
+      } catch (err) {
+        console.error('Error copying text', err);
+      }
+      document.body.removeChild(el);
+    }
+
+    function runSimulation() {
+      const contract = parseFloat(document.getElementById('simContractAmount').value);
+      const taxIncome = parseFloat(document.getElementById('simTaxIncome').value);
+      const rutAge = parseInt(document.getElementById('simRutAge').value);
+      const employees = parseInt(document.getElementById('simEmployees').value);
+      const sharedAddress = document.getElementById('simSharedAddress').checked;
+      const directAward = document.getElementById('simDirectAward').checked;
+
+      // Update labels
+      document.getElementById('lblSimContractAmount').textContent = `$${contract.toLocaleString('es-CO')} M`;
+      document.getElementById('lblSimTaxIncome').textContent = `$${taxIncome.toLocaleString('es-CO')} M`;
+      document.getElementById('lblSimRutAge').textContent = `${rutAge} mes${rutAge > 1 ? 'es' : ''}`;
+      document.getElementById('lblSimEmployees').textContent = `${employees} emp.`;
+
+      // Scoring heuristic
+      let score = 15;
+      const ratio = contract / Math.max(taxIncome, 1);
+      if (ratio > 5) score += 35;
+      else if (ratio > 2) score += 18;
+      else if (ratio > 1.2) score += 8;
+
+      if (rutAge < 6) score += 20;
+      else if (rutAge < 12) score += 10;
+
+      if (contract > 2000 && employees <= 2) score += 18;
+      else if (contract > 500 && employees === 0) score += 14;
+
+      if (sharedAddress) score += 12;
+      if (directAward) score += 8;
+
+      score = Math.min(Math.round(score * 10) / 10, 99.4);
+
+      // Render results
+      const scoreText = document.getElementById('simRiskScoreText');
+      const labelText = document.getElementById('simRiskLabel');
+      const descText = document.getElementById('simVerdictDesc');
+      const gaugeBar = document.getElementById('simGaugeBar');
+      const gaugePercent = document.getElementById('simGaugePercent');
+
+      scoreText.textContent = `${score}%`;
+      gaugePercent.textContent = `${Math.round(score)}%`;
+      gaugeBar.style.width = `${Math.round(score)}%`;
+
+      if (score >= 80) {
+        scoreText.className = "text-4xl font-black text-red-500";
+        labelText.className = "text-xs font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-red-500/20 text-red-400 border border-red-500/30";
+        labelText.textContent = "Riesgo Crítico (Cuarentena)";
+        descText.innerHTML = "Patrón compatible con <strong>Empresa de Papel o Red de Colusión</strong>. Discrepancia sustancial entre la facturación declarada en la DIAN y la cuantía asumida con el Estado.";
+      } else if (score >= 50) {
+        scoreText.className = "text-4xl font-black text-amber-500";
+        labelText.className = "text-xs font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-amber-500/20 text-amber-400 border border-amber-500/30";
+        labelText.textContent = "Riesgo Moderado (Alerta)";
+        descText.innerHTML = "Se aprecian desbalances en la capacidad operativa o antigüedad del RUT frente al tamaño del contrato. Se sugiere inspección física preventiva.";
+      } else {
+        scoreText.className = "text-4xl font-black text-emerald-400";
+        labelText.className = "text-xs font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-400 border border-emerald-500/30";
+        labelText.textContent = "Riesgo Bajo (Conforme)";
+        descText.innerHTML = "La capacidad tributaria histórica, nómina de empleados y antecedentes societarios son consistentes con la envergadura del contrato adjudicado.";
+      }
+
+      // Render SHAP factors
+      const factors = [
+        { name: "Desfase Facturación DIAN vs Contrato SECOP", impact: ratio > 2 ? "+34%" : "+5%", positive: ratio > 2 },
+        { name: "Antigüedad insuficiente del RUT (<6 meses)", impact: rutAge < 6 ? "+20%" : "+0%", positive: rutAge < 6 },
+        { name: "Nómina PILA insuficiente para el objeto", impact: (contract > 1000 && employees < 3) ? "+18%" : "-4%", positive: (contract > 1000 && employees < 3) },
+        { name: "Grafo: Misma sede fiscal con competidores", impact: sharedAddress ? "+12%" : "0%", positive: sharedAddress },
+        { name: "Adjudicación sin puja (Oferente Único)", impact: directAward ? "+8%" : "0%", positive: directAward },
+      ];
+
+      const shapContainer = document.getElementById('shapFactorsList');
+      shapContainer.innerHTML = factors.map(f => `
+        <div class="flex items-center justify-between p-2 rounded-lg bg-slate-900 border border-slate-800">
+          <span class="text-slate-300">${f.name}</span>
+          <span class="font-mono font-bold ${f.positive ? 'text-red-400' : 'text-emerald-400'}">${f.impact}</span>
+        </div>
+      `).join('');
+
+      // Auto-narrative
+      const narrativeEl = document.getElementById('simNarrativeText');
+      narrativeEl.textContent = `"El análisis algorítmico identificó un contrato por $${contract}M COP adjudicado a un proponente cuyos ingresos tributarios declarados ante la DIAN alcanzan apenas $${taxIncome}M COP (Ratio de exposición: ${ratio.toFixed(1)}x). La matrícula mercantil registra ${rutAge} meses de constitución con solo ${employees} empleado(s) cotizante(s). ${sharedAddress ? 'Se evidencia concurrencia física con otros participantes de la licitación.' : ''} Dictamen pericial: se sugiere la suspensión preventiva del pago de anticipos bajo los lineamientos del Estatuto Anticorrupción."`;
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      showLayerDetail(1);
+      renderAuditTable();
+      runSimulation();
+
+      window.addEventListener('resize', () => {
+        resizeCanvas();
+      });
+
+      resizeCanvas();
+      drawGraph();
+
+      // PWA Install Prompt handling
+      let deferredPrompt;
+      const btnInstall = document.getElementById('btnPwaInstall');
+
+      window.addEventListener('beforeinstallprompt', (e) => {
+        e.preventDefault();
+        deferredPrompt = e;
+        btnInstall.classList.remove('hidden');
+        btnInstall.classList.add('flex');
+      });
+
+      btnInstall.addEventListener('click', async () => {
+        if (deferredPrompt) {
+          deferredPrompt.prompt();
+          const { outcome } = await deferredPrompt.userChoice;
+          if (outcome === 'accepted') {
+            btnInstall.classList.add('hidden');
+          }
+          deferredPrompt = null;
+        } else {
+          showToast("La aplicación ya está lista para usarse como PWA.");
+        }
+      });
+    });
+  </script>
+</body>
+</html>

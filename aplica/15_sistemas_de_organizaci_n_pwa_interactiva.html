@@ -1,0 +1,1212 @@
+<!DOCTYPE html>
+<html lang="es" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#0f172a">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>Top 1% Systems OS | 15 Sistemas de Organización & IA</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- Google Fonts: Inter & JetBrains Mono -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#eef2ff',
+                            100: '#e0e7ff',
+                            400: '#818cf8',
+                            500: '#6366f1',
+                            600: '#4f46e5',
+                            700: '#4338ca',
+                            900: '#1e1b4b',
+                        },
+                        accent: {
+                            400: '#34d399',
+                            500: '#10b981',
+                            600: '#059669',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Custom Scrollbars & Glassmorphism */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: rgba(15, 23, 42, 0.5);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: rgba(99, 102, 241, 0.4);
+            border-radius: 9999px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(99, 102, 241, 0.7);
+        }
+        .glass-panel {
+            background: rgba(30, 41, 59, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .light .glass-panel {
+            background: rgba(255, 255, 255, 0.85);
+            border: 1px solid rgba(226, 232, 240, 0.9);
+        }
+        .tab-active {
+            background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+            color: white !important;
+            box-shadow: 0 4px 15px -3px rgba(79, 70, 229, 0.4);
+        }
+        @keyframes pulse-subtle {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+        .animate-pulse-subtle {
+            animation: pulse-subtle 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+    </style>
+</head>
+<body class="bg-slate-950 text-slate-100 light:bg-slate-50 light:text-slate-900 font-sans min-h-screen flex flex-col transition-colors duration-300 selection:bg-brand-500 selection:text-white pb-20 md:pb-0">
+
+    <!-- Notificación Toast Flotante -->
+    <div id="toast" class="fixed top-5 right-5 z-50 transform translate-x-full opacity-0 transition-all duration-300 glass-panel px-4 py-3 rounded-xl shadow-2xl flex items-center gap-3 border-l-4 border-accent-500 pointer-events-none">
+        <i class="fa-solid fa-circle-check text-accent-400 text-lg"></i>
+        <span id="toast-msg" class="text-sm font-medium">Acción guardada en el sistema</span>
+    </div>
+
+    <!-- Header / Barra Superior PWA -->
+    <header class="sticky top-0 z-40 glass-panel border-b border-slate-800/80 light:border-slate-200 px-4 lg:px-8 py-3">
+        <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-4">
+            <!-- Brand & Logo -->
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-brand-500 to-purple-600 flex items-center justify-center shadow-lg shadow-brand-500/30">
+                    <i class="fa-solid fa-layer-group text-white text-lg"></i>
+                </div>
+                <div>
+                    <div class="flex items-center gap-2">
+                        <h1 class="font-bold text-base sm:text-lg tracking-tight">SystemOS <span class="text-brand-400 font-mono text-xs px-2 py-0.5 bg-brand-500/10 border border-brand-500/30 rounded-full">PWA v1.0</span></h1>
+                    </div>
+                    <p class="text-xs text-slate-400 hidden sm:block">15 Sistemas de Organización • Del Caos al Top 1% Mundial</p>
+                </div>
+            </div>
+
+            <!-- Barra de Progreso Global -->
+            <div class="flex items-center gap-4 flex-1 max-w-md mx-auto hidden md:flex">
+                <div class="w-full">
+                    <div class="flex justify-between text-xs mb-1">
+                        <span class="text-slate-400 font-medium">Nivel de Implementación</span>
+                        <span id="progress-text" class="font-mono font-bold text-accent-400">0/15 (0%)</span>
+                    </div>
+                    <div class="w-full bg-slate-800 rounded-full h-2.5 overflow-hidden p-0.5 border border-slate-700">
+                        <div id="progress-bar" class="bg-gradient-to-r from-brand-500 to-accent-400 h-full rounded-full transition-all duration-500" style="width: 0%"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Acciones Rápidas (PWA Install, Descarga Cognitiva, Tema) -->
+            <div class="flex items-center gap-2">
+                <button onclick="openCognitiveModal()" class="px-3 py-2 rounded-xl bg-brand-600/20 hover:bg-brand-600/30 border border-brand-500/40 text-brand-300 text-xs sm:text-sm font-medium flex items-center gap-2 transition-all" title="Capturar idea rápida (Sistema 1)">
+                    <i class="fa-solid fa-bolt text-amber-400"></i>
+                    <span class="hidden sm:inline">Captura Rápida</span>
+                    <span id="inbox-badge" class="px-1.5 py-0.5 text-[10px] font-mono bg-brand-500 text-white rounded-full">0</span>
+                </button>
+
+                <button id="pwa-install-btn" onclick="installPWA()" class="hidden px-3 py-2 rounded-xl bg-accent-600 hover:bg-accent-500 text-white text-xs sm:text-sm font-semibold flex items-center gap-2 shadow-lg shadow-accent-600/20 transition-all">
+                    <i class="fa-solid fa-download"></i>
+                    <span class="hidden sm:inline">Instalar App</span>
+                </button>
+
+                <a href="https://youtu.be/uTlJlozyoNw?si=_1wKnlxEvkyDmn6E" target="_blank" rel="noopener noreferrer" class="p-2.5 rounded-xl bg-red-500/10 hover:bg-red-500/20 text-red-400 border border-red-500/20 transition-all" title="Ver video original en YouTube">
+                    <i class="fa-brands fa-youtube text-lg"></i>
+                </a>
+
+                <button onclick="exportReport()" class="p-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 transition-all" title="Copiar Resumen Ejecutivo y Progreso">
+                    <i class="fa-solid fa-share-nodes"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Barra de progreso móvil -->
+        <div class="md:hidden mt-3 pt-2 border-t border-slate-800/60 flex items-center justify-between gap-3">
+            <span class="text-xs text-slate-400">Progreso de Sistemas:</span>
+            <div class="flex-1 bg-slate-800 rounded-full h-2 overflow-hidden">
+                <div id="progress-bar-mobile" class="bg-gradient-to-r from-brand-500 to-accent-400 h-full rounded-full transition-all duration-500" style="width: 0%"></div>
+            </div>
+            <span id="progress-text-mobile" class="font-mono text-xs font-bold text-accent-400">0/15</span>
+        </div>
+    </header>
+
+    <!-- Layout Principal -->
+    <div class="max-w-7xl w-full mx-auto flex-1 flex flex-col lg:flex-row gap-6 p-4 lg:p-8">
+        
+        <!-- Navegación Lateral (Desktop) -->
+        <aside class="hidden lg:flex flex-col w-64 shrink-0 gap-2">
+            <div class="glass-panel rounded-2xl p-3 flex flex-col gap-1.5 sticky top-24">
+                <p class="text-[11px] font-mono uppercase tracking-wider text-slate-400 px-3 py-1">Módulos del Sistema</p>
+                
+                <button onclick="switchTab('dashboard')" id="nav-dashboard" class="nav-btn tab-active w-full text-left px-4 py-3 rounded-xl font-medium text-sm flex items-center gap-3 transition-all text-slate-300 hover:bg-slate-800/60">
+                    <i class="fa-solid fa-cubes-stacked w-5 text-center"></i>
+                    <span>15 Sistemas (Interactivo)</span>
+                </button>
+
+                <button onclick="switchTab('cronologia')" id="nav-cronologia" class="nav-btn w-full text-left px-4 py-3 rounded-xl font-medium text-sm flex items-center gap-3 transition-all text-slate-300 hover:bg-slate-800/60">
+                    <i class="fa-solid fa-clock-rotate-left w-5 text-center"></i>
+                    <span>Notas & Timestamps</span>
+                </button>
+
+                <button onclick="switchTab('estrategia')" id="nav-estrategia" class="nav-btn w-full text-left px-4 py-3 rounded-xl font-medium text-sm flex items-center gap-3 transition-all text-slate-300 hover:bg-slate-800/60">
+                    <i class="fa-solid fa-chess-knight w-5 text-center"></i>
+                    <span>Edentia & Consultoría IA</span>
+                </button>
+
+                <button onclick="switchTab('glosario')" id="nav-glosario" class="nav-btn w-full text-left px-4 py-3 rounded-xl font-medium text-sm flex items-center gap-3 transition-all text-slate-300 hover:bg-slate-800/60">
+                    <i class="fa-solid fa-book-bookmark w-5 text-center"></i>
+                    <span>Glosario & Pros/Contras</span>
+                </button>
+
+                <button onclick="switchTab('manual')" id="nav-manual" class="nav-btn w-full text-left px-4 py-3 rounded-xl font-medium text-sm flex items-center gap-3 transition-all text-slate-300 hover:bg-slate-800/60">
+                    <i class="fa-solid fa-fingerprint w-5 text-center"></i>
+                    <span>Mi Manual (Sistema 15)</span>
+                </button>
+
+                <!-- Tarjeta Resumen del Video -->
+                <div class="mt-4 pt-4 border-t border-slate-800/80 px-2">
+                    <div class="bg-slate-900/90 rounded-xl p-3 border border-slate-800">
+                        <div class="flex items-center gap-2 text-xs text-brand-400 font-semibold mb-1">
+                            <i class="fa-solid fa-video"></i>
+                            <span>Fuente Analizada</span>
+                        </div>
+                        <p class="text-xs font-medium text-slate-200 line-clamp-2">15 Sistemas de Organización Que te Elevan del Caos al Top 1% Mundial</p>
+                        <p class="text-[11px] text-slate-400 mt-1">Canal: InvernovAH - Álvaro H. Jarque</p>
+                        <div class="mt-2 flex items-center justify-between text-[11px] font-mono text-slate-400">
+                            <span><i class="fa-regular fa-clock mr-1"></i>29:34</span>
+                            <span>3 Niveles</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Contenido Principal Dinámico -->
+        <main class="flex-1 min-w-0">
+
+            <!-- ==========================================
+                 VISTA 1: DASHBOARD DE LOS 15 SISTEMAS
+                 ========================================== -->
+            <section id="view-dashboard" class="space-y-6">
+                <!-- Banner Ejecutivo -->
+                <div class="glass-panel rounded-2xl p-6 relative overflow-hidden border border-brand-500/20">
+                    <div class="absolute -right-10 -top-10 w-40 h-40 bg-brand-500/10 rounded-full blur-2xl pointer-events-none"></div>
+                    <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                        <div>
+                            <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-mono uppercase bg-brand-500/10 text-brand-400 border border-brand-500/20 mb-2">
+                                <i class="fa-solid fa-rocket"></i> Inspirado en NASA • Google • Michael Phelps
+                            </span>
+                            <h2 class="text-xl sm:text-2xl font-bold text-white">Arquitectura de 15 Sistemas en 3 Niveles</h2>
+                            <p class="text-sm text-slate-300 mt-1 max-w-3xl">
+                                Pasa de más de 12 horas de trabajo reactivo a un sistema que soporta tus emprendimientos, consultoría y vida personal. Marca cada sistema a medida que lo auditas o implementas.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Controles de Filtrado y Búsqueda -->
+                    <div class="mt-6 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 pt-4 border-t border-slate-800/80">
+                        <div class="flex flex-wrap gap-1.5">
+                            <button onclick="filterSystems('all')" id="filter-all" class="filter-chip bg-brand-600 text-white px-3 py-1.5 rounded-xl text-xs font-medium transition-all">
+                                Todos (15)
+                            </button>
+                            <button onclick="filterSystems('nivel1')" id="filter-nivel1" class="filter-chip bg-slate-800 hover:bg-slate-700 text-slate-300 px-3 py-1.5 rounded-xl text-xs font-medium transition-all">
+                                1. Infraestructura (1-5)
+                            </button>
+                            <button onclick="filterSystems('nivel2')" id="filter-nivel2" class="filter-chip bg-slate-800 hover:bg-slate-700 text-slate-300 px-3 py-1.5 rounded-xl text-xs font-medium transition-all">
+                                2. Ritmos de Revisión (6-10)
+                            </button>
+                            <button onclick="filterSystems('nivel3')" id="filter-nivel3" class="filter-chip bg-slate-800 hover:bg-slate-700 text-slate-300 px-3 py-1.5 rounded-xl text-xs font-medium transition-all">
+                                3. Sostenibilidad (11-15)
+                            </button>
+                        </div>
+
+                        <div class="relative min-w-[220px]">
+                            <i class="fa-solid fa-magnifying-glass absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-xs"></i>
+                            <input type="text" id="system-search" oninput="renderSystems()" placeholder="Buscar sistema, analogía, herramienta..." class="w-full pl-8 pr-3 py-1.5 bg-slate-900/90 border border-slate-700 rounded-xl text-xs text-slate-200 focus:outline-none focus:border-brand-500">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Grid de Tarjetas de los 15 Sistemas -->
+                <div id="systems-grid" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <!-- Renderizado dinámicamente por JS -->
+                </div>
+            </section>
+
+            <!-- ==========================================
+                 VISTA 2: NOTAS DETALLADAS Y TIMESTAMPS
+                 ========================================== -->
+            <section id="view-cronologia" class="hidden space-y-6">
+                <div class="glass-panel rounded-2xl p-6">
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-800 pb-4">
+                        <div>
+                            <h2 class="text-xl font-bold text-white flex items-center gap-2">
+                                <i class="fa-solid fa-list-check text-brand-400"></i>
+                                Desglose Cronológico con Marcas de Tiempo
+                            </h2>
+                            <p class="text-xs sm:text-sm text-slate-400 mt-1">Haz clic en cualquier marca de tiempo <span class="font-mono text-brand-400">[HH:MM:SS]</span> para abrir el punto exacto en YouTube.</p>
+                        </div>
+                        <button onclick="copyAllNotes()" class="self-start sm:self-auto px-3 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-xs font-medium text-slate-200 flex items-center gap-2 border border-slate-700 transition-all">
+                            <i class="fa-regular fa-copy"></i>
+                            <span>Copiar Notas en Markdown</span>
+                        </button>
+                    </div>
+
+                    <!-- Línea de tiempo detallada -->
+                    <div id="timeline-container" class="mt-6 space-y-6 relative before:absolute before:inset-0 before:ml-5 before:-translate-x-px md:before:mx-auto md:before:translate-x-0 before:h-full before:w-0.5 before:bg-gradient-to-b before:from-brand-500 before:via-purple-500 before:to-accent-500">
+                        <!-- Renderizado por JS -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- ==========================================
+                 VISTA 3: EDENTIA & LEONARDO CONSULTOR SENIOR IA
+                 ========================================== -->
+            <section id="view-estrategia" class="hidden space-y-6">
+                <!-- Encabezado Estratégico -->
+                <div class="glass-panel rounded-2xl p-6 border-l-4 border-brand-500">
+                    <div class="flex items-center gap-2 text-xs font-mono uppercase text-brand-400 mb-1">
+                        <i class="fa-solid fa-microchip"></i> Aplicación Corporativa y Monetización B2B
+                    </div>
+                    <h2 class="text-xl sm:text-2xl font-bold text-white">Hoja de Ruta Estratégica: Edentia & Consultoría Senior de IA</h2>
+                    <p class="text-sm text-slate-300 mt-1">
+                        Cómo transformar la metodología de los 15 sistemas en ventaja competitiva interna, activos de propiedad intelectual y servicios de alto ticket impulsados por Inteligencia Artificial.
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    <!-- Columna 1: Para Edentia -->
+                    <div class="glass-panel rounded-2xl p-6 flex flex-col justify-between border border-slate-800">
+                        <div>
+                            <div class="flex items-center justify-between mb-4">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-10 h-10 rounded-xl bg-blue-500/20 border border-blue-500/30 flex items-center justify-center text-blue-400">
+                                        <i class="fa-solid fa-building-shield text-lg"></i>
+                                    </div>
+                                    <div>
+                                        <h3 class="font-bold text-lg text-white">Estrategia para Edentia</h3>
+                                        <p class="text-xs text-slate-400">Escalabilidad Operativa & Producto B2B</p>
+                                    </div>
+                                </div>
+                                <span class="px-2.5 py-1 text-[11px] font-mono bg-blue-500/10 text-blue-400 rounded-full border border-blue-500/20">Corporativo</span>
+                            </div>
+
+                            <div class="space-y-4 mt-4">
+                                <div class="p-4 rounded-xl bg-slate-900/80 border border-slate-800">
+                                    <h4 class="font-semibold text-sm text-blue-300 flex items-center gap-2">
+                                        <i class="fa-solid fa-network-wired"></i> 1. Arquitectura de Procesos Internos (Sistemas 1-5)
+                                    </h4>
+                                    <p class="text-xs text-slate-300 mt-1.5 leading-relaxed">
+                                        Unificar la captura de requerimientos técnicos y comerciales mediante un <strong>Smart CRM conectado a agentes de transcripción IA</strong>. Centralizar la documentación de desarrollo en un <em>Segundo Cerebro</em> corporativo (Notion/Confluence) indexado con RAG para que ningún requerimiento de cliente se pierda en chats.
+                                    </p>
+                                </div>
+
+                                <div class="p-4 rounded-xl bg-slate-900/80 border border-slate-800">
+                                    <h4 class="font-semibold text-sm text-blue-300 flex items-center gap-2">
+                                        <i class="fa-solid fa-arrows-spin"></i> 2. Ritmos Ágiles y OKRs de Ingeniería (Sistemas 6-10)
+                                    </h4>
+                                    <p class="text-xs text-slate-300 mt-1.5 leading-relaxed">
+                                        Instituir <em>Dailies</em> estrictas de 15 minutos por la mañana para el equipo técnico y revisiones de <em>Sprint</em> que auditen no solo el código entregado, sino los cuellos de botella del propio flujo de desarrollo en Edentia.
+                                    </p>
+                                </div>
+
+                                <div class="p-4 rounded-xl bg-slate-900/80 border border-slate-800">
+                                    <h4 class="font-semibold text-sm text-blue-300 flex items-center gap-2">
+                                        <i class="fa-solid fa-sack-dollar"></i> 3. Nuevo Servicio Monetizable: "Auditoría & Infraestructura IA"
+                                    </h4>
+                                    <p class="text-xs text-slate-300 mt-1.5 leading-relaxed">
+                                        Empaquetar e implementar esta arquitectura para empresas clientes: instalarles el CRM automatizado, configurarles agentes tomadores de notas en reuniones y desplegar su Segundo Cerebro corporativo como un servicio llave en mano (Setup + Retainer mensual).
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mt-6 pt-4 border-t border-slate-800 flex items-center justify-between text-xs text-slate-400">
+                            <span>Impacto estimado: Reducción de 40% en fricción operativa</span>
+                            <i class="fa-solid fa-arrow-trend-up text-accent-400"></i>
+                        </div>
+                    </div>
+
+                    <!-- Columna 2: Para Leonardo como Consultor Senior de IA -->
+                    <div class="glass-panel rounded-2xl p-6 flex flex-col justify-between border border-slate-800">
+                        <div>
+                            <div class="flex items-center justify-between mb-4">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-10 h-10 rounded-xl bg-purple-500/20 border border-purple-500/30 flex items-center justify-center text-purple-400">
+                                        <i class="fa-solid fa-user-astronaut text-lg"></i>
+                                    </div>
+                                    <div>
+                                        <h3 class="font-bold text-lg text-white">Leonardo • Consultor Senior de IA</h3>
+                                        <p class="text-xs text-slate-400">Posicionamiento, Autoridad & Alto Ticket</p>
+                                    </div>
+                                </div>
+                                <span class="px-2.5 py-1 text-[11px] font-mono bg-purple-500/10 text-purple-400 rounded-full border border-purple-500/20">Advisory</span>
+                            </div>
+
+                            <div class="space-y-4 mt-4">
+                                <div class="p-4 rounded-xl bg-slate-900/80 border border-slate-800">
+                                    <h4 class="font-semibold text-sm text-purple-300 flex items-center gap-2">
+                                        <i class="fa-solid fa-compass-drafting"></i> 1. Posicionamiento "Spec-Driven & System Engineering"
+                                    </h4>
+                                    <p class="text-xs text-slate-300 mt-1.5 leading-relaxed">
+                                        Vincular la anécdota de la alarma 120 del Apolo 11 con el diseño de sistemas de IA confiables: <em>"En IA empresarial no improvisamos prompts; diseñamos especificaciones y protocolos de respuesta para cada escenario crítico antes del despliegue"</em>.
+                                    </p>
+                                </div>
+
+                                <div class="p-4 rounded-xl bg-slate-900/80 border border-slate-800">
+                                    <h4 class="font-semibold text-sm text-purple-300 flex items-center gap-2">
+                                        <i class="fa-solid fa-brain"></i> 2. Talleres Ejecutivos de "Descarga Cognitiva con Agentes IA"
+                                    </h4>
+                                    <p class="text-xs text-slate-300 mt-1.5 leading-relaxed">
+                                        Ofrecer a CEOs, juntas directivas y entidades públicas programas de transformación donde se auditan sus 5 sistemas base y se reemplaza el trabajo manual por flujos multi-agente (triaje de comunicaciones, resúmenes ejecutivos diarios y preparación de sprints).
+                                    </p>
+                                </div>
+
+                                <div class="p-4 rounded-xl bg-slate-900/80 border border-slate-800">
+                                    <h4 class="font-semibold text-sm text-purple-300 flex items-center gap-2">
+                                        <i class="fa-solid fa-book-open-reader"></i> 3. Monetización de Propiedad Intelectual & Criterio de Inversión
+                                    </h4>
+                                    <p class="text-xs text-slate-300 mt-1.5 leading-relaxed">
+                                        Utilizar el argumento del <strong>Sistema 12 (Inversión vs. Gasto)</strong> en propuestas comerciales: posicionar tu consultoría senior de IA no como un gasto presupuestario, sino como una inversión directa que compra tiempo ejecutivo y velocidad de resultados.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mt-6 pt-4 border-t border-slate-800 flex items-center justify-between text-xs text-slate-400">
+                            <span>Enfoque: Consultoría de Arquitectura Operativa + IA</span>
+                            <i class="fa-solid fa-gem text-purple-400"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Calculadora Interactiva de ROI de Tiempo (Sistema 12 aplicado a Ventas de IA) -->
+                <div class="glass-panel rounded-2xl p-6 border border-accent-500/30">
+                    <h3 class="font-bold text-base sm:text-lg text-white flex items-center gap-2 mb-1">
+                        <i class="fa-solid fa-calculator text-accent-400"></i>
+                        Simulador de ROI para Clientes de Consultoría (Argumento Sistema 12: Inversión vs. Gasto)
+                    </h3>
+                    <p class="text-xs text-slate-400 mb-4">Úsalo en tus sesiones de diagnóstico con clientes para demostrar el valor financiero de sistematizar y automatizar su operación.</p>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                        <div class="bg-slate-900/90 p-4 rounded-xl border border-slate-800">
+                            <label class="text-xs text-slate-400 block mb-1">Horas ahorradas por semana (Equipo/Directivo)</label>
+                            <input type="number" id="roi-hours" value="10" min="1" max="100" oninput="calcROI()" class="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-white font-mono text-sm">
+                        </div>
+                        <div class="bg-slate-900/90 p-4 rounded-xl border border-slate-800">
+                            <label class="text-xs text-slate-400 block mb-1">Valor hora promedio ($ USD)</label>
+                            <input type="number" id="roi-rate" value="75" min="10" max="1000" oninput="calcROI()" class="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-white font-mono text-sm">
+                        </div>
+                        <div class="bg-accent-500/10 p-4 rounded-xl border border-accent-500/30 flex flex-col justify-center">
+                            <span class="text-xs text-accent-400 font-medium">Retorno Anual Estimado en Tiempo</span>
+                            <span id="roi-result" class="text-2xl font-mono font-bold text-white mt-1">$39,000 USD / año</span>
+                            <span id="roi-hours-year" class="text-[11px] text-slate-400">Equivalente a 520 horas liberadas al año</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ==========================================
+                 VISTA 4: GLOSARIO, RESUMEN & PROS/CONTRAS
+                 ========================================== -->
+            <section id="view-glosario" class="hidden space-y-6">
+                <!-- Resumen Ejecutivo -->
+                <div class="glass-panel rounded-2xl p-6">
+                    <h2 class="text-lg font-bold text-white flex items-center gap-2 mb-3">
+                        <i class="fa-solid fa-file-lines text-brand-400"></i>
+                        Resumen Ejecutivo de Alto Nivel
+                    </h2>
+                    <p class="text-sm text-slate-300 leading-relaxed bg-slate-900/80 p-4 rounded-xl border border-slate-800">
+                        El video expone un marco integral de <strong>15 sistemas organizacionales divididos en tres pilares</strong> —infraestructura base (captura, calendario, tareas, segundo cerebro y comunicación), ritmos de revisión iterativos inspirados en la metodología ágil y la industria aeroespacial (revisiones diarias, semanales, por temporadas, mensuales y anuales), y sostenibilidad del estilo de vida (finanzas automatizadas, límites materiales, salud, recuperación compensatoria y un manual personal de autoconocimiento)— con el fin de eliminar la carga cognitiva, alinear las acciones diarias con los objetivos a largo plazo y prevenir el agotamiento profesional (<em>burnout</em>).
+                    </p>
+                </div>
+
+                <!-- Pros y Contras -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="glass-panel rounded-2xl p-6 border-t-4 border-accent-500">
+                        <h3 class="font-bold text-white flex items-center gap-2 mb-4">
+                            <i class="fa-solid fa-circle-check text-accent-400"></i>
+                            Puntos Fuertes (Pros)
+                        </h3>
+                        <ul class="space-y-2.5 text-xs sm:text-sm text-slate-300">
+                            <li class="flex items-start gap-2.5"><i class="fa-solid fa-check text-accent-400 mt-1"></i><span><strong>Fundamentación empírica:</strong> Basado en casos reales de alta exigencia (NASA Apolo 11, Scrum de Jeff Sutherland, entrenamiento olímpico de Bob Bowman y Michael Phelps).</span></li>
+                            <li class="flex items-start gap-2.5"><i class="fa-solid fa-check text-accent-400 mt-1"></i><span><strong>Mecanismo de autocorrección:</strong> A diferencia de los sistemas rígidos, integra ritmos de revisión que mejoran el propio sistema semana a semana.</span></li>
+                            <li class="flex items-start gap-2.5"><i class="fa-solid fa-check text-accent-400 mt-1"></i><span><strong>Enfoque holístico anti-burnout:</strong> Conecta productividad con finanzas, orden físico, descanso compensatorio y salud mental.</span></li>
+                        </ul>
+                    </div>
+
+                    <div class="glass-panel rounded-2xl p-6 border-t-4 border-amber-500">
+                        <h3 class="font-bold text-white flex items-center gap-2 mb-4">
+                            <i class="fa-solid fa-triangle-exclamation text-amber-400"></i>
+                            Desafíos y Fricciones (Contras)
+                        </h3>
+                        <ul class="space-y-2.5 text-xs sm:text-sm text-slate-300">
+                            <li class="flex items-start gap-2.5"><i class="fa-solid fa-minus text-amber-400 mt-1"></i><span><strong>Curva de configuración inicial:</strong> Intentar desplegar los 15 sistemas simultáneamente puede producir parálisis por análisis si no se hace de forma gradual.</span></li>
+                            <li class="flex items-start gap-2.5"><i class="fa-solid fa-minus text-amber-400 mt-1"></i><span><strong>Riesgo de abandono en la semana 3:</strong> Como advierte el autor, sin el hábito fijo de la revisión semanal y diaria, cualquier infraestructura en Notion o calendario colapsa.</span></li>
+                            <li class="flex items-start gap-2.5"><i class="fa-solid fa-minus text-amber-400 mt-1"></i><span><strong>Dependencia de disciplina en entradas:</strong> Exige firmeza para restringir las franjas de WhatsApp, correo y redes sociales.</span></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Glosario Técnico y Recursos -->
+                <div class="glass-panel rounded-2xl p-6">
+                    <h3 class="font-bold text-lg text-white flex items-center gap-2 mb-4">
+                        <i class="fa-solid fa-spell-check text-brand-400"></i>
+                        Glosario de Términos Técnicos y Recursos Mencionados
+                    </h3>
+                    <div id="glossary-grid" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <!-- Renderizado por JS -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- ==========================================
+                 VISTA 5: MI MANUAL DE VIDA (SISTEMA 15 INTERACTIVO)
+                 ========================================== -->
+            <section id="view-manual" class="hidden space-y-6">
+                <div class="glass-panel rounded-2xl p-6 border border-brand-500/30">
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-800 pb-4">
+                        <div>
+                            <span class="text-xs font-mono uppercase text-brand-400">Sistema #15 • Autoconocimiento Operativo</span>
+                            <h2 class="text-xl font-bold text-white mt-0.5">Constructor de Tu Manual de Vida</h2>
+                            <p class="text-xs sm:text-sm text-slate-400 mt-1">
+                                "El nivel más alto de organización no es tener un sistema perfecto, sino tener un sistema capaz de aprender." Todo lo que escribas aquí se guarda localmente en tu dispositivo.
+                            </p>
+                        </div>
+                        <button onclick="saveManual()" class="px-4 py-2.5 rounded-xl bg-accent-600 hover:bg-accent-500 text-white text-xs font-semibold flex items-center gap-2 shadow-lg shadow-accent-600/20 transition-all shrink-0">
+                            <i class="fa-solid fa-floppy-disk"></i>
+                            <span>Guardar Manual</span>
+                        </button>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
+                        <div class="space-y-2">
+                            <label class="text-xs font-semibold text-slate-300 flex items-center gap-2">
+                                <i class="fa-solid fa-sun text-amber-400"></i> 1. Mi Horario y Pico de Energía en Equilibrio
+                            </label>
+                            <textarea id="manual-energia" rows="4" placeholder="Ej: Rindo mejor en bloques profundos de 8:00 AM a 12:30 PM sin revisar WhatsApp. Las reuniones van por la tarde..." class="w-full bg-slate-900/90 border border-slate-700 rounded-xl p-3 text-xs sm:text-sm text-slate-200 focus:outline-none focus:border-brand-500"></textarea>
+                        </div>
+
+                        <div class="space-y-2">
+                            <label class="text-xs font-semibold text-slate-300 flex items-center gap-2">
+                                <i class="fa-solid fa-dumbbell text-accent-400"></i> 2. Mi Sistema de Entrenamiento y Salud Base (Sistema 13)
+                            </label>
+                            <textarea id="manual-salud" rows="4" placeholder="Ej: Entreno 4 días fijos a la semana agendados en Google Calendar como reuniones innegociables..." class="w-full bg-slate-900/90 border border-slate-700 rounded-xl p-3 text-xs sm:text-sm text-slate-200 focus:outline-none focus:border-brand-500"></textarea>
+                        </div>
+
+                        <div class="space-y-2">
+                            <label class="text-xs font-semibold text-slate-300 flex items-center gap-2">
+                                <i class="fa-solid fa-battery-half text-blue-400"></i> 3. Protocolo de Descanso Compensatorio (Sistema 14)
+                            </label>
+                            <textarea id="manual-descanso" rows="4" placeholder="Ej: Cuando tengo saturación mental por código o consultoría, no me tiro al sofá; salgo a caminar al aire libre o hago ejercicio físico..." class="w-full bg-slate-900/90 border border-slate-700 rounded-xl p-3 text-xs sm:text-sm text-slate-200 focus:outline-none focus:border-brand-500"></textarea>
+                        </div>
+
+                        <div class="space-y-2">
+                            <label class="text-xs font-semibold text-slate-300 flex items-center gap-2">
+                                <i class="fa-solid fa-shield-halved text-purple-400"></i> 4. Señales de Alerta y Prevención de Burnout
+                            </label>
+                            <textarea id="manual-burnout" rows="4" placeholder="Ej: Si empiezo a posponer la revisión semanal o respondo mensajes fuera de mis dos franjas horarias, debo bloquear media jornada conmigo mismo..." class="w-full bg-slate-900/90 border border-slate-700 rounded-xl p-3 text-xs sm:text-sm text-slate-200 focus:outline-none focus:border-brand-500"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <!-- Barra de Navegación Inferior (Móvil PWA) -->
+    <nav class="lg:hidden fixed bottom-0 left-0 right-0 z-40 glass-panel border-t border-slate-800 px-2 py-1.5 flex justify-around items-center">
+        <button onclick="switchTab('dashboard')" id="mob-dashboard" class="mob-nav-btn flex flex-col items-center py-1 px-3 rounded-xl text-brand-400">
+            <i class="fa-solid fa-cubes-stacked text-base"></i>
+            <span class="text-[10px] font-medium mt-0.5">Sistemas</span>
+        </button>
+        <button onclick="switchTab('cronologia')" id="mob-cronologia" class="mob-nav-btn flex flex-col items-center py-1 px-3 rounded-xl text-slate-400">
+            <i class="fa-solid fa-clock-rotate-left text-base"></i>
+            <span class="text-[10px] font-medium mt-0.5">Notas</span>
+        </button>
+        <button onclick="switchTab('estrategia')" id="mob-estrategia" class="mob-nav-btn flex flex-col items-center py-1 px-3 rounded-xl text-slate-400">
+            <i class="fa-solid fa-chess-knight text-base"></i>
+            <span class="text-[10px] font-medium mt-0.5">IA & Edentia</span>
+        </button>
+        <button onclick="switchTab('glosario')" id="mob-glosario" class="mob-nav-btn flex flex-col items-center py-1 px-3 rounded-xl text-slate-400">
+            <i class="fa-solid fa-book-bookmark text-base"></i>
+            <span class="text-[10px] font-medium mt-0.5">Glosario</span>
+        </button>
+        <button onclick="switchTab('manual')" id="mob-manual" class="mob-nav-btn flex flex-col items-center py-1 px-3 rounded-xl text-slate-400">
+            <i class="fa-solid fa-fingerprint text-base"></i>
+            <span class="text-[10px] font-medium mt-0.5">Mi Manual</span>
+        </button>
+    </nav>
+
+    <!-- ==========================================
+         MODAL DE DESCARGA COGNITIVA (SISTEMA 1)
+         ========================================== -->
+    <div id="cognitive-modal" class="fixed inset-0 z-50 hidden bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-4">
+        <div class="glass-panel rounded-2xl max-w-lg w-full p-6 border border-brand-500/30 shadow-2xl">
+            <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+                <div class="flex items-center gap-2.5">
+                    <div class="w-8 h-8 rounded-lg bg-amber-500/20 border border-amber-500/40 flex items-center justify-center text-amber-400">
+                        <i class="fa-solid fa-bolt"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-white text-base">Bandeja de Descarga Cognitiva</h3>
+                        <p class="text-[11px] text-slate-400">Sistema #1: Libera tu memoria de trabajo al instante</p>
+                    </div>
+                </div>
+                <button onclick="closeCognitiveModal()" class="text-slate-400 hover:text-white p-1">
+                    <i class="fa-solid fa-xmark text-lg"></i>
+                </button>
+            </div>
+
+            <div class="mt-4">
+                <div class="flex gap-2">
+                    <input type="text" id="cognitive-input" onkeydown="if(event.key==='Enter') addCognitiveItem()" placeholder="Escribe una idea, tarea, cliente a contactar o preocupación..." class="flex-1 bg-slate-900 border border-slate-700 rounded-xl px-3.5 py-2.5 text-xs sm:text-sm text-white focus:outline-none focus:border-brand-500">
+                    <button onclick="addCognitiveItem()" class="px-4 py-2.5 bg-brand-600 hover:bg-brand-500 text-white rounded-xl text-xs font-semibold transition-all shrink-0">
+                        Capturar
+                    </button>
+                </div>
+
+                <div id="cognitive-list" class="mt-4 max-h-60 overflow-y-auto space-y-2 pr-1">
+                    <!-- Items renderizados por JS -->
+                </div>
+            </div>
+
+            <div class="mt-4 pt-3 border-t border-slate-800 flex justify-between items-center text-[11px] text-slate-400">
+                <span>"Deja de usar la memoria como almacén."</span>
+                <button onclick="clearCognitiveItems()" class="text-red-400 hover:underline">Vaciar bandeja procesada</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==========================================
+         JAVASCRIPT: DATOS, ESTADO Y LÓGICA PWA
+         ========================================== -->
+    <script>
+        const VIDEO_URL = "https://www.youtube.com/watch?v=uTlJlozyoNw";
+
+        // Base de datos completa de los 15 Sistemas extraídos del video
+        const SYSTEMS_DATA = [
+            {
+                id: 1,
+                nivel: "nivel1",
+                nivelNombre: "Nivel 1: Infraestructura",
+                titulo: "Un lugar para capturarlo todo (Descarga Cognitiva)",
+                timestamp: "00:00:49",
+                segundos: 49,
+                icono: "fa-inbox",
+                analogia: "Alarma 120 del Apolo 11: Steve Bales (26 años) tomó la decisión correcta en 15 segundos porque semanas antes el director de vuelo ordenó documentar todas las alarmas posibles y su reacción, incluso las que juraban que nunca ocurrirían.",
+                regla: "Elige 1 o 2 sitios como máximo (ej. libreta pequeña de bolsillo + Smart CRM de HubSpot para prospectos). Si capturas en WhatsApp, capturas de pantalla, correos y 3 apps distintas, solo repartes el caos.",
+                cita: "Dejar de usar la memoria como almacén y pasar esa información a algo externo, porque si no lo escribes tu cabeza intenta conservarlo y consume atención todo el rato.",
+                herramienta: "Libreta de bolsillo / HubSpot Smart CRM + AI Note Taker"
+            },
+            {
+                id: 2,
+                nivel: "nivel1",
+                nivelNombre: "Nivel 1: Infraestructura",
+                titulo: "Un único calendario (Reloj Único de Misión)",
+                timestamp: "00:05:53",
+                segundos: 353,
+                icono: "fa-calendar-check",
+                analogia: "En Houston y en la nave Apolo existía una sola referencia temporal: el tiempo transcurrido desde el lanzamiento. Todos miraban el mismo reloj.",
+                regla: "Unifica tu vida personal y profesional en un solo calendario. Bloquea horas para llamadas con clientes, pero también para cumpleaños, deporte y 'reuniones contigo mismo para pensar'.",
+                cita: "Si no tiene ninguna fecha, ninguna hora, si no está apuntado, no existe para mí.",
+                herramienta: "Google Calendar (Fuente única de verdad)"
+            },
+            {
+                id: 3,
+                nivel: "nivel1",
+                nivelNombre: "Nivel 1: Infraestructura",
+                titulo: "Un sistema de tareas conectado a ejecución",
+                timestamp: "00:07:09",
+                segundos: 429,
+                icono: "fa-list-check",
+                analogia: "En el plan de vuelo del Apolo sería absurdo que la checklist dijera simplemente 'Alunizar'. Eso no es una tarea, es una nube de tareas que debe partirse en procedimientos concretos.",
+                regla: "Divide las tareas personales por contexto (aprovechando colas o recados) y prioriza las profesionales conectándolas directamente con bloques en el calendario.",
+                cita: "La lista te dice QUÉ, pero el calendario te dice CUÁNDO.",
+                herramienta: "Listas por contexto + Bloques en Calendario"
+            },
+            {
+                id: 4,
+                nivel: "nivel1",
+                nivelNombre: "Nivel 1: Infraestructura",
+                titulo: "Un lugar para guardar el conocimiento (Segundo Cerebro)",
+                timestamp: "00:08:21",
+                segundos: 501,
+                icono: "fa-brain",
+                analogia: "No todo es una tarea o un evento; necesitas recuperar documentos, referencias del coche, casa, colegio de tus hijos o proyectos sin depender de tu memoria.",
+                regla: "No construyas una base de datos gigante que te esclavice. Organízalo de forma simple por áreas (familia, salud, finanzas, casa) o por proyectos con palabras clave en el título.",
+                cita: "No hace falta montar una base de datos gigante; lo que hace falta es poder recuperar la información sin depender de tu memoria.",
+                herramienta: "Notion (para proyectos) + Libreta (hábitos y reflexiones)"
+            },
+            {
+                id: 5,
+                nivel: "nivel1",
+                nivelNombre: "Nivel 1: Infraestructura",
+                titulo: "Un sistema para la comunicación (Reducción de Entradas)",
+                timestamp: "00:10:00",
+                segundos: 600,
+                icono: "fa-tower-broadcast",
+                analogia: "En Houston había decenas de controladores hablando por bucles distintos, pero con Neil Armstrong hablaba una única persona (CAPCOM). Con 15 voces al oído habría sido imposible alunizar.",
+                regla: "El problema no es la cantidad de mensajes, sino entrar todo el día a revisar que no se escape nada. Fija franjas horarias concretas en el día para responder WhatsApp, Instagram y Correo.",
+                cita: "Me he puesto franjas de revisión: tengo bloqueados momentos concretos del día para la comunicación y fuera de ahí no suelo entrar.",
+                herramienta: "Bloques asíncronos (WhatsApp, Instagram, Meet, Email)"
+            },
+            {
+                id: 6,
+                nivel: "nivel2",
+                nivelNombre: "Nivel 2: Ritmos de Revisión",
+                titulo: "La revisión diaria (Daily Personal y de Equipo)",
+                timestamp: "00:14:07",
+                segundos: 847,
+                icono: "fa-sun",
+                analogia: "Inspirado en Scrum (Jeff Sutherland, Easel Corp 1993 y el estudio de Takeuchi y Nonaka en Harvard Business Review sobre Honda, Canon y Fuji Xerox avanzando como equipo de rugby).",
+                regla: "Máximo 15 minutos. A nivel personal, hazla al final del día para cerrar todo y empezar al día siguiente sin dudar. Con el equipo, hazla a primera hora de la mañana para fijar hitos.",
+                cita: "Un sistema no se mantiene solo, necesita un ritmo de revisión fijo.",
+                herramienta: "Daily Scrum (10-15 min máx)"
+            },
+            {
+                id: 7,
+                nivel: "nivel2",
+                nivelNombre: "Nivel 2: Ritmos de Revisión",
+                titulo: "La planificación semanal (Cierre de Sprint)",
+                timestamp: "00:15:38",
+                segundos: 938,
+                icono: "fa-calendar-week",
+                analogia: "En Scrum, al terminar cada Sprint se audita no solo el trabajo, sino cómo mejorar el propio sistema de trabajo. Por eso Scrum aguanta años y los sistemas normales duran 3 semanas.",
+                regla: "Dedica 30 minutos el viernes o el domingo. Revisa 4 cosas: 1) Qué se completó, 2) Qué quedó pendiente, 3) Qué ha fallado y 4) Cómo mejorar el sistema la próxima semana.",
+                cita: "La idea es tardar media horita, no más, para ahorrarte tomar las decisiones de los 5 días siguientes.",
+                herramienta: "Revisión de 4 preguntas (Viernes o Domingo)"
+            },
+            {
+                id: 8,
+                nivel: "nivel2",
+                nivelNombre: "Nivel 2: Ritmos de Revisión",
+                titulo: "Ajustar tu vida por temporadas (Cada 3 meses)",
+                timestamp: "00:16:17",
+                segundos: 977,
+                icono: "fa-compass",
+                analogia: "No es lo mismo un mes con niños de vacaciones, una época de viajes o pasar de trabajar por cuenta ajena (con 3 horas libres por la tarde) a emprender a tiempo completo.",
+                regla: "Cada trimestre reflexiona qué compromisos tendrán más peso y recalibra tu estructura base para adaptarla a tu contexto real actual.",
+                cita: "Evita uno de los errores más comunes de la productividad: planificar para la vida que te gustaría tener en lugar de para la vida que tienes.",
+                herramienta: "Auditoría Trimestral de Temporada"
+            },
+            {
+                id: 9,
+                nivel: "nivel2",
+                nivelNombre: "Nivel 2: Ritmos de Revisión",
+                titulo: "La revisión mensual orientada a métricas",
+                timestamp: "00:17:25",
+                segundos: 1045,
+                icono: "fa-chart-line",
+                analogia: "Un mes es una distancia lo bastante larga para ver progreso real y lo bastante corta para corregir el rumbo antes de perder el año.",
+                regla: "Revisa métricas vinculadas al objetivo real del proyecto (ej. en YouTube las métricas de crecimiento de audiencia son distintas a las métricas de generación de negocio). Apóyate en OKRs.",
+                cita: "Esas métricas tienen que estar asociadas a unos objetivos que ya te has puesto antes, como los OKRs que popularizó Google e Intel.",
+                herramienta: "Dashboard de OKRs Mensuales"
+            },
+            {
+                id: 10,
+                nivel: "nivel2",
+                nivelNombre: "Nivel 2: Ritmos de Revisión",
+                titulo: "La revisión anual y grandes objetivos",
+                timestamp: "00:18:20",
+                segundos: 1100,
+                icono: "fa-flag-checkered",
+                analogia: "El sistema diario te ayuda a actuar, el semanal a ejecutar, el mensual a corregir y el anual a asegurarte de que caminas en la dirección correcta a largo plazo.",
+                regla: "Define 1, 3 o máximo 5 grandes resultados para los próximos 12 meses en un máximo de 3 áreas de tu vida. Si tienes equipo, realiza 2 sesiones individuales al año (mitad y cierre).",
+                cita: "No se trata de crecer por crecer, tiene que haber un porqué detrás. Ese porqué es lo que te empuja a alcanzarlo.",
+                herramienta: "Plan Anual (Máx. 3 áreas / 5 resultados)"
+            },
+            {
+                id: 11,
+                nivel: "nivel3",
+                nivelNombre: "Nivel 3: Sostenibilidad",
+                titulo: "Un sistema financiero automatizado",
+                timestamp: "00:20:02",
+                segundos: 1202,
+                icono: "fa-building-columns",
+                analogia: "Puedes tener el mejor calendario y las mejores listas, pero si tus finanzas son un caos vivirás saturado. Cada decisión financiera repetitiva drena energía mental.",
+                regla: "No decidas qué hacer con el dinero cada vez que cobras. Define porcentajes de antemano y automatiza un día fijo al mes para transferir a inversión y fondos.",
+                cita: "Cada decisión financiera que sacas de tu cabeza es otra pequeña cantidad de energía que puedes utilizar en otras cosas.",
+                herramienta: "Transferencias y Fondos Automatizados"
+            },
+            {
+                id: 12,
+                nivel: "nivel3",
+                nivelNombre: "Nivel 3: Sostenibilidad",
+                titulo: "Un sistema para gestionar tus cosas (Límites Físicos)",
+                timestamp: "00:20:55",
+                segundos: 1255,
+                icono: "fa-boxes-packing",
+                analogia: "El exceso de ropa, papeles, cables y objetos genera ruido visual y hace que ordenar cueste cada vez más esfuerzo.",
+                regla: "Fija 3 tipos de límites previos: 1) Por cantidad (ej. 5 camisetas de entrenar), 2) Por espacio (si entra un zapato al armario, sale otro), 3) Por presupuesto (ej. 300€/mes en ocio). Distingue gasto de inversión en software/herramientas.",
+                cita: "Las herramientas y softwares que me facilitan el trabajo para mí no son gasto, son inversión: el criterio no es el presupuesto, es si me da tiempo o resultados.",
+                herramienta: "Regla de los 3 Límites (Cantidad, Espacio, Presupuesto)"
+            },
+            {
+                id: 13,
+                nivel: "nivel3",
+                nivelNombre: "Nivel 3: Sostenibilidad",
+                titulo: "Un sistema de salud y ejercicio sin negociación",
+                timestamp: "00:22:24",
+                segundos: 1344,
+                icono: "fa-heart-pulse",
+                analogia: "Bob Bowman, entrenador de Michael Phelps (23 oros olímpicos), explicaba que la clave no era la motivación sino fijar unas pocas rutinas centrales alrededor de las cuales encaja todo lo demás.",
+                regla: "No negocies contigo mismo. Agenda tus 4 días fijos de entrenamiento en el calendario como reuniones y anota tus marcas en una libreta para mejorar un poco en cada sesión. Mantén flexibilidad el fin de semana para la vida social.",
+                cita: "Un sistema que te deja sin vida social no es un buen sistema; la parte mental forma parte de la salud.",
+                herramienta: "Bloques fijos de entrenamiento + Libreta de cargas"
+            },
+            {
+                id: 14,
+                nivel: "nivel3",
+                nivelNombre: "Nivel 3: Sostenibilidad",
+                titulo: "Un sistema de descanso y recuperación compensatoria",
+                timestamp: "00:24:42",
+                segundos: 1482,
+                icono: "fa-bed",
+                analogia: "Método de 'La cinta de vídeo' de Bowman y Phelps: diseñar conscientemente los dos extremos del día (antes de dormir y al despertar). Además, entender que descansar no es solo tirarse en el sofá.",
+                regla: "Crea señales repetidas de sueño (luz, temperatura, horario) y aplica descanso compensatorio: si tu desgaste es mental y de oficina, recupera con deporte y sol; si tu trabajo es rígido, recupera con algo creativo.",
+                cita: "Recuperar no es dejar de hacer, es cambiar de modo: hacer lo contrario al tipo de desgaste que has tenido.",
+                herramienta: "Rutina de extremos del día + Cambio de modo"
+            },
+            {
+                id: 15,
+                nivel: "nivel3",
+                nivelNombre: "Nivel 3: Sostenibilidad",
+                titulo: "Convierte tu experiencia en un Manual de tu Propia Vida",
+                timestamp: "00:26:31",
+                segundos: 1591,
+                icono: "fa-book-journal-whills",
+                analogia: "Michael Phelps tuvo el sistema de mayor rendimiento de la historia, pero sufrió episodios severos de depresión porque el sistema no cuidaba a la persona. Rendir destrozándote por dentro es una cuenta atrás para el burnout.",
+                regla: "Escribe cómo funcionas cuando estás en equilibrio: qué horario te va mejor, cómo entrenas, cómo descansas, qué haces cuando te saturas y las lecciones aprendidas para no tropezar dos veces.",
+                cita: "Este es probablemente el nivel más alto de organización: no tener un sistema perfecto, sino tener un sistema capaz de aprender.",
+                herramienta: "Manual Personal en Notion + Cuaderno de Reflexiones"
+            }
+        ];
+
+        const GLOSSARY_DATA = [
+            {
+                term: "Descarga Cognitiva",
+                def: "Proceso psicológico mediante el cual liberamos la memoria de trabajo transfiriendo tareas, ideas o preocupaciones pendientes a un soporte externo confiable."
+            },
+            {
+                term: "Smart CRM & AI Note Taker",
+                def: "Sistema de gestión de contactos (ej. HubSpot) que registra clientes automáticamente desde formularios y utiliza IA para transcribir llamadas, sugerir siguientes pasos y redactar correos."
+            },
+            {
+                term: "Segundo Cerebro",
+                def: "Repositorio digital externo (como Notion) estructurado por proyectos o áreas para almacenar y recuperar información futura mediante palabras clave sin depender de la memoria biológica."
+            },
+            {
+                term: "Scrum (Melé de Rugby)",
+                def: "Metodología ágil creada por Jeff Sutherland e inspirada en el estudio de Takeuchi y Nonaka (1986), donde el equipo avanza unido mediante ciclos cortos y ritmos de revisión fijos."
+            },
+            {
+                term: "Sprint & Daily",
+                def: "El Sprint es un ciclo cerrado de 1 a 4 semanas de ejecución; la Daily es una reunión diaria de máximo 15 minutos para sincronizar avances, prioridades del día y bloqueos."
+            },
+            {
+                term: "OKRs (Objectives & Key Results)",
+                def: "Marco de definición de metas utilizado por Intel y Google que conecta objetivos estratégicos con métricas e indicadores clave revisados mensualmente."
+            },
+            {
+                term: "Método 'La Cinta de Vídeo'",
+                def: "Técnica mental de Bob Bowman y Michael Phelps consistente en diseñar los dos extremos del día (antes de dormir y al despertar) visualizando la ejecución perfecta."
+            },
+            {
+                term: "Descanso Compensatorio",
+                def: "Principio de recuperación energética que consiste en realizar la actividad opuesta a la fuente de fatiga (ej. actividad física al aire libre tras un desgaste intelectual intenso)."
+            }
+        ];
+
+        // Estado persistente en LocalStorage
+        let completedSystems = JSON.parse(localStorage.getItem('systemos_completed') || '[]');
+        let cognitiveInbox = JSON.parse(localStorage.getItem('systemos_inbox') || '["Revisar propuesta de automatización CRM con IA para cliente corporativo", "Bloquear viernes 4:00 PM para revisión semanal (Sistema 7)"]');
+        let currentFilter = 'all';
+
+        // Inicialización de PWA (Manifest + Service Worker en memoria)
+        function initPWA() {
+            const manifest = {
+                name: "SystemOS - 15 Sistemas del Top 1%",
+                short_name: "SystemOS",
+                description: "PWA Interactiva de los 15 Sistemas de Organización y Consultoría IA",
+                start_url: window.location.href,
+                display: "standalone",
+                background_color: "#0f172a",
+                theme_color: "#4f46e5",
+                icons: [
+                    {
+                        src: "https://placehold.co/192x192/4f46e5/ffffff?text=15+OS",
+                        sizes: "192x192",
+                        type: "image/png"
+                    },
+                    {
+                        src: "https://placehold.co/512x512/4f46e5/ffffff?text=SystemOS",
+                        sizes: "512x512",
+                        type: "image/png"
+                    }
+                ]
+            };
+            const manifestBlob = new Blob([JSON.stringify(manifest)], { type: 'application/json' });
+            const manifestURL = URL.createObjectURL(manifestBlob);
+            const link = document.createElement('link');
+            link.rel = 'manifest';
+            link.href = manifestURL;
+            document.head.appendChild(link);
+
+            // Manejo de evento de instalación PWA
+            let deferredPrompt;
+            window.addEventListener('beforeinstallprompt', (e) => {
+                e.preventDefault();
+                deferredPrompt = e;
+                document.getElementById('pwa-install-btn').classList.remove('hidden');
+            });
+
+            window.installPWA = async () => {
+                if (deferredPrompt) {
+                    deferredPrompt.prompt();
+                    const { outcome } = await deferredPrompt.userChoice;
+                    if (outcome === 'accepted') {
+                        showToast('Aplicación instalada correctamente');
+                    }
+                    deferredPrompt = null;
+                } else {
+                    showToast('Para instalar: usa "Añadir a pantalla de inicio" en tu navegador');
+                }
+            };
+        }
+
+        // Renderizar tarjetas de los 15 Sistemas
+        function renderSystems() {
+            const grid = document.getElementById('systems-grid');
+            const query = (document.getElementById('system-search')?.value || '').toLowerCase();
+
+            const filtered = SYSTEMS_DATA.filter(s => {
+                const matchFilter = currentFilter === 'all' || s.nivel === currentFilter;
+                const matchSearch = s.titulo.toLowerCase().includes(query) ||
+                                    s.analogia.toLowerCase().includes(query) ||
+                                    s.regla.toLowerCase().includes(query) ||
+                                    s.herramienta.toLowerCase().includes(query);
+                return matchFilter && matchSearch;
+            });
+
+            grid.innerHTML = filtered.map(s => {
+                const isDone = completedSystems.includes(s.id);
+                const badgeColor = s.nivel === 'nivel1' ? 'bg-blue-500/10 text-blue-400 border-blue-500/20' :
+                                   s.nivel === 'nivel2' ? 'bg-purple-500/10 text-purple-400 border-purple-500/20' :
+                                                          'bg-accent-500/10 text-accent-400 border-accent-500/20';
+
+                return `
+                <article class="glass-panel rounded-2xl p-5 flex flex-col justify-between transition-all duration-300 border ${isDone ? 'border-accent-500/60 bg-accent-950/10' : 'border-slate-800 hover:border-slate-700'}">
+                    <div>
+                        <!-- Cabecera de la tarjeta -->
+                        <div class="flex items-start justify-between gap-3 mb-3">
+                            <div class="flex items-center gap-2.5">
+                                <span class="w-9 h-9 rounded-xl ${isDone ? 'bg-accent-500 text-slate-950' : 'bg-slate-800 text-brand-400'} font-mono font-bold text-sm flex items-center justify-center shrink-0 transition-colors">
+                                    #${s.id}
+                                </span>
+                                <div>
+                                    <span class="text-[10px] font-mono uppercase px-2 py-0.5 rounded-full border ${badgeColor}">
+                                        ${s.nivelNombre}
+                                    </span>
+                                    <h3 class="font-bold text-base text-white mt-1 leading-snug">${s.titulo}</h3>
+                                </div>
+                            </div>
+
+                            <a href="${VIDEO_URL}&t=${s.segundos}s" target="_blank" rel="noopener noreferrer" class="px-2 py-1 rounded-lg bg-slate-900 hover:bg-brand-600/20 text-brand-400 border border-slate-700 text-xs font-mono flex items-center gap-1 shrink-0 transition-all" title="Ir al minuto exacto en YouTube">
+                                <i class="fa-solid fa-play text-[10px]"></i> ${s.timestamp}
+                            </a>
+                        </div>
+
+                        <!-- Analogía / Historia -->
+                        <div class="mt-3 p-3 rounded-xl bg-slate-900/70 border border-slate-800/80 text-xs text-slate-300 leading-relaxed">
+                            <span class="font-semibold text-amber-400 block mb-0.5"><i class="fa-solid fa-lightbulb mr-1"></i>Analogía / Caso Real:</span>
+                            ${s.analogia}
+                        </div>
+
+                        <!-- Regla Práctica -->
+                        <p class="mt-3 text-xs sm:text-sm text-slate-200 leading-relaxed">
+                            <strong class="text-brand-300">Protocolo de Acción:</strong> ${s.regla}
+                        </p>
+
+                        <!-- Cita textual -->
+                        <blockquote class="mt-3 pl-3 border-l-2 border-brand-500 italic text-xs text-slate-400">
+                            "${s.cita}"
+                        </blockquote>
+                    </div>
+
+                    <!-- Footer: Herramienta & Checkbox de Implementación -->
+                    <div class="mt-5 pt-3 border-t border-slate-800/80 flex items-center justify-between gap-2">
+                        <div class="text-[11px] text-slate-400 truncate">
+                            <i class="fa-solid fa-wrench text-slate-500 mr-1"></i>
+                            <span class="font-medium text-slate-300">${s.herramienta}</span>
+                        </div>
+
+                        <button onclick="toggleSystem(${s.id})" class="px-3 py-1.5 rounded-xl text-xs font-semibold flex items-center gap-1.5 transition-all shrink-0 ${isDone ? 'bg-accent-500 text-slate-950 shadow-lg shadow-accent-500/20' : 'bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700'}">
+                            <i class="fa-solid ${isDone ? 'fa-check-double' : 'fa-circle-check'}"></i>
+                            <span>${isDone ? 'Implementado' : 'Marcar Listo'}</span>
+                        </button>
+                    </div>
+                </article>
+                `;
+            }).join('');
+
+            updateProgressUI();
+        }
+
+        // Renderizar Línea de Tiempo Cronológica
+        function renderTimeline() {
+            const container = document.getElementById('timeline-container');
+            container.innerHTML = SYSTEMS_DATA.map((s) => `
+                <div class="relative flex items-start gap-4 pl-10 md:pl-0">
+                    <div class="md:w-1/4 md:text-right md:pr-6 shrink-0">
+                        <a href="${VIDEO_URL}&t=${s.segundos}s" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 font-mono text-xs font-bold px-2.5 py-1 rounded-lg bg-brand-500/10 text-brand-400 border border-brand-500/30 hover:bg-brand-500 hover:text-white transition-all">
+                            <i class="fa-brands fa-youtube"></i> [${s.timestamp}]
+                        </a>
+                        <p class="text-[11px] text-slate-400 mt-1 hidden md:block">${s.nivelNombre}</p>
+                    </div>
+
+                    <!-- Punto central -->
+                    <div class="absolute left-3.5 md:static md:w-4 md:h-4 w-3.5 h-3.5 rounded-full bg-brand-500 border-2 border-slate-950 shrink-0 mt-1.5"></div>
+
+                    <div class="flex-1 glass-panel rounded-xl p-4 border border-slate-800">
+                        <div class="flex items-center justify-between gap-2">
+                            <h4 class="font-bold text-sm sm:text-base text-white">Sistema #${s.id}: ${s.titulo}</h4>
+                            <span class="text-xs font-mono text-slate-400">#${s.id}/15</span>
+                        </div>
+                        <p class="text-xs text-slate-300 mt-2 leading-relaxed"><strong>Contexto y Analogía:</strong> ${s.analogia}</p>
+                        <p class="text-xs text-slate-200 mt-1.5 leading-relaxed"><strong>Implementación:</strong> ${s.regla}</p>
+                        <div class="mt-2 pt-2 border-t border-slate-800/80 flex flex-wrap items-center justify-between gap-2 text-[11px] text-slate-400">
+                            <span><strong>Cita:</strong> "${s.cita}"</span>
+                            <span class="font-mono text-brand-400">${s.herramienta}</span>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Renderizar Glosario
+        function renderGlossary() {
+            const container = document.getElementById('glossary-grid');
+            container.innerHTML = GLOSSARY_DATA.map(item => `
+                <div class="p-4 rounded-xl bg-slate-900/80 border border-slate-800">
+                    <h4 class="font-bold text-sm text-brand-300 font-mono">${item.term}</h4>
+                    <p class="text-xs text-slate-300 mt-1.5 leading-relaxed">${item.def}</p>
+                </div>
+            `).join('');
+        }
+
+        // Marcar / Desmarcar un sistema
+        function toggleSystem(id) {
+            if (completedSystems.includes(id)) {
+                completedSystems = completedSystems.filter(item => item !== id);
+                showToast(`Sistema #${id} marcado como pendiente`);
+            } else {
+                completedSystems.push(id);
+                showToast(`¡Sistema #${id} implementado en tu arquitectura!`);
+            }
+            localStorage.setItem('systemos_completed', JSON.stringify(completedSystems));
+            renderSystems();
+        }
+
+        // Actualizar barras de progreso
+        function updateProgressUI() {
+            const count = completedSystems.length;
+            const pct = Math.round((count / 15) * 100);
+            document.getElementById('progress-text').textContent = `${count}/15 (${pct}%)`;
+            document.getElementById('progress-bar').style.width = `${pct}%`;
+            document.getElementById('progress-text-mobile').textContent = `${count}/15`;
+            document.getElementById('progress-bar-mobile').style.width = `${pct}%`;
+        }
+
+        // Filtrar por nivel
+        function filterSystems(filter) {
+            currentFilter = filter;
+            document.querySelectorAll('.filter-chip').forEach(btn => {
+                btn.className = 'filter-chip bg-slate-800 hover:bg-slate-700 text-slate-300 px-3 py-1.5 rounded-xl text-xs font-medium transition-all';
+            });
+            const activeBtn = document.getElementById(`filter-${filter}`);
+            if (activeBtn) {
+                activeBtn.className = 'filter-chip bg-brand-600 text-white px-3 py-1.5 rounded-xl text-xs font-medium transition-all shadow-lg shadow-brand-600/30';
+            }
+            renderSystems();
+        }
+
+        // Cambiar de pestaña (Navegación SPA)
+        function switchTab(tabId) {
+            const views = ['dashboard', 'cronologia', 'estrategia', 'glosario', 'manual'];
+            views.forEach(v => {
+                document.getElementById(`view-${v}`).classList.add('hidden');
+                const navBtn = document.getElementById(`nav-${v}`);
+                if (navBtn) navBtn.classList.remove('tab-active');
+                const mobBtn = document.getElementById(`mob-${v}`);
+                if (mobBtn) {
+                    mobBtn.classList.remove('text-brand-400');
+                    mobBtn.classList.add('text-slate-400');
+                }
+            });
+
+            document.getElementById(`view-${tabId}`).classList.remove('hidden');
+            const activeNav = document.getElementById(`nav-${tabId}`);
+            if (activeNav) activeNav.classList.add('tab-active');
+            const activeMob = document.getElementById(`mob-${tabId}`);
+            if (activeMob) {
+                activeMob.classList.remove('text-slate-400');
+                activeMob.classList.add('text-brand-400');
+            }
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Bandeja de Descarga Cognitiva (Sistema 1)
+        function openCognitiveModal() {
+            document.getElementById('cognitive-modal').classList.remove('hidden');
+            renderCognitiveList();
+            setTimeout(() => document.getElementById('cognitive-input').focus(), 100);
+        }
+
+        function closeCognitiveModal() {
+            document.getElementById('cognitive-modal').classList.add('hidden');
+        }
+
+        function renderCognitiveList() {
+            const list = document.getElementById('cognitive-list');
+            document.getElementById('inbox-badge').textContent = cognitiveInbox.length;
+            if (cognitiveInbox.length === 0) {
+                list.innerHTML = `<p class="text-xs text-slate-500 text-center py-6">Tu mente está despejada. No hay elementos pendientes de procesar.</p>`;
+                return;
+            }
+            list.innerHTML = cognitiveInbox.map((item, idx) => `
+                <div class="flex items-center justify-between gap-2 p-2.5 rounded-xl bg-slate-900 border border-slate-800 text-xs text-slate-200">
+                    <span class="flex-1">${item}</span>
+                    <button onclick="removeCognitiveItem(${idx})" class="text-slate-400 hover:text-accent-400 px-2 py-1" title="Marcar como procesado">
+                        <i class="fa-solid fa-check"></i>
+                    </button>
+                </div>
+            `).join('');
+        }
+
+        function addCognitiveItem() {
+            const input = document.getElementById('cognitive-input');
+            const val = input.value.trim();
+            if (!val) return;
+            cognitiveInbox.unshift(val);
+            localStorage.setItem('systemos_inbox', JSON.stringify(cognitiveInbox));
+            input.value = '';
+            renderCognitiveList();
+            showToast('Capturado en tu bandeja externa');
+        }
+
+        function removeCognitiveItem(idx) {
+            cognitiveInbox.splice(idx, 1);
+            localStorage.setItem('systemos_inbox', JSON.stringify(cognitiveInbox));
+            renderCognitiveList();
+        }
+
+        function clearCognitiveItems() {
+            cognitiveInbox = [];
+            localStorage.setItem('systemos_inbox', JSON.stringify(cognitiveInbox));
+            renderCognitiveList();
+            showToast('Bandeja de captura vaciada');
+        }
+
+        // Calculadora ROI (Sistema 12 aplicado a Consultoría IA)
+        function calcROI() {
+            const hours = parseFloat(document.getElementById('roi-hours').value) || 0;
+            const rate = parseFloat(document.getElementById('roi-rate').value) || 0;
+            const annualHours = hours * 52;
+            const annualSavings = annualHours * rate;
+            document.getElementById('roi-result').textContent = `$${annualSavings.toLocaleString('en-US')} USD / año`;
+            document.getElementById('roi-hours-year').textContent = `Equivalente a ${annualHours} horas ejecutivas liberadas al año`;
+        }
+
+        // Guardar Manual de Vida (Sistema 15)
+        function loadManual() {
+            const saved = JSON.parse(localStorage.getItem('systemos_manual') || '{}');
+            document.getElementById('manual-energia').value = saved.energia || '';
+            document.getElementById('manual-salud').value = saved.salud || '';
+            document.getElementById('manual-descanso').value = saved.descanso || '';
+            document.getElementById('manual-burnout').value = saved.burnout || '';
+        }
+
+        function saveManual() {
+            const data = {
+                energia: document.getElementById('manual-energia').value,
+                salud: document.getElementById('manual-salud').value,
+                descanso: document.getElementById('manual-descanso').value,
+                burnout: document.getElementById('manual-burnout').value
+            };
+            localStorage.setItem('systemos_manual', JSON.stringify(data));
+            showToast('Tu Manual de Vida (Sistema 15) ha sido guardado');
+        }
+
+        // Copiar al portapapeles compatible con iFrames
+        function copyTextToClipboard(text, successMsg) {
+            const textarea = document.createElement('textarea');
+            textarea.value = text;
+            document.body.appendChild(textarea);
+            textarea.select();
+            try {
+                document.execCommand('copy');
+                showToast(successMsg);
+            } catch (err) {
+                showToast('No se pudo copiar automáticamente');
+            }
+            document.body.removeChild(textarea);
+        }
+
+        function copyAllNotes() {
+            const md = SYSTEMS_DATA.map(s => `### [${s.timestamp}] Sistema ${s.id}: ${s.titulo}\n- **Analogía:** ${s.analogia}\n- **Protocolo:** ${s.regla}\n- **Cita:** "${s.cita}"\n`).join('\n');
+            copyTextToClipboard(md, 'Notas detalladas copiadas en formato Markdown');
+        }
+
+        function exportReport() {
+            const summary = `SystemOS - Progreso de Implementación: ${completedSystems.length}/15 sistemas completados.\nFuente: 15 Sistemas de Organización Que te Elevan del Caos al Top 1% Mundial (${VIDEO_URL})`;
+            copyTextToClipboard(summary, 'Reporte de progreso copiado al portapapeles');
+        }
+
+        // Mostrar notificación Toast
+        function showToast(msg) {
+            const toast = document.getElementById('toast');
+            document.getElementById('toast-msg').textContent = msg;
+            toast.classList.remove('translate-x-full', 'opacity-0');
+            setTimeout(() => {
+                toast.classList.add('translate-x-full', 'opacity-0');
+            }, 2800);
+        }
+
+        // Inicialización al cargar la ventana
+        window.onload = function () {
+            initPWA();
+            renderSystems();
+            renderTimeline();
+            renderGlossary();
+            renderCognitiveList();
+            loadManual();
+            calcROI();
+        };
+    </script>
+</body>
+</html>
