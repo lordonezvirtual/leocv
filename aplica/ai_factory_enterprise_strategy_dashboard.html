@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="es" class="h-full">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edentia AI Factory & Consultant Hub</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Chart.js for analytics -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- FontAwesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts: Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#eef2ff',
+                            100: '#e0e7ff',
+                            500: '#6366f1',
+                            600: '#4f46e5',
+                            700: '#4338ca',
+                            900: '#312e81',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(226, 232, 240, 0.8);
+        }
+        .dark .glass-card {
+            background: rgba(30, 41, 59, 0.85);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(51, 65, 85, 0.8);
+        }
+        @keyframes pulse-slow {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.7; transform: scale(1.02); }
+        }
+        .animate-pulse-slow {
+            animation: pulse-slow 4s infinite ease-in-out;
+        }
+    </style>
+</head>
+<body class="h-full bg-slate-50 dark:bg-slate-950 text-slate-800 dark:text-slate-100 transition-colors duration-300 flex flex-col">
+
+    <!-- Top Navigation -->
+    <header class="sticky top-0 z-50 glass-card border-b border-slate-200 dark:border-slate-800 px-4 lg:px-8 py-3 flex items-center justify-between">
+        <div class="flex items-center space-x-3">
+            <div class="bg-indigo-600 text-white p-2.5 rounded-xl shadow-md shadow-indigo-500/20 flex items-center justify-center">
+                <i class="fa-solid fa-industry text-lg"></i>
+            </div>
+            <div>
+                <h1 class="font-bold text-base lg:text-lg tracking-tight">Edentia <span class="text-indigo-600 dark:text-indigo-400">AI Factory Hub</span></h1>
+                <p class="text-xs text-slate-500 dark:text-slate-400">Leonardo Senior Consultant & Enterprise Suite</p>
+            </div>
+        </div>
+        
+        <!-- Nav Controls -->
+        <div class="flex items-center space-x-3">
+            <button onclick="toggleDarkMode()" class="p-2 rounded-lg bg-slate-200 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-300 dark:hover:bg-slate-700 transition" title="Cambiar Tema">
+                <i id="themeIcon" class="fa-solid fa-moon"></i>
+            </button>
+            <button onclick="triggerNotification('Sincronización con GitHub y Brain activada con éxito', 'success')" class="hidden sm:flex items-center space-x-2 px-3 py-1.5 bg-indigo-50 dark:bg-indigo-950/50 border border-indigo-200 dark:border-indigo-800 text-indigo-600 dark:text-indigo-400 text-xs font-medium rounded-lg hover:bg-indigo-100 transition">
+                <i class="fa-solid fa-brain"></i>
+                <span>Brain Status: Conectado</span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Main Dashboard Container -->
+    <main class="flex-1 overflow-y-auto p-4 lg:p-8 max-w-7xl mx-auto w-full space-y-6">
+
+        <!-- Tab Navigation Buttons -->
+        <div class="flex overflow-x-auto space-x-2 pb-2 border-b border-slate-200 dark:border-slate-800 no-scrollbar">
+            <button onclick="switchTab('dashboard')" id="btn-dashboard" class="tab-btn px-4 py-2 rounded-xl text-sm font-medium transition flex items-center space-x-2 bg-indigo-600 text-white shadow-md shadow-indigo-600/20">
+                <i class="fa-solid fa-chart-line"></i>
+                <span>Resumen & Métricas</span>
+            </button>
+            <button onclick="switchTab('simulator')" id="btn-simulator" class="tab-btn px-4 py-2 rounded-xl text-sm font-medium transition flex items-center space-x-2 bg-slate-200 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-300">
+                <i class="fa-solid fa-network-wired"></i>
+                <span>Simulador AI Factory</span>
+            </button>
+            <button onclick="switchTab('strategy')" id="btn-strategy" class="tab-btn px-4 py-2 rounded-xl text-sm font-medium transition flex items-center space-x-2 bg-slate-200 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-300">
+                <i class="fa-solid fa-chess-knight"></i>
+                <span>Estrategia Edentia & Leonardo</span>
+            </button>
+            <button onclick="switchTab('glossary')" id="btn-glossary" class="tab-btn px-4 py-2 rounded-xl text-sm font-medium transition flex items-center space-x-2 bg-slate-200 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-300">
+                <i class="fa-solid fa-book-bookmark"></i>
+                <span>Glosario Técnico & Notas</span>
+            </button>
+        </div>
+
+        <!-- TAB 1: DASHBOARD & METRICS -->
+        <div id="tab-dashboard" class="tab-content space-y-6">
+            <!-- Welcome Banner -->
+            <div class="glass-card rounded-2xl p-6 lg:p-8 border border-indigo-100 dark:border-indigo-900/50 bg-gradient-to-r from-indigo-500/10 via-purple-500/5 to-transparent">
+                <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                    <div class="space-y-2">
+                        <span class="px-3 py-1 bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 text-xs font-semibold rounded-full">AI Software & Content Factory Hub</span>
+                        <h2 class="text-2xl lg:text-3xl font-bold tracking-tight">Del Chat Interactivo a la Factoría Autónoma</h2>
+                        <p class="text-sm text-slate-600 dark:text-slate-300 max-w-2xl">
+                            Superando el cuello de botella humano mediante pipelines auditables, memoria de contexto persistente (<span class="font-mono text-indigo-600 dark:text-indigo-400">Brain</span>) y revisión multi-agente en paralelo.
+                        </p>
+                    </div>
+                    <button onclick="switchTab('simulator')" class="px-5 py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-medium rounded-xl shadow-lg shadow-indigo-600/30 transition flex items-center justify-center space-x-2">
+                        <i class="fa-solid fa-play"></i>
+                        <span>Iniciar Simulación</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Metrics Grid -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                <div class="glass-card p-5 rounded-2xl space-y-2">
+                    <div class="flex items-center justify-between text-slate-500 dark:text-slate-400">
+                        <span class="text-xs font-semibold uppercase tracking-wider">Aceleración de Entrega</span>
+                        <i class="fa-solid fa-bolt text-amber-500"></i>
+                    </div>
+                    <div class="text-3xl font-bold font-mono">75%</div>
+                    <p class="text-xs text-emerald-600 dark:text-emerald-400 font-medium"><i class="fa-solid fa-arrow-up mr-1"></i> Reducción de cuello de botella</p>
+                </div>
+                <div class="glass-card p-5 rounded-2xl space-y-2">
+                    <div class="flex items-center justify-between text-slate-500 dark:text-slate-400">
+                        <span class="text-xs font-semibold uppercase tracking-wider">PRs Automatizadas</span>
+                        <i class="fa-solid fa-code-merge text-indigo-500"></i>
+                    </div>
+                    <div class="text-3xl font-bold font-mono">1,000+</div>
+                    <p class="text-xs text-indigo-600 dark:text-indigo-400 font-medium">Estándar OpenAI / Stripe</p>
+                </div>
+                <div class="glass-card p-5 rounded-2xl space-y-2">
+                    <div class="flex items-center justify-between text-slate-500 dark:text-slate-400">
+                        <span class="text-xs font-semibold uppercase tracking-wider">Agentes Auditores</span>
+                        <i class="fa-solid fa-shield-halved text-emerald-500"></i>
+                    </div>
+                    <div class="text-3xl font-bold font-mono">4 Subagentes</div>
+                    <p class="text-xs text-slate-500 dark:text-slate-400">Seguridad, UX, UI, Código</p>
+                </div>
+                <div class="glass-card p-5 rounded-2xl space-y-2">
+                    <div class="flex items-center justify-between text-slate-500 dark:text-slate-400">
+                        <span class="text-xs font-semibold uppercase tracking-wider">Precisión del Brain</span>
+                        <i class="fa-solid fa-brain text-purple-500"></i>
+                    </div>
+                    <div class="text-3xl font-bold font-mono">99.4%</div>
+                    <p class="text-xs text-emerald-600 dark:text-emerald-400 font-medium">Cero alucinaciones de DB</p>
+                </div>
+            </div>
+
+            <!-- Charts Section -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <div class="glass-card p-6 rounded-2xl space-y-4">
+                    <div class="flex items-center justify-between">
+                        <h3 class="font-bold text-base">Comparativa de Velocidad: Chat vs AI Factory</h3>
+                        <span class="text-xs text-slate-500 font-medium">Horas por Sprint</span>
+                    </div>
+                    <div class="h-64 relative">
+                        <canvas id="speedChart"></canvas>
+                    </div>
+                </div>
+                <div class="glass-card p-6 rounded-2xl space-y-4">
+                    <div class="flex items-center justify-between">
+                        <h3 class="font-bold text-base">Distribución de Carga en Subagentes Auditores</h3>
+                        <span class="text-xs text-slate-500 font-medium">% de Revisiones</span>
+                    </div>
+                    <div class="h-64 relative flex items-center justify-center">
+                        <canvas id="agentsChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 2: SIMULATOR AI FACTORY -->
+        <div id="tab-simulator" class="tab-content hidden space-y-6">
+            <div class="glass-card p-6 lg:p-8 rounded-2xl space-y-6">
+                <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-200 dark:border-slate-800 pb-4">
+                    <div>
+                        <h2 class="text-xl font-bold">Simulador Interactivo de Pipeline - Software Factory</h2>
+                        <p class="text-xs text-slate-500 dark:text-slate-400">Prueba cómo fluye una incidencia de Sentry o GitHub a través del Spec Writer, Builder, Subagentes y Approver.</p>
+                    </div>
+                    <div class="flex items-center space-x-3">
+                        <select id="taskType" class="bg-slate-100 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-xl px-3 py-2 text-xs font-medium focus:outline-none">
+                            <option value="bug">Bug crítico de Backend (Sentry)</option>
+                            <option value="ui">Cambio visual de UI / Landing (Rápido)</option>
+                            <option value="feature">Nueva Feature Compleja (Core)</option>
+                        </select>
+                        <button onclick="runFactoryPipeline()" id="runBtn" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white font-medium text-xs rounded-xl shadow transition flex items-center space-x-2">
+                            <i class="fa-solid fa-play"></i>
+                            <span>Ejecutar Pipeline</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Pipeline Steps Display -->
+                <div class="grid grid-cols-1 md:grid-cols-6 gap-3 pt-2" id="pipelineSteps">
+                    <div class="step-card bg-slate-100 dark:bg-slate-900/80 p-4 rounded-xl border border-slate-200 dark:border-slate-800 space-y-2 opacity-50 transition-all duration-300" id="step-1">
+                        <div class="flex items-center justify-between text-indigo-500">
+                            <span class="font-mono text-xs font-bold">01</span>
+                            <i class="fa-solid fa-inbox text-sm"></i>
+                        </div>
+                        <h4 class="font-bold text-xs">Entrada (Input)</h4>
+                        <p class="text-[11px] text-slate-500">Sentry / GitHub Issue</p>
+                    </div>
+                    <div class="step-card bg-slate-100 dark:bg-slate-900/80 p-4 rounded-xl border border-slate-200 dark:border-slate-800 space-y-2 opacity-50 transition-all duration-300" id="step-2">
+                        <div class="flex items-center justify-between text-purple-500">
+                            <span class="font-mono text-xs font-bold">02</span>
+                            <i class="fa-solid fa-file-lines text-sm"></i>
+                        </div>
+                        <h4 class="font-bold text-xs">Spec Writer</h4>
+                        <p class="text-[11px] text-slate-500">Opus + Consulta Brain</p>
+                    </div>
+                    <div class="step-card bg-slate-100 dark:bg-slate-900/80 p-4 rounded-xl border border-slate-200 dark:border-slate-800 space-y-2 opacity-50 transition-all duration-300" id="step-3">
+                        <div class="flex items-center justify-between text-blue-500">
+                            <span class="font-mono text-xs font-bold">03</span>
+                            <i class="fa-solid fa-hammer text-sm"></i>
+                        </div>
+                        <h4 class="font-bold text-xs">Builder (TDD)</h4>
+                        <p class="text-[11px] text-slate-500">Worktree & Tests</p>
+                    </div>
+                    <div class="step-card bg-slate-100 dark:bg-slate-900/80 p-4 rounded-xl border border-slate-200 dark:border-slate-800 space-y-2 opacity-50 transition-all duration-300" id="step-4">
+                        <div class="flex items-center justify-between text-amber-500">
+                            <span class="font-mono text-xs font-bold">04</span>
+                            <i class="fa-solid fa-users-viewfinder text-sm"></i>
+                        </div>
+                        <h4 class="font-bold text-xs">4 Subagentes</h4>
+                        <p class="text-[11px] text-slate-500">Seguridad, UX, UI, Código</p>
+                    </div>
+                    <div class="step-card bg-slate-100 dark:bg-slate-900/80 p-4 rounded-xl border border-slate-200 dark:border-slate-800 space-y-2 opacity-50 transition-all duration-300" id="step-5">
+                        <div class="flex items-center justify-between text-cyan-500">
+                            <span class="font-mono text-xs font-bold">05</span>
+                            <i class="fa-solid fa-check-double text-sm"></i>
+                        </div>
+                        <h4 class="font-bold text-xs">Approver</h4>
+                        <p class="text-[11px] text-slate-500">Validación de Feedback</p>
+                    </div>
+                    <div class="step-card bg-slate-100 dark:bg-slate-900/80 p-4 rounded-xl border border-slate-200 dark:border-slate-800 space-y-2 opacity-50 transition-all duration-300" id="step-6">
+                        <div class="flex items-center justify-between text-emerald-500">
+                            <span class="font-mono text-xs font-bold">06</span>
+                            <i class="fa-solid fa-rocket text-sm"></i>
+                        </div>
+                        <h4 class="font-bold text-xs">Despliegue</h4>
+                        <p class="text-[11px] text-slate-500">Fast Track / Main PR</p>
+                    </div>
+                </div>
+
+                <!-- Simulation Output Terminal -->
+                <div class="bg-slate-900 text-slate-100 p-4 rounded-xl font-mono text-xs space-y-2 border border-slate-800 shadow-inner">
+                    <div class="flex items-center justify-between border-b border-slate-800 pb-2">
+                        <span class="text-indigo-400 flex items-center space-x-2">
+                            <i class="fa-solid fa-terminal"></i>
+                            <span>factory-execution.log</span>
+                        </span>
+                        <span id="pipelineStatus" class="text-slate-400">Esperando ejecución...</span>
+                    </div>
+                    <div id="terminalOutput" class="h-40 overflow-y-auto space-y-1 text-slate-300">
+                        <p class="text-slate-500">[System] Pipeline listo. Selecciona una tarea y presiona "Ejecutar Pipeline".</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 3: STRATEGY (EDENTIA & LEONARDO) -->
+        <div id="tab-strategy" class="tab-content hidden space-y-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Edentia Strategy Card -->
+                <div class="glass-card p-6 lg:p-8 rounded-2xl space-y-4 border-l-4 border-indigo-600">
+                    <div class="flex items-center space-x-3">
+                        <div class="p-3 bg-indigo-100 dark:bg-indigo-950 text-indigo-600 dark:text-indigo-400 rounded-xl">
+                            <i class="fa-solid fa-building text-xl"></i>
+                        </div>
+                        <div>
+                            <span class="text-xs font-semibold text-indigo-600 dark:text-indigo-400 uppercase">Estrategia Empresarial</span>
+                            <h3 class="text-xl font-bold">Aplicación para Edentia S.A.S.</h3>
+                        </div>
+                    </div>
+                    <ul class="space-y-3 text-sm text-slate-600 dark:text-slate-300">
+                        <li class="flex items-start space-x-2">
+                            <i class="fa-solid fa-check text-indigo-600 mt-1"></i>
+                            <span><strong>Edentia AI Factory B2B:</strong> Automatizar el desarrollo de soluciones a medida para clientes enterprise reduciendo tiempos de entrega en un 75%.</span>
+                        </li>
+                        <li class="flex items-start space-x-2">
+                            <i class="fa-solid fa-check text-indigo-600 mt-1"></i>
+                            <span><strong>Potenciación de AuraLearn:</strong> Integrar factorías de contenido y generación masiva de módulos educativos XR automatizados.</span>
+                        </li>
+                        <li class="flex items-start space-x-2">
+                            <i class="fa-solid fa-check text-indigo-600 mt-1"></i>
+                            <span><strong>Monetización de Servicios High-End:</strong> Ofrecer consultoría de automatización avanzada a corporaciones en Colombia y Latinoamérica.</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Leonardo Consultant Strategy Card -->
+                <div class="glass-card p-6 lg:p-8 rounded-2xl space-y-4 border-l-4 border-emerald-600">
+                    <div class="flex items-center space-x-3">
+                        <div class="p-3 bg-emerald-100 dark:bg-emerald-950 text-emerald-600 dark:text-emerald-400 rounded-xl">
+                            <i class="fa-solid fa-user-tie text-xl"></i>
+                        </div>
+                        <div>
+                            <span class="text-xs font-semibold text-emerald-600 dark:text-emerald-400 uppercase">Consultor Senior de IA</span>
+                            <h3 class="text-xl font-bold">Recomendaciones para Leonardo</h3>
+                        </div>
+                    </div>
+                    <ul class="space-y-3 text-sm text-slate-600 dark:text-slate-300">
+                        <li class="flex items-start space-x-2">
+                            <i class="fa-solid fa-check text-emerald-600 mt-1"></i>
+                            <span><strong>Pivote de Propuesta de Valor:</strong> Dejar de vender "asistentes de chat" y vender <strong>Sistemas Autónomos de Producción</strong> a CTOs y directivos.</span>
+                        </li>
+                        <li class="flex items-start space-x-2">
+                            <i class="fa-solid fa-check text-emerald-600 mt-1"></i>
+                            <span><strong>Framework Propietario (RSC Factory):</strong> Posicionarse como líder de pensamiento (*Thought Leadership*) lanzando herramientas open source y paquetizando la versión Enterprise.</span>
+                        </li>
+                        <li class="flex items-start space-x-2">
+                            <i class="fa-solid fa-check text-emerald-600 mt-1"></i>
+                            <span><strong>Talleres Ejecutivos AI Factory:</strong> Monetizar mediante sesiones estratégicas de diseño y auditoría de procesos empresariales repetibles.</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 4: GLOSSARY & NOTES -->
+        <div id="tab-glossary" class="tab-content hidden space-y-6">
+            <div class="glass-card p-6 lg:p-8 rounded-2xl space-y-6">
+                <div class="border-b border-slate-200 dark:border-slate-800 pb-4">
+                    <h2 class="text-xl font-bold">Glosario Técnico y Resumen del Video</h2>
+                    <p class="text-xs text-slate-500 dark:text-slate-400">Conceptos clave extraídos de "Programar con agentes ya no basta: monta tu Software Factory".</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="p-4 bg-slate-100 dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 space-y-1">
+                        <h4 class="font-bold text-sm text-indigo-600 dark:text-indigo-400">AI Software Factory</h4>
+                        <p class="text-xs text-slate-600 dark:text-slate-300">Sistema automatizado donde entran tareas o incidencias, pasan por procesos deterministas y agentes de IA, y sale código validado y desplegado.</p>
+                    </div>
+                    <div class="p-4 bg-slate-100 dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 space-y-1">
+                        <h4 class="font-bold text-sm text-indigo-600 dark:text-indigo-400">Brain (Memoria Persistente)</h4>
+                        <p class="text-xs text-slate-600 dark:text-slate-300">Base de conocimiento continua que registra decisiones arquitectónicas previas para evitar alucinaciones y mantener coherencia.</p>
+                    </div>
+                    <div class="p-4 bg-slate-100 dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 space-y-1">
+                        <h4 class="font-bold text-sm text-indigo-600 dark:text-indigo-400">Spec-Driven Development (SDD)</h4>
+                        <p class="text-xs text-slate-600 dark:text-slate-300">Metodología donde un agente especializado (Opus) redacta especificaciones técnicas precisas antes de iniciar la construcción.</p>
+                    </div>
+                    <div class="p-4 bg-slate-100 dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 space-y-1">
+                        <h4 class="font-bold text-sm text-indigo-600 dark:text-indigo-400">Worktree & TDD Automatizado</h4>
+                        <p class="text-xs text-slate-600 dark:text-slate-300">Creación de ramas aisladas en Git donde la IA escribe primero las pruebas unitarias fallidas y luego el código hasta pasarlas.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Notification Toast -->
+    <div id="toast" class="fixed bottom-6 right-6 z-50 transform translate-y-20 opacity-0 transition-all duration-300 glass-card px-4 py-3 rounded-xl shadow-lg border border-indigo-500/30 flex items-center space-x-3">
+        <i id="toastIcon" class="fa-solid fa-circle-check text-emerald-500"></i>
+        <div>
+            <h5 id="toastTitle" class="font-bold text-xs">Notificación</h5>
+            <p id="toastMsg" class="text-[11px] text-slate-500">Mensaje de prueba</p>
+        </div>
+    </div>
+
+    <!-- Script Logic -->
+    <script>
+        // Toggle Dark Mode
+        function toggleDarkMode() {
+            document.documentElement.classList.toggle('dark');
+            const icon = document.getElementById('themeIcon');
+            if (document.documentElement.classList.contains('dark')) {
+                icon.className = "fa-solid fa-sun";
+            } else {
+                icon.className = "fa-solid fa-moon";
+            }
+        }
+
+        // Tab Switching
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+            document.querySelectorAll('.tab-btn').forEach(el => {
+                el.classList.remove('bg-indigo-600', 'text-white', 'shadow-md', 'shadow-indigo-600/20');
+                el.classList.add('bg-slate-200', 'dark:bg-slate-800', 'text-slate-600', 'dark:text-slate-300');
+            });
+
+            document.getElementById('tab-' + tabId).classList.remove('hidden');
+            const activeBtn = document.getElementById('btn-' + tabId);
+            activeBtn.classList.remove('bg-slate-200', 'dark:bg-slate-800', 'text-slate-600', 'dark:text-slate-300');
+            activeBtn.classList.add('bg-indigo-600', 'text-white', 'shadow-md', 'shadow-indigo-600/20');
+        }
+
+        // Notification Toast
+        function triggerNotification(msg, type = 'success') {
+            const toast = document.getElementById('toast');
+            const toastMsg = document.getElementById('toastMsg');
+            const toastIcon = document.getElementById('toastIcon');
+            
+            toastMsg.innerText = msg;
+            toastIcon.className = type === 'success' ? "fa-solid fa-circle-check text-emerald-500" : "fa-solid fa-triangle-exclamation text-amber-500";
+            
+            toast.classList.remove('translate-y-20', 'opacity-0');
+            setTimeout(() => {
+                toast.classList.add('translate-y-20', 'opacity-0');
+            }, 3500);
+        }
+
+        // Initialize Charts on Load
+        window.onload = function() {
+            // Speed Comparison Chart
+            const ctxSpeed = document.getElementById('speedChart').getContext('2d');
+            new Chart(ctxSpeed, {
+                type: 'bar',
+                data: {
+                    labels: ['Desarrollo Manual', 'Chat con Agentes', 'AI Software Factory'],
+                    datasets: [{
+                        label: 'Horas Promedio por Sprint',
+                        data: [160, 95, 22],
+                        backgroundColor: ['#cbd5e1', '#818cf8', '#4f46e5'],
+                        borderRadius: 8
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { display: false } },
+                    scales: {
+                        y: { grid: { display: false } },
+                        x: { grid: { display: false } }
+                    }
+                }
+            });
+
+            // Agents Distribution Chart
+            const ctxAgents = document.getElementById('agentsChart').getContext('2d');
+            new Chart(ctxAgents, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Seguridad (Sol)', 'UX Review', 'UI Review (Astra)', 'Código (Sonnet)'],
+                    datasets: [{
+                        data: [25, 25, 25, 25],
+                        backgroundColor: ['#6366f1', '#ec4899', '#f59e0b', '#10b981'],
+                        borderWidth: 0
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { position: 'bottom', labels: { boxWidth: 12, font: { size: 11 } } } }
+                }
+            });
+        };
+
+        // Factory Pipeline Simulator
+        async function runFactoryPipeline() {
+            const taskType = document.getElementById('taskType').value;
+            const terminal = document.getElementById('terminalOutput');
+            const statusLabel = document.getElementById('pipelineStatus');
+            const runBtn = document.getElementById('runBtn');
+            
+            runBtn.disabled = true;
+            terminal.innerHTML = '';
+            statusLabel.innerText = "Ejecutando pipeline...";
+            statusLabel.className = "text-amber-400 animate-pulse";
+
+            const steps = [
+                { id: 1, name: "Entrada (Input)", log: `[Input] Recibida tarea tipo [${taskType}]. Conectando con Sentry / GitHub...` },
+                { id: 2, name: "Spec Writer", log: `[Opus] Consultando Brain persistente y redactando especificación técnica (SDD)...` },
+                { id: 3, name: "Builder (TDD)", log: `[Builder] Creando worktree en Git. Escribiendo tests unitarios (TDD) y generando código...` },
+                { id: 4, name: "4 Subagentes", log: `[Auditoría Paralela] Verificando Seguridad (Sol), UX, UI (Astra) y Estándares de Código...` },
+                { id: 5, name: "Approver", log: `[Approver] Analizando feedback de subagentes. Validación positiva confirmada.` },
+                { id: 6, name: "Despliegue", log: taskType === 'ui' ? `[Fast Track] Tarea menor aprobada. Desplegando directamente a rama main.` : `[Critical Gate] Tarea de core/backend. Creando PR para revisión manual humana.` }
+            ];
+
+            for (let i = 0; i < steps.length; i++) {
+                const s = steps[i];
+                // Highlight step
+                document.querySelectorAll('.step-card').forEach(el => el.classList.remove('ring-2', 'ring-indigo-500', 'opacity-100'));
+                const currentCard = document.getElementById(`step-${s.id}`);
+                currentCard.classList.add('ring-2', 'ring-indigo-500', 'opacity-100');
+                
+                // Add log
+                const p = document.createElement('p');
+                p.className = "text-slate-300 animate-fade-in";
+                p.innerText = s.log;
+                terminal.appendChild(p);
+                terminal.scrollTop = terminal.scrollHeight;
+
+                await new Promise(r => setTimeout(r, 900));
+            }
+
+            statusLabel.innerText = "Pipeline completado con éxito";
+            statusLabel.className = "text-emerald-400";
+            runBtn.disabled = false;
+            triggerNotification('Pipeline ejecutado y validado por la AI Factory', 'success');
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Desarrollo de Software Empresarial con IA | Expert Notes & Strategy</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#eef2ff',
+                            100: '#e0e7ff',
+                            500: '#6366f1',
+                            600: '#4f46e5',
+                            700: '#4338ca',
+                            900: '#312e81',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(226, 232, 240, 0.8);
+        }
+        .dark .glass-card {
+            background: rgba(15, 23, 42, 0.85);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(51, 65, 85, 0.8);
+        }
+        /* Custom scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #f1f5f9; }
+        .dark ::-webkit-scrollbar-track { background: #0f172a; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+        .dark ::-webkit-scrollbar-thumb { background: #475569; border-radius: 4px; }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 dark:bg-slate-950 dark:text-slate-100 min-h-screen transition-colors duration-300">
+
+    <!-- Top Navigation Bar -->
+    <header class="sticky top-0 z-50 glass-card border-b border-slate-200 dark:border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <div class="bg-brand-600 text-white p-2 rounded-xl shadow-lg shadow-brand-500/30 flex items-center justify-center w-10 h-10">
+                    <i class="fa-solid fa-brain-circuit"></i>
+                </div>
+                <div>
+                    <h1 class="font-bold text-lg leading-tight tracking-tight">Líder IA Hub</h1>
+                    <p class="text-xs text-slate-500 dark:text-slate-400">Desarrollo Empresarial con IA</p>
+                </div>
+            </div>
+            
+            <nav class="hidden md:flex items-center space-x-6 text-sm font-medium">
+                <a href="#notes" class="hover:text-brand-600 transition-colors">Notas Detalladas</a>
+                <a href="#summary" class="hover:text-brand-600 transition-colors">Resumen & Pros/Contras</a>
+                <a href="#glossary" class="hover:text-brand-600 transition-colors">Glosario</a>
+                <a href="#edentia" class="text-brand-600 dark:text-brand-400 font-semibold hover:underline">Estrategia EDENTIA</a>
+                <a href="#leonardo" class="text-indigo-600 dark:text-indigo-400 font-semibold hover:underline">Consultoría Leonardo</a>
+            </nav>
+
+            <div class="flex items-center space-x-3">
+                <button onclick="toggleDarkMode()" aria-label="Toggle Theme" class="p-2 rounded-xl bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:scale-105 transition-all">
+                    <i id="theme-icon" class="fa-solid fa-moon"></i>
+                </button>
+                <a href="https://youtu.be/w1QzGkFoAtM?si=GSpZSh9HBO58zDXY" target="_blank" rel="noopener noreferrer" class="hidden sm:inline-flex items-center space-x-2 bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-xl text-sm font-medium shadow-lg shadow-red-500/20 transition-all">
+                    <i class="fa-brands fa-youtube"></i>
+                    <span>Ver Video</span>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="relative overflow-hidden py-16 lg:py-24 bg-gradient-to-b from-brand-50/50 to-transparent dark:from-brand-950/20">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <span class="inline-flex items-center gap-1.5 py-1.5 px-3 rounded-full text-xs font-semibold bg-brand-100 text-brand-700 dark:bg-brand-900/50 dark:text-brand-300 mb-6">
+                <i class="fa-solid fa-video"></i> Análisis Profesional de Conferencia • Líder IA
+            </span>
+            <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-slate-900 dark:text-white mb-6">
+                Desarrollo de Software Empresarial con <span class="text-brand-600 dark:text-brand-400">Inteligencia Artificial</span>
+            </h1>
+            <p class="text-lg sm:text-xl text-slate-600 dark:text-slate-300 max-w-3xl mx-auto mb-10 leading-relaxed">
+                Notas detalladas con marcas de tiempo, desglose jerárquico de arquitectura SDD, Harness, gestión de riesgos de seguridad, estrategias para EDENTIA y recomendaciones para Consultoría Senior.
+            </p>
+            <div class="flex flex-wrap justify-center gap-4">
+                <a href="#edentia" class="bg-brand-600 hover:bg-brand-700 text-white font-semibold px-6 py-3 rounded-2xl shadow-xl shadow-brand-600/20 transition-all flex items-center space-x-2">
+                    <i class="fa-solid fa-building-user"></i>
+                    <span>Estrategia EDENTIA</span>
+                </a>
+                <a href="#leonardo" class="bg-slate-900 hover:bg-slate-800 text-white dark:bg-slate-800 dark:hover:bg-slate-700 font-semibold px-6 py-3 rounded-2xl shadow-xl transition-all flex items-center space-x-2">
+                    <i class="fa-solid fa-user-tie"></i>
+                    <span>Recomendaciones Leonardo</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content Container -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-16">
+
+        <!-- SECTION 1: DETAILED NOTES -->
+        <section id="notes" class="scroll-mt-24">
+            <div class="flex items-center justify-between mb-8">
+                <div>
+                    <h2 class="text-2xl sm:text-3xl font-bold tracking-tight text-slate-900 dark:text-white flex items-center gap-3">
+                        <i class="fa-solid fa-file-lines text-brand-600"></i> Notas Detalladas Cronológicas
+                    </h2>
+                    <p class="text-slate-500 dark:text-slate-400 text-sm mt-1">Conceptos, términos y ejemplos ordenados por marca de tiempo.</p>
+                </div>
+            </div>
+
+            <!-- Notes Accordions / Cards -->
+            <div class="space-y-6">
+                <!-- Note Item 1 -->
+                <div class="glass-card rounded-2xl p-6 shadow-sm hover:shadow-md transition-all">
+                    <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+                        <span class="inline-flex items-center px-3 py-1 rounded-lg text-xs font-bold bg-brand-50 text-brand-700 dark:bg-brand-900/40 dark:text-brand-300 font-mono">
+                            <i class="fa-regular fa-clock mr-1.5"></i> [00:00:00 - 00:03:43]
+                        </span>
+                        <span class="text-xs font-medium text-slate-500 dark:text-slate-400">H1: Introducción y Desafíos Actuales</span>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">Bienvenida y Pilares para Directores de TI</h3>
+                    <ul class="space-y-2 text-slate-600 dark:text-slate-300 text-sm list-disc pl-5">
+                        <li><strong>Andrés Calderón y Ing. Julián Castaño</strong> presentan el enfoque central: cerrar la brecha entre un software funcional y uno verdaderamente productivo.</li>
+                        <li><strong>4 Preguntas Clave para Directores de TI:</strong> ¿Funciona lo que tenemos?, proyectos complejos con agentes, uso de metodologías (SDD y Harness), y riesgos de seguridad.</li>
+                        <li><strong>Plan de 90 Días:</strong> Estructurar una ruta basada en funcionalidad, metodología y seguridad rigurosa.</li>
+                    </ul>
+                </div>
+
+                <!-- Note Item 2 -->
+                <div class="glass-card rounded-2xl p-6 shadow-sm hover:shadow-md transition-all">
+                    <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+                        <span class="inline-flex items-center px-3 py-1 rounded-lg text-xs font-bold bg-brand-50 text-brand-700 dark:bg-brand-900/40 dark:text-brand-300 font-mono">
+                            <i class="fa-regular fa-clock mr-1.5"></i> [00:03:43 - 00:18:53]
+                        </span>
+                        <span class="text-xs font-medium text-slate-500 dark:text-slate-400">H1: Arquitectura, Modelos y Harness</span>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">El Concepto del "Practicante" y Enfoque Agéntico</h3>
+                    <ul class="space-y-2 text-slate-600 dark:text-slate-300 text-sm list-disc pl-5">
+                        <li><strong>Analogía de la Tienda de la Esquina:</strong> Así como preguntar a un modelo general por datos de una tienda local genera alucinaciones, la IA necesita el <em>contexto explícito de la empresa</em>.</li>
+                        <li><strong>La Metáfora del Practicante:</strong> Los agentes de IA tienen energía infinita pero carecen de contexto corporativo; requieren encargos detallados.</li>
+                        <li><strong>Estructura Multiajente:</strong> División de roles por agentes (Frontend, Backend, Base de Datos, QA / Pruebas).</li>
+                        <li><strong>Hito Histórico (5 Feb 2026):</strong> Anthropic Claude escribió el compilador de C desde cero usando 16 agentes en tan solo dos semanas. OpenAI ha creado productos de más de 1 millón de líneas en 5 meses sin escribir código a mano.</li>
+                    </ul>
+                </div>
+
+                <!-- Note Item 3 -->
+                <div class="glass-card rounded-2xl p-6 shadow-sm hover:shadow-md transition-all">
+                    <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+                        <span class="inline-flex items-center px-3 py-1 rounded-lg text-xs font-bold bg-brand-50 text-brand-700 dark:bg-brand-900/40 dark:text-brand-300 font-mono">
+                            <i class="fa-regular fa-clock mr-1.5"></i> [00:18:53 - 00:32:07]
+                        </span>
+                        <span class="text-xs font-medium text-slate-500 dark:text-slate-400">H1: Metodología SDD y Archivos Clave</span>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">Spec-Driven Development (SDD) y Archivos de Control</h3>
+                    <ul class="space-y-2 text-slate-600 dark:text-slate-300 text-sm list-disc pl-5">
+                        <li><strong>Uso de Markdown (`.md`):</strong> Formato preferido frente a Word o Excel por su alta compatibilidad con modelos de IA.</li>
+                        <li><strong>Archivo `cloud.md`:</strong> Centraliza el stack tecnológico, las reglas de negocio y el manual de la casa para evitar contradicciones internas y refactores destructivos.</li>
+                        <li><strong>Archivo `settings.json`:</strong> Limita los accesos del agente para impedir modificaciones directas en entornos productivos.</li>
+                        <li><strong>Fases SDD:</strong> Especificar (¿Qué y Por qué con criterios de aceptación), Planear (Tareas lógicas módulo a módulo), Construir, y Verificar/Firmar (Aprobación humana final).</li>
+                    </ul>
+                </div>
+
+                <!-- Note Item 4 -->
+                <div class="glass-card rounded-2xl p-6 shadow-sm hover:shadow-md transition-all">
+                    <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+                        <span class="inline-flex items-center px-3 py-1 rounded-lg text-xs font-bold bg-brand-50 text-brand-700 dark:bg-brand-900/40 dark:text-brand-300 font-mono">
+                            <i class="fa-regular fa-clock mr-1.5"></i> [00:32:07 - 00:53:33]
+                        </span>
+                        <span class="text-xs font-medium text-slate-500 dark:text-slate-400">H1: Vibe Engineering, Harness y Seguridad</span>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">Vibe Coding vs. Vibe Engineering y Mitigación de Riesgos</h3>
+                    <ul class="space-y-2 text-slate-600 dark:text-slate-300 text-sm list-disc pl-5">
+                        <li><strong>Vibe Coding:</strong> Escribir prompts informales sin metodología para prototipos visuales rápidos.</li>
+                        <li><strong>Vibe Engineering:</strong> Añadir rigor de ingeniería, bases de datos, pruebas unitarias y seguridad a proyectos asistidos por IA.</li>
+                        <li><strong>Metáfora del Automóvil (Harness):</strong> Dirección = Especificación; Motor = Modelo de IA; Sensores = Pruebas; Frenos = Permisos y configuraciones corporativas.</li>
+                        <li><strong>Riesgos Críticos:</strong> El 45% del código generado por IA falla en pruebas básicas de seguridad (SQL Injection, XSS, Prompt Injection). Casos de fuga de datos en Samsung y exposición de BD en Replit.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 2: SUMMARY & PROS/CONTRAS -->
+        <section id="summary" class="scroll-mt-24 grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <!-- Summary Column -->
+            <div class="glass-card rounded-2xl p-8 flex flex-col justify-between">
+                <div>
+                    <div class="flex items-center space-x-3 mb-4">
+                        <div class="bg-indigo-100 dark:bg-indigo-900/50 text-indigo-600 dark:text-indigo-400 p-3 rounded-xl">
+                            <i class="fa-solid fa-align-left text-xl"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold text-slate-900 dark:text-white">Resumen de Alto Nivel</h3>
+                    </div>
+                    <p class="text-slate-600 dark:text-slate-300 leading-relaxed text-sm sm:text-base">
+                        El video aborda el salto evolutivo del desarrollo tradicional al desarrollo empresarial con IA. Aunque la velocidad de producción aumenta exponencialmente (hasta un 24% más rápido), la confianza y seguridad no lo hacen automáticamente. El éxito corporativo exige abandonar el simple <em>Vibe Coding</em> y adoptar metodologías como <strong>Spec-Driven Development (SDD)</strong>, arquitecturas de control <strong>Harness</strong>, restricciones estrictas de acceso y mantener la responsabilidad humana en la verificación y firma final de entregas.
+                    </p>
+                </div>
+                <div class="mt-6 pt-6 border-t border-slate-200 dark:border-slate-800 flex items-center justify-between text-xs text-slate-500">
+                    <span><i class="fa-solid fa-shield-halved mr-1"></i> Enfoque de Seguridad Obligatorio</span>
+                    <span><i class="fa-solid fa-code-merge mr-1"></i> SDD & Harness</span>
+                </div>
+            </div>
+
+            <!-- Key Takeaways & Pros/Cons -->
+            <div class="glass-card rounded-2xl p-8">
+                <div class="flex items-center space-x-3 mb-6">
+                    <div class="bg-amber-100 dark:bg-amber-900/50 text-amber-600 dark:text-amber-400 p-3 rounded-xl">
+                        <i class="fa-solid fa-scale-balanced text-xl"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-slate-900 dark:text-white">Ideas Clave: Pros & Contras</h3>
+                </div>
+                
+                <div class="space-y-4 max-h-[380px] overflow-y-auto pr-2">
+                    <div class="p-3 bg-emerald-50 dark:bg-emerald-950/30 border border-emerald-200 dark:border-emerald-800 rounded-xl text-xs sm:text-sm">
+                        <strong class="text-emerald-700 dark:text-emerald-400"><i class="fa-solid fa-circle-check mr-1"></i> Pro:</strong> Aceleración drástica en la creación de prototipos visuales y maquetación de aplicaciones iniciales.
+                    </div>
+                    <div class="p-3 bg-rose-50 dark:bg-rose-950/30 border border-rose-200 dark:border-rose-800 rounded-xl text-xs sm:text-sm">
+                        <strong class="text-rose-700 dark:text-rose-400"><i class="fa-solid fa-circle-xmark mr-1"></i> Contra:</strong> Falsa sensación de robustez; un software funcional visualmente no garantiza viabilidad productiva.
+                    </div>
+                    <div class="p-3 bg-emerald-50 dark:bg-emerald-950/30 border border-emerald-200 dark:border-emerald-800 rounded-xl text-xs sm:text-sm">
+                        <strong class="text-emerald-700 dark:text-emerald-400"><i class="fa-solid fa-circle-check mr-1"></i> Pro:</strong> Metodología SDD para fragmentar grandes proyectos en subtareas limpias guiadas por Markdown.
+                    </div>
+                    <div class="p-3 bg-rose-50 dark:bg-rose-950/30 border border-rose-200 dark:border-rose-800 rounded-xl text-xs sm:text-sm">
+                        <strong class="text-rose-700 dark:text-rose-400"><i class="fa-solid fa-circle-xmark mr-1"></i> Contra:</strong> 45% del código generado por IA falla en pruebas básicas de seguridad (inyecciones SQL y XSS).
+                    </div>
+                    <div class="p-3 bg-emerald-50 dark:bg-emerald-950/30 border border-emerald-200 dark:border-emerald-800 rounded-xl text-xs sm:text-sm">
+                        <strong class="text-emerald-700 dark:text-emerald-400"><i class="fa-solid fa-circle-check mr-1"></i> Pro:</strong> Uso de Harness y frenos de seguridad para proteger entornos de producción frente a cambios destructivos.
+                    </div>
+                    <div class="p-3 bg-rose-50 dark:bg-rose-950/30 border border-rose-200 dark:border-rose-800 rounded-xl text-xs sm:text-sm">
+                        <strong class="text-rose-700 dark:text-rose-400"><i class="fa-solid fa-circle-xmark mr-1"></i> Contra:</strong> Costos crecientes de licencias y cómputo que superarán los salarios tradicionales de desarrollo para 2028.
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 3: GLOSSARY -->
+        <section id="glossary" class="scroll-mt-24">
+            <div class="mb-8 text-center">
+                <h2 class="text-2xl sm:text-3xl font-bold tracking-tight text-slate-900 dark:text-white flex items-center justify-center gap-3">
+                    <i class="fa-solid fa-book text-brand-600"></i> Glosario Técnico
+                </h2>
+                <p class="text-slate-500 dark:text-slate-400 text-sm mt-1">Términos y acrónimos explicados de forma clara.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Term 1 -->
+                <div class="glass-card p-6 rounded-2xl border-l-4 border-l-brand-600">
+                    <h4 class="font-bold text-lg text-slate-900 dark:text-white mb-2">Vibe Coding</h4>
+                    <p class="text-sm text-slate-600 dark:text-slate-300">Desarrollo informal basado en prompts conversacionales generales sin estructura metodológica rigurosa.</p>
+                </div>
+                <!-- Term 2 -->
+                <div class="glass-card p-6 rounded-2xl border-l-4 border-l-indigo-600">
+                    <h4 class="font-bold text-lg text-slate-900 dark:text-white mb-2">Vibe Engineering</h4>
+                    <p class="text-sm text-slate-600 dark:text-slate-300">Aplicación de ingeniería de software, especificaciones, bases de datos y seguridad sobre flujos asistidos por IA.</p>
+                </div>
+                <!-- Term 3 -->
+                <div class="glass-card p-6 rounded-2xl border-l-4 border-l-purple-600">
+                    <h4 class="font-bold text-lg text-slate-900 dark:text-white mb-2">Spec-Driven Development (SDD)</h4>
+                    <p class="text-sm text-slate-600 dark:text-slate-300">Metodología guiada por especificaciones técnicas claras y criterios de aceptación en Markdown.</p>
+                </div>
+                <!-- Term 4 -->
+                <div class="glass-card p-6 rounded-2xl border-l-4 border-l-emerald-600">
+                    <h4 class="font-bold text-lg text-slate-900 dark:text-white mb-2">Harness</h4>
+                    <p class="text-sm text-slate-600 dark:text-slate-300">Ecosistema de arquitectura, pruebas, reglas de contexto y frenos de seguridad que rodean y controlan al modelo de IA.</p>
+                </div>
+                <!-- Term 5 -->
+                <div class="glass-card p-6 rounded-2xl border-l-4 border-l-amber-600">
+                    <h4 class="font-bold text-lg text-slate-900 dark:text-white mb-2">MTTR</h4>
+                    <p class="text-sm text-slate-600 dark:text-slate-300">Mean Time to Recovery: Tiempo medio de solución o recuperación ante un fallo en el software.</p>
+                </div>
+                <!-- Term 6 -->
+                <div class="glass-card p-6 rounded-2xl border-l-4 border-l-rose-600">
+                    <h4 class="font-bold text-lg text-slate-900 dark:text-white mb-2">Prompt Injection</h4>
+                    <p class="text-sm text-slate-600 dark:text-slate-300">Ataque malicioso para manipular las instrucciones de entrada de un sistema de IA y vulnerar sus restricciones.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 4: EDENTIA STRATEGY -->
+        <section id="edentia" class="scroll-mt-24">
+            <div class="glass-card rounded-3xl p-8 lg:p-12 border-2 border-brand-500/30 bg-gradient-to-br from-brand-50/80 via-white to-indigo-50/50 dark:from-slate-900 dark:via-slate-900 dark:to-brand-950/40">
+                <div class="flex items-center space-x-4 mb-6">
+                    <div class="bg-brand-600 text-white p-4 rounded-2xl shadow-lg shadow-brand-500/30">
+                        <i class="fa-solid fa-chess-queen text-2xl"></i>
+                    </div>
+                    <div>
+                        <span class="text-xs font-bold uppercase tracking-wider text-brand-600 dark:text-brand-400">Estrategia Empresarial</span>
+                        <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white">Aplicación en EDENTIA & Ventaja Competitiva</h2>
+                    </div>
+                </div>
+
+                <p class="text-slate-600 dark:text-slate-300 mb-8 text-base leading-relaxed">
+                    Como <strong class="text-slate-900 dark:text-white">Founder, CEO y Chief XR Architect de EDENTIA</strong>, la integración de estos conceptos elevará drásticamente la madurez técnica de tus desarrollos inmersivos y plataformas espaciales:
+                </p>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="bg-white dark:bg-slate-800/80 p-6 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700">
+                        <div class="text-brand-600 dark:text-brand-400 text-xl font-bold mb-3 flex items-center gap-2">
+                            <i class="fa-solid fa-cube"></i> 1. SDD en XR
+                        </div>
+                        <p class="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+                            Implementar Spec-Driven Development y archivos `cloud.md` para estandarizar requerimientos antes de generar código para Android XR o WebXR, reduciendo el retrabajo en interfaces tridimensionales complejas.
+                        </p>
+                    </div>
+
+                    <div class="bg-white dark:bg-slate-800/80 p-6 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700">
+                        <div class="text-brand-600 dark:text-brand-400 text-xl font-bold mb-3 flex items-center gap-2">
+                            <i class="fa-solid fa-shield-cat"></i> 2. Harness Seguro
+                        </div>
+                        <p class="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+                            Posicionar a EDENTIA como referente que implementa frenos de seguridad corporativa, evitando que agentes autónomos corrompan bases de datos o expongan credenciales de clientes institucionales.
+                        </p>
+                    </div>
+
+                    <div class="bg-white dark:bg-slate-800/80 p-6 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700">
+                        <div class="text-brand-600 dark:text-brand-400 text-xl font-bold mb-3 flex items-center gap-2">
+                            <i class="fa-solid fa-chart-line"></i> 3. Monetización B2B
+                        </div>
+                        <p class="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+                            Desplegar soluciones empacadas de automatización y flujos agénticos para clientes corporativos (salud, retail), cobrando por valor y ROI medible en reducción de tiempos operativos.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 5: LEONARDO CONSULTING RECOMMENDATIONS -->
+        <section id="leonardo" class="scroll-mt-24">
+            <div class="glass-card rounded-3xl p-8 lg:p-12 border-2 border-indigo-500/30 bg-gradient-to-br from-indigo-50/80 via-white to-purple-50/50 dark:from-slate-900 dark:via-slate-900 dark:to-indigo-950/40">
+                <div class="flex items-center space-x-4 mb-6">
+                    <div class="bg-indigo-600 text-white p-4 rounded-2xl shadow-lg shadow-indigo-500/30">
+                        <i class="fa-solid fa-user-graduate text-2xl"></i>
+                    </div>
+                    <div>
+                        <span class="text-xs font-bold uppercase tracking-wider text-indigo-600 dark:text-indigo-400">Consultoría Senior de IA</span>
+                        <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white">Recomendaciones para Leonardo</h2>
+                    </div>
+                </div>
+
+                <p class="text-slate-600 dark:text-slate-300 mb-8 text-base leading-relaxed">
+                    Para potenciar tu consultoría de inteligencia artificial e incrementar tus ingresos en el mercado actual, implementa estas tres líneas estratégicas:
+                </p>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="bg-white dark:bg-slate-800/80 p-6 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700">
+                        <div class="text-indigo-600 dark:text-indigo-400 text-xl font-bold mb-3 flex items-center gap-2">
+                            <i class="fa-solid fa-wand-magic-sparkles"></i> 1. Vender Ingeniería
+                        </div>
+                        <p class="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+                            Transicionar de ofrecer simples talleres de "prompts" a vender servicios de <strong>arquitectura de desarrollo asistido seguro</strong>, instaurando gobernanza de código y archivos `cloud.md` en empresas.
+                        </p>
+                    </div>
+
+                    <div class="bg-white dark:bg-slate-800/80 p-6 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700">
+                        <div class="text-indigo-600 dark:text-indigo-400 text-xl font-bold mb-3 flex items-center gap-2">
+                            <i class="fa-solid fa-lock"></i> 2. Auditoría de Código
+                        </div>
+                        <p class="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+                            Crear un servicio de auditoría de vulnerabilidades en código sintético (aprovechando que el 45% falla en seguridad básica), blindando sistemas contra inyecciones y Prompt Injection.
+                        </p>
+                    </div>
+
+                    <div class="bg-white dark:bg-slate-800/80 p-6 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700">
+                        <div class="text-indigo-600 dark:text-indigo-400 text-xl font-bold mb-3 flex items-center gap-2">
+                            <i class="fa-solid fa-file-invoice-dollar"></i> 3. Propuestas con ROI
+                        </div>
+                        <p class="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+                            Estructurar ofertas comerciales basadas en la reducción del MTTR y horas-hombre ahorradas, demostrando a los CFOs que la inversión en IA se amortiza en semanas.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-slate-900 text-slate-400 py-12 mt-20 border-t border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-4">
+            <div class="flex items-center justify-center space-x-2 text-white font-bold text-lg">
+                <i class="fa-solid fa-brain-circuit text-brand-500"></i>
+                <span>Líder IA & EDENTIA Hub</span>
+            </div>
+            <p class="text-sm">Procesamiento experto de conferencias técnicas y optimización de consultoría en IA.</p>
+            <p class="text-xs text-slate-500">&copy; 2026 Líder IA & EDENTIA. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <!-- Script for Dark Mode Toggle -->
+    <script>
+        function toggleDarkMode() {
+            const html = document.documentElement;
+            const icon = document.getElementById('theme-icon');
+            if (html.classList.contains('dark')) {
+                html.classList.remove('dark');
+                icon.classList.remove('fa-sun');
+                icon.classList.add('fa-moon');
+                localStorage.setItem('theme', 'light');
+            } else {
+                html.classList.add('dark');
+                icon.classList.remove('fa-moon');
+                icon.classList.add('fa-sun');
+                localStorage.setItem('theme', 'dark');
+            }
+        }
+
+        // Check user preference on load
+        if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+            document.getElementById('theme-icon').classList.remove('fa-moon');
+            document.getElementById('theme-icon').classList.add('fa-sun');
+        }
+    </script>
+</body>
+</html>

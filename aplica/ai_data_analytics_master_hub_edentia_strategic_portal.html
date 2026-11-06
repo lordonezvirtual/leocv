@@ -1,0 +1,1284 @@
+<!DOCTYPE html>
+<html lang="es" class="h-full">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Seminario IA & Analítica de Datos | Hub Estratégico Edentia & Consultoría</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Lucide Icons CDN -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#f0fdf4',
+              100: '#dcfce7',
+              500: '#22c55e',
+              600: '#16a34a',
+              700: '#15803d',
+              900: '#14532d',
+            },
+            dark: {
+              800: '#1e293b',
+              850: '#172033',
+              900: '#0f172a',
+              950: '#090d16',
+            },
+            accent: {
+              cyan: '#06b6d4',
+              violet: '#8b5cf6',
+              amber: '#f59e0b',
+              emerald: '#10b981'
+            }
+          },
+          fontFamily: {
+            sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
+            mono: ['JetBrains Mono', 'Fira Code', 'monospace']
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
+    
+    /* Custom scrollbar */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #0f172a;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #334155;
+      border-radius: 9999px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #475569;
+    }
+
+    .glass-panel {
+      background: rgba(30, 41, 59, 0.7);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    
+    .glow-cyan {
+      box-shadow: 0 0 25px -5px rgba(6, 182, 212, 0.25);
+    }
+    .glow-emerald {
+      box-shadow: 0 0 25px -5px rgba(16, 185, 129, 0.25);
+    }
+  </style>
+</head>
+<body class="bg-dark-950 text-slate-100 font-sans h-full flex flex-col antialiased selection:bg-brand-500 selection:text-white">
+
+  <!-- Mobile Navigation Drawer Overlay -->
+  <div id="sidebar-overlay" class="fixed inset-0 bg-black/60 z-40 hidden transition-opacity"></div>
+
+  <!-- Main Container -->
+  <div class="flex h-screen overflow-hidden">
+
+    <!-- Sidebar / Nav -->
+    <aside id="sidebar" class="fixed md:static inset-y-0 left-0 z-50 w-72 bg-dark-900 border-r border-slate-800 flex flex-col justify-between transform -translate-x-full md:translate-x-0 transition-transform duration-300 ease-in-out">
+      <div>
+        <!-- Brand Header -->
+        <div class="p-5 border-b border-slate-800/80 flex items-center justify-between">
+          <div class="flex items-center space-x-3">
+            <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-brand-600 to-accent-cyan flex items-center justify-center shadow-lg shadow-brand-500/20">
+              <i data-lucide="brain-circuit" class="w-5 h-5 text-white"></i>
+            </div>
+            <div>
+              <span class="text-xs uppercase tracking-wider font-mono text-emerald-400 font-bold">Edentia • Labs</span>
+              <h1 class="text-sm font-bold text-white tracking-tight">AI & Data Master Hub</h1>
+            </div>
+          </div>
+          <button id="close-sidebar-btn" class="md:hidden p-1 text-slate-400 hover:text-white">
+            <i data-lucide="x" class="w-6 h-6"></i>
+          </button>
+        </div>
+
+        <!-- Navigation Links -->
+        <nav class="p-3 space-y-1">
+          <button onclick="switchTab('notes')" class="tab-btn w-full flex items-center space-x-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors text-white bg-slate-800/90 hover:bg-slate-800 active-tab" data-tab="notes">
+            <i data-lucide="book-open" class="w-4 h-4 text-accent-cyan"></i>
+            <span>Notas & Timeline</span>
+            <span class="ml-auto text-xs bg-slate-700/60 px-1.5 py-0.5 rounded text-slate-300">Video</span>
+          </button>
+
+          <button onclick="switchTab('diagrams')" class="tab-btn w-full flex items-center space-x-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors text-slate-400 hover:text-white hover:bg-slate-800/50" data-tab="diagrams">
+            <i data-lucide="network" class="w-4 h-4 text-accent-violet"></i>
+            <span>Arquitectura Multi-Agente</span>
+          </button>
+
+          <button onclick="switchTab('glossary')" class="tab-btn w-full flex items-center space-x-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors text-slate-400 hover:text-white hover:bg-slate-800/50" data-tab="glossary">
+            <i data-lucide="hash" class="w-4 h-4 text-emerald-400"></i>
+            <span>Glosario Técnico</span>
+            <span class="ml-auto text-xs bg-emerald-950/80 border border-emerald-800 text-emerald-300 px-1.5 py-0.5 rounded">12</span>
+          </button>
+
+          <button onclick="switchTab('edentia')" class="tab-btn w-full flex items-center space-x-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors text-slate-400 hover:text-white hover:bg-slate-800/50" data-tab="edentia">
+            <i data-lucide="layers" class="w-4 h-4 text-accent-amber"></i>
+            <span>AuraLearn & Edentia</span>
+            <span class="ml-auto text-xs bg-amber-950/80 border border-amber-700 text-amber-300 px-1.5 py-0.5 rounded">Industrial XR</span>
+          </button>
+
+          <button onclick="switchTab('consulting')" class="tab-btn w-full flex items-center space-x-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors text-slate-400 hover:text-white hover:bg-slate-800/50" data-tab="consulting">
+            <i data-lucide="trending-up" class="w-4 h-4 text-brand-500"></i>
+            <span>Leonardo Consultor AI</span>
+            <span class="ml-auto text-xs bg-green-950/80 border border-brand-700 text-brand-300 px-1.5 py-0.5 rounded">ROI & Ventas</span>
+          </button>
+        </nav>
+      </div>
+
+      <!-- Footer Info / Role Profile -->
+      <div class="p-4 border-t border-slate-800 bg-dark-950/60">
+        <div class="flex items-center space-x-3">
+          <div class="w-9 h-9 rounded-full bg-emerald-500/20 border border-emerald-500/40 flex items-center justify-center font-bold text-emerald-400 text-sm">
+            L
+          </div>
+          <div class="truncate">
+            <p class="text-xs font-semibold text-white">Leonardo Senior AI</p>
+            <p class="text-[11px] text-slate-400 truncate">Senior AI Consultant & Edentia Lead</p>
+          </div>
+        </div>
+        <div class="mt-3 pt-3 border-t border-slate-800/60 flex items-center justify-between text-[11px] text-slate-400">
+          <span class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span> PWA Activa</span>
+          <button onclick="triggerAudioPing(); showToast('PWA guardada localmente para acceso offline')" class="hover:text-emerald-400 transition-colors">Offline Ready</button>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Content Workspace -->
+    <main class="flex-1 flex flex-col h-full overflow-hidden bg-gradient-to-b from-dark-900 via-dark-950 to-black">
+      
+      <!-- Top Bar -->
+      <header class="h-16 border-b border-slate-800 px-4 md:px-8 flex items-center justify-between flex-shrink-0 bg-dark-900/40 backdrop-blur-md">
+        <div class="flex items-center space-x-4">
+          <button id="open-sidebar-btn" class="md:hidden p-2 rounded-lg text-slate-300 hover:bg-slate-800">
+            <i data-lucide="menu" class="w-5 h-5"></i>
+          </button>
+          <div class="flex items-center space-x-2">
+            <span class="px-2.5 py-1 rounded-md text-xs font-mono font-medium bg-red-950/70 border border-red-800 text-red-400 flex items-center gap-1.5">
+              <span class="w-2 h-2 rounded-full bg-red-500 animate-ping"></span> Live Seminario
+            </span>
+            <span class="text-slate-400 text-xs hidden sm:inline">|</span>
+            <span id="current-title" class="text-xs md:text-sm font-medium text-slate-200 truncate max-w-xs md:max-w-md">Notas Técnicas & Cronología</span>
+          </div>
+        </div>
+
+        <div class="flex items-center space-x-2">
+          <!-- Audio Synthesizer Toggle / Feedback -->
+          <button onclick="toggleAudioFx()" id="audio-btn" title="Efectos de audio sónico activados" class="p-2 rounded-lg bg-slate-800/80 hover:bg-slate-800 text-slate-300 hover:text-emerald-400 border border-slate-700/60 text-xs flex items-center gap-1.5 transition-colors">
+            <i data-lucide="volume-2" class="w-4 h-4"></i>
+            <span class="hidden sm:inline">Audio UI</span>
+          </button>
+          
+          <!-- Export Button -->
+          <button onclick="exportNotesMarkdown()" class="px-3 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-medium flex items-center gap-1.5 shadow-sm shadow-emerald-500/20 transition-all">
+            <i data-lucide="download" class="w-4 h-4"></i>
+            <span>Exportar MD</span>
+          </button>
+        </div>
+      </header>
+
+      <!-- Scrollable Tab Views -->
+      <div class="flex-1 overflow-y-auto p-4 md:p-8 space-y-8" id="view-container">
+
+        <!-- ============================================== -->
+        <!-- TAB 1: NOTAS TÉCNICAS & CRONOLOGÍA (DEFAULT) -->
+        <!-- ============================================== -->
+        <section id="tab-notes" class="tab-content active space-y-6 max-w-6xl mx-auto">
+          
+          <!-- Banner Hero -->
+          <div class="relative overflow-hidden rounded-2xl bg-gradient-to-r from-slate-900 via-slate-850 to-dark-900 border border-slate-800 p-6 md:p-8 glow-cyan">
+            <div class="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
+              <div class="space-y-2 max-w-2xl">
+                <div class="inline-flex items-center gap-2 px-2.5 py-1 rounded-full text-xs font-mono font-semibold bg-cyan-950/70 border border-cyan-800 text-cyan-300">
+                  <i data-lucide="video" class="w-3.5 h-3.5"></i> Auditorio Esteban Jaramillo
+                </div>
+                <h2 class="text-xl md:text-3xl font-extrabold text-white tracking-tight">Seminario en Inteligencia Artificial y Analítica de Datos</h2>
+                <p class="text-sm text-slate-300 leading-relaxed">
+                  Desglose técnico integral sin omisiones: evolución desde la analítica descriptiva a la prescriptiva, despliegues multi-agente en bucle cerrado, soberanía de datos y modelos locales.
+                </p>
+              </div>
+              <div class="flex flex-col gap-2 shrink-0">
+                <a href="https://www.youtube.com/live/t6rWmKfEYVo?si=pJdMKI_DQLVd2-ET" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-red-600/90 hover:bg-red-600 text-white font-medium text-xs md:text-sm transition-all shadow-lg shadow-red-900/30">
+                  <i data-lucide="play-circle" class="w-4 h-4"></i> Abrir Stream en YouTube
+                </a>
+                <button onclick="copyShareLink()" class="inline-flex items-center justify-center gap-2 px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 font-medium text-xs transition-colors border border-slate-700">
+                  <i data-lucide="share-2" class="w-3.5 h-3.5"></i> Copiar Ficha Técnica
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Quick Filters -->
+          <div class="flex items-center justify-between flex-wrap gap-4 pt-2">
+            <div class="flex items-center space-x-2">
+              <span class="text-xs uppercase font-mono tracking-wider text-slate-400">Filtrar Ejes:</span>
+              <button onclick="filterTimeline('all')" class="timeline-filter px-3 py-1 text-xs rounded-full bg-slate-800 text-white border border-slate-700 hover:bg-slate-700 active-filter" data-filter="all">Todos</button>
+              <button onclick="filterTimeline('data')" class="timeline-filter px-3 py-1 text-xs rounded-full bg-slate-900 text-slate-400 border border-slate-800 hover:bg-slate-800" data-filter="data">Arquitectura Datos</button>
+              <button onclick="filterTimeline('agents')" class="timeline-filter px-3 py-1 text-xs rounded-full bg-slate-900 text-slate-400 border border-slate-800 hover:bg-slate-800" data-filter="agents">Multi-Agente & RAG</button>
+              <button onclick="filterTimeline('governance')" class="timeline-filter px-3 py-1 text-xs rounded-full bg-slate-900 text-slate-400 border border-slate-800 hover:bg-slate-800" data-filter="governance">Gobernanza & ROI</button>
+            </div>
+            <div class="text-xs text-slate-400 font-mono">
+              Marcas de tiempo (HH:MM:SS) sincronizadas
+            </div>
+          </div>
+
+          <!-- Timeline & Detailed Notes -->
+          <div class="space-y-6" id="timeline-container">
+
+            <!-- Item 1: 00:00:00 -->
+            <article class="timeline-card glass-panel rounded-2xl p-6 border border-slate-800 relative transition-all hover:border-slate-700" data-category="data">
+              <div class="flex items-start justify-between gap-4">
+                <div class="flex items-center gap-3">
+                  <span class="px-2.5 py-1 rounded font-mono text-xs font-bold bg-cyan-950/80 border border-cyan-800 text-cyan-400 flex items-center gap-1.5">
+                    <i data-lucide="clock" class="w-3.5 h-3.5"></i> 00:00:00
+                  </span>
+                  <span class="text-xs font-semibold text-slate-400 uppercase tracking-wider">H1 • Fundamentos & Madurez Analítica</span>
+                </div>
+                <span class="text-xs bg-slate-800 text-slate-300 px-2 py-0.5 rounded font-mono">Eje 1</span>
+              </div>
+
+              <h3 class="text-lg font-bold text-white mt-3">De la Analítica Descriptiva a la Prescriptiva y la IA Generativa</h3>
+              
+              <div class="mt-4 space-y-3 text-sm text-slate-300 leading-relaxed">
+                <p>
+                  <strong>Desglose de Madurez:</strong> El seminario enfatiza la evolución secuencial de las 4 etapas de analítica de datos en el contexto industrial moderno:
+                </p>
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-3 my-3">
+                  <div class="p-3 rounded-xl bg-dark-900/90 border border-slate-800 text-xs">
+                    <span class="text-cyan-400 font-bold block mb-1">1. Descriptiva</span>
+                    ¿Qué pasó en planta? Dashboards estáticos y reportes históricos de incidentes.
+                  </div>
+                  <div class="p-3 rounded-xl bg-dark-900/90 border border-slate-800 text-xs">
+                    <span class="text-violet-400 font-bold block mb-1">2. Diagnóstica</span>
+                    ¿Por qué ocurrió el cuello de botella o la avería? Correlación de variables de planta.
+                  </div>
+                  <div class="p-3 rounded-xl bg-dark-900/90 border border-slate-800 text-xs">
+                    <span class="text-amber-400 font-bold block mb-1">3. Predictiva</span>
+                    ¿Qué va a suceder? Modelos de machine learning de fallas antes de 48 horas.
+                  </div>
+                  <div class="p-3 rounded-xl bg-dark-900/90 border border-emerald-900/50 text-xs bg-emerald-950/20">
+                    <span class="text-emerald-400 font-bold block mb-1">4. Prescriptiva & GenAI</span>
+                    ¿Qué acción óptima tomar? Agentes autónomos que reprograman y entrenan al operador.
+                  </div>
+                </div>
+
+                <!-- Cita Clave -->
+                <div class="p-4 rounded-xl bg-slate-900/90 border-l-4 border-cyan-500 my-4 text-slate-200 italic font-medium">
+                  "Los datos son el combustible, pero sin una arquitectura limpia y gobernada, la inteligencia artificial es solo un motor de alta revolución sin aceite que se autodestruye en producción."
+                </div>
+
+                <ul class="list-disc pl-5 space-y-1.5 text-slate-300 text-xs md:text-sm">
+                  <li><strong>Arquitectura de Datos para IA:</strong> Es indispensable limpiar las pipelines de ingesta (ETL/ELT) antes de exponerlas a modelos LLM o RAG, evitando el efecto de propagación de ruido.</li>
+                  <li><strong>Latencia y Costos:</strong> Consultar directamente APIs masivas sin indexación semántica previa encarece el costo por token hasta en un 800%.</li>
+                </ul>
+              </div>
+            </article>
+
+            <!-- Item 2: 00:15:00 -->
+            <article class="timeline-card glass-panel rounded-2xl p-6 border border-slate-800 relative transition-all hover:border-slate-700" data-category="agents">
+              <div class="flex items-start justify-between gap-4">
+                <div class="flex items-center gap-3">
+                  <span class="px-2.5 py-1 rounded font-mono text-xs font-bold bg-violet-950/80 border border-violet-800 text-violet-400 flex items-center gap-1.5">
+                    <i data-lucide="clock" class="w-3.5 h-3.5"></i> 00:15:00
+                  </span>
+                  <span class="text-xs font-semibold text-slate-400 uppercase tracking-wider">H1 • Orquestación, Inferencia Local y Prompts</span>
+                </div>
+                <span class="text-xs bg-slate-800 text-slate-300 px-2 py-0.5 rounded font-mono">Eje 2</span>
+              </div>
+
+              <h3 class="text-lg font-bold text-white mt-3">Ingeniería de Prompts Basada en Especificaciones e Inferencia Local Soberana</h3>
+
+              <div class="mt-4 space-y-3 text-sm text-slate-300 leading-relaxed">
+                <p>
+                  <strong>Spec-Driven Development en Prompts:</strong> El diseño de prompts no debe ser conversacional errático, sino guiado por especificaciones estrictas con validación de esquemas (JSON Schema, Pydantic, restricciones de salida determinísticas).
+                </p>
+
+                <!-- Comparison Matrix -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 my-3">
+                  <div class="p-4 rounded-xl bg-slate-900 border border-slate-800">
+                    <div class="flex items-center justify-between text-xs font-bold text-red-400 mb-2">
+                      <span>Modelos Cloud / APIs Públicas</span>
+                      <i data-lucide="cloud-off" class="w-4 h-4"></i>
+                    </div>
+                    <ul class="text-xs space-y-1.5 text-slate-400">
+                      <li>• Riesgo de filtración de secretos comerciales o telemetría industrial sensible.</li>
+                      <li>• Facturación recurrente por tokens impredecible a gran escala.</li>
+                      <li>• Dependencia de conectividad a Internet en plantas y minas remotas.</li>
+                    </ul>
+                  </div>
+
+                  <div class="p-4 rounded-xl bg-slate-900 border border-emerald-900/60 bg-emerald-950/10">
+                    <div class="flex items-center justify-between text-xs font-bold text-emerald-400 mb-2">
+                      <span>Modelos Locales Soberanos (Ollama / VLLM)</span>
+                      <i data-lucide="shield-check" class="w-4 h-4"></i>
+                    </div>
+                    <ul class="text-xs space-y-1.5 text-slate-300">
+                      <li>• Soberanía 100%: Los pesos y datos corren dentro de la VPN de la empresa.</li>
+                      <li>• Latencia cero dependiente de ancho de banda satelital.</li>
+                      <li>• Costo marginal plano una vez aprovisionado el hardware (NVIDIA RTX / GPUs dedicadas).</li>
+                    </ul>
+                  </div>
+                </div>
+
+                <p class="text-xs text-slate-400">
+                  <strong>Técnica Chain-of-Thought (CoT):</strong> Obliga al modelo a desglosar el razonamiento en pasos intermedios antes de emitir un comando o un JSON estructurado, reduciendo las alucinaciones lógicas a menos del 1.2%.
+                </p>
+              </div>
+            </article>
+
+            <!-- Item 3: 00:30:00 -->
+            <article class="timeline-card glass-panel rounded-2xl p-6 border border-slate-800 relative transition-all hover:border-slate-700" data-category="agents">
+              <div class="flex items-start justify-between gap-4">
+                <div class="flex items-center gap-3">
+                  <span class="px-2.5 py-1 rounded font-mono text-xs font-bold bg-amber-950/80 border border-amber-800 text-amber-400 flex items-center gap-1.5">
+                    <i data-lucide="clock" class="w-3.5 h-3.5"></i> 00:30:00
+                  </span>
+                  <span class="text-xs font-semibold text-slate-400 uppercase tracking-wider">H1 • Agentes Autónomos y Bucle Cerrado</span>
+                </div>
+                <span class="text-xs bg-slate-800 text-slate-300 px-2 py-0.5 rounded font-mono">Eje 3</span>
+              </div>
+
+              <h3 class="text-lg font-bold text-white mt-3">Sistemas Multi-Agente: De Chatbots a Redes de Decisión Colaborativa</h3>
+
+              <div class="mt-4 space-y-3 text-sm text-slate-300 leading-relaxed">
+                <p>
+                  <strong>Analogía de la Colmena Corporativa:</strong> Un LLM aislado es como un consultor solitario que intenta hacer todo (investigar, redactar, auditar y firmar cheques). Un sistema multi-agente separa las responsabilidades en roles especializados.
+                </p>
+
+                <!-- Agent Architecture Scheme Visualizer -->
+                <div class="p-4 rounded-xl bg-dark-900 border border-slate-800 font-mono text-xs space-y-2">
+                  <div class="text-slate-400">// Ciclo de Ejecución en Bucle Cerrado (Loop Engineering)</div>
+                  <div class="flex flex-wrap items-center gap-2 text-slate-200">
+                    <span class="px-2 py-1 rounded bg-slate-800 text-cyan-400 font-bold">[1. Agente Orquestador]</span>
+                    <i data-lucide="arrow-right" class="w-4 h-4 text-slate-500"></i>
+                    <span class="px-2 py-1 rounded bg-slate-800 text-violet-400 font-bold">[2. Agente Retriever (RAG)]</span>
+                    <i data-lucide="arrow-right" class="w-4 h-4 text-slate-500"></i>
+                    <span class="px-2 py-1 rounded bg-slate-800 text-amber-400 font-bold">[3. Agente Evaluador / Crítico]</span>
+                    <i data-lucide="arrow-right" class="w-4 h-4 text-slate-500"></i>
+                    <span class="px-2 py-1 rounded bg-emerald-950 border border-emerald-800 text-emerald-400 font-bold">[4. Guardrail & Output Seguro]</span>
+                  </div>
+                </div>
+
+                <ul class="list-disc pl-5 space-y-1.5 text-slate-300 text-xs md:text-sm">
+                  <li><strong>Recuperación Semántica con Vector Stores:</strong> Uso de representaciones embeddings de manuales técnicos para que el agente responda únicamente con fundamentos documentales verificables.</li>
+                  <li><strong>Detección y Reparación Automática de Errores:</strong> Si el crítico detecta que la salida no cumple con los límites de seguridad operativa, reenvía la solicitud al orquestador con un prompt correctivo automático.</li>
+                </ul>
+              </div>
+            </article>
+
+            <!-- Item 4: 00:45:00 -->
+            <article class="timeline-card glass-panel rounded-2xl p-6 border border-slate-800 relative transition-all hover:border-slate-700" data-category="governance">
+              <div class="flex items-start justify-between gap-4">
+                <div class="flex items-center gap-3">
+                  <span class="px-2.5 py-1 rounded font-mono text-xs font-bold bg-emerald-950/80 border border-emerald-800 text-emerald-400 flex items-center gap-1.5">
+                    <i data-lucide="clock" class="w-3.5 h-3.5"></i> 00:45:00
+                  </span>
+                  <span class="text-xs font-semibold text-slate-400 uppercase tracking-wider">H1 • Cumplimiento, Gobernanza y ROI Real</span>
+                </div>
+                <span class="text-xs bg-slate-800 text-slate-300 px-2 py-0.5 rounded font-mono">Eje 4</span>
+              </div>
+
+              <h3 class="text-lg font-bold text-white mt-3">Gobernanza del Dato, Compliance y Justificación de ROI para Juntas Directivas</h3>
+
+              <div class="mt-4 space-y-3 text-sm text-slate-300 leading-relaxed">
+                <p>
+                  <strong>Métricas Financieras Reales vs. Métricas de Vanidad:</strong> Las juntas directivas no compran "parámetros de modelos" ni "puntuaciones de BLEU"; compran reducción de incidentes laborales, horas hombre ahorradas en inducción y aceleración del tiempo al mercado.
+                </p>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-3 my-3">
+                  <div class="p-3 rounded-xl bg-dark-900 border border-slate-800">
+                    <span class="text-xs font-mono text-slate-400 block mb-1">Métrica 1: Tiempos de Ciclo</span>
+                    <p class="text-sm font-semibold text-white">Reducción del 45% al 70% en auditorías de seguridad en planta.</p>
+                  </div>
+                  <div class="p-3 rounded-xl bg-dark-900 border border-slate-800">
+                    <span class="text-xs font-mono text-slate-400 block mb-1">Métrica 2: Retención de Talento</span>
+                    <p class="text-sm font-semibold text-white">Aumento del 85% en retención de conocimientos mediante guías interactivas.</p>
+                  </div>
+                  <div class="p-3 rounded-xl bg-dark-900 border border-slate-800">
+                    <span class="text-xs font-mono text-slate-400 block mb-1">Métrica 3: Reducción de Scrap</span>
+                    <p class="text-sm font-semibold text-white">Disminución directa de piezas defectuosas gracias a asistencia IA en vivo.</p>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+          </div>
+
+          <!-- Section Summary & Top 12 Pros/Cons -->
+          <div class="p-6 md:p-8 rounded-2xl bg-dark-900 border border-slate-800 space-y-6">
+            <div>
+              <span class="text-xs font-mono text-emerald-400 uppercase tracking-wider font-bold">Síntesis Ejecutiva</span>
+              <h3 class="text-lg font-bold text-white mt-1">Resumen de Alto Nivel & Matriz de Decisión</h3>
+              <p class="text-xs md:text-sm text-slate-300 mt-2 leading-relaxed">
+                El seminario dictado en el Auditorio Esteban Jaramillo consolida una hoja de ruta donde la analítica de datos se convierte en el cimiento ineludible para la adopción de agentes generativos en la empresa. La ventaja competitiva real no surge de la suscripción pasiva a APIs cerradas, sino de la capacidad de orquestar flujos multi-agente especializados, proteger los datos en entornos locales/híbridos y transformar las métricas de precisión técnica en valor económico medible.
+              </p>
+            </div>
+
+            <!-- Pros and Cons Grid -->
+            <div>
+              <h4 class="text-sm font-bold text-slate-200 mb-3 flex items-center gap-2">
+                <i data-lucide="scale" class="w-4 h-4 text-accent-cyan"></i>
+                12 Claves Estratégicas: Pros y Desafíos Técnicos
+              </h4>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                
+                <!-- Pros -->
+                <div class="space-y-2.5">
+                  <div class="flex items-start gap-2.5 p-3 rounded-xl bg-emerald-950/20 border border-emerald-900/50 text-xs text-slate-200">
+                    <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-400 shrink-0 mt-0.5"></i>
+                    <span><strong>Automatización Agéntica:</strong> Descentraliza tareas repetitivas en bucles cerrados que no requieren supervisión humana constante.</span>
+                  </div>
+                  <div class="flex items-start gap-2.5 p-3 rounded-xl bg-emerald-950/20 border border-emerald-900/50 text-xs text-slate-200">
+                    <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-400 shrink-0 mt-0.5"></i>
+                    <span><strong>Soberanía de Datos:</strong> Modelos locales (Ollama/VLLM) eliminan filtraciones y aseguran el cumplimiento de secreto industrial.</span>
+                  </div>
+                  <div class="flex items-start gap-2.5 p-3 rounded-xl bg-emerald-950/20 border border-emerald-900/50 text-xs text-slate-200">
+                    <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-400 shrink-0 mt-0.5"></i>
+                    <span><strong>Precisión RAG:</strong> Respuestas ancladas en documentación interna reducen las alucinaciones a niveles seguros para producción.</span>
+                  </div>
+                  <div class="flex items-start gap-2.5 p-3 rounded-xl bg-emerald-950/20 border border-emerald-900/50 text-xs text-slate-200">
+                    <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-400 shrink-0 mt-0.5"></i>
+                    <span><strong>Escalabilidad No-Lineal:</strong> Permite a consultores y firmas como Edentia atender 10x más clientes sin inflar el headcount operativo.</span>
+                  </div>
+                  <div class="flex items-start gap-2.5 p-3 rounded-xl bg-emerald-950/20 border border-emerald-900/50 text-xs text-slate-200">
+                    <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-400 shrink-0 mt-0.5"></i>
+                    <span><strong>Simulaciones Adaptativas:</strong> Habilita sistemas de capacitación que se ajustan dinámicamente al nivel de destreza del trabajador.</span>
+                  </div>
+                  <div class="flex items-start gap-2.5 p-3 rounded-xl bg-emerald-950/20 border border-emerald-900/50 text-xs text-slate-200">
+                    <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-400 shrink-0 mt-0.5"></i>
+                    <span><strong>Ventaja en Licitaciones:</strong> Despliegues gobernados cumplen las exigencias de compras de grandes corporaciones y entes públicos.</span>
+                  </div>
+                </div>
+
+                <!-- Cons / Desafíos -->
+                <div class="space-y-2.5">
+                  <div class="flex items-start gap-2.5 p-3 rounded-xl bg-red-950/20 border border-red-900/50 text-xs text-slate-200">
+                    <i data-lucide="alert-triangle" class="w-4 h-4 text-red-400 shrink-0 mt-0.5"></i>
+                    <span><strong>Fricción en Calidad del Dato:</strong> Si las fuentes primarias están desordenadas o aisladas en silos, el modelo fallará de inicio.</span>
+                  </div>
+                  <div class="flex items-start gap-2.5 p-3 rounded-xl bg-red-950/20 border border-red-900/50 text-xs text-slate-200">
+                    <i data-lucide="alert-triangle" class="w-4 h-4 text-red-400 shrink-0 mt-0.5"></i>
+                    <span><strong>Inversión de Infraestructura:</strong> Aprovisionar servidores con GPUs dedicadas o clústeres locales implica CAPEX inicial.</span>
+                  </div>
+                  <div class="flex items-start gap-2.5 p-3 rounded-xl bg-red-950/20 border border-red-900/50 text-xs text-slate-200">
+                    <i data-lucide="alert-triangle" class="w-4 h-4 text-red-400 shrink-0 mt-0.5"></i>
+                    <span><strong>Brecha de Habilidades en Planta:</strong> Resistencia al cambio de operarios tradicionales si la interfaz no es ultra-intuitiva.</span>
+                  </div>
+                  <div class="flex items-start gap-2.5 p-3 rounded-xl bg-red-950/20 border border-red-900/50 text-xs text-slate-200">
+                    <i data-lucide="alert-triangle" class="w-4 h-4 text-red-400 shrink-0 mt-0.5"></i>
+                    <span><strong>Mantenimiento de Vectores:</strong> Los manuales y procedimientos de planta cambian frecuentemente y exigen pipelines de reindexación.</span>
+                  </div>
+                  <div class="flex items-start gap-2.5 p-3 rounded-xl bg-red-950/20 border border-red-900/50 text-xs text-slate-200">
+                    <i data-lucide="alert-triangle" class="w-4 h-4 text-red-400 shrink-0 mt-0.5"></i>
+                    <span><strong>Gestión de Latencia en Voz/XR:</strong> La inferencia multi-modal en tiempo real requiere optimización extrema para no causar mareo o retrasos.</span>
+                  </div>
+                  <div class="flex items-start gap-2.5 p-3 rounded-xl bg-red-950/20 border border-red-900/50 text-xs text-slate-200">
+                    <i data-lucide="alert-triangle" class="w-4 h-4 text-red-400 shrink-0 mt-0.5"></i>
+                    <span><strong>Falsa Sensación de Infalibilidad:</strong> Peligro de que los equipos confíen a ciegas en decisiones automatizadas sin verificación humana.</span>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+          </div>
+
+        </section>
+
+        <!-- ============================================== -->
+        <!-- TAB 2: ARQUITECTURA MULTI-AGENTE INTERACTIVA -->
+        <!-- ============================================== -->
+        <section id="tab-diagrams" class="tab-content hidden space-y-6 max-w-6xl mx-auto">
+          <div class="glass-panel p-6 rounded-2xl border border-slate-800">
+            <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-800 pb-5">
+              <div>
+                <span class="text-xs font-mono text-violet-400 font-bold uppercase tracking-wider">Simulador de Arquitectura</span>
+                <h2 class="text-xl md:text-2xl font-bold text-white">Pipeline Multi-Agente para Procesos Críticos</h2>
+                <p class="text-xs md:text-sm text-slate-300">Interactúa con cada nodo del grafo para entender el flujo de datos y los guardrails aplicados.</p>
+              </div>
+              <button onclick="runSimulationStep()" class="px-4 py-2 rounded-xl bg-violet-600 hover:bg-violet-500 text-white font-medium text-xs flex items-center gap-2 shadow-lg shadow-violet-900/30">
+                <i data-lucide="play" class="w-4 h-4"></i> Simular Ejecución de Agente
+              </button>
+            </div>
+
+            <!-- Interactive Architecture Map -->
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mt-6" id="agent-nodes">
+              
+              <!-- Node 1 -->
+              <div onclick="selectAgentNode(1)" id="agent-node-1" class="cursor-pointer p-4 rounded-xl border border-cyan-800 bg-cyan-950/30 transition-all hover:scale-[1.02] relative">
+                <div class="w-8 h-8 rounded-lg bg-cyan-600/30 border border-cyan-500/50 flex items-center justify-center text-cyan-300 font-bold text-xs mb-3">
+                  01
+                </div>
+                <h4 class="text-sm font-bold text-white">Orquestador Supervisor</h4>
+                <p class="text-xs text-slate-300 mt-1">Clasifica el intent del usuario/operario y descompone la meta en un plan estructurado.</p>
+                <div class="mt-3 flex items-center justify-between text-[11px] font-mono text-cyan-400">
+                  <span>Status: Listo</span>
+                  <span class="w-2 h-2 rounded-full bg-cyan-400 animate-pulse"></span>
+                </div>
+              </div>
+
+              <!-- Node 2 -->
+              <div onclick="selectAgentNode(2)" id="agent-node-2" class="cursor-pointer p-4 rounded-xl border border-slate-800 bg-dark-900 transition-all hover:scale-[1.02] relative">
+                <div class="w-8 h-8 rounded-lg bg-violet-600/30 border border-violet-500/50 flex items-center justify-center text-violet-300 font-bold text-xs mb-3">
+                  02
+                </div>
+                <h4 class="text-sm font-bold text-white">Retriever Vectorial (RAG)</h4>
+                <p class="text-xs text-slate-300 mt-1">Consulta manuales de planta, normas de seguridad y telemetría de sensores en la BD vectorial.</p>
+                <div class="mt-3 flex items-center justify-between text-[11px] font-mono text-slate-500">
+                  <span>En espera</span>
+                  <span class="w-2 h-2 rounded-full bg-slate-600"></span>
+                </div>
+              </div>
+
+              <!-- Node 3 -->
+              <div onclick="selectAgentNode(3)" id="agent-node-3" class="cursor-pointer p-4 rounded-xl border border-slate-800 bg-dark-900 transition-all hover:scale-[1.02] relative">
+                <div class="w-8 h-8 rounded-lg bg-amber-600/30 border border-amber-500/50 flex items-center justify-center text-amber-300 font-bold text-xs mb-3">
+                  03
+                </div>
+                <h4 class="text-sm font-bold text-white">Agente Crítico & Validador</h4>
+                <p class="text-xs text-slate-300 mt-1">Verifica tolerancias físicas, riesgo eléctrico y restricciones operativas antes de autorizar.</p>
+                <div class="mt-3 flex items-center justify-between text-[11px] font-mono text-slate-500">
+                  <span>En espera</span>
+                  <span class="w-2 h-2 rounded-full bg-slate-600"></span>
+                </div>
+              </div>
+
+              <!-- Node 4 -->
+              <div onclick="selectAgentNode(4)" id="agent-node-4" class="cursor-pointer p-4 rounded-xl border border-slate-800 bg-dark-900 transition-all hover:scale-[1.02] relative">
+                <div class="w-8 h-8 rounded-lg bg-emerald-600/30 border border-emerald-500/50 flex items-center justify-center text-emerald-300 font-bold text-xs mb-3">
+                  04
+                </div>
+                <h4 class="text-sm font-bold text-white">Actuador / Guía XR</h4>
+                <p class="text-xs text-slate-300 mt-1">Despliega hologramas AR o audio sintético para instruir al operario de planta en tiempo real.</p>
+                <div class="mt-3 flex items-center justify-between text-[11px] font-mono text-slate-500">
+                  <span>En espera</span>
+                  <span class="w-2 h-2 rounded-full bg-slate-600"></span>
+                </div>
+              </div>
+
+            </div>
+
+            <!-- Node Detail Inspection Console -->
+            <div class="mt-6 p-5 rounded-xl bg-dark-950 border border-slate-800 font-mono" id="node-inspector">
+              <div class="flex items-center justify-between text-xs text-slate-400 border-b border-slate-800 pb-2 mb-3">
+                <span class="flex items-center gap-2"><i data-lucide="terminal" class="w-3.5 h-3.5 text-emerald-400"></i> Consola de Inspección de Agente</span>
+                <span id="inspect-node-title" class="text-emerald-400 font-bold">NODO ACTIVO: 01 - Orquestador Supervisor</span>
+              </div>
+              <div class="text-xs text-slate-300 space-y-2" id="inspect-node-body">
+                <p class="text-slate-400">// Configuración del Agente:</p>
+                <p><span class="text-violet-400">Modelo:</span> Llama-3.3-70b-Instruct (Local / GPU Host)</p>
+                <p><span class="text-cyan-400">Temperatura:</span> 0.15 (Modo Operacional Determinístico)</p>
+                <p><span class="text-amber-400">System Prompt:</span> "Actúa como supervisor de ingeniería. Evalúa el protocolo solicitado por el operario y descompón el trabajo en sub-tareas con validación obligatoria."</p>
+                <div class="p-3 bg-black/60 rounded border border-slate-800 mt-2 text-emerald-400">
+                  Última ejecución: <span class="text-white">"Operario en Línea 3 reporta sobrecalentamiento en válvula b-12 -> Disparando análisis RAG"</span>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </section>
+
+        <!-- ============================================== -->
+        <!-- TAB 3: GLOSARIO TÉCNICO INTERACTIVO -->
+        <!-- ============================================== -->
+        <section id="tab-glossary" class="tab-content hidden space-y-6 max-w-6xl mx-auto">
+          <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+            <div>
+              <span class="text-xs font-mono text-emerald-400 font-bold uppercase tracking-wider">Base de Conocimiento</span>
+              <h2 class="text-xl md:text-2xl font-bold text-white">Glosario Técnico de Términos del Seminario</h2>
+              <p class="text-xs md:text-sm text-slate-300">Definiciones claras, casos de aplicación y jerga técnica especializada.</p>
+            </div>
+            <!-- Search bar -->
+            <div class="relative w-full md:w-72">
+              <i data-lucide="search" class="w-4 h-4 absolute left-3 top-3 text-slate-400"></i>
+              <input type="text" id="glossary-search" oninput="searchGlossary()" placeholder="Buscar término o acrónimo..." class="w-full bg-slate-900 border border-slate-800 rounded-xl pl-9 pr-4 py-2 text-xs text-white focus:outline-none focus:border-emerald-500">
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4" id="glossary-grid">
+            <!-- Dynamic Items populated by JS -->
+          </div>
+        </section>
+
+        <!-- ============================================== -->
+        <!-- TAB 4: AURALEARN & EDENTIA STRATEGIC LAB -->
+        <!-- ============================================== -->
+        <section id="tab-edentia" class="tab-content hidden space-y-6 max-w-6xl mx-auto">
+          
+          <div class="glass-panel p-6 md:p-8 rounded-2xl border border-slate-800 space-y-6">
+            <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-800 pb-5">
+              <div>
+                <span class="text-xs font-mono text-amber-400 font-bold uppercase tracking-wider">AuraLearn • Industrial XR & AI</span>
+                <h2 class="text-xl md:text-2xl font-bold text-white">Aplicación Directa en la Empresa & Monetización SaaS</h2>
+                <p class="text-xs md:text-sm text-slate-300">Transformando las lecciones del seminario en ventajas competitivas para Edentia.</p>
+              </div>
+              <span class="px-3 py-1 rounded-full text-xs font-semibold bg-amber-950/60 border border-amber-800 text-amber-300 self-start md:self-auto">
+                B2B Enterprise Tier
+              </span>
+            </div>
+
+            <!-- Strategic Vectors -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+              
+              <div class="p-5 rounded-xl bg-dark-900 border border-slate-800 space-y-3">
+                <div class="w-10 h-10 rounded-xl bg-amber-500/20 border border-amber-500/30 flex items-center justify-center text-amber-400">
+                  <i data-lucide="smartphone" class="w-5 h-5"></i>
+                </div>
+                <h4 class="text-base font-bold text-white">Tutor XR Móvil con IA Local</h4>
+                <p class="text-xs text-slate-300 leading-relaxed">
+                  En lugar de requerir costosas gafas VR de aislamiento, AuraLearn opera sobre tablets y smartphones industriales con visión por computadora e inferencia de voz local, guiando paso a paso sobre la máquina física.
+                </p>
+                <div class="text-[11px] font-mono text-amber-400 font-semibold">Ventaja: Despliegue masivo sin barreras de hardware.</div>
+              </div>
+
+              <div class="p-5 rounded-xl bg-dark-900 border border-slate-800 space-y-3">
+                <div class="w-10 h-10 rounded-xl bg-cyan-500/20 border border-cyan-500/30 flex items-center justify-center text-cyan-400">
+                  <i data-lucide="database" class="w-5 h-5"></i>
+                </div>
+                <h4 class="text-base font-bold text-white">Analítica Predictiva de Brechas</h4>
+                <p class="text-xs text-slate-300 leading-relaxed">
+                  El sistema captura cada duda, titubeo o error en la simulación XR, generando mapas de calor de riesgo que alertan a los directores de operaciones antes de que ocurra un accidente laboral.
+                </p>
+                <div class="text-[11px] font-mono text-cyan-400 font-semibold">Ventaja: De capacitación reactiva a prevención predictiva.</div>
+              </div>
+
+              <div class="p-5 rounded-xl bg-dark-900 border border-slate-800 space-y-3">
+                <div class="w-10 h-10 rounded-xl bg-emerald-500/20 border border-emerald-500/30 flex items-center justify-center text-emerald-400">
+                  <i data-lucide="badge-dollar-sign" class="w-5 h-5"></i>
+                </div>
+                <h4 class="text-base font-bold text-white">Empaquetado y Precios SaaS</h4>
+                <p class="text-xs text-slate-300 leading-relaxed">
+                  Cobro recurrente por planta y por operario activo (Seat-based + Plant tier), complementado con paquetes de onboarding donde se digitalizan los manuales del cliente en vectores propios.
+                </p>
+                <div class="text-[11px] font-mono text-emerald-400 font-semibold">Ventaja: ARR predecible con retención &gt;92%.</div>
+              </div>
+
+            </div>
+
+            <!-- Industrial Training ROI Calculator for Clients -->
+            <div class="p-6 rounded-2xl bg-dark-950 border border-slate-800 space-y-4">
+              <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+                <h4 class="text-sm font-bold text-white flex items-center gap-2">
+                  <i data-lucide="calculator" class="w-4 h-4 text-emerald-400"></i>
+                  Calculadora Interactiva de ROI para Clientes de AuraLearn
+                </h4>
+                <span class="text-xs text-slate-400 font-mono">Simulador de Ahorro Anual</span>
+              </div>
+
+              <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div>
+                  <label class="text-xs text-slate-400 block mb-1">Número de Operarios a Entrenar / Año:</label>
+                  <input type="number" id="calc-operarios" value="120" min="10" max="5000" oninput="calculateAuraRoi()" class="w-full bg-slate-900 border border-slate-800 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-emerald-500">
+                </div>
+                <div>
+                  <label class="text-xs text-slate-400 block mb-1">Costo Tradicional Inducción / Operario ($ USD):</label>
+                  <input type="number" id="calc-costo" value="450" min="50" max="5000" oninput="calculateAuraRoi()" class="w-full bg-slate-900 border border-slate-800 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-emerald-500">
+                </div>
+                <div>
+                  <label class="text-xs text-slate-400 block mb-1">Ahorro Promedio Estimado con AuraLearn:</label>
+                  <select id="calc-ahorro-pct" onchange="calculateAuraRoi()" class="w-full bg-slate-900 border border-slate-800 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-emerald-500">
+                    <option value="0.40">40% Reducción de tiempo/costo</option>
+                    <option value="0.55" selected>55% Reducción (Promedio XR+IA)</option>
+                    <option value="0.70">70% Reducción Máxima</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="mt-4 p-4 rounded-xl bg-emerald-950/30 border border-emerald-900/60 flex flex-col md:flex-row md:items-center justify-between gap-4">
+                <div>
+                  <span class="text-xs font-mono text-emerald-400 font-semibold block">Ahorro Anual Proyectado para el Cliente:</span>
+                  <div class="text-2xl font-extrabold text-white" id="calc-resultado-ahorro">$29,700 USD / año</div>
+                  <p class="text-xs text-slate-300 mt-0.5">Permite cotizar licencias Enterprise de AuraLearn con recuperación de inversión menor a 4 meses.</p>
+                </div>
+                <button onclick="copyRoiProposal()" class="px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-semibold shrink-0 shadow-md transition-all flex items-center gap-1.5">
+                  <i data-lucide="copy" class="w-3.5 h-3.5"></i> Copiar Argumento de Venta
+                </button>
+              </div>
+
+            </div>
+
+          </div>
+
+        </section>
+
+        <!-- ============================================== -->
+        <!-- TAB 5: LEONARDO CONSULTOR SENIOR DE IA -->
+        <!-- ============================================== -->
+        <section id="tab-consulting" class="tab-content hidden space-y-6 max-w-6xl mx-auto">
+          
+          <div class="glass-panel p-6 md:p-8 rounded-2xl border border-slate-800 space-y-6">
+            <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-800 pb-5">
+              <div>
+                <span class="text-xs font-mono text-brand-500 font-bold uppercase tracking-wider">Playbook de Alto Impacto</span>
+                <h2 class="text-xl md:text-2xl font-bold text-white">Estrategia de Consultoría Senior & Monetización para Leonardo</h2>
+                <p class="text-xs md:text-sm text-slate-300">Posicionamiento Forward-Deployed, empaquetado de IP y precios basados en valor.</p>
+              </div>
+              <div class="flex items-center gap-2">
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-brand-950/80 border border-brand-700 text-brand-300">
+                  Forward Deployed AI Lead
+                </span>
+              </div>
+            </div>
+
+            <!-- Pillars of Senior Consulting -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+              
+              <div class="p-5 rounded-xl bg-dark-900 border border-slate-800 space-y-3">
+                <div class="w-10 h-10 rounded-xl bg-brand-500/20 border border-brand-500/30 flex items-center justify-center text-brand-400">
+                  <i data-lucide="code" class="w-5 h-5"></i>
+                </div>
+                <h4 class="text-sm font-bold text-white">Forward Deployed Engineering</h4>
+                <p class="text-xs text-slate-300 leading-relaxed">
+                  No vender "consejos en diapositivas". El consultor senior moderno se integra en las operaciones críticas del cliente, despliega agentes funcionales en semanas y valida el ROI en vivo antes de cerrar la factura.
+                </p>
+              </div>
+
+              <div class="p-5 rounded-xl bg-dark-900 border border-slate-800 space-y-3">
+                <div class="w-10 h-10 rounded-xl bg-violet-500/20 border border-violet-500/30 flex items-center justify-center text-violet-400">
+                  <i data-lucide="lock" class="w-5 h-5"></i>
+                </div>
+                <h4 class="text-sm font-bold text-white">IA Soberana & Enclave Local</h4>
+                <p class="text-xs text-slate-300 leading-relaxed">
+                  Aprovechar el miedo de las grandes corporaciones a la fuga de datos. Vender la arquitectura de LLMs locales en servidores privados con Ollama, Docker y vLLM como el estándar de oro de ciberseguridad.
+                </p>
+              </div>
+
+              <div class="p-5 rounded-xl bg-dark-900 border border-slate-800 space-y-3">
+                <div class="w-10 h-10 rounded-xl bg-amber-500/20 border border-amber-500/30 flex items-center justify-center text-amber-400">
+                  <i data-lucide="gem" class="w-5 h-5"></i>
+                </div>
+                <h4 class="text-sm font-bold text-white">Precios Basados en Valor</h4>
+                <p class="text-xs text-slate-300 leading-relaxed">
+                  Abandonar para siempre el cobro por hora. Cotizar por fases de impacto: Diagnóstico de Datos ($3.5k-$5k), PoC Multi-Agente funcional ($12k-$25k) y Retainer de Gobernanza y Mantenimiento ($4k-$8k/mes).
+                </p>
+              </div>
+
+            </div>
+
+            <!-- Value-Based Pricing Calculator & Proposal Builder -->
+            <div class="p-6 rounded-2xl bg-dark-950 border border-slate-800 space-y-4">
+              <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+                <h4 class="text-sm font-bold text-white flex items-center gap-2">
+                  <i data-lucide="file-spreadsheet" class="w-4 h-4 text-brand-400"></i>
+                  Generador de Propuestas & Tarifario de Consultoría
+                </h4>
+                <span class="text-xs text-slate-400 font-mono">Cotizador B2B</span>
+              </div>
+
+              <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div>
+                  <label class="text-xs text-slate-400 block mb-1">Tipo de Cliente / Sector:</label>
+                  <select id="consulting-client-tier" onchange="updateConsultingProposal()" class="w-full bg-slate-900 border border-slate-800 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-brand-500">
+                    <option value="mid">Empresa Mediana (Retail / Manufactura regional)</option>
+                    <option value="enterprise" selected>Gran Corporativo (Multinacional / Retail mayorista)</option>
+                    <option value="gov">Sector Público / Gobernaciones</option>
+                  </select>
+                </div>
+                <div>
+                  <label class="text-xs text-slate-400 block mb-1">Alcance del Proyecto:</label>
+                  <select id="consulting-scope" onchange="updateConsultingProposal()" class="w-full bg-slate-900 border border-slate-800 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-brand-500">
+                    <option value="audit">Auditoría de Datos & Arquitectura de IA (4 semanas)</option>
+                    <option value="full" selected>Diseño + Despliegue Sistema Multi-Agente Local (10 semanas)</option>
+                    <option value="ecosystem">Transformación Completa (IA Local + AuraLearn XR)</option>
+                  </select>
+                </div>
+                <div>
+                  <label class="text-xs text-slate-400 block mb-1">Modelo de Soporte Continuo:</label>
+                  <select id="consulting-retainer" onchange="updateConsultingProposal()" class="w-full bg-slate-900 border border-slate-800 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-brand-500">
+                    <option value="none">Sin retainer (Entrega llave en mano)</option>
+                    <option value="standard" selected>Retainer MLOps & Gobernanza ($4,500/mes)</option>
+                    <option value="elite">Retainer Premium 24/7 + Co-Desarrollo ($8,500/mes)</option>
+                  </select>
+                </div>
+              </div>
+
+              <!-- Proposal Preview Output -->
+              <div class="mt-4 p-5 rounded-xl bg-slate-900 border border-slate-800 space-y-3 font-mono text-xs">
+                <div class="flex items-center justify-between text-slate-400 border-b border-slate-800 pb-2">
+                  <span>RESUMEN DE PROPUESTA COMERCIAL</span>
+                  <span id="proposal-total-tag" class="text-emerald-400 font-bold text-sm">$32,500 USD + Retainer</span>
+                </div>
+                <div id="proposal-deliverables" class="text-slate-300 space-y-1">
+                  <!-- Injected via JS -->
+                </div>
+                <div class="pt-3 flex gap-2">
+                  <button onclick="copyProposalSummary()" class="px-4 py-2 rounded-lg bg-brand-600 hover:bg-brand-500 text-white font-sans font-semibold text-xs flex items-center gap-1.5 transition-colors">
+                    <i data-lucide="clipboard-check" class="w-4 h-4"></i> Copiar Oferta Formal
+                  </button>
+                  <button onclick="showToast('Estructura de propuesta guardada en portapapeles')" class="px-3 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 font-sans text-xs">
+                    Exportar Detalle
+                  </button>
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+
+        </section>
+
+      </div>
+    </main>
+
+  </div>
+
+  <!-- Toast Notification System -->
+  <div id="toast" class="fixed bottom-6 right-6 z-50 transform translate-y-20 opacity-0 transition-all duration-300 pointer-events-none">
+    <div class="bg-dark-900 border border-emerald-500/50 shadow-2xl rounded-xl px-4 py-3 flex items-center space-x-3 text-xs text-white">
+      <i data-lucide="check-circle" class="w-4 h-4 text-emerald-400"></i>
+      <span id="toast-msg">Notificación</span>
+    </div>
+  </div>
+
+  <!-- Client-Side Logic & PWA Service Stub -->
+  <script>
+    // Audio Synthesizer via Web Audio API (No external sound dependencies)
+    let audioContext = null;
+    let audioEnabled = true;
+
+    function getAudioCtx() {
+      if (!audioContext) {
+        audioContext = new (window.AudioContext || window.webkitAudioContext)();
+      }
+      return audioContext;
+    }
+
+    function triggerAudioPing(freq = 587.33, type = 'sine', duration = 0.15) {
+      if (!audioEnabled) return;
+      try {
+        const ctx = getAudioCtx();
+        if (ctx.state === 'suspended') {
+          ctx.resume();
+        }
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.type = type;
+        osc.frequency.setValueAtTime(freq, ctx.currentTime);
+        gain.gain.setValueAtTime(0.08, ctx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + duration);
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.start();
+        osc.stop(ctx.currentTime + duration);
+      } catch (e) {
+        console.debug('Web Audio silent pass');
+      }
+    }
+
+    function toggleAudioFx() {
+      audioEnabled = !audioEnabled;
+      const btn = document.getElementById('audio-btn');
+      if (audioEnabled) {
+        btn.classList.add('text-emerald-400');
+        showToast('Efectos de audio sónico activados');
+        triggerAudioPing(880, 'triangle', 0.2);
+      } else {
+        btn.classList.remove('text-emerald-400');
+        showToast('Efectos de audio silenciados');
+      }
+    }
+
+    // Tab Navigation Handling
+    function switchTab(tabId) {
+      triggerAudioPing(523.25);
+      
+      // Update Tab Buttons
+      document.querySelectorAll('.tab-btn').forEach(btn => {
+        if (btn.getAttribute('data-tab') === tabId) {
+          btn.classList.add('active-tab', 'text-white', 'bg-slate-800/90');
+          btn.classList.remove('text-slate-400', 'hover:bg-slate-800/50');
+        } else {
+          btn.classList.remove('active-tab', 'text-white', 'bg-slate-800/90');
+          btn.classList.add('text-slate-400', 'hover:bg-slate-800/50');
+        }
+      });
+
+      // Update Tab Views
+      document.querySelectorAll('.tab-content').forEach(view => {
+        view.classList.add('hidden');
+      });
+      const activeView = document.getElementById(`tab-${tabId}`);
+      if (activeView) {
+        activeView.classList.remove('hidden');
+      }
+
+      // Update Top Title Bar
+      const titles = {
+        'notes': 'Notas Técnicas & Cronología en Vivo',
+        'diagrams': 'Arquitectura Multi-Agente & Simulación',
+        'glossary': 'Glosario Técnico de Especialidad',
+        'edentia': 'AuraLearn: Aplicación Industrial & Estrategia SaaS',
+        'consulting': 'Playbook de Consultoría Senior de IA (Leonardo)'
+      };
+      document.getElementById('current-title').textContent = titles[tabId] || 'Master Hub';
+
+      // Close mobile sidebar if open
+      closeMobileSidebar();
+    }
+
+    // Sidebar Drawer on Mobile
+    const sidebar = document.getElementById('sidebar');
+    const overlay = document.getElementById('sidebar-overlay');
+    document.getElementById('open-sidebar-btn').addEventListener('click', () => {
+      sidebar.classList.remove('-translate-x-full');
+      overlay.classList.remove('hidden');
+    });
+    function closeMobileSidebar() {
+      sidebar.classList.add('-translate-x-full');
+      overlay.classList.add('hidden');
+    }
+    document.getElementById('close-sidebar-btn').addEventListener('click', closeMobileSidebar);
+    overlay.addEventListener('click', closeMobileSidebar);
+
+    // Timeline Filter Logic
+    function filterTimeline(category) {
+      triggerAudioPing(440);
+      document.querySelectorAll('.timeline-filter').forEach(btn => {
+        if (btn.getAttribute('data-filter') === category) {
+          btn.className = 'timeline-filter px-3 py-1 text-xs rounded-full bg-slate-800 text-white border border-slate-700 active-filter';
+        } else {
+          btn.className = 'timeline-filter px-3 py-1 text-xs rounded-full bg-slate-900 text-slate-400 border border-slate-800 hover:bg-slate-800';
+        }
+      });
+
+      const cards = document.querySelectorAll('.timeline-card');
+      cards.forEach(card => {
+        if (category === 'all' || card.getAttribute('data-category') === category) {
+          card.classList.remove('hidden');
+        } else {
+          card.classList.add('hidden');
+        }
+      });
+    }
+
+    // Agent Node Simulation Logic
+    const agentNodesData = {
+      1: {
+        title: "01 - Orquestador Supervisor",
+        model: "Llama-3.3-70b-Instruct (Local / GPU Host)",
+        temp: "0.15 (Modo Operacional Determinístico)",
+        prompt: "Actúa como supervisor de ingeniería. Evalúa el protocolo solicitado por el operario y descompón el trabajo en sub-tareas con validación obligatoria.",
+        output: "Operario en Línea 3 reporta sobrecalentamiento en válvula b-12 -> Disparando análisis RAG"
+      },
+      2: {
+        title: "02 - Retriever Vectorial (RAG)",
+        model: "BGE-Large-En-V1.5 Embeddings + Qdrant Local",
+        temp: "0.0 (Búsqueda Top-K por similitud coseno)",
+        prompt: "Recupera los manuales oficiales de la válvula de alivio térmico modelo B-12 y tolerancias máximas de presión en bar.",
+        output: "Fragmento recuperado: 'Presión límite segura: 42.5 bar. Procedimiento de purga preventiva: Sección 4.2.1'."
+      },
+      3: {
+        title: "03 - Agente Crítico & Validador",
+        model: "Mistral-Large-2407 / Guardrails Pydantic",
+        temp: "0.05 (Inspección estricta de seguridad)",
+        prompt: "Valida si la orden de purga propuesta cumple con la norma de aislamiento de energía antes de tocar el actuador.",
+        output: "Aprobado: El protocolo cumple aislamiento LOTO (Lockout/Tagout). Se autoriza el despliegue al visor XR."
+      },
+      4: {
+        title: "04 - Actuador / Guía XR Móvil (AuraLearn)",
+        model: "Motor WebGL / ARKit con Síntesis de Voz PCM",
+        temp: "N/A - Renderizado Espacial",
+        prompt: "Genera el holograma 3D proyectado sobre la válvula física y el audio en tiempo real para el operario.",
+        output: "Holograma verde proyectado sobre el switch #4. Audio sintético emitido: 'Gire la manivela 90 grados a la izquierda'."
+      }
+    };
+
+    function selectAgentNode(nodeId) {
+      triggerAudioPing(659.25);
+      for (let i = 1; i <= 4; i++) {
+        const el = document.getElementById(`agent-node-${i}`);
+        if (i === nodeId) {
+          el.className = "cursor-pointer p-4 rounded-xl border border-cyan-500 bg-cyan-950/40 scale-[1.02] shadow-lg shadow-cyan-950/50 transition-all relative";
+        } else {
+          el.className = "cursor-pointer p-4 rounded-xl border border-slate-800 bg-dark-900 transition-all hover:scale-[1.02] relative";
+        }
+      }
+
+      const data = agentNodesData[nodeId];
+      document.getElementById('inspect-node-title').textContent = `NODO ACTIVO: ${data.title}`;
+      document.getElementById('inspect-node-body').innerHTML = `
+        <p class="text-slate-400">// Configuración del Agente:</p>
+        <p><span class="text-violet-400">Modelo:</span> ${data.model}</p>
+        <p><span class="text-cyan-400">Temperatura:</span> ${data.temp}</p>
+        <p><span class="text-amber-400">System Prompt:</span> "${data.prompt}"</p>
+        <div class="p-3 bg-black/60 rounded border border-slate-800 mt-2 text-emerald-400">
+          Estado actual: <span class="text-white">"${data.output}"</span>
+        </div>
+      `;
+    }
+
+    let simIndex = 1;
+    function runSimulationStep() {
+      selectAgentNode(simIndex);
+      showToast(`Paso ${simIndex}/4: ${agentNodesData[simIndex].title} ejecutado con éxito.`);
+      simIndex = simIndex < 4 ? simIndex + 1 : 1;
+    }
+
+    // Glossary Dataset
+    const glossaryData = [
+      {
+        term: "RAG (Retrieval-Augmented Generation)",
+        category: "Arquitectura",
+        def: "Técnica que combina la búsqueda de fragmentos precisos en una base de datos documental con la síntesis de un LLM, erradicando alucinaciones.",
+        badge: "Fundamento"
+      },
+      {
+        term: "Inferencia Local Soberana",
+        category: "Infraestructura",
+        def: "Ejecución de modelos de inteligencia artificial en servidores propios o hardware on-premise sin enviar telemetría a servidores de terceros.",
+        badge: "Seguridad"
+      },
+      {
+        term: "Sistema Multi-Agente",
+        category: "Orquestación",
+        def: "Arquitectura de software donde múltiples modelos colaboran con roles especializados (investigador, validador, redactor) en bucle cerrado.",
+        badge: "Automatización"
+      },
+      {
+        term: "Chain-of-Thought (CoT)",
+        category: "Prompting",
+        def: "Metodología que fuerza al modelo a emitir pasos intermedios de razonamiento lógico antes de llegar a la respuesta final.",
+        badge: "Técnica"
+      },
+      {
+        term: "Vector Store / Embeddings",
+        category: "Datos",
+        def: "Transformación geométrica de textos en vectores numéricos de alta dimensión para calcular similitudes semánticas en milisegundos.",
+        badge: "Matemáticas"
+      },
+      {
+        term: "Guardrails Determinísticos",
+        category: "Gobernanza",
+        def: "Capas de validación de esquemas (JSON Schema, Pydantic) que rechazan cualquier respuesta que viole reglas de seguridad o tipos de datos.",
+        badge: "Compliance"
+      },
+      {
+        term: "Forward Deployed Engineering",
+        category: "Consultoría",
+        def: "Modelo de consultoría técnica donde los ingenieros senior se integran directamente en el flujo de operaciones del cliente para desplegar código productivo.",
+        badge: "Estrategia"
+      },
+      {
+        term: "AuraLearn XR",
+        category: "Edentia",
+        def: "Plataforma B2B SaaS de entrenamiento laboral industrial que superpone guías de realidad aumentada y tutores de IA sobre maquinaria real.",
+        badge: "Producto"
+      },
+      {
+        term: "Analítica Prescriptiva",
+        category: "Datos",
+        def: "Nivel más alto de madurez analítica donde el sistema no solo prevé una falla, sino que activa automáticamente la solución óptima.",
+        badge: "Madurez"
+      },
+      {
+        term: "Ollama / vLLM",
+        category: "Tooling",
+        def: "Motores de inferencia de alto rendimiento optimizados para correr modelos abiertos (Llama, Mistral, Gemma) con quantización y alta concurrencia.",
+        badge: "Open Source"
+      },
+      {
+        term: "Spec-Driven Development",
+        category: "Ingeniería",
+        def: "Definición estricta de entradas, salidas y contratos de datos antes de programar o solicitar la generación de código al agente.",
+        badge: "Metodología"
+      },
+      {
+        term: "Lockout / Tagout (LOTO)",
+        category: "Seguridad Industrial",
+        def: "Protocolo de desenergización e inmovilización de maquinaria peligrosa, validado algorítmicamente en el bucle del tutor XR.",
+        badge: "Operación"
+      }
+    ];
+
+    function renderGlossary(items) {
+      const container = document.getElementById('glossary-grid');
+      container.innerHTML = items.map(item => `
+        <div class="p-5 rounded-xl bg-dark-900 border border-slate-800 hover:border-slate-700 transition-all space-y-2">
+          <div class="flex items-center justify-between">
+            <span class="text-[10px] font-mono uppercase tracking-wider text-emerald-400 font-bold">${item.category}</span>
+            <span class="text-[10px] px-2 py-0.5 rounded-full bg-slate-800 text-slate-300 font-mono">${item.badge}</span>
+          </div>
+          <h4 class="text-sm font-bold text-white">${item.term}</h4>
+          <p class="text-xs text-slate-300 leading-relaxed">${item.def}</p>
+        </div>
+      `).join('');
+    }
+
+    function searchGlossary() {
+      const query = document.getElementById('glossary-search').value.toLowerCase();
+      const filtered = glossaryData.filter(i => 
+        i.term.toLowerCase().includes(query) || 
+        i.def.toLowerCase().includes(query) || 
+        i.category.toLowerCase().includes(query)
+      );
+      renderGlossary(filtered);
+    }
+
+    // ROI Calculator for AuraLearn
+    function calculateAuraRoi() {
+      const operarios = parseInt(document.getElementById('calc-operarios').value) || 0;
+      const costo = parseFloat(document.getElementById('calc-costo').value) || 0;
+      const pct = parseFloat(document.getElementById('calc-ahorro-pct').value) || 0.55;
+
+      const totalTradicional = operarios * costo;
+      const ahorroTotal = Math.round(totalTradicional * pct);
+      
+      document.getElementById('calc-resultado-ahorro').textContent = `$${ahorroTotal.toLocaleString()} USD / año`;
+      triggerAudioPing(700, 'sine', 0.08);
+    }
+
+    function copyRoiProposal() {
+      const operarios = document.getElementById('calc-operarios').value;
+      const ahorro = document.getElementById('calc-resultado-ahorro').textContent;
+      const text = `Propuesta de Valor AuraLearn XR: Con una plantilla de ${operarios} operarios anuales, la adopción de nuestro tutor de IA móvil y simulación AR reduce el tiempo de inducción en un 55%, generando un ahorro auditado estimado de ${ahorro}. Retorno de inversión garantizado en menos de 4 meses.`;
+      
+      copyToClipboard(text);
+      showToast('Argumento de venta copiado al portapapeles');
+    }
+
+    // Consulting Proposal Builder for Leonardo
+    const proposalsMatrix = {
+      mid: {
+        audit: { price: "$4,500 USD", time: "3 Semanas", deliverables: ["Mapeo de arquitectura de datos", "Diagnóstico de seguridad y fugas de tokens", "Roadmap de agentes prioritarios"] },
+        full: { price: "$14,000 USD", time: "8 Semanas", deliverables: ["Despliegue local de 2 agentes operacionales", "Pipeline RAG con embeddings propios", "Capacitación a equipo interno"] },
+        ecosystem: { price: "$22,500 USD", time: "12 Semanas", deliverables: ["Integración completa de Agentes + AuraLearn XR", "Despliegue soberano en servidor privado", "Certificación operacional"] }
+      },
+      enterprise: {
+        audit: { price: "$9,500 USD", time: "4 Semanas", deliverables: ["Auditoría multidivisional de datos", "Análisis de compliance y gobernanza de IA", "Matriz de ROI para Junta Directiva"] },
+        full: { price: "$32,500 USD", time: "10 Semanas", deliverables: ["Arquitectura Multi-Agente en bucle cerrado", "Infraestructura local vLLM con alta disponibilidad", "SLA operacional & Guardrails corporativos"] },
+        ecosystem: { price: "$55,000 USD", time: "16 Semanas", deliverables: ["Ecosistema completo Edentia Enterprise", "Tutor XR AuraLearn en todas las plantas", "Cerebro empresarial RAG multi-agente"] }
+      },
+      gov: {
+        audit: { price: "$8,000 USD", time: "4 Semanas", deliverables: ["Diagnóstico para contratación pública", "Estudio de soberanía y privacidad ciudadana", "Especificaciones técnicas para pliegos"] },
+        full: { price: "$28,000 USD", time: "12 Semanas", deliverables: ["Agente de tramitología y consulta normativa", "Aislamiento on-premise sin salida a Internet", "Transferencia metodológica a funcionarios"] },
+        ecosystem: { price: "$48,000 USD", time: "16 Semanas", deliverables: ["Hub de atención ciudadana IA + Centro de capacitación", "Auditoría de transparencia algorítmica"] }
+      }
+    };
+
+    function updateConsultingProposal() {
+      const tier = document.getElementById('consulting-client-tier').value;
+      const scope = document.getElementById('consulting-scope').value;
+      const retainer = document.getElementById('consulting-retainer').value;
+
+      const data = proposalsMatrix[tier][scope];
+      const retainerText = retainer === 'none' ? '' : (retainer === 'standard' ? ' + $4,500/mes' : ' + $8,500/mes');
+
+      document.getElementById('proposal-total-tag').textContent = `${data.price}${retainerText}`;
+
+      const container = document.getElementById('proposal-deliverables');
+      container.innerHTML = `
+        <p><span class="text-emerald-400">Plazo estimado:</span> ${data.time}</p>
+        <p class="text-slate-400 mt-1">// Entregables Clave Incluidos:</p>
+        ${data.deliverables.map(d => `<div class="flex items-center gap-2"><i data-lucide="check" class="w-3.5 h-3.5 text-emerald-400"></i> <span>${d}</span></div>`).join('')}
+      `;
+      lucide.createIcons();
+      triggerAudioPing(550, 'sine', 0.08);
+    }
+
+    function copyProposalSummary() {
+      const tag = document.getElementById('proposal-total-tag').textContent;
+      const tier = document.getElementById('consulting-client-tier').selectedOptions[0].text;
+      const scope = document.getElementById('consulting-scope').selectedOptions[0].text;
+      const text = `PROPUESTA CONSULTORÍA SENIOR IA (Leonardo):
+- Cliente: ${tier}
+- Alcance: ${scope}
+- Inversión Estimada: ${tag}
+- Metodología: Forward Deployed Engineering con despliegue local y gobernanza determinística.`;
+
+      copyToClipboard(text);
+      showToast('Propuesta formal copiada al portapapeles');
+    }
+
+    // Export Notes as Markdown
+    function exportNotesMarkdown() {
+      triggerAudioPing(800);
+      const mdContent = `# Seminario en Inteligencia Artificial y Analítica de Datos
+Auditorio Esteban Jaramillo - Hub Técnico & Estratégico
+
+## Resumen Ejecutivo
+Evolución desde la analítica descriptiva hacia la prescriptiva y agentes generativos en bucle cerrado. Protección de soberanía de datos mediante modelos locales y justificación económica por ROI.
+
+## Ejes Temáticos & Marcas de Tiempo
+- [00:00:00] De la Analítica Descriptiva a la Prescriptiva y la IA Generativa.
+- [00:15:00] Spec-Driven Prompting, Inferencia Local Soberana y Reducción de Latencia.
+- [00:30:00] Redes Multi-Agente: De chatbots aislados a orquestación colaborativa.
+- [00:45:00] Gobernanza del Dato, Compliance y Justificación de ROI para Juntas Directivas.
+
+## Aplicación para Edentia & AuraLearn
+1. Tutor XR móvil en smartphones y tablets con IA local (sin barreras de hardware costoso).
+2. Analítica predictiva de incidentes operacionales antes de que ocurran fallas.
+3. Modelo SaaS B2B con recuperación de inversión menor a 4 meses.
+
+## Playbook Leonardo Consultor Senior
+- Rol: Forward Deployed AI Engineer.
+- Enfoque: Modelos Locales Soberanos (Ollama / vLLM) para proteger secretos corporativos.
+- Precios: Basados en valor e impacto comprobado, no en horas hombre.`;
+
+      const blob = new Blob([mdContent], { type: 'text/markdown' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'Seminario_IA_Analitica_Edentia_Notes.md';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+      showToast('Archivo Markdown descargado exitosamente');
+    }
+
+    function copyShareLink() {
+      const summary = `Seminario en Inteligencia Artificial y Analítica de Datos (Auditorio Esteban Jaramillo). Análisis técnico, arquitectura multi-agente y playbook de consultoría preparado para Edentia y AuraLearn.`;
+      copyToClipboard(summary);
+      showToast('Ficha técnica copiada al portapapeles');
+    }
+
+    // Cross-browser clipboard helper
+    function copyToClipboard(text) {
+      const textarea = document.createElement('textarea');
+      textarea.value = text;
+      textarea.style.position = 'fixed';
+      textarea.style.opacity = '0';
+      document.body.appendChild(textarea);
+      textarea.select();
+      try {
+        document.execCommand('copy');
+      } catch (err) {
+        console.error('Error al copiar texto: ', err);
+      }
+      document.body.removeChild(textarea);
+    }
+
+    // Toast Trigger
+    function showToast(message) {
+      const toast = document.getElementById('toast');
+      const msg = document.getElementById('toast-msg');
+      msg.textContent = message;
+      toast.classList.remove('translate-y-20', 'opacity-0');
+      toast.classList.add('translate-y-0', 'opacity-100');
+      setTimeout(() => {
+        toast.classList.add('translate-y-20', 'opacity-0');
+        toast.classList.remove('translate-y-0', 'opacity-100');
+      }, 3500);
+    }
+
+    // Initialize state
+    window.addEventListener('DOMContentLoaded', () => {
+      lucide.createIcons();
+      renderGlossary(glossaryData);
+      calculateAuraRoi();
+      updateConsultingProposal();
+      selectAgentNode(1);
+    });
+  </script>
+</body>
+</html>

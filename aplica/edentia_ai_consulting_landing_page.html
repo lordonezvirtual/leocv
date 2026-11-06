@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edentia | Consultoría Senior de IA & Rediseño de Procesos</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#eef2ff',
+                            100: '#e0e7ff',
+                            500: '#6366f1',
+                            600: '#4f46e5',
+                            700: '#4338ca',
+                            900: '#312e81',
+                            dark: '#0f172a'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Google Fonts Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+    </style>
+</head>
+<body class="bg-slate-950 text-slate-100 antialiased selection:bg-indigo-500 selection:text-white">
+
+    <!-- Navigation Bar -->
+    <nav class="fixed top-0 left-0 right-0 z-50 bg-slate-950/80 backdrop-blur-md border-b border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-indigo-600 to-violet-500 flex items-center justify-center shadow-lg shadow-indigo-500/30">
+                    <i class="fa-solid fa-brain text-white text-lg"></i>
+                </div>
+                <div>
+                    <span class="text-xl font-bold tracking-tight bg-gradient-to-r from-white to-slate-400 bg-clip-text text-transparent">EDENTIA</span>
+                    <span class="block text-xs text-indigo-400 font-medium tracking-wider">AI CONSULTING & ARCHITECTURE</span>
+                </div>
+            </div>
+            <div class="hidden md:flex items-center space-x-8 text-sm font-medium text-slate-300">
+                <a href="#metodologia" class="hover:text-indigo-400 transition-colors">Metodología</a>
+                <a href="#servicios" class="hover:text-indigo-400 transition-colors">Servicios</a>
+                <a href="#herramientas" class="hover:text-indigo-400 transition-colors">Stack Tecnológico</a>
+                <a href="#leonardo" class="hover:text-indigo-400 transition-colors">Consultor Senior</a>
+            </div>
+            <div>
+                <a href="#contacto" class="bg-indigo-600 hover:bg-indigo-500 text-white px-5 py-2.5 rounded-xl font-semibold text-sm transition-all shadow-lg shadow-indigo-600/20 hover:scale-105 active:scale-95 inline-block">
+                    Agendar Consultoría
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="relative pt-32 pb-20 md:pt-44 md:pb-32 overflow-hidden border-b border-slate-900">
+        <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-indigo-900/30 via-slate-950/0 to-slate-950 pointer-events-none"></div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
+            <div class="inline-flex items-center space-x-2 bg-indigo-500/10 border border-indigo-500/20 px-4 py-1.5 rounded-full text-indigo-400 text-xs font-semibold mb-6 uppercase tracking-wider">
+                <i class="fa-solid fa-bolt-lightning"></i>
+                <span>Transformación Operativa con IA & Primeros Principios</span>
+            </div>
+            <h1 class="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight max-w-4xl mx-auto leading-tight">
+                No automatices el caos. <br>
+                <span class="bg-gradient-to-r from-indigo-400 via-violet-400 to-pink-400 bg-clip-text text-transparent">Rediseña, Simplifica y Escala.</span>
+            </h1>
+            <p class="mt-6 text-lg sm:text-xl text-slate-400 max-w-2xl mx-auto font-normal">
+                Ayudamos a las organizaciones a eliminar procesos fósiles, auditar flujos operativos con agentes de IA expertos y desplegar automatizaciones de alto impacto con Leonardo como Consultor Senior de IA.
+            </p>
+            <div class="mt-10 flex flex-col sm:flex-row justify-center items-center gap-4">
+                <a href="#contacto" class="w-full sm:w-auto bg-gradient-to-r from-indigo-600 to-violet-600 hover:from-indigo-500 hover:to-violet-500 text-white font-semibold px-8 py-4 rounded-xl shadow-xl shadow-indigo-600/25 transition-all hover:scale-105 text-center">
+                    Solicitar Diagnóstico Ejecutivo
+                </a>
+                <a href="#metodologia" class="w-full sm:w-auto bg-slate-900 hover:bg-slate-800 border border-slate-800 text-slate-300 font-semibold px-8 py-4 rounded-xl transition-all text-center">
+                    Explorar Metodología
+                </a>
+            </div>
+            <div class="mt-16 grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto border-t border-slate-900 pt-10">
+                <div class="text-center">
+                    <span class="block text-3xl font-extrabold text-white">4 Fases</span>
+                    <span class="text-xs text-slate-400 mt-1 block">Metodología Elon Musk First Principles</span>
+                </div>
+                <div class="text-center">
+                    <span class="block text-3xl font-extrabold text-white">10x</span>
+                    <span class="text-xs text-slate-400 mt-1 block">Aceleración en Análisis Operativo</span>
+                </div>
+                <div class="text-center">
+                    <span class="block text-3xl font-extrabold text-white">n8n & LLMs</span>
+                    <span class="text-xs text-slate-400 mt-1 block">Integración de Workflows Avanzados</span>
+                </div>
+                <div class="text-center">
+                    <span class="block text-3xl font-extrabold text-white">100%</span>
+                    <span class="text-xs text-slate-400 mt-1 block">Enfoque en Retorno de Inversión (ROI)</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Metodología Section -->
+    <section id="metodologia" class="py-24 bg-slate-900/50 border-b border-slate-900 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <h2 class="text-xs font-bold uppercase tracking-widest text-indigo-400 mb-3">Marco Metodológico Riguroso</h2>
+                <h3 class="text-3xl sm:text-4xl font-bold tracking-tight">El Método de 4 Pasos para Rediseñar Procesos</h3>
+                <p class="mt-4 text-slate-400">Inspirado en mejores prácticas globales (Gartner, MIT, Harvard y First Principles), evitamos escalar ineficiencias mediante un proceso estricto de poda y simplificación antes de tocar la tecnología.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- Step 1 -->
+                <div class="bg-slate-900 border border-slate-800 p-8 rounded-2xl relative hover:border-indigo-500/50 transition-all group">
+                    <div class="w-12 h-12 rounded-xl bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 flex items-center justify-center font-bold text-xl mb-6 group-hover:scale-110 transition-transform">
+                        01
+                    </div>
+                    <h4 class="text-xl font-bold text-white mb-3">Eliminar</h4>
+                    <p class="text-slate-400 text-sm leading-relaxed">Cuestionar cada paso heredado. Si no se tiene que reintroducir un paso ocasionalmente, no se ha podado lo suficiente. Quitamos burocracia inútil.</p>
+                </div>
+                <!-- Step 2 -->
+                <div class="bg-slate-900 border border-slate-800 p-8 rounded-2xl relative hover:border-indigo-500/50 transition-all group">
+                    <div class="w-12 h-12 rounded-xl bg-violet-500/10 border border-violet-500/20 text-violet-400 flex items-center justify-center font-bold text-xl mb-6 group-hover:scale-110 transition-transform">
+                        02
+                    </div>
+                    <h4 class="text-xl font-bold text-white mb-3">Simplificar</h4>
+                    <p class="text-slate-400 text-sm leading-relaxed">La simplicidad es la máxima sofisticación. Reducimos la fricción entre equipos antes de aplicar cualquier software o automatización.</p>
+                </div>
+                <!-- Step 3 -->
+                <div class="bg-slate-900 border border-slate-800 p-8 rounded-2xl relative hover:border-indigo-500/50 transition-all group">
+                    <div class="w-12 h-12 rounded-xl bg-pink-500/10 border border-pink-500/20 text-pink-400 flex items-center justify-center font-bold text-xl mb-6 group-hover:scale-110 transition-transform">
+                        03
+                    </div>
+                    <h4 class="text-xl font-bold text-white mb-3">Optimizar</h4>
+                    <p class="text-slate-400 text-sm leading-relaxed">Ajuste fino de la ejecución y asignación intencional de roles humanos sobre procesos que ya han demostrado ser indispensables para el negocio.</p>
+                </div>
+                <!-- Step 4 -->
+                <div class="bg-slate-900 border border-slate-800 p-8 rounded-2xl relative hover:border-indigo-500/50 transition-all group">
+                    <div class="w-12 h-12 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 flex items-center justify-center font-bold text-xl mb-6 group-hover:scale-110 transition-transform">
+                        04
+                    </div>
+                    <h4 class="text-xl font-bold text-white mb-3">Automatizar</h4>
+                    <p class="text-slate-400 text-sm leading-relaxed">Despliegue inteligente de IA y agentes autónomos para control, análisis en paralelo y ejecución sin errores operativos manuales.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services / Solutions Section -->
+    <section id="servicios" class="py-24 border-b border-slate-900">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <h2 class="text-xs font-bold uppercase tracking-widest text-indigo-400 mb-3">Oferta de Valor Edentia</h2>
+                <h3 class="text-3xl sm:text-4xl font-bold tracking-tight">Servicios de Consultoría Senior en IA</h3>
+                <p class="mt-4 text-slate-400">Soluciones estructuradas para llevar a tu empresa desde el diagnóstico operativo hasta la implementación técnica de agentes y flujos autónomos.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Service 1 -->
+                <div class="bg-slate-900/80 border border-slate-800 p-8 rounded-2xl flex flex-col justify-between hover:border-indigo-500/40 transition-all">
+                    <div>
+                        <div class="w-12 h-12 rounded-xl bg-indigo-600 text-white flex items-center justify-center text-xl mb-6 shadow-md shadow-indigo-600/30">
+                            <i class="fa-solid fa-magnifying-glass-chart"></i>
+                        </div>
+                        <h4 class="text-2xl font-bold text-white mb-3">Sprint de Auditoría & Rediseño</h4>
+                        <p class="text-slate-400 text-sm leading-relaxed mb-6">Diagnóstico exprés de procesos operativos con agentes IA entrenados con la metodología de 50 puntos para entregar una hoja de ruta clara en 2 semanas.</p>
+                        <ul class="space-y-2.5 text-sm text-slate-300 mb-6">
+                            <li class="flex items-center"><i class="fa-solid fa-check text-indigo-400 mr-2.5"></i> Análisis de líneas base y costos</li>
+                            <li class="flex items-center"><i class="fa-solid fa-check text-indigo-400 mr-2.5"></i> Poda de procesos fósiles</li>
+                            <li class="flex items-center"><i class="fa-solid fa-check text-indigo-400 mr-2.5"></i> Matriz de priorización de impacto</li>
+                        </ul>
+                    </div>
+                    <a href="#contacto" class="block text-center bg-slate-800 hover:bg-slate-700 text-white py-3 rounded-xl font-semibold text-sm transition-colors">
+                        Cotizar Sprint
+                    </a>
+                </div>
+
+                <!-- Service 2 -->
+                <div class="bg-gradient-to-b from-indigo-950/40 to-slate-900 border border-indigo-500/30 p-8 rounded-2xl flex flex-col justify-between relative shadow-xl shadow-indigo-950/50">
+                    <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-indigo-600 text-white text-[10px] uppercase font-bold px-3 py-1 rounded-full tracking-wider">
+                        Más Solicitado
+                    </div>
+                    <div>
+                        <div class="w-12 h-12 rounded-xl bg-gradient-to-tr from-indigo-600 to-violet-600 text-white flex items-center justify-center text-xl mb-6 shadow-md shadow-indigo-600/30">
+                            <i class="fa-solid fa-robot"></i>
+                        </div>
+                        <h4 class="text-2xl font-bold text-white mb-3">Arquitectura de Agentes & n8n</h4>
+                        <p class="text-slate-400 text-sm leading-relaxed mb-6">Desarrollo e integración completa de flujos automatizados con n8n, Make y modelos LLM avanzados conectados a tus sistemas ERP y CRM.</p>
+                        <ul class="space-y-2.5 text-sm text-slate-300 mb-6">
+                            <li class="flex items-center"><i class="fa-solid fa-check text-indigo-400 mr-2.5"></i> Workflows JSON automatizados</li>
+                            <li class="flex items-center"><i class="fa-solid fa-check text-indigo-400 mr-2.5"></i> Agentes con bases de conocimiento</li>
+                            <li class="flex items-center"><i class="fa-solid fa-check text-indigo-400 mr-2.5"></i> Conectores seguros corporativos</li>
+                        </ul>
+                    </div>
+                    <a href="#contacto" class="block text-center bg-indigo-600 hover:bg-indigo-500 text-white py-3 rounded-xl font-semibold text-sm transition-colors shadow-lg shadow-indigo-600/30">
+                        Implementar Agentes
+                    </a>
+                </div>
+
+                <!-- Service 3 -->
+                <div class="bg-slate-900/80 border border-slate-800 p-8 rounded-2xl flex flex-col justify-between hover:border-indigo-500/40 transition-all">
+                    <div>
+                        <div class="w-12 h-12 rounded-xl bg-violet-600 text-white flex items-center justify-center text-xl mb-6 shadow-md shadow-violet-600/30">
+                            <i class="fa-solid fa-graduation-cap"></i>
+                        </div>
+                        <h4 class="text-2xl font-bold text-white mb-3">Capacitación Ejecutiva IA</h4>
+                        <p class="text-slate-400 text-sm leading-relaxed mb-6">Programas a la medida para juntas directivas y equipos de liderazgo sobre gobernanza de IA, supervisión de agentes y ROI corporativo.</p>
+                        <ul class="space-y-2.5 text-sm text-slate-300 mb-6">
+                            <li class="flex items-center"><i class="fa-solid fa-check text-indigo-400 mr-2.5"></i> Criterio y mitigación de riesgos</li>
+                            <li class="flex items-center"><i class="fa-solid fa-check text-indigo-400 mr-2.5"></i> Creación de asistentes internos</li>
+                            <li class="flex items-center"><i class="fa-solid fa-check text-indigo-400 mr-2.5"></i> Estrategia de adopción masiva</li>
+                        </ul>
+                    </div>
+                    <a href="#contacto" class="block text-center bg-slate-800 hover:bg-slate-700 text-white py-3 rounded-xl font-semibold text-sm transition-colors">
+                        Capacitar Equipo
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tech Stack Section -->
+    <section id="herramientas" class="py-24 bg-slate-900/30 border-b border-slate-900">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <h2 class="text-xs font-bold uppercase tracking-widest text-indigo-400 mb-3">Infraestructura Tecnológica</h2>
+                <h3 class="text-3xl sm:text-4xl font-bold tracking-tight">Stack de Herramientas de Vanguardia</h3>
+                <p class="mt-4 text-slate-400">Trabajamos con las plataformas líderes del mercado para garantizar seguridad de datos, flexibilidad y escalabilidad total.</p>
+            </div>
+
+            <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-6">
+                <div class="bg-slate-900 border border-slate-800 p-6 rounded-2xl text-center flex flex-col items-center justify-center hover:border-indigo-500/50 transition-all">
+                    <i class="fa-solid fa-comment-dots text-3xl text-indigo-400 mb-3"></i>
+                    <span class="font-bold text-white text-sm">ChatGPT / GPTs</span>
+                </div>
+                <div class="bg-slate-900 border border-slate-800 p-6 rounded-2xl text-center flex flex-col items-center justify-center hover:border-indigo-500/50 transition-all">
+                    <i class="fa-solid fa-wand-magic-sparkles text-3xl text-violet-400 mb-3"></i>
+                    <span class="font-bold text-white text-sm">Claude Projects</span>
+                </div>
+                <div class="bg-slate-900 border border-slate-800 p-6 rounded-2xl text-center flex flex-col items-center justify-center hover:border-indigo-500/50 transition-all">
+                    <i class="fa-solid fa-network-wired text-3xl text-emerald-400 mb-3"></i>
+                    <span class="font-bold text-white text-sm">n8n Automations</span>
+                </div>
+                <div class="bg-slate-900 border border-slate-800 p-6 rounded-2xl text-center flex flex-col items-center justify-center hover:border-indigo-500/50 transition-all">
+                    <i class="fa-solid fa-microchip text-3xl text-pink-400 mb-3"></i>
+                    <span class="font-bold text-white text-sm">Microsoft Copilot</span>
+                </div>
+                <div class="bg-slate-900 border border-slate-800 p-6 rounded-2xl text-center flex flex-col items-center justify-center hover:border-indigo-500/50 transition-all">
+                    <i class="fa-solid fa-gem text-3xl text-blue-400 mb-3"></i>
+                    <span class="font-bold text-white text-sm">Google Gemini Gems</span>
+                </div>
+                <div class="bg-slate-900 border border-slate-800 p-6 rounded-2xl text-center flex flex-col items-center justify-center hover:border-indigo-500/50 transition-all">
+                    <i class="fa-solid fa-shield-halved text-3xl text-amber-400 mb-3"></i>
+                    <span class="font-bold text-white text-sm">Enterprise Security</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Senior Consultant Section -->
+    <section id="leonardo" class="py-24 border-b border-slate-900 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="bg-gradient-to-r from-indigo-950/60 via-slate-900 to-slate-900 border border-indigo-500/20 rounded-3xl p-8 md:p-14 flex flex-col lg:flex-row items-center gap-12 shadow-2xl">
+                <div class="w-full lg:w-1/3 flex justify-center">
+                    <div class="relative w-64 h-64 md:w-80 md:h-80 rounded-2xl overflow-hidden border-2 border-indigo-500/30 shadow-2xl">
+                        <img src="https://placehold.co/600x600/1e1b4b/a5b4fc?text=Leonardo+Consultor+IA" alt="Leonardo - Consultor Senior de IA" class="w-full h-full object-cover">
+                    </div>
+                </div>
+                <div class="w-full lg:w-2/3">
+                    <span class="text-indigo-400 font-semibold text-xs tracking-widest uppercase block mb-2">Liderazgo Experto</span>
+                    <h3 class="text-3xl font-extrabold text-white mb-4">Leonardo</h3>
+                    <p class="text-indigo-300 font-medium text-lg mb-6">Consultor Senior de IA, Arquitecto XR & Estratega de Crecimiento</p>
+                    <p class="text-slate-300 text-sm leading-relaxed mb-6">
+                        Con amplia trayectoria en la estructuración de soluciones tecnológicas avanzadas, integración de inteligencia artificial corporativa y metodologías ágiles de rediseño. Leonardo combina la visión de negocio ejecutiva con la capacidad técnica profunda para que las empresas no solo adopten modas tecnológicas, sino que generen un retorno de inversión real y sostenible.
+                    </p>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
+                        <div class="flex items-center space-x-3 text-slate-300 text-sm">
+                            <i class="fa-solid fa-circle-check text-indigo-400"></i>
+                            <span>Reconocimiento regional en innovación</span>
+                        </div>
+                        <div class="flex items-center space-x-3 text-slate-300 text-sm">
+                            <i class="fa-solid fa-circle-check text-indigo-400"></i>
+                            <span>Autor y conferencista en IA & XR</span>
+                        </div>
+                        <div class="flex items-center space-x-3 text-slate-300 text-sm">
+                            <i class="fa-solid fa-circle-check text-indigo-400"></i>
+                            <span>Especialista en Automatización Low-Code</span>
+                        </div>
+                        <div class="flex items-center space-x-3 text-slate-300 text-sm">
+                            <i class="fa-solid fa-circle-check text-indigo-400"></i>
+                            <span>Mentor de líderes y ejecutivos</span>
+                        </div>
+                    </div>
+                    <a href="#contacto" class="bg-indigo-600 hover:bg-indigo-500 text-white font-semibold px-8 py-3.5 rounded-xl transition-all shadow-lg shadow-indigo-600/30 inline-block">
+                        Reservar Sesión con Leonardo
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Interactive AI Process Evaluator / Calculator -->
+    <section class="py-24 bg-slate-900/40 border-b border-slate-900">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-xs font-bold uppercase tracking-widest text-indigo-400 mb-3">Simulador Interactivo</h2>
+                <h3 class="text-3xl font-bold tracking-tight">Calcula el Impacto de Rediseñar tu Proceso</h3>
+                <p class="mt-2 text-slate-400 text-sm">Estima cuántas horas y recursos operativos puedes liberar aplicando la metodología Edentia.</p>
+            </div>
+
+            <div class="bg-slate-900 border border-slate-800 p-8 rounded-3xl shadow-xl">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                    <div>
+                        <label class="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-2">Horas semanales dedicadas a tareas manuales</label>
+                        <input type="number" id="horas" value="120" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-indigo-500">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-2">Costo promedio por hora del equipo ($ USD)</label>
+                        <input type="number" id="costoHora" value="25" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-indigo-500">
+                    </div>
+                </div>
+                <button onclick="calcularImpacto()" class="w-full bg-gradient-to-r from-indigo-600 to-violet-600 hover:from-indigo-500 hover:to-violet-500 text-white font-semibold py-4 rounded-xl transition-all shadow-lg shadow-indigo-600/20">
+                    Calcular Ahorro Potencial
+                </button>
+
+                <div id="resultadoSimulacion" class="mt-8 p-6 bg-slate-950 border border-indigo-500/30 rounded-2xl hidden text-center">
+                    <h4 class="text-indigo-400 font-bold text-lg mb-2">¡Impacto Estimado con Edentia AI!</h4>
+                    <p class="text-slate-300 text-sm">Ahorro estimado anual en costos operativos:</p>
+                    <div id="montoAhorro" class="text-4xl font-extrabold text-white my-3">$0 USD</div>
+                    <p class="text-xs text-slate-400">Liberando más del 70% del tiempo operativo repetitivo para tareas estratégicas.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact / Booking Section -->
+    <section id="contacto" class="py-24 relative overflow-hidden">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="text-center mb-12">
+                <h2 class="text-xs font-bold uppercase tracking-widest text-indigo-400 mb-3">Comienza Hoy</h2>
+                <h3 class="text-3xl sm:text-4xl font-bold tracking-tight">Agenda una Consultoría Estratégica</h3>
+                <p class="mt-3 text-slate-400">Da el primer paso para transformar los procesos de tu empresa con la guía experta de Leonardo y Edentia.</p>
+            </div>
+
+            <div class="bg-slate-900 border border-slate-800 p-8 md:p-12 rounded-3xl shadow-2xl">
+                <form onsubmit="enviarFormulario(event)" class="space-y-6">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-2">Nombre Completo</label>
+                            <input type="text" required placeholder="Ej. Carlos Mendoza" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3.5 text-white focus:outline-none focus:border-indigo-500">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-2">Correo Corporativo</label>
+                            <input type="email" required placeholder="carlos@empresa.com" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3.5 text-white focus:outline-none focus:border-indigo-500">
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-2">Empresa / Organización</label>
+                            <input type="text" required placeholder="Nombre de tu empresa" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3.5 text-white focus:outline-none focus:border-indigo-500">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-2">Servicio de Interés</label>
+                            <select class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3.5 text-white focus:outline-none focus:border-indigo-500">
+                                <option>Sprint de Auditoría & Rediseño de Procesos</option>
+                                <option>Arquitectura de Agentes & n8n</option>
+                                <option>Capacitación Ejecutiva en IA</option>
+                                <option>Consultoría General con Leonardo</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-2">Cuéntanos sobre tu principal desafío operativo</label>
+                        <textarea rows="4" placeholder="Describe brevemente el proceso que deseas optimizar..." class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3.5 text-white focus:outline-none focus:border-indigo-500"></textarea>
+                    </div>
+                    <button type="submit" class="w-full bg-gradient-to-r from-indigo-600 to-violet-600 hover:from-indigo-500 hover:to-violet-500 text-white font-bold py-4 rounded-xl transition-all shadow-xl shadow-indigo-600/30 hover:scale-[1.01] active:scale-[0.99]">
+                        Enviar Solicitud de Consultoría
+                    </button>
+                </form>
+
+                <div id="modalExito" class="hidden mt-6 p-4 bg-emerald-950/50 border border-emerald-500/30 rounded-xl text-center text-emerald-300 text-sm">
+                    <i class="fa-solid fa-circle-check mr-2"></i> ¡Solicitud enviada con éxito! Leonardo y el equipo de Edentia se pondrán en contacto contigo en menos de 24 horas.
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-12 border-t border-slate-900 bg-slate-950 text-center text-slate-500 text-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-6">
+            <div class="flex items-center space-x-3">
+                <div class="w-8 h-8 rounded-lg bg-indigo-600 flex items-center justify-center text-white text-sm font-bold">E</div>
+                <span class="text-white font-bold tracking-tight">EDENTIA SOLUCIONES TECNOLÓGICAS S.A.S.</span>
+            </div>
+            <div>
+                <p>&copy; 2026 Edentia & Leonardo Senior AI Consulting. Todos los derechos reservados.</p>
+            </div>
+            <div class="flex space-x-4 text-slate-400">
+                <a href="#" class="hover:text-indigo-400 transition-colors"><i class="fa-brands fa-linkedin text-lg"></i></a>
+                <a href="#" class="hover:text-indigo-400 transition-colors"><i class="fa-brands fa-twitter text-lg"></i></a>
+                <a href="#" class="hover:text-indigo-400 transition-colors"><i class="fa-brands fa-github text-lg"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript Interactive Logic -->
+    <script>
+        function calcularImpacto() {
+            const horas = parseFloat(document.getElementById('horas').value) || 0;
+            const costoHora = parseFloat(document.getElementById('costoHora').value) || 0;
+            
+            // Asumiendo un 70% de ahorro operativo tras eliminar y automatizar el proceso
+            const ahorroAnual = horas * 52 * costoHora * 0.70;
+            
+            const divResultado = document.getElementById('resultadoSimulacion');
+            const montoAhorro = document.getElementById('montoAhorro');
+            
+            montoAhorro.textContent = '$' + ahorroAnual.toLocaleString('en-US', {maximumFractionDigits: 0}) + ' USD';
+            divResultado.classList.remove('hidden');
+        }
+
+        function enviarFormulario(event) {
+            event.preventDefault();
+            const modal = document.getElementById('modalExito');
+            modal.classList.remove('hidden');
+            event.target.reset();
+            setTimeout(() => {
+                modal.classList.add('hidden');
+            }, 6000);
+        }
+    </script>
+</body>
+</html>

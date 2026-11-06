@@ -1,0 +1,1282 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mobile AI Agent Architecture & Executive Dossier</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <!-- Google Fonts: Inter & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+          },
+          colors: {
+            brand: {
+              50: '#f0fdf4',
+              100: '#dcfce7',
+              400: '#4ade80',
+              500: '#22c55e',
+              600: '#16a34a',
+              700: '#15803d',
+              800: '#166534',
+              900: '#14532d',
+            },
+            cyber: {
+              dark: '#0a0d14',
+              card: '#111726',
+              border: '#1f293d',
+              accent: '#38bdf8',
+              purple: '#a855f7',
+              warning: '#f59e0b'
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #0a0d14;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #1f293d;
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #334155;
+    }
+    .gradient-border {
+      background: linear-gradient(135deg, rgba(56, 189, 248, 0.3), rgba(34, 197, 94, 0.1), rgba(168, 85, 247, 0.2));
+      padding: 1px;
+    }
+    .glow-cyan {
+      box-shadow: 0 0 25px -5px rgba(56, 189, 248, 0.25);
+    }
+    .glow-green {
+      box-shadow: 0 0 25px -5px rgba(34, 197, 94, 0.25);
+    }
+  </style>
+</head>
+<body class="bg-cyber-dark text-slate-100 font-sans antialiased selection:bg-brand-500 selection:text-black">
+
+  <!-- Floating Toast Notification System -->
+  <div id="toast" class="fixed bottom-6 right-6 z-50 transform translate-y-32 opacity-0 transition-all duration-300 pointer-events-none bg-slate-900 border border-brand-500/50 text-white px-5 py-3 rounded-xl shadow-2xl flex items-center space-x-3 text-sm">
+    <i class="fa-solid fa-circle-check text-brand-400 text-lg"></i>
+    <span id="toast-message">Copiado al portapapeles</span>
+  </div>
+
+  <!-- Global Header / Navigation -->
+  <nav class="sticky top-0 z-40 backdrop-blur-md bg-cyber-dark/85 border-b border-cyber-border">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      <div class="flex items-center space-x-3">
+        <div class="w-9 h-9 rounded-lg bg-gradient-to-tr from-brand-500 to-cyber-accent flex items-center justify-center font-bold text-black text-lg shadow-md">
+          <i class="fa-solid fa-mobile-screen-button"></i>
+        </div>
+        <div>
+          <span class="font-extrabold tracking-tight text-white text-base sm:text-lg">Mobile<span class="text-brand-400">RPA</span>.Agent</span>
+          <span class="hidden md:inline-block ml-2 text-xs font-mono px-2 py-0.5 rounded bg-brand-950 text-brand-400 border border-brand-800">GLM 5.3 + DeviceFarm</span>
+        </div>
+      </div>
+
+      <!-- Desktop Nav Links -->
+      <div class="hidden lg:flex items-center space-x-6 text-xs sm:text-sm font-medium text-slate-300">
+        <a href="#breakdown" class="hover:text-brand-400 transition-colors">Desglose Técnico</a>
+        <a href="#proxy-engine" class="hover:text-brand-400 transition-colors">Arquitectura Proxies</a>
+        <a href="#calculator" class="hover:text-brand-400 transition-colors">Calculadora TCO</a>
+        <a href="#rules-engine" class="hover:text-brand-400 transition-colors">Reglas Agénticas</a>
+        <a href="#edentia-strategy" class="text-cyber-accent hover:text-cyan-300 transition-colors font-semibold">Para Edentia</a>
+        <a href="#leonardo-consulting" class="text-amber-400 hover:text-amber-300 transition-colors font-semibold">Consultoría Leonardo</a>
+      </div>
+
+      <!-- Action Button -->
+      <div class="flex items-center space-x-3">
+        <a href="https://youtu.be/L2fNv4lrcE8" target="_blank" rel="noopener noreferrer" class="inline-flex items-center space-x-2 text-xs font-semibold px-3 py-2 rounded-lg bg-red-600/20 text-red-400 border border-red-500/30 hover:bg-red-600/30 transition-all">
+          <i class="fa-brands fa-youtube text-red-500"></i>
+          <span class="hidden sm:inline">Ver Video Fuente</span>
+        </a>
+        <button id="mobile-menu-btn" class="lg:hidden text-slate-400 hover:text-white p-2 text-xl focus:outline-none">
+          <i class="fa-solid fa-bars"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Drawer Menu -->
+    <div id="mobile-menu" class="hidden lg:hidden border-b border-cyber-border bg-cyber-dark/95 px-4 pt-3 pb-5 space-y-2 text-sm font-medium">
+      <a href="#breakdown" class="block px-3 py-2 rounded-md hover:bg-slate-800 text-slate-200">Desglose Técnico Extendido</a>
+      <a href="#proxy-engine" class="block px-3 py-2 rounded-md hover:bg-slate-800 text-slate-200">Arquitectura de Proxies</a>
+      <a href="#calculator" class="block px-3 py-2 rounded-md hover:bg-slate-800 text-slate-200">Calculadora de Costos & Granja</a>
+      <a href="#rules-engine" class="block px-3 py-2 rounded-md hover:bg-slate-800 text-slate-200">Inyección de Reglas (.md)</a>
+      <a href="#edentia-strategy" class="block px-3 py-2 rounded-md hover:bg-slate-800 text-cyber-accent">Estrategia para Edentia</a>
+      <a href="#leonardo-consulting" class="block px-3 py-2 rounded-md hover:bg-slate-800 text-amber-400">Dossier Senior Leonardo</a>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <header class="relative overflow-hidden pt-12 pb-20 border-b border-cyber-border">
+    <div class="absolute inset-0 bg-[radial-gradient(circle_at_30%_30%,rgba(34,197,94,0.08),transparent_50%)] pointer-events-none"></div>
+    <div class="absolute inset-0 bg-[radial-gradient(circle_at_80%_70%,rgba(56,189,248,0.06),transparent_50%)] pointer-events-none"></div>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+        
+        <!-- Left Hero Content -->
+        <div class="lg:col-span-7 space-y-6 text-left">
+          <div class="inline-flex items-center space-x-2 px-3 py-1.5 rounded-full bg-slate-800/80 border border-slate-700 text-xs font-mono text-brand-400">
+            <span class="w-2 h-2 rounded-full bg-brand-500 animate-pulse"></span>
+            <span>NOTAS MAESTRAS DE INGENIERÍA INVERSA & DOSSIER EJECUTIVO</span>
+          </div>
+
+          <h1 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white leading-tight">
+            Automatización de <br>
+            <span class="bg-gradient-to-r from-brand-400 via-cyber-accent to-cyber-purple bg-clip-text text-transparent">Phone Farms con GLM 5.3</span>
+          </h1>
+
+          <p class="text-base sm:text-lg text-slate-400 leading-relaxed max-w-2xl">
+            Sistematización técnica del workflow demostrado por <strong>Manila AI OFM</strong>: aprovisionamiento de Android en la nube, evitación de huellas heurísticas con <em>humanized click jitter</em>, orquestación de prompts con <em>Open Code</em> y blueprint de monetización para consultoría empresarial.
+          </p>
+
+          <!-- Executive Meta Badges -->
+          <div class="flex flex-wrap gap-3 pt-2 text-xs font-mono text-slate-300">
+            <div class="bg-cyber-card border border-cyber-border px-3 py-2 rounded-lg flex items-center space-x-2">
+              <i class="fa-solid fa-microchip text-brand-400"></i>
+              <span>VLM: GLM 5.3 Multimodal</span>
+            </div>
+            <div class="bg-cyber-card border border-cyber-border px-3 py-2 rounded-lg flex items-center space-x-2">
+              <i class="fa-solid fa-server text-cyber-accent"></i>
+              <span>Platform: DeviceFarm.io API</span>
+            </div>
+            <div class="bg-cyber-card border border-cyber-border px-3 py-2 rounded-lg flex items-center space-x-2">
+              <i class="fa-solid fa-shield-halved text-amber-400"></i>
+              <span>Anti-Detect: Dedicated ISP</span>
+            </div>
+          </div>
+
+          <!-- CTAs -->
+          <div class="pt-4 flex flex-col sm:flex-row gap-4">
+            <a href="#breakdown" class="inline-flex justify-center items-center px-6 py-3.5 rounded-xl bg-gradient-to-r from-brand-500 to-brand-600 hover:from-brand-400 hover:to-brand-500 text-black font-bold text-sm tracking-wide transition-all shadow-lg glow-green">
+              Explorar Desglose por Marcas de Tiempo
+              <i class="fa-solid fa-arrow-down ml-2"></i>
+            </a>
+            <a href="#edentia-strategy" class="inline-flex justify-center items-center px-6 py-3.5 rounded-xl bg-cyber-card hover:bg-slate-800 text-white border border-cyber-border font-medium text-sm transition-all">
+              Ver Aplicación para Edentia
+              <i class="fa-solid fa-briefcase ml-2 text-cyber-accent"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- Right Terminal/Telemetry Simulation -->
+        <div class="lg:col-span-5">
+          <div class="rounded-2xl bg-cyber-card border border-cyber-border overflow-hidden shadow-2xl">
+            <!-- Terminal Header -->
+            <div class="bg-slate-900/90 px-4 py-3 border-b border-cyber-border flex items-center justify-between">
+              <div class="flex items-center space-x-2">
+                <span class="w-3 h-3 rounded-full bg-red-500/80 inline-block"></span>
+                <span class="w-3 h-3 rounded-full bg-amber-500/80 inline-block"></span>
+                <span class="w-3 h-3 rounded-full bg-emerald-500/80 inline-block"></span>
+              </div>
+              <span class="text-xs font-mono text-slate-400">devicefarm://live-session-us-west.log</span>
+              <span class="text-xs text-brand-400 font-mono animate-pulse">LIVE</span>
+            </div>
+
+            <!-- Terminal Body -->
+            <div class="p-5 font-mono text-xs space-y-3 bg-[#080b11] text-slate-300">
+              <div class="text-slate-500">// Orquestador Open Code + GLM 5.3 Runtime</div>
+              <div class="flex items-start space-x-2">
+                <span class="text-purple-400">PROMPT &gt;</span>
+                <span class="text-white">"Yo Kurokco are you here?"</span>
+              </div>
+              <div class="p-2.5 rounded bg-slate-900/90 border border-slate-800 text-emerald-400">
+                [Agent Koroko] "Koroko here, what are we building today on phone-instance-04?"
+              </div>
+
+              <div class="pt-2 text-slate-500">// Pipeline de interacción de visión humana</div>
+              <div class="space-y-1 text-slate-400">
+                <div class="flex items-center space-x-2 text-cyber-accent">
+                  <i class="fa-solid fa-camera text-xs"></i>
+                  <span>1. Executing screen dump (Hierarchy + Visual Frame)...</span>
+                </div>
+                <div class="flex items-center space-x-2">
+                  <i class="fa-solid fa-crosshairs text-xs text-amber-400"></i>
+                  <span>2. Target: [Instagram Create Reel Button] (x: 540, y: 2150)</span>
+                </div>
+                <div class="flex items-center space-x-2 text-brand-400">
+                  <i class="fa-solid fa-fingerprint text-xs"></i>
+                  <span>3. Applied Human Jitter: &plusmn;7px &rarr; (x: 543, y: 2146)</span>
+                </div>
+                <div class="flex items-center space-x-2 text-slate-300">
+                  <i class="fa-solid fa-wifi text-xs text-blue-400"></i>
+                  <span>4. Proxy Check: Static ISP (98.152.X.X - Los Angeles, CA) [MATCH]</span>
+                </div>
+              </div>
+
+              <div class="pt-3 border-t border-slate-800/80 flex items-center justify-between text-[11px] text-slate-400">
+                <span>Latency: 284ms</span>
+                <span class="text-emerald-400 font-bold"><i class="fa-solid fa-check-double mr-1"></i>Reel &amp; Story Published</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </header>
+
+  <!-- Interactive Quick Navigation Bar -->
+  <div class="bg-slate-900/90 border-b border-cyber-border py-3 sticky top-16 z-30 overflow-x-auto">
+    <div class="max-w-7xl mx-auto px-4 flex items-center space-x-2 text-xs font-mono whitespace-nowrap">
+      <span class="text-slate-500 uppercase tracking-wider text-[10px] pr-2">Secciones:</span>
+      <a href="#t-0000" class="px-2.5 py-1 rounded bg-slate-800 text-slate-300 hover:text-brand-400 hover:bg-slate-700 transition-colors">00:00 Intro & Demo</a>
+      <a href="#t-0046" class="px-2.5 py-1 rounded bg-slate-800 text-slate-300 hover:text-brand-400 hover:bg-slate-700 transition-colors">00:46 Device Farm</a>
+      <a href="#t-0150" class="px-2.5 py-1 rounded bg-slate-800 text-slate-300 hover:text-brand-400 hover:bg-slate-700 transition-colors">01:50 GLM vs Claude</a>
+      <a href="#t-0218" class="px-2.5 py-1 rounded bg-slate-800 text-slate-300 hover:text-brand-400 hover:bg-slate-700 transition-colors">02:18 Proxies & IPs</a>
+      <a href="#t-0650" class="px-2.5 py-1 rounded bg-slate-800 text-slate-300 hover:text-brand-400 hover:bg-slate-700 transition-colors">06:50 Open Code Setup</a>
+      <a href="#t-0954" class="px-2.5 py-1 rounded bg-slate-800 text-slate-300 hover:text-brand-400 hover:bg-slate-700 transition-colors">09:54 Screen Dump & Jitter</a>
+    </div>
+  </div>
+
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-24">
+
+    <!-- Section 1: Detailed Video Breakdown with Timestamps -->
+    <section id="breakdown" class="space-y-8">
+      <div class="flex flex-col md:flex-row md:items-end justify-between border-b border-cyber-border pb-4 gap-4">
+        <div>
+          <div class="text-xs font-mono text-brand-400 uppercase tracking-widest">Desglose Cronológico Exhaustivo</div>
+          <h2 class="text-2xl sm:text-4xl font-extrabold text-white mt-1">Notas Maestras del Video</h2>
+        </div>
+        <p class="text-xs sm:text-sm text-slate-400 max-w-md">
+          Cada concepto, comando, configuración de red y decisión heurística extraída en estricto orden cronológico.
+        </p>
+      </div>
+
+      <!-- Chronological Cards Container -->
+      <div class="space-y-6">
+
+        <!-- Timestamp 00:00 -->
+        <article id="t-0000" class="rounded-xl bg-cyber-card border border-cyber-border p-6 hover:border-slate-600 transition-all">
+          <div class="flex flex-wrap items-center justify-between gap-2 border-b border-cyber-border pb-3 mb-4">
+            <div class="flex items-center space-x-3">
+              <span class="px-3 py-1 rounded-md bg-brand-500/10 text-brand-400 font-mono text-sm font-bold border border-brand-500/20">
+                <i class="fa-solid fa-play mr-1.5 text-xs"></i> 00:00:00 – 00:00:45
+              </span>
+              <h3 class="text-lg font-bold text-white">Demostración Zero-Touch, Disclaimer Legal y Alcance de Acciones</h3>
+            </div>
+            <span class="text-xs text-slate-400 font-mono">Fase: Demostración &amp; Fundamentos</span>
+          </div>
+
+          <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 text-sm">
+            <div class="lg:col-span-2 space-y-3 text-slate-300">
+              <p>
+                El orador inicia mostrando una sesión de Instagram activa en un teléfono móvil virtualizado donde el sistema publica un Reel de video y subsecuentemente una Story sin mediación física de un operador humano.
+              </p>
+              <div class="p-3 rounded-lg bg-slate-900 border-l-4 border-amber-400 text-xs text-slate-300">
+                <strong class="text-amber-400 uppercase tracking-wider block mb-1">Cita Textual &amp; Aviso de Responsabilidad:</strong>
+                <em>"This phone is posting a reel on Instagram right now by itself and nobody is touching it... This video is for education only. I show you how these methods work so you understand them and every platform has its own rules so check them and what you do with it is your responsibility."</em>
+              </div>
+              <p class="text-xs text-slate-400">
+                <strong>Taxonomía de acciones soportadas por el agente móvil:</strong> Cualquier gesto o comando ejecutable por un dedo humano es susceptible a traducción agéntica: registro de nuevas cuentas, publicación programada de Reels, posteo de Stories con stickers, flujos interactivos de follow/unfollow y despacho contextual de mensajes directos (DMs).
+              </p>
+            </div>
+            
+            <div class="bg-slate-900/70 p-4 rounded-lg border border-cyber-border space-y-2">
+              <div class="text-xs font-semibold text-cyber-accent uppercase tracking-wider">Concepto Clave</div>
+              <div class="text-sm font-bold text-white">Equivalencia Operativa Humana</div>
+              <p class="text-xs text-slate-400">
+                El agente no ataca la API privada de Meta (fácilmente bloqueable por detección de TLS fingerprint); ataca la interfaz gráfica del dispositivo Android simulando toques físicos.
+              </p>
+            </div>
+          </div>
+        </article>
+
+        <!-- Timestamp 00:46 -->
+        <article id="t-0046" class="rounded-xl bg-cyber-card border border-cyber-border p-6 hover:border-slate-600 transition-all">
+          <div class="flex flex-wrap items-center justify-between gap-2 border-b border-cyber-border pb-3 mb-4">
+            <div class="flex items-center space-x-3">
+              <span class="px-3 py-1 rounded-md bg-brand-500/10 text-brand-400 font-mono text-sm font-bold border border-brand-500/20">
+                <i class="fa-solid fa-play mr-1.5 text-xs"></i> 00:00:46 – 00:01:49
+              </span>
+              <h3 class="text-lg font-bold text-white">Aprovisionamiento en DeviceFarm.io &amp; Mapeo de Red</h3>
+            </div>
+            <span class="text-xs text-slate-400 font-mono">Fase: Cloud Infrastructure</span>
+          </div>
+
+          <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 text-sm">
+            <div class="lg:col-span-2 space-y-3 text-slate-300">
+              <p>
+                Guía paso a paso para desplegar un nuevo dispositivo Android en <code class="text-brand-400 font-mono">devicefarm.io</code>. La mayoría de opciones pueden dejarse por defecto, pero existen dos variables críticas que determinan la supervivencia de la instancia:
+              </p>
+              <ul class="list-disc pl-5 space-y-2 text-xs sm:text-sm text-slate-300">
+                <li><strong class="text-white">Proxy String:</strong> Entrada del host, puerto, usuario y contraseña del túnel. Es el escudo de anonimato y geolocalización.</li>
+                <li>
+                  <strong class="text-white">Selector de Tipo de Red (Network Interface Type):</strong>
+                  <ul class="list-circle pl-5 mt-1 space-y-1 text-slate-400">
+                    <li>Si el proxy contratado proviene de red 4G/5G &rarr; Configurar como <span class="text-brand-400 font-semibold font-mono">Cellular</span>.</li>
+                    <li>Si el proxy es Residencial fijo o ISP dedicado &rarr; Configurar como <span class="text-cyber-accent font-semibold font-mono">Wi-Fi</span>.</li>
+                  </ul>
+                </li>
+              </ul>
+              <p class="text-xs text-slate-400">
+                Una vez iniciado el terminal (<code class="font-mono">Start &gt; View</code>), el usuario visualiza el escritorio de Android dentro del navegador web vía streaming WebRTC/VNC de baja latencia, donde se procede a la instalación de la app oficial de Instagram vía Google Play Store.
+              </p>
+            </div>
+
+            <!-- Visual Representation Diagram -->
+            <div class="bg-slate-900/70 p-4 rounded-lg border border-cyber-border space-y-3">
+              <div class="text-xs font-semibold text-amber-400 uppercase tracking-wider">Regla de Coherencia de Red</div>
+              <div class="p-2.5 rounded bg-black/60 border border-slate-800 text-[11px] font-mono space-y-1.5">
+                <div class="text-slate-400">SI Proxy == Mobile 4G/5G:</div>
+                <div class="text-emerald-400 font-bold pl-2">&rArr; Network: Cellular (Datos)</div>
+                <div class="text-slate-400 pt-1">SI Proxy == Dedicated ISP / Cable:</div>
+                <div class="text-cyan-400 font-bold pl-2">&rArr; Network: Wi-Fi (Hogar)</div>
+              </div>
+              <p class="text-[11px] text-slate-400">
+                <em>Causa:</em> Si Instagram detecta una IP residencial pero el subsistema Android reporta conexión por antena celular, el antifraude marca discrepancia de telemetría.
+              </p>
+            </div>
+          </div>
+        </article>
+
+        <!-- Timestamp 01:50 -->
+        <article id="t-0150" class="rounded-xl bg-cyber-card border border-cyber-border p-6 hover:border-slate-600 transition-all">
+          <div class="flex flex-wrap items-center justify-between gap-2 border-b border-cyber-border pb-3 mb-4">
+            <div class="flex items-center space-x-3">
+              <span class="px-3 py-1 rounded-md bg-brand-500/10 text-brand-400 font-mono text-sm font-bold border border-brand-500/20">
+                <i class="fa-solid fa-play mr-1.5 text-xs"></i> 00:01:50 – 00:02:17
+              </span>
+              <h3 class="text-lg font-bold text-white">Selección del Cerebro de IA: ¿Por qué GLM 5.3 y no Claude?</h3>
+            </div>
+            <span class="text-xs text-slate-400 font-mono">Fase: AI Reasoning Engine</span>
+          </div>
+
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 text-sm">
+            <div class="space-y-3 text-slate-300">
+              <p>
+                El autor aborda el dilema de selección del modelo fundacional multimodal para tareas de control de interfaces gráficas (Computer/Device Use).
+              </p>
+              <div class="p-3.5 rounded-lg bg-slate-900 border-l-4 border-purple-500 text-xs">
+                <strong class="text-purple-400 uppercase tracking-wider block mb-1">Cita Clave del Video:</strong>
+                <em>"The AI I use for this is GLM 5.3. Why GLM and not Claude? Because GLM is more permissive. Claude will often refuse this kind of action and GLM just does it, so for this kind of work, honestly, it's better."</em>
+              </div>
+              <p class="text-xs text-slate-400">
+                <strong>Análisis de Ingeniería:</strong> Modelos como Anthropic Claude 3.5 Sonnet o GPT-4o implementan filtros de alineación (safety filters) hiperestrictos que interpretan la interacción autónoma con plataformas de Meta como scraping no autorizado o riesgo de spam, abortando la cadena de llamadas de función (tool calling). GLM 5.3 mantiene un balance superior entre comprensión espacial de coordenadas y ejecución sin rechazos ideológicos/éticos injustificados.
+              </p>
+            </div>
+
+            <!-- Comparison Table -->
+            <div class="overflow-hidden rounded-lg border border-cyber-border">
+              <table class="w-full text-left text-xs">
+                <thead class="bg-slate-900 text-slate-300 border-b border-cyber-border">
+                  <tr>
+                    <th class="p-2.5">Criterio de Evaluación</th>
+                    <th class="p-2.5 text-purple-400">GLM 5.3 (Seleccionado)</th>
+                    <th class="p-2.5 text-slate-400">Claude 3.5 Sonnet</th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-cyber-border/60 bg-slate-950/40 text-slate-300">
+                  <tr>
+                    <td class="p-2.5 font-medium">Permisividad Social Media</td>
+                    <td class="p-2.5 text-brand-400 font-semibold"><i class="fa-solid fa-check mr-1"></i> Alta (No aborta)</td>
+                    <td class="p-2.5 text-red-400"><i class="fa-solid fa-xmark mr-1"></i> Baja (Falsos positivos)</td>
+                  </tr>
+                  <tr>
+                    <td class="p-2.5 font-medium">Lectura de Jerarquía Móvil</td>
+                    <td class="p-2.5 text-slate-200">Excelente (visión + tree)</td>
+                    <td class="p-2.5 text-slate-200">Sobresaliente</td>
+                  </tr>
+                  <tr>
+                    <td class="p-2.5 font-medium">Resistencia a Reintentos</td>
+                    <td class="p-2.5 text-slate-200">Alta tolerabilidad a loops</td>
+                    <td class="p-2.5 text-slate-400">Tiende a disculparse y frenar</td>
+                  </tr>
+                  <tr>
+                    <td class="p-2.5 font-medium">Costo por Inferencia</td>
+                    <td class="p-2.5 text-brand-400 font-semibold">Competitivo (Zhipu API)</td>
+                    <td class="p-2.5 text-slate-300">Medio-Alto</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </article>
+
+        <!-- Timestamp 02:18 -->
+        <article id="t-0218" class="rounded-xl bg-cyber-card border border-cyber-border p-6 hover:border-slate-600 transition-all">
+          <div class="flex flex-wrap items-center justify-between gap-2 border-b border-cyber-border pb-3 mb-4">
+            <div class="flex items-center space-x-3">
+              <span class="px-3 py-1 rounded-md bg-brand-500/10 text-brand-400 font-mono text-sm font-bold border border-brand-500/20">
+                <i class="fa-solid fa-play mr-1.5 text-xs"></i> 00:02:18 – 00:06:43
+              </span>
+              <h3 class="text-lg font-bold text-white">Anatomía de Proxies: Rotativos vs. ISP Dedicados &amp; "Mismatch Bans"</h3>
+            </div>
+            <span class="text-xs text-slate-400 font-mono">Fase: Anti-Fraud Deep Dive</span>
+          </div>
+
+          <div class="space-y-4 text-sm text-slate-300">
+            <p>
+              El orador define la dirección IP como la "dirección postal física de un terminal en Internet" y declara que la selección equivocada del proxy liquida las cuentas antes de iniciar operaciones.
+            </p>
+
+            <!-- 3 Columns Proxy Architecture -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
+              <div class="p-4 rounded-lg bg-slate-900 border border-cyber-border">
+                <div class="text-brand-400 font-bold mb-1 flex items-center space-x-2">
+                  <i class="fa-solid fa-tower-broadcast"></i>
+                  <span>Mobile Proxies (4G/5G)</span>
+                </div>
+                <p class="text-slate-400">Direcciones emitidas por antenas de operadoras celulares compartidas entre miles de usuarios reales. Rotan frecuentemente de forma natural.</p>
+              </div>
+              <div class="p-4 rounded-lg bg-slate-900 border border-cyber-border">
+                <div class="text-cyber-accent font-bold mb-1 flex items-center space-x-2">
+                  <i class="fa-solid fa-house-signal"></i>
+                  <span>Residential Proxies</span>
+                </div>
+                <p class="text-slate-400">IPs asociadas a contratos residenciales reales (módem doméstico). Poseen alta reputación inicial, pero su pool rota cada ciertas horas o días.</p>
+              </div>
+              <div class="p-4 rounded-lg bg-slate-900 border border-cyber-border">
+                <div class="text-purple-400 font-bold mb-1 flex items-center space-x-2">
+                  <i class="fa-solid fa-fingerprint"></i>
+                  <span>Dedicated ISP Proxies</span>
+                </div>
+                <p class="text-slate-400">IPs fijas con ASN de telecomunicaciones residencial pero alojadas en servidores privados. Exclusivas para un solo usuario; <strong>jamás cambian</strong>.</p>
+              </div>
+            </div>
+
+            <!-- Deep Dive: The Mismatch Ban Mechanism -->
+            <div class="p-4 rounded-xl bg-gradient-to-r from-red-950/40 to-slate-900 border border-red-500/30 space-y-2">
+              <div class="flex items-center space-x-2 text-red-400 font-bold text-sm">
+                <i class="fa-solid fa-triangle-exclamation"></i>
+                <span>El Mecanismo Silencioso del "Mismatch Ban" (Discrepancia de Entorno)</span>
+              </div>
+              <p class="text-xs text-slate-300 leading-relaxed">
+                Supongamos que inicializas un teléfono virtual con IP de California: configuras la zona horaria del OS en <code class="font-mono text-amber-300">America/Los_Angeles (PST)</code>, idioma en <code class="font-mono text-amber-300">en_US</code> y geolocalización en California. Si empleas un proxy rotativo residencial o móvil "sticky" (que promete retener la IP), inevitablemente rotará. Al rotar, la nueva IP puede ubicarte en Nueva York o Miami. En ese milisegundo, la telemetría del sistema operativo indica California, pero el gateway TCP/IP reporta la costa este:
+              </p>
+              <div class="font-mono text-xs text-red-300 bg-black/60 p-2.5 rounded border border-red-900/50">
+                ERROR_RISK_TRIGGER: Device OS TZ [-08:00 PST] != Remote IP Geolocation [-05:00 EST] &rarr; ACTION: Algorithmic Shadowban / Account Suspension.
+              </div>
+            </div>
+
+            <!-- Mathematical Comparison -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 pt-2">
+              <div class="p-4 rounded-lg bg-slate-900/90 border border-slate-800 text-xs">
+                <strong class="text-white block mb-1">Estrategia A: Cuentas Desechables (Mass Volume)</strong>
+                <p class="text-slate-400 mb-2">Objetivo: Mass DM, scrapers o bots de comentarios con esperanza de vida de 24-48h.</p>
+                <div class="font-mono text-brand-400 bg-black/40 p-2 rounded">
+                  Modelo por Gigabyte (ej. Proxy Lexus): Un paquete de 5 GB permite generar proxies para 1,000 teléfonos simultáneos a un costo casi nulo por dispositivo.
+                </div>
+              </div>
+              <div class="p-4 rounded-lg bg-slate-900/90 border border-slate-800 text-xs">
+                <strong class="text-white block mb-1">Estrategia B: Crecimiento Orgánico de Marca (Long-Term)</strong>
+                <p class="text-slate-400 mb-2">Objetivo: Marcas consolidadas o cuentas de creadores que operan por meses/años sin penalización algorítmica.</p>
+                <div class="font-mono text-cyber-accent bg-black/40 p-2 rounded">
+                  Regla de Oro: 1 Dispositivo = 1 Cuenta = 1 Proxy ISP Dedicado Estático ($3.00 USD/mes por cuenta).
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </article>
+
+        <!-- Timestamp 06:50 -->
+        <article id="t-0650" class="rounded-xl bg-cyber-card border border-cyber-border p-6 hover:border-slate-600 transition-all">
+          <div class="flex flex-wrap items-center justify-between gap-2 border-b border-cyber-border pb-3 mb-4">
+            <div class="flex items-center space-x-3">
+              <span class="px-3 py-1 rounded-md bg-brand-500/10 text-brand-400 font-mono text-sm font-bold border border-brand-500/20">
+                <i class="fa-solid fa-play mr-1.5 text-xs"></i> 00:06:50 – 00:09:41
+              </span>
+              <h3 class="text-lg font-bold text-white">Configuración del Entorno de Orquestación: Open Code, API y Reglas (.md)</h3>
+            </div>
+            <span class="text-xs text-slate-400 font-mono">Fase: Agentic Tooling Setup</span>
+          </div>
+
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 text-sm">
+            <div class="space-y-3 text-slate-300">
+              <p>
+                Para orquestar la automatización se requiere un entorno de ejecución local (<strong class="text-white">Open Code</strong>, aplicación de escritorio gratuita) vinculada a dos componentes:
+              </p>
+              <ol class="list-decimal pl-5 space-y-2 text-xs sm:text-sm">
+                <li><strong class="text-white">API Key de GLM 5.3:</strong> Se conecta en la configuración del cliente como motor de inferencia principal.</li>
+                <li><strong class="text-white">Device Farm Automation Plan ($99/mes):</strong> Desbloquea la suite de APIs REST/WebSocket para control programático de los dispositivos Android aprovisionados en la nube.</li>
+              </ol>
+              <p class="text-xs text-slate-400">
+                El entorno de trabajo se estructura en un directorio local denominado <code class="text-brand-400 font-mono">Phone Automation/</code> con una subcarpeta interna <code class="text-brand-400 font-mono">content/</code> destinada a almacenar los assets multimedia (videos en formato MP4 para Reels e imágenes para Stories).
+              </p>
+            </div>
+
+            <!-- Code block configuration -->
+            <div class="space-y-3">
+              <div class="text-xs font-semibold text-slate-300 flex items-center justify-between">
+                <span>Inyección en <code class="text-brand-400 font-mono">opencode.jsonc</code>:</span>
+                <button onclick="copyToClipboard('jsonc-code')" class="text-slate-400 hover:text-white text-xs inline-flex items-center space-x-1">
+                  <i class="fa-regular fa-copy"></i>
+                  <span>Copiar JSON</span>
+                </button>
+              </div>
+              <pre id="jsonc-code" class="bg-[#080b11] p-3.5 rounded-lg border border-cyber-border font-mono text-xs text-slate-300 overflow-x-auto leading-relaxed"><code>{
+  "model": "glm-5.3",
+  "temperature": 0.2,
+  "instructions": "agent_rules.md",
+  "devicefarm": {
+    "api_endpoint": "https://api.devicefarm.io/v1",
+    "timeout_ms": 30000
+  }
+}</code></pre>
+              <!-- Health check validation -->
+              <div class="p-3 rounded-lg bg-slate-900 border border-slate-800 text-xs space-y-1">
+                <span class="text-amber-400 font-bold block">Protocolo de Validación de Memoria (Health-Check):</span>
+                <span class="text-slate-400">Comando del usuario:</span> <code class="text-white font-mono">"Yo Kurokco are you here?"</code><br>
+                <span class="text-slate-400">Respuesta esperada:</span> <span class="text-emerald-400 font-mono">"Koroko here what are we building"</span>
+                <span class="block text-[11px] text-slate-500 pt-1">Si la respuesta no contiene este saludo, el archivo de instrucciones Markdown no se encuentra en el scope del path del proyecto.</span>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- Timestamp 09:54 -->
+        <article id="t-0954" class="rounded-xl bg-cyber-card border border-cyber-border p-6 hover:border-slate-600 transition-all">
+          <div class="flex flex-wrap items-center justify-between gap-2 border-b border-cyber-border pb-3 mb-4">
+            <div class="flex items-center space-x-3">
+              <span class="px-3 py-1 rounded-md bg-brand-500/10 text-brand-400 font-mono text-sm font-bold border border-brand-500/20">
+                <i class="fa-solid fa-play mr-1.5 text-xs"></i> 00:09:54 – 00:11:43
+              </span>
+              <h3 class="text-lg font-bold text-white">Bucle de Ejecución en Vivo, "Screen Dumps" y "Humanized Click Jitter"</h3>
+            </div>
+            <span class="text-xs text-slate-400 font-mono">Fase: Perception &amp; Motion Execution</span>
+          </div>
+
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 text-sm">
+            <div class="lg:col-span-7 space-y-3 text-slate-300">
+              <p>
+                Al emitir el prompt en lenguaje natural solicitando la publicación de un Reel y una Story, el orquestador inicia el bucle de visión agéntica sin intervención humana:
+              </p>
+              
+              <div class="space-y-2 text-xs">
+                <div class="p-3 rounded bg-slate-900 border border-slate-800 flex items-start space-x-3">
+                  <div class="text-brand-400 font-mono font-bold">FASE 1</div>
+                  <div>
+                    <strong class="text-white">Extracción de Screen Dump:</strong> El agente captura el frame gráfico y el árbol de nodos de la interfaz (Accessibility Tree) para mapear todos los elementos interactivos, textos y selectores de la pantalla activa.
+                  </div>
+                </div>
+                <div class="p-3 rounded bg-slate-900 border border-slate-800 flex items-start space-x-3">
+                  <div class="text-cyber-accent font-mono font-bold">FASE 2</div>
+                  <div>
+                    <strong class="text-white">Navegación Visual Secuencial:</strong> Localiza el ícono de Instagram, navega al tab de creación (+) &rarr; selecciona "Reel" &rarr; abre la carpeta de galería interna del dispositivo &rarr; escoge el video de <code class="font-mono text-brand-300">content/</code> &rarr; transcribe la descripción o copy &rarr; pulsa "Compartir".
+                  </div>
+                </div>
+                <div class="p-3 rounded bg-slate-900 border border-slate-800 flex items-start space-x-3">
+                  <div class="text-amber-400 font-mono font-bold">FASE 3</div>
+                  <div>
+                    <strong class="text-white">Humanized Click Jitter (Variación Estocástica de Píxeles):</strong>
+                    <div class="mt-1 text-slate-400">
+                      Un operador humano jamás presiona dos veces exactamente las mismas coordenadas de píxel $(x, y)$. Si un script automatizado pulsa persistentemente en $(540, 1920)$, los sistemas heurísticos de Meta catalogan la interacción como un bot estático. El agente aplica un desplazamiento aleatorio $(\pm \Delta x, \pm \Delta y)$ en cada click para emular la imprecisión biomecánica natural de la mano humana.
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Jitter Interactive Canvas Demo -->
+            <div class="lg:col-span-5 bg-slate-950 p-4 rounded-xl border border-cyber-border flex flex-col justify-between">
+              <div>
+                <div class="flex items-center justify-between text-xs font-semibold text-slate-300 mb-2">
+                  <span>Simulador de Click Jitter</span>
+                  <span class="text-brand-400 font-mono" id="jitter-coord-label">Click en el botón: (50%, 50%)</span>
+                </div>
+                <div class="relative w-full h-48 bg-slate-900 rounded-lg border border-slate-800 overflow-hidden flex items-center justify-center" id="jitter-box">
+                  <div class="absolute inset-0 grid grid-cols-6 grid-rows-6 opacity-20 pointer-events-none">
+                    <div class="border-b border-r border-slate-700"></div><div class="border-b border-r border-slate-700"></div><div class="border-b border-r border-slate-700"></div><div class="border-b border-r border-slate-700"></div><div class="border-b border-r border-slate-700"></div><div class="border-b border-slate-700"></div>
+                    <div class="border-b border-r border-slate-700"></div><div class="border-b border-r border-slate-700"></div><div class="border-b border-r border-slate-700"></div><div class="border-b border-r border-slate-700"></div><div class="border-b border-r border-slate-700"></div><div class="border-b border-slate-700"></div>
+                    <div class="border-b border-r border-slate-700"></div><div class="border-b border-r border-slate-700"></div><div class="border-b border-r border-slate-700"></div><div class="border-b border-r border-slate-700"></div><div class="border-b border-r border-slate-700"></div><div class="border-b border-slate-700"></div>
+                  </div>
+                  <!-- Simulated Target Button -->
+                  <div class="px-6 py-3 rounded-lg bg-blue-600 text-white font-bold text-xs shadow-lg pointer-events-none z-10 flex items-center space-x-2">
+                    <i class="fa-brands fa-instagram"></i>
+                    <span>Botón "Publicar Reel"</span>
+                  </div>
+                  <!-- Tap Points generated dynamically -->
+                  <div id="tap-container" class="absolute inset-0 pointer-events-none"></div>
+                </div>
+              </div>
+
+              <div class="mt-4 pt-3 border-t border-slate-800 flex items-center justify-between">
+                <button onclick="simulateTap()" class="px-3.5 py-2 rounded-lg bg-brand-500 hover:bg-brand-400 text-black font-bold text-xs flex items-center space-x-2 transition-all">
+                  <i class="fa-solid fa-fingerprint"></i>
+                  <span>Simular Tap Agéntico</span>
+                </button>
+                <button onclick="resetTaps()" class="text-slate-400 hover:text-slate-200 text-xs">
+                  <i class="fa-solid fa-rotate-right mr-1"></i> Limpiar
+                </button>
+              </div>
+            </div>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- Section 2: Architecture & Decision Matrix: Proxies -->
+    <section id="proxy-engine" class="space-y-8">
+      <div class="border-b border-cyber-border pb-4">
+        <div class="text-xs font-mono text-cyber-accent uppercase tracking-widest">Infraestructura Crítica</div>
+        <h2 class="text-2xl sm:text-4xl font-extrabold text-white mt-1">Matriz de Decisión de Proxies &amp; Prevención de Baneos</h2>
+        <p class="text-sm text-slate-400 mt-2 max-w-2xl">
+          El 90% de los fallos en automatización móvil se originan en discrepancias de red y rotaciones de IP no sincronizadas con el kernel de Android.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        
+        <!-- Card 1: Mobile -->
+        <div class="rounded-2xl bg-cyber-card border border-cyber-border p-6 flex flex-col justify-between space-y-4">
+          <div class="space-y-3">
+            <div class="w-10 h-10 rounded-xl bg-brand-500/10 text-brand-400 border border-brand-500/20 flex items-center justify-center text-lg">
+              <i class="fa-solid fa-tower-cell"></i>
+            </div>
+            <h3 class="text-lg font-bold text-white">Proxy Móvil 4G/5G</h3>
+            <span class="inline-block text-[11px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300">ASN: Operadora Celular (Carrier)</span>
+            <p class="text-xs text-slate-400 leading-relaxed">
+              La dirección proviene de un pool compartido de antenas móviles. Es altamente confiable para las apps, pero la IP rota de forma periódica o por reconexión forzada.
+            </p>
+          </div>
+          <div class="border-t border-slate-800 pt-3 text-xs space-y-1.5">
+            <div class="flex justify-between text-slate-300"><span>Configuración OS:</span> <span class="font-mono text-brand-400 font-bold">Cellular</span></div>
+            <div class="flex justify-between text-slate-300"><span>Ideal para:</span> <span class="text-slate-400">Burner accounts / Calentamiento</span></div>
+            <div class="flex justify-between text-slate-300"><span>Modelo de Cobro:</span> <span class="font-mono text-slate-200">Por GB o Slot Mensual</span></div>
+          </div>
+        </div>
+
+        <!-- Card 2: Residential -->
+        <div class="rounded-2xl bg-cyber-card border border-cyber-border p-6 flex flex-col justify-between space-y-4">
+          <div class="space-y-3">
+            <div class="w-10 h-10 rounded-xl bg-cyber-accent/10 text-cyber-accent border border-cyber-accent/20 flex items-center justify-center text-lg">
+              <i class="fa-solid fa-house-signal"></i>
+            </div>
+            <h3 class="text-lg font-bold text-white">Proxy Residencial (Pool)</h3>
+            <span class="inline-block text-[11px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300">ASN: Hogares / Fibra Óptica</span>
+            <p class="text-xs text-slate-400 leading-relaxed">
+              Enrutamiento a través de dispositivos residenciales de usuarios reales. Proporciona huella limpia para creación rápida, pero los nodos "sticky" tarde o temprano saltan a otra región.
+            </p>
+          </div>
+          <div class="border-t border-slate-800 pt-3 text-xs space-y-1.5">
+            <div class="flex justify-between text-slate-300"><span>Configuración OS:</span> <span class="font-mono text-cyan-400 font-bold">Wi-Fi</span></div>
+            <div class="flex justify-between text-slate-300"><span>Ideal para:</span> <span class="text-slate-400">Scraping masivo &amp; Mass DMs</span></div>
+            <div class="flex justify-between text-slate-300"><span>Modelo de Cobro:</span> <span class="font-mono text-emerald-400 font-bold">~$2 a $4 USD / GB</span></div>
+          </div>
+        </div>
+
+        <!-- Card 3: Dedicated ISP -->
+        <div class="rounded-2xl bg-cyber-card border-2 border-brand-500/40 p-6 flex flex-col justify-between space-y-4 relative overflow-hidden shadow-xl">
+          <div class="absolute top-3 right-3">
+            <span class="bg-brand-500 text-black font-extrabold text-[10px] px-2 py-0.5 rounded uppercase tracking-wider">Recomendado Organic</span>
+          </div>
+          <div class="space-y-3">
+            <div class="w-10 h-10 rounded-xl bg-purple-500/10 text-purple-400 border border-purple-500/20 flex items-center justify-center text-lg">
+              <i class="fa-solid fa-network-wired"></i>
+            </div>
+            <h3 class="text-lg font-bold text-white">Dedicated ISP Estático</h3>
+            <span class="inline-block text-[11px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300">ASN: Carrier Residencial Fijo</span>
+            <p class="text-xs text-slate-400 leading-relaxed">
+              La dirección IP es estática, exclusiva y permanente. No sufre rotación involuntaria. Elimina al 100% el riesgo de <em>mismatch ban</em> por salto geográfico intempestivo.
+            </p>
+          </div>
+          <div class="border-t border-slate-800 pt-3 text-xs space-y-1.5">
+            <div class="flex justify-between text-slate-300"><span>Configuración OS:</span> <span class="font-mono text-cyan-400 font-bold">Wi-Fi</span></div>
+            <div class="flex justify-between text-slate-300"><span>Ideal para:</span> <span class="text-brand-400 font-semibold">Cuentas Orgánicas Corporativas</span></div>
+            <div class="flex justify-between text-slate-300"><span>Costo Unitario:</span> <span class="font-mono text-purple-400 font-bold">~$3.00 USD / IP / Mes</span></div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Section 3: Interactive TCO / Phone Farm Cost Calculator -->
+    <section id="calculator" class="rounded-3xl bg-cyber-card border border-cyber-border p-6 sm:p-10 space-y-8">
+      <div class="max-w-3xl space-y-2">
+        <div class="text-xs font-mono text-brand-400 uppercase tracking-widest">Simulador Financiero &amp; Escalamiento</div>
+        <h2 class="text-2xl sm:text-3xl font-extrabold text-white">Calculadora TCO de Phone Farm (DeviceFarm + Proxies + AI)</h2>
+        <p class="text-sm text-slate-400">
+          Modela el costo operativo mensual (OPEX) según tu estrategia: cuentas masivas desechables con proxies por gigabyte versus cuentas de marca corporativa con ISPs dedicadas fijas.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        
+        <!-- Controls Column -->
+        <div class="lg:col-span-7 space-y-6">
+          <!-- Slider: Number of Phones -->
+          <div class="space-y-2">
+            <div class="flex justify-between items-center text-sm font-medium">
+              <label for="phones-slider" class="text-slate-200">Número de Teléfonos en la Granja:</label>
+              <span id="phones-val" class="font-mono text-brand-400 font-bold text-base">25 teléfonos</span>
+            </div>
+            <input id="phones-slider" type="range" min="1" max="500" value="25" step="1" oninput="updateCalculator()" class="w-full h-2 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-brand-500">
+            <div class="flex justify-between text-[11px] font-mono text-slate-500">
+              <span>1 (Piloto)</span>
+              <span>100 (Flota Media)</span>
+              <span>500 (Industrial)</span>
+            </div>
+          </div>
+
+          <!-- Proxy Strategy Radio Selection -->
+          <div class="space-y-3">
+            <label class="text-sm font-medium text-slate-200 block">Estrategia de Red (Proxy):</label>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
+              <label class="p-3.5 rounded-xl border border-cyber-border bg-slate-900/60 cursor-pointer hover:border-slate-600 transition-all flex items-start space-x-3">
+                <input type="radio" name="proxy-type" value="isp" checked onchange="updateCalculator()" class="mt-1 accent-brand-500">
+                <div>
+                  <div class="font-bold text-white">Dedicated ISP ($3/IP/mes)</div>
+                  <div class="text-[11px] text-slate-400 mt-0.5">1 IP fija por teléfono. Máxima seguridad para marcas y alcance orgánico.</div>
+                </div>
+              </label>
+
+              <label class="p-3.5 rounded-xl border border-cyber-border bg-slate-900/60 cursor-pointer hover:border-slate-600 transition-all flex items-start space-x-3">
+                <input type="radio" name="proxy-type" value="residential" onchange="updateCalculator()" class="mt-1 accent-brand-500">
+                <div>
+                  <div class="font-bold text-white">Residencial por GB ($3/GB)</div>
+                  <div class="text-[11px] text-slate-400 mt-0.5">IPs rotativas dinámicas generadas desde un paquete de datos común.</div>
+                </div>
+              </label>
+            </div>
+          </div>
+
+          <!-- Addons / Plan Checkbox -->
+          <div class="space-y-3 pt-2">
+            <label class="text-sm font-medium text-slate-200 block">Suscripciones &amp; API Keys Requeridas:</label>
+            <div class="space-y-2 text-xs">
+              <div class="flex items-center justify-between p-3 rounded-lg bg-slate-900/80 border border-slate-800">
+                <div class="flex items-center space-x-2 text-slate-300">
+                  <i class="fa-solid fa-code text-cyber-accent"></i>
+                  <span>Plan Automation DeviceFarm.io (Acceso a API REST + Scripts prehechos)</span>
+                </div>
+                <span class="font-mono text-slate-300 font-semibold">$99.00 / mes</span>
+              </div>
+              <div class="flex items-center justify-between p-3 rounded-lg bg-slate-900/80 border border-slate-800">
+                <div class="flex items-center space-x-2 text-slate-300">
+                  <i class="fa-solid fa-brain text-purple-400"></i>
+                  <span>Inferencia GLM 5.3 Multimodal (Consumo aproximado según tokens/llamadas de visión)</span>
+                </div>
+                <span class="font-mono text-slate-300 font-semibold" id="ai-cost-display">~$25.00 / mes</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Result Summary Box -->
+        <div class="lg:col-span-5 bg-gradient-to-br from-slate-900 to-black p-6 rounded-2xl border border-cyber-border space-y-6">
+          <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+            <span class="text-xs uppercase font-mono tracking-wider text-slate-400">Estimación Mensual OPEX</span>
+            <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-brand-950 text-brand-400 border border-brand-800">USD</span>
+          </div>
+
+          <div class="space-y-1">
+            <div class="text-4xl sm:text-5xl font-black text-white font-mono" id="total-monthly-cost">$274</div>
+            <div class="text-xs text-slate-400" id="cost-per-device-label">Costo efectivo: ~$10.96 USD / teléfono / mes</div>
+          </div>
+
+          <!-- Breakdown List -->
+          <div class="space-y-2 text-xs border-t border-slate-800 pt-4 font-mono">
+            <div class="flex justify-between text-slate-400">
+              <span>Alquiler Teléfonos Virtuales:</span>
+              <span class="text-slate-200" id="cost-phones">$75.00</span>
+            </div>
+            <div class="flex justify-between text-slate-400">
+              <span>Costo Red / Proxies:</span>
+              <span class="text-slate-200" id="cost-proxies">$75.00</span>
+            </div>
+            <div class="flex justify-between text-slate-400">
+              <span>Plan DeviceFarm API:</span>
+              <span class="text-slate-200">$99.00</span>
+            </div>
+            <div class="flex justify-between text-slate-400">
+              <span>Inferencia GLM 5.3:</span>
+              <span class="text-slate-200" id="cost-ai">$25.00</span>
+            </div>
+          </div>
+
+          <div class="p-3 rounded-lg bg-brand-500/10 border border-brand-500/20 text-[11px] text-brand-300 leading-relaxed">
+            <i class="fa-solid fa-circle-info mr-1 text-brand-400"></i>
+            <span id="calculator-insight">Con proxies dedicados ISP, cada terminal mantiene reputación estática fija sin riesgo de saltos geográficos.</span>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Section 4: Agent Rules Engine & Prompt Engineering Dossier -->
+    <section id="rules-engine" class="space-y-8">
+      <div class="border-b border-cyber-border pb-4">
+        <div class="text-xs font-mono text-purple-400 uppercase tracking-widest">Inyección de Reglas (.md) &amp; Protocolos</div>
+        <h2 class="text-2xl sm:text-4xl font-extrabold text-white mt-1">Directivas del Agente Kurokco &amp; Archivo de Reglas</h2>
+        <p class="text-sm text-slate-400 mt-2 max-w-2xl">
+          Estructura del archivo Markdown que Open Code inyecta en el prompt contextual de GLM 5.3 antes de cualquier acción en Android.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+        
+        <!-- Left Code Viewer -->
+        <div class="lg:col-span-7 bg-[#080b11] rounded-2xl border border-cyber-border overflow-hidden">
+          <div class="bg-slate-900 px-4 py-3 border-b border-cyber-border flex items-center justify-between text-xs">
+            <div class="flex items-center space-x-2">
+              <i class="fa-regular fa-file-lines text-brand-400"></i>
+              <span class="font-mono text-slate-200">Phone Automation/agent_rules.md</span>
+            </div>
+            <button onclick="copyToClipboard('rules-code')" class="text-slate-400 hover:text-white transition-colors flex items-center space-x-1">
+              <i class="fa-regular fa-copy"></i>
+              <span>Copiar Reglas</span>
+            </button>
+          </div>
+
+          <pre id="rules-code" class="p-5 font-mono text-xs text-slate-300 overflow-x-auto leading-relaxed max-h-[460px] overflow-y-auto"><code># PROTOCOLO DE AGENTE: KOROKO (MOBILE RPA KERNEL)
+
+1. IDENTIDAD Y VERIFICACIÓN DE ESTADO:
+- Nombre clave: "Koroko".
+- Ante el prompt "Yo Kurokco are you here?", responde textualmente: 
+  "Koroko here what are we building" para validar la memoria de sesión.
+
+2. PROTOCOLO DE VISIÓN Y SCREEN DUMP:
+- Antes de emitir cualquier coordenada de click, ejecuta `capture_screen_hierarchy()`.
+- Verifica la presencia del bundle target ("com.instagram.android").
+- Si la app está en segundo plano o cerrada, ejecuta `launch_app("com.instagram.android")`.
+
+3. REGLA CRÍTICA DE INTERACCIÓN HUMANO-MÍMICA:
+- NUNCA pulses dos veces la misma coordenada exacta (x, y).
+- Aplica desviación gaussiana aleatoria: x' = x + random(-8, 8), y' = y + random(-8, 8).
+- Inserta intervalos de pausa humana ("sleep jitter"): espera entre 1.4s y 3.8s entre clicks.
+- En campos de texto de pie de foto (caption), escribe a velocidad de mecanografía variable:
+  30ms a 90ms por caracter con pausas simuladas.
+
+4. POLÍTICA DE RESILIENCIA A ERRORES:
+- Si aparece un diálogo modal emergente ("Allow notifications", "Turn on 2FA"), pulsa "Not Now".
+- Si la conexión falla, suspende la tarea durante 180 segundos antes de reintentar.
+- NUNCA intentes saltar de aplicación salvo orden explícita en lenguaje natural.</code></pre>
+        </div>
+
+        <!-- Right Explanation Cards -->
+        <div class="lg:col-span-5 space-y-4">
+          <div class="p-5 rounded-xl bg-cyber-card border border-cyber-border space-y-2">
+            <div class="text-xs font-mono text-brand-400 font-bold uppercase tracking-wider">
+              <i class="fa-solid fa-code-branch mr-1"></i> Por qué es un archivo Markdown (.md)
+            </div>
+            <p class="text-xs text-slate-300 leading-relaxed">
+              Los LLMs modernos estructuran con máxima fidelidad las instrucciones delimitadas en Markdown con listas jerárquicas y encabezados claros. Al referenciarlo desde <code class="text-brand-300 font-mono">opencode.jsonc</code>, las directivas se cargan como <em>System Prompt persistente</em> sin necesidad de reescribirlas en cada conversación.
+            </p>
+          </div>
+
+          <div class="p-5 rounded-xl bg-cyber-card border border-cyber-border space-y-2">
+            <div class="text-xs font-mono text-amber-400 font-bold uppercase tracking-wider">
+              <i class="fa-solid fa-clock-rotate-left mr-1"></i> Tiempos de Espera Estocásticos (Sleep Jitter)
+            </div>
+            <p class="text-xs text-slate-300 leading-relaxed">
+              Además del jitter de píxeles, un componente crucial contra los filtros de Meta es evitar intervalos de tiempo rígidos (ej. <code class="font-mono text-slate-200">sleep(2000)</code>). Los bots tradicionales son detectados rápidamente por cadencias matemáticas exactas.
+            </p>
+          </div>
+
+          <div class="p-5 rounded-xl bg-cyber-card border border-cyber-border space-y-2">
+            <div class="text-xs font-mono text-cyber-accent font-bold uppercase tracking-wider">
+              <i class="fa-solid fa-folder-tree mr-1"></i> Organización del Directorio Local
+            </div>
+            <div class="font-mono text-[11px] text-slate-400 bg-black/40 p-3 rounded border border-slate-800 space-y-1">
+              <div>📁 Phone Automation/</div>
+              <div class="pl-4">├── 📁 content/ <span class="text-slate-500">(reels.mp4, stories.jpg)</span></div>
+              <div class="pl-4">├── 📄 agent_rules.md <span class="text-slate-500">(instrucciones del modelo)</span></div>
+              <div class="pl-4">└── 📄 opencode.jsonc <span class="text-slate-500">(binding con GLM y API)</span></div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Section 5: Strategic Application for Edentia -->
+    <section id="edentia-strategy" class="space-y-8">
+      <div class="border-b border-cyber-border pb-4">
+        <div class="text-xs font-mono text-cyber-accent uppercase tracking-widest">Ventaja Competitiva Corporativa</div>
+        <h2 class="text-2xl sm:text-4xl font-extrabold text-white mt-1">Cómo Edentia Puede Aplicar y Monetizar esta Arquitectura</h2>
+        <p class="text-sm text-slate-400 mt-2 max-w-2xl">
+          Trascendiendo el ámbito de las redes sociales: transformación de la tecnología en un producto B2B de <strong>Vision-based Mobile RPA</strong> para automatización de software legado.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        
+        <!-- Pillar 1 -->
+        <div class="rounded-2xl bg-cyber-card border border-cyber-border p-6 space-y-4 hover:border-cyber-accent/50 transition-all">
+          <div class="w-12 h-12 rounded-xl bg-cyber-accent/10 text-cyber-accent border border-cyber-accent/20 flex items-center justify-center text-xl">
+            <i class="fa-solid fa-cubes"></i>
+          </div>
+          <h3 class="text-lg font-bold text-white">1. Mobile RPA para Apps Empresariales sin API</h3>
+          <p class="text-xs text-slate-400 leading-relaxed">
+            Múltiples clientes de Edentia en banca, logística o salud operan con aplicaciones móviles Android (POS móviles, apps de inventario de almacén, despachos) que carecen de APIs públicas o endpoints de integración.
+          </p>
+          <div class="p-3 rounded-lg bg-slate-900 border border-slate-800 text-xs text-slate-300">
+            <strong class="text-cyber-accent block mb-1">Monetización:</strong>
+            Edentia cobra una tarifa de implementación + licenciamiento mensual por robot virtual móvil que extrae datos de la app o procesa pedidos 24/7 sin modificar el código fuente del cliente.
+          </div>
+        </div>
+
+        <!-- Pillar 2 -->
+        <div class="rounded-2xl bg-cyber-card border border-cyber-border p-6 space-y-4 hover:border-brand-500/50 transition-all">
+          <div class="w-12 h-12 rounded-xl bg-brand-500/10 text-brand-400 border border-brand-500/20 flex items-center justify-center text-xl">
+            <i class="fa-solid fa-bullhorn"></i>
+          </div>
+          <h3 class="text-lg font-bold text-white">2. Brand Multi-Presence as-a-Service (BaaS)</h3>
+          <p class="text-xs text-slate-400 leading-relaxed">
+            Ofrecer a marcas corporativas la gestión distribuida de 20 a 100 perfiles satélite o embajadores corporativos en Instagram y TikTok operados 100% por agentes multimodales autónomos.
+          </p>
+          <div class="p-3 rounded-lg bg-slate-900 border border-slate-800 text-xs text-slate-300">
+            <strong class="text-brand-400 block mb-1">Monetización:</strong>
+            Modelo de Retainer Mensual recurrente ($1,500 – $4,000 USD/mes por cliente) garantizando distribución omnicanal con 0 horas/hombre en publicación manual de assets.
+          </div>
+        </div>
+
+        <!-- Pillar 3 -->
+        <div class="rounded-2xl bg-cyber-card border border-cyber-border p-6 space-y-4 hover:border-purple-500/50 transition-all">
+          <div class="w-12 h-12 rounded-xl bg-purple-500/10 text-purple-400 border border-purple-500/20 flex items-center justify-center text-xl">
+            <i class="fa-solid fa-vial-circle-check"></i>
+          </div>
+          <h3 class="text-lg font-bold text-white">3. QA Testing &amp; Stress Test Autónomo de Apps</h3>
+          <p class="text-xs text-slate-400 leading-relaxed">
+            Reemplazar los frameworks de testing rígidos (Appium) que se rompen con cada cambio de UI, por agentes basados en GLM 5.3 capaces de navegar intuitivamente como usuarios reales y detectar bugs visuales.
+          </p>
+          <div class="p-3 rounded-lg bg-slate-900 border border-slate-800 text-xs text-slate-300">
+            <strong class="text-purple-400 block mb-1">Monetización:</strong>
+            Venta de paquetes de aseguramiento de calidad pre-lanzamiento para empresas de desarrollo de software con auditorías automáticas de flujo.
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Section 6: Executive Recommendations for Leonardo (Senior AI Consultant) -->
+    <section id="leonardo-consulting" class="rounded-3xl bg-gradient-to-b from-slate-900 via-cyber-card to-cyber-dark border border-amber-500/30 p-6 sm:p-10 space-y-8">
+      <div class="flex flex-col md:flex-row md:items-end justify-between border-b border-cyber-border pb-4 gap-4">
+        <div>
+          <div class="text-xs font-mono text-amber-400 uppercase tracking-widest">Dossier de Posicionamiento Consultivo</div>
+          <h2 class="text-2xl sm:text-4xl font-extrabold text-white mt-1">Recomendaciones para Leonardo — Consultor Senior de IA</h2>
+        </div>
+        <div class="px-3 py-1.5 rounded-full bg-amber-500/10 text-amber-400 text-xs font-mono border border-amber-500/20">
+          Executive Playbook 2026+
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 text-sm">
+        
+        <!-- Left: Strategic Positioning & Shift -->
+        <div class="space-y-4">
+          <h3 class="text-lg font-bold text-white flex items-center space-x-2">
+            <i class="fa-solid fa-chess text-amber-400"></i>
+            <span>1. Salto de Posicionamiento: De "RAG & Chatbots" a "Device-Using Agents"</span>
+          </h3>
+          <p class="text-slate-300 text-xs sm:text-sm leading-relaxed">
+            El mercado de consultoría en IA está sobresaturado de proveedores ofreciendo chatbots de servicio al cliente sobre PDFs (RAG). El cliente corporativo ya comprendió que los chatbots no resuelven la carga operativa pesada.
+          </p>
+          <div class="p-4 rounded-xl bg-slate-950/80 border border-slate-800 space-y-2">
+            <div class="text-xs font-bold text-amber-300">El Nuevo Discurso de Leonardo en C-Level:</div>
+            <p class="text-xs text-slate-400 italic">
+              "No te vendo un asistente que te responde preguntas; te construyo un operador digital autónomo que toma control de las interfaces móviles corporativas y ejecuta el trabajo que hoy consume a tu equipo 6 horas al día."
+            </p>
+          </div>
+          <p class="text-xs text-slate-400">
+            <strong>Diferenciador Técnico:</strong> Dominio de la arquitectura anti-detección (ISP estático vs. residencial, sincronización de zonas horarias de kernel, modelado de varianza motriz con click jitter). Pocos consultores entienden el networking a bajo nivel.
+          </p>
+        </div>
+
+        <!-- Right: Packaging & Pricing Models -->
+        <div class="space-y-4">
+          <h3 class="text-lg font-bold text-white flex items-center space-x-2">
+            <i class="fa-solid fa-money-bill-trend-up text-brand-400"></i>
+            <span>2. Oferta de Productos Consultivos de Alta Rentabilidad</span>
+          </h3>
+
+          <div class="space-y-3 text-xs">
+            <!-- Product A -->
+            <div class="p-3.5 rounded-lg bg-slate-900 border border-cyber-border flex items-start justify-between">
+              <div>
+                <strong class="text-white block text-sm">Architecture Sprint &amp; POC (2 a 3 semanas)</strong>
+                <span class="text-slate-400">Desarrollo de un piloto funcional de agente móvil sobre un proceso crítico corporativo en Device Farm.</span>
+              </div>
+              <span class="font-mono text-emerald-400 font-bold ml-3 text-sm whitespace-nowrap">$4,500 – $7,500 USD</span>
+            </div>
+
+            <!-- Product B -->
+            <div class="p-3.5 rounded-lg bg-slate-900 border border-cyber-border flex items-start justify-between">
+              <div>
+                <strong class="text-white block text-sm">Retainer de Mantenimiento de Swarm Agéntico (MRR)</strong>
+                <span class="text-slate-400">Supervisión, fine-tuning de prompts, monitoreo de cuotas de API de GLM y aprovisionamiento de proxies limpios.</span>
+              </div>
+              <span class="font-mono text-cyan-400 font-bold ml-3 text-sm whitespace-nowrap">$1,800 – $3,500 USD/mes</span>
+            </div>
+
+            <!-- Product C -->
+            <div class="p-3.5 rounded-lg bg-slate-900 border border-cyber-border flex items-start justify-between">
+              <div>
+                <strong class="text-white block text-sm">Workshop Ejecutivo: "Vision Agents Replacing RPA"</strong>
+                <span class="text-slate-400">Capacitación intensiva de 2 días para equipos de TI e Innovación corporativa sobre agentes autónomos.</span>
+              </div>
+              <span class="font-mono text-amber-400 font-bold ml-3 text-sm whitespace-nowrap">$2,500 – $4,000 USD</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Section 7: Executive Summary & Technical Glossary -->
+    <section class="space-y-12">
+      <!-- High Level Summary -->
+      <div class="rounded-2xl bg-cyber-card border border-cyber-border p-6 sm:p-8 space-y-3">
+        <div class="text-xs font-mono text-brand-400 uppercase tracking-widest">Resumen Ejecutivo del Dossier</div>
+        <h2 class="text-xl sm:text-2xl font-bold text-white">Sustitución de Scripts Tradicionales por Agentes Multimodales</h2>
+        <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
+          El paradigma expuesto en la clase técnica demuestra la obsolescencia de los frameworks tradicionales de automatización móvil (como Appium o macros rígidos basados en selectores XPath/ID fijos). Al integrar un modelo de lenguaje y visión permisivo (GLM 5.3) conectado a la API de teléfonos virtualizados en la nube (DeviceFarm), la automatización pasa a basarse en comprensión semántica de la pantalla. Complementado con una disciplina estricta de infraestructura de red (proxies ISP dedicados para erradicar el baneo por discrepancia horaria o geográfica) y técnicas de jitter pseudoaleatorio para reproducir la biomecánica táctil humana, el sistema se posiciona como una base de arquitectura de grado industrial aplicable tanto al crecimiento orgánico como a la automatización empresarial de software desprovisto de API.
+        </p>
+      </div>
+
+      <!-- Glossary Grid -->
+      <div class="space-y-4">
+        <h3 class="text-xl font-bold text-white flex items-center space-x-2">
+          <i class="fa-solid fa-book-bookmark text-cyber-accent"></i>
+          <span>Glosario Técnico de Términos Especializados</span>
+        </h3>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 text-xs">
+          
+          <div class="p-4 rounded-xl bg-slate-900 border border-cyber-border space-y-1.5">
+            <div class="font-mono text-brand-400 font-bold">Device Farm</div>
+            <p class="text-slate-400">Granja de infraestructura de hardware físico o virtualizado en la nube accesible programáticamente vía API para ejecución y testeo masivo.</p>
+          </div>
+
+          <div class="p-4 rounded-xl bg-slate-900 border border-cyber-border space-y-1.5">
+            <div class="font-mono text-cyber-accent font-bold">GLM 5.3</div>
+            <p class="text-slate-400">Modelo multimodal desarrollado por Zhipu AI de alta tolerancia operativa en tareas de tool-calling sin falsos rechazos de seguridad.</p>
+          </div>
+
+          <div class="p-4 rounded-xl bg-slate-900 border border-cyber-border space-y-1.5">
+            <div class="font-mono text-purple-400 font-bold">Dedicated ISP Proxy</div>
+            <p class="text-slate-400">IP estática vinculada a un ASN de proveedor de Internet residencial alojada en centros de datos, asignada exclusivamente a un solo cliente.</p>
+          </div>
+
+          <div class="p-4 rounded-xl bg-slate-900 border border-cyber-border space-y-1.5">
+            <div class="font-mono text-amber-400 font-bold">Humanized Click Jitter</div>
+            <p class="text-slate-400">Desplazamiento estocástico $(\pm \Delta x, \pm \Delta y)$ en coordenadas de pulsación táctil para evadir algoritmos de detección heurística de patrones repetitivos.</p>
+          </div>
+
+          <div class="p-4 rounded-xl bg-slate-900 border border-cyber-border space-y-1.5">
+            <div class="font-mono text-red-400 font-bold">Mismatch Ban</div>
+            <p class="text-slate-400">Suspensión de cuenta activada por discrepancia entre la zona horaria/idioma/GPS del sistema operativo y la ubicación geográfica de la IP pública.</p>
+          </div>
+
+          <div class="p-4 rounded-xl bg-slate-900 border border-cyber-border space-y-1.5">
+            <div class="font-mono text-emerald-400 font-bold">Screen Dump</div>
+            <p class="text-slate-400">Extracción del árbol de accesibilidad de la interfaz de usuario combinado con una captura visual de píxeles analizada por el VLM para la toma de decisiones.</p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Global Footer -->
+  <footer class="border-t border-cyber-border bg-slate-950 py-12 text-slate-500 text-xs">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-6 text-center md:text-left">
+      <div class="space-y-1">
+        <div class="text-slate-300 font-bold text-sm">Mobile AI Agent Architecture &bull; Executive Blueprint</div>
+        <p>Preparado para Edentia &amp; Leonardo como Consultor Senior de Inteligencia Artificial.</p>
+      </div>
+      <div class="flex items-center space-x-4">
+        <a href="#breakdown" class="hover:text-slate-300 transition-colors">Volver al inicio</a>
+        <span>&bull;</span>
+        <a href="https://youtu.be/L2fNv4lrcE8" target="_blank" rel="noopener noreferrer" class="hover:text-red-400 transition-colors flex items-center space-x-1">
+          <i class="fa-brands fa-youtube"></i>
+          <span>Video Original</span>
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Interactive JavaScript Logic -->
+  <script>
+    // Mobile Drawer Toggle
+    const mobileBtn = document.getElementById('mobile-menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+
+    if (mobileBtn && mobileMenu) {
+      mobileBtn.addEventListener('click', () => {
+        mobileMenu.classList.toggle('hidden');
+      });
+    }
+
+    // Toast Notification System
+    function showToast(message) {
+      const toast = document.getElementById('toast');
+      const toastMsg = document.getElementById('toast-message');
+      if (!toast || !toastMsg) return;
+
+      toastMsg.innerText = message;
+      toast.classList.remove('translate-y-32', 'opacity-0');
+      toast.classList.add('translate-y-0', 'opacity-100');
+
+      setTimeout(() => {
+        toast.classList.remove('translate-y-0', 'opacity-100');
+        toast.classList.add('translate-y-32', 'opacity-0');
+      }, 2500);
+    }
+
+    // Clipboard Copy Helper using execCommand for iframe compatibility
+    function copyToClipboard(elementId) {
+      const element = document.getElementById(elementId);
+      if (!element) return;
+
+      const text = element.innerText || element.textContent;
+      const textArea = document.createElement('textarea');
+      textArea.value = text;
+      textArea.style.position = 'fixed';
+      textArea.style.left = '-999999px';
+      textArea.style.top = '-999999px';
+      document.body.appendChild(textArea);
+      textArea.focus();
+      textArea.select();
+
+      try {
+        const successful = document.execCommand('copy');
+        if (successful) {
+          showToast('Código copiado al portapapeles con éxito');
+        } else {
+          showToast('No se pudo copiar el texto');
+        }
+      } catch (err) {
+        showToast('Error al copiar al portapapeles');
+      }
+
+      document.body.removeChild(textArea);
+    }
+
+    // Click Jitter Visual Simulator
+    let tapCounter = 0;
+    function simulateTap() {
+      const box = document.getElementById('jitter-box');
+      const container = document.getElementById('tap-container');
+      const label = document.getElementById('jitter-coord-label');
+      if (!box || !container) return;
+
+      // Center reference is 50%
+      const boxRect = box.getBoundingClientRect();
+      const centerX = boxRect.width / 2;
+      const centerY = boxRect.height / 2;
+
+      // Introduce random Gaussian/uniform jitter [-24px to +24px]
+      const deltaX = (Math.random() - 0.5) * 48;
+      const deltaY = (Math.random() - 0.5) * 48;
+
+      const tapX = centerX + deltaX;
+      const tapY = centerY + deltaY;
+
+      // Update text label
+      if (label) {
+        const roundedDx = deltaX > 0 ? `+${Math.round(deltaX)}` : `${Math.round(deltaX)}`;
+        const roundedDy = deltaY > 0 ? `+${Math.round(deltaY)}` : `${Math.round(deltaY)}`;
+        label.innerText = `Tap #${++tapCounter}: Δx: ${roundedDx}px, Δy: ${roundedDy}px`;
+      }
+
+      // Create animated visual tap ripple
+      const marker = document.createElement('div');
+      marker.className = 'absolute w-5 h-5 rounded-full border-2 border-brand-400 bg-brand-500/40 transform -translate-x-1/2 -translate-y-1/2 transition-all duration-300 pointer-events-none animate-ping';
+      marker.style.left = `${tapX}px`;
+      marker.style.top = `${tapY}px`;
+
+      const dot = document.createElement('div');
+      dot.className = 'absolute w-2 h-2 rounded-full bg-emerald-300 transform -translate-x-1/2 -translate-y-1/2 pointer-events-none shadow-md';
+      dot.style.left = `${tapX}px`;
+      dot.style.top = `${tapY}px`;
+
+      container.appendChild(marker);
+      container.appendChild(dot);
+
+      // Clean up animated ring after duration
+      setTimeout(() => {
+        if (marker.parentNode) marker.parentNode.removeChild(marker);
+      }, 700);
+    }
+
+    function resetTaps() {
+      const container = document.getElementById('tap-container');
+      const label = document.getElementById('jitter-coord-label');
+      if (container) container.innerHTML = '';
+      if (label) label.innerText = 'Click en el botón: (50%, 50%)';
+      tapCounter = 0;
+    }
+
+    // TCO Financial Calculator Logic
+    function updateCalculator() {
+      const phonesInput = document.getElementById('phones-slider');
+      const phonesVal = document.getElementById('phones-val');
+      const proxyType = document.querySelector('input[name="proxy-type"]:checked').value;
+
+      const costPhonesDisplay = document.getElementById('cost-phones');
+      const costProxiesDisplay = document.getElementById('cost-proxies');
+      const costAiDisplay = document.getElementById('cost-ai');
+      const totalCostDisplay = document.getElementById('total-monthly-cost');
+      const perDeviceLabel = document.getElementById('cost-per-device-label');
+      const insight = document.getElementById('calculator-insight');
+
+      const count = parseInt(phonesInput.value, 10);
+      phonesVal.innerText = `${count} ${count === 1 ? 'teléfono' : 'teléfonos'}`;
+
+      // Assumptions:
+      // Phone virtual hardware cost on device farm: ~$3 USD/mo per device
+      const phoneCost = count * 3.0;
+
+      // Proxy calculation:
+      let proxyCost = 0;
+      if (proxyType === 'isp') {
+        // Dedicated ISP = $3 per IP (1 IP per phone)
+        proxyCost = count * 3.0;
+        insight.innerText = 'Estrategia Dedicated ISP ($3/IP): Cada terminal tiene su propia IP estática. Garantiza consistencia horaria y cero mismatch bans para marcas orgánicas.';
+      } else {
+        // Residential pool by GB: ~$3/GB. 
+        // 1 phone uses roughly 0.15 GB/mo for automated posting = $0.45/phone/mo, minimum package $15.
+        proxyCost = Math.max(15, count * 0.45);
+        insight.innerText = 'Estrategia Residencial por GB: Muy económica para generar lotes de 1,000 proxies descartables. Alto riesgo de salto de IP si se busca permanencia mayor a 48 horas.';
+      }
+
+      // Fixed DeviceFarm API automation plan:
+      const fixedApiPlan = 99.0;
+
+      // Variable AI inference with GLM 5.3 (approximated base + per-device scale)
+      const aiCost = Math.round(15 + (count * 0.4));
+
+      // Total
+      const total = phoneCost + proxyCost + fixedApiPlan + aiCost;
+      const perDevice = (total / count).toFixed(2);
+
+      // Render to DOM
+      costPhonesDisplay.innerText = `$${phoneCost.toFixed(2)}`;
+      costProxiesDisplay.innerText = `$${proxyCost.toFixed(2)}`;
+      costAiDisplay.innerText = `$${aiCost.toFixed(2)}`;
+      totalCostDisplay.innerText = `$${Math.round(total)}`;
+      perDeviceLabel.innerText = `Costo efectivo: ~$${perDevice} USD / teléfono / mes`;
+    }
+
+    // Initialize calculator values on load
+    window.addEventListener('DOMContentLoaded', () => {
+      updateCalculator();
+    });
+  </script>
+</body>
+</html>

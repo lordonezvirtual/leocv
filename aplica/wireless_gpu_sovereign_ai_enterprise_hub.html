@@ -1,0 +1,1182 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WyseAI & Soberanía de Datos | Arquitectura de IA Local y Consultoría Enterprise</title>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Phosphor Icons -->
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+          },
+          colors: {
+            brand: {
+              50: '#eef8ff',
+              100: '#d8eeff',
+              400: '#38bdf8',
+              500: '#0284c7',
+              600: '#0369a1',
+              accent: '#10b981',
+              dark: '#080c14',
+              card: '#0f172a',
+              cardBorder: '#1e293b'
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    /* Custom glow and backdrop effects */
+    .glow-cyan {
+      box-shadow: 0 0 35px -5px rgba(56, 189, 248, 0.25);
+    }
+    .glow-emerald {
+      box-shadow: 0 0 35px -5px rgba(16, 185, 129, 0.25);
+    }
+    .grid-bg {
+      background-size: 32px 32px;
+      background-image: 
+        linear-gradient(to right, rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+    }
+    /* Custom animated pulse line */
+    @keyframes pulseData {
+      0% { transform: translateX(-100%); opacity: 0; }
+      50% { opacity: 1; }
+      100% { transform: translateX(100%); opacity: 0; }
+    }
+    .pulse-bar {
+      animation: pulseData 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    }
+  </style>
+</head>
+
+<body class="bg-brand-dark text-slate-100 font-sans antialiased selection:bg-cyan-500 selection:text-black min-h-screen">
+
+  <!-- TOP ANNOUNCEMENT BAR -->
+  <div class="bg-gradient-to-r from-sky-950 via-slate-900 to-emerald-950 border-b border-sky-900/40 text-xs py-2 px-4 text-center tracking-wide text-sky-200 flex items-center justify-center gap-2">
+    <span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold bg-sky-500/20 text-sky-300 border border-sky-400/30 uppercase tracking-widest">Análisis de Despliegue</span>
+    <span>Democratización de 750B MoE sin clústeres de centros de datos de $300k.</span>
+    <a href="#moe-visualizer" class="underline hover:text-white font-medium ml-1">Ver simulador interactivo &rarr;</a>
+  </div>
+
+  <!-- NAVIGATION -->
+  <header class="sticky top-0 z-50 backdrop-blur-xl bg-brand-dark/80 border-b border-slate-800/80">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-sky-500 to-emerald-400 flex items-center justify-center text-slate-950 font-black shadow-lg shadow-sky-500/20">
+          <i class="ph-bold ph-cpu text-lg"></i>
+        </div>
+        <div>
+          <span class="font-bold text-lg tracking-tight text-white flex items-center gap-1.5">
+            WyseAI <span class="text-xs px-1.5 py-0.5 rounded bg-sky-950 text-sky-400 border border-sky-800/50 font-mono">Infraestructura 5090</span>
+          </span>
+        </div>
+      </div>
+
+      <nav class="hidden md:flex items-center gap-8 text-sm font-medium text-slate-300">
+        <a href="#arquitectura" class="hover:text-sky-400 transition-colors">Protocolo Wi-Fi</a>
+        <a href="#moe-visualizer" class="hover:text-sky-400 transition-colors">Simulador MoE</a>
+        <a href="#tco-calculator" class="hover:text-sky-400 transition-colors">Calculadora TCO</a>
+        <a href="#edentia-playbook" class="hover:text-sky-400 transition-colors">Edentia Playbook</a>
+        <a href="#consultoria" class="hover:text-sky-400 transition-colors">Leonardo Senior AI</a>
+      </nav>
+
+      <div class="flex items-center gap-3">
+        <button onclick="scrollToSection('tco-calculator')" class="hidden sm:inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 text-xs font-semibold transition">
+          <i class="ph-bold ph-calculator"></i>
+          Cotizar ROI
+        </button>
+        <button onclick="scrollToSection('contacto-modal')" class="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-gradient-to-r from-sky-500 to-cyan-400 hover:from-sky-400 hover:to-cyan-300 text-slate-950 text-xs font-bold transition shadow-md shadow-sky-500/20">
+          <i class="ph-bold ph-lightning"></i>
+          Solicitar Diagnóstico
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO SECTION -->
+  <section class="relative pt-16 pb-24 overflow-hidden grid-bg border-b border-slate-800/60">
+    <div class="absolute inset-0 bg-gradient-to-b from-transparent via-brand-dark/60 to-brand-dark pointer-events-none"></div>
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      
+      <div class="flex flex-col items-center text-center max-w-4xl mx-auto">
+        <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-slate-800/80 border border-slate-700/80 text-xs text-slate-300 mb-6 backdrop-blur-md">
+          <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+          <span>Basado en la innovación técnica analizada por NetworkChuck</span>
+        </div>
+
+        <h1 class="text-4xl sm:text-6xl font-extrabold tracking-tight text-white leading-tight">
+          El fin del monopolio de la VRAM: <br>
+          <span class="bg-clip-text text-transparent bg-gradient-to-r from-sky-400 via-cyan-300 to-emerald-400">
+            Modelos de 750B parámetros sobre Wi-Fi local
+          </span>
+        </h1>
+
+        <p class="mt-6 text-lg sm:text-xl text-slate-400 leading-relaxed max-w-3xl">
+          Arquitectura desglosada del dispositivo <span class="text-slate-200 font-semibold">WyseAI (YSI)</span> con NVIDIA RTX 5090: cómo un pool de cómputo inalámbrico con <span class="text-sky-300 font-mono">Model Parking</span>, formateo por bloques NVMe y ejecución segmentada GPU-CPU rompe la barrera del hardware empresarial.
+        </p>
+
+        <!-- CTA Action Buttons -->
+        <div class="mt-10 flex flex-wrap items-center justify-center gap-4">
+          <a href="#moe-visualizer" class="px-6 py-3.5 rounded-xl bg-sky-500 hover:bg-sky-400 text-slate-950 font-bold text-sm transition shadow-lg shadow-sky-500/30 flex items-center gap-2">
+            <i class="ph-bold ph-cpu text-lg"></i>
+            Probar simulador de expertos MoE
+          </a>
+          <a href="#arquitectura" class="px-6 py-3.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-semibold text-sm border border-slate-700 transition flex items-center gap-2">
+            <i class="ph-bold ph-brackets-curly text-lg text-sky-400"></i>
+            Explorar protocolo Wi-Fi 400 Mbps
+          </a>
+        </div>
+
+        <!-- Metric Badges -->
+        <div class="mt-14 grid grid-cols-2 sm:grid-cols-4 gap-4 w-full max-w-4xl text-left">
+          <div class="p-4 rounded-xl bg-slate-900/80 border border-slate-800">
+            <div class="text-2xl font-mono font-bold text-sky-400">750B</div>
+            <div class="text-xs text-slate-400 mt-1">DeepSeek 4.1 Flash MoE</div>
+          </div>
+          <div class="p-4 rounded-xl bg-slate-900/80 border border-slate-800">
+            <div class="text-2xl font-mono font-bold text-emerald-400">32 GB</div>
+            <div class="text-xs text-slate-400 mt-1">VRAM física necesaria</div>
+          </div>
+          <div class="p-4 rounded-xl bg-slate-900/80 border border-slate-800">
+            <div class="text-2xl font-mono font-bold text-cyan-400">400 Mbps</div>
+            <div class="text-xs text-slate-400 mt-1">Ancho de banda Wi-Fi (vs 8 Gbps)</div>
+          </div>
+          <div class="p-4 rounded-xl bg-slate-900/80 border border-slate-800">
+            <div class="text-2xl font-mono font-bold text-amber-400">4 Segundos</div>
+            <div class="text-xs text-slate-400 mt-1">Conmutación de app vía Scheduler</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- SECCIÓN 1: EL PROTOCOLO WI-FI Y EL FAKE DRIVER -->
+  <section id="arquitectura" class="py-20 border-b border-slate-800/80 bg-slate-950/50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="text-center max-w-3xl mx-auto mb-16">
+        <span class="text-xs font-mono uppercase tracking-widest text-sky-400 font-semibold bg-sky-950/60 px-3 py-1 rounded-full border border-sky-800/50">
+          Ingeniería de Red de Bajo Nivel
+        </span>
+        <h2 class="text-3xl sm:text-4xl font-bold text-white mt-4 tracking-tight">
+          ¿Cómo resuelve el cuello de botella de 1.5 ms vs 1 µs?
+        </h2>
+        <p class="text-slate-400 mt-3 text-sm sm:text-base">
+          Una GPU conectada en PCIe Gen 5 transfiere datos a 512 Gbps con latencias sub-microsegundo. El protocolo propietario de WyseAI sobre OpenWrt reduce las llamadas redundantes en un 95%.
+        </p>
+      </div>
+
+      <!-- Comparative Pipeline Visualizer -->
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-stretch">
+        
+        <!-- Left: PCIe vs Wi-Fi Realities -->
+        <div class="bg-brand-card rounded-2xl p-6 sm:p-8 border border-brand-cardBorder flex flex-col justify-between">
+          <div>
+            <h3 class="text-xl font-bold text-white flex items-center gap-2 mb-4">
+              <i class="ph-bold ph-chart-line-up text-sky-400"></i>
+              La Brecha Física: PCIe vs Wi-Fi Tradicional
+            </h3>
+            <p class="text-sm text-slate-400 mb-6">
+              Sin optimización, cada llamada de dibujo (*draw call*) requeriría un tiempo de ida y vuelta (RTT) inasumible, transformando Cyberpunk 2077 o Blender en una presentación de diapositivas estática.
+            </p>
+
+            <!-- PCIe Metric -->
+            <div class="space-y-4 font-mono text-xs">
+              <div class="p-4 rounded-xl bg-slate-900 border border-slate-800">
+                <div class="flex justify-between text-slate-300 font-bold mb-1">
+                  <span>BUS PCIe Gen 5 (Slot Físico)</span>
+                  <span class="text-emerald-400">512 Gbps | &lt;1 µs RTT</span>
+                </div>
+                <div class="w-full bg-slate-800 h-2 rounded-full overflow-hidden">
+                  <div class="bg-emerald-400 h-full w-full"></div>
+                </div>
+                <p class="text-[11px] text-slate-400 mt-2 font-sans">
+                  Transmisión instantánea y síncrona sin compresión.
+                </p>
+              </div>
+
+              <!-- Raw Wi-Fi Metric -->
+              <div class="p-4 rounded-xl bg-slate-900 border border-slate-800">
+                <div class="flex justify-between text-slate-300 font-bold mb-1">
+                  <span>Wi-Fi Estándar (Sin Optimizar)</span>
+                  <span class="text-rose-400">1 Gbps | ~1.5 ms RTT</span>
+                </div>
+                <div class="w-full bg-slate-800 h-2 rounded-full overflow-hidden">
+                  <div class="bg-rose-500 h-full w-[12%]"></div>
+                </div>
+                <p class="text-[11px] text-slate-400 mt-2 font-sans">
+                  1500 veces más lento en respuesta. Genera congelamiento total.
+                </p>
+              </div>
+
+              <!-- WyseAI Compressed Wi-Fi -->
+              <div class="p-4 rounded-xl bg-sky-950/40 border border-sky-800/60">
+                <div class="flex justify-between text-sky-300 font-bold mb-1">
+                  <span>Protocolo WyseAI (Fake Driver + Delta)</span>
+                  <span class="text-sky-400">400 Mbps | 92 FPS Sostenido</span>
+                </div>
+                <div class="w-full bg-slate-800 h-2 rounded-full overflow-hidden relative">
+                  <div class="bg-sky-400 h-full w-[70%]"></div>
+                </div>
+                <p class="text-[11px] text-sky-200 mt-2 font-sans">
+                  Inferencia especulativa, empaquetado sin bloqueo y transmisión solo-delta.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-6 pt-6 border-t border-slate-800/80 flex items-center justify-between text-xs text-slate-400">
+            <span class="flex items-center gap-1.5"><i class="ph-bold ph-shield-check text-emerald-400"></i> No es streaming de escritorio</span>
+            <span class="font-mono text-slate-500">Kernel Hook + OpenWrt</span>
+          </div>
+        </div>
+
+        <!-- Right: 4 Pillars of the Protocol -->
+        <div class="space-y-4 flex flex-col justify-between">
+          <div class="p-5 rounded-2xl bg-brand-card border border-brand-cardBorder hover:border-sky-500/50 transition duration-300">
+            <div class="flex items-start gap-4">
+              <div class="w-10 h-10 rounded-xl bg-sky-500/10 border border-sky-500/30 flex items-center justify-center text-sky-400 flex-shrink-0">
+                <span class="font-mono font-bold text-sm">01</span>
+              </div>
+              <div>
+                <h4 class="font-bold text-white text-base">Controlador Virtual (Fake Driver)</h4>
+                <p class="text-slate-400 text-sm mt-1">
+                  Se inyecta en el kernel del sistema cliente (Windows/macOS). Engaña a las librerías gráficas (DirectX 12, Vulkan, Metal) haciendo creer que la RTX 5090 está conectada internamente.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="p-5 rounded-2xl bg-brand-card border border-brand-cardBorder hover:border-sky-500/50 transition duration-300">
+            <div class="flex items-start gap-4">
+              <div class="w-10 h-10 rounded-xl bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center text-cyan-400 flex-shrink-0">
+                <span class="font-mono font-bold text-sm">02</span>
+              </div>
+              <div>
+                <h4 class="font-bold text-white text-base">Compresión Delta & Filtrado Asíncrono</h4>
+                <p class="text-slate-400 text-sm mt-1">
+                  "La reunión que pudo ser un correo". Suprime confirmaciones innecesarias de dibujo y únicamente transmite los vértices y texturas modificadas cuadro a cuadro.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="p-5 rounded-2xl bg-brand-card border border-brand-cardBorder hover:border-sky-500/50 transition duration-300">
+            <div class="flex items-start gap-4">
+              <div class="w-10 h-10 rounded-xl bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-400 flex-shrink-0">
+                <span class="font-mono font-bold text-sm">03</span>
+              </div>
+              <div>
+                <h4 class="font-bold text-white text-base">Inferencia Especulativa de Respuestas</h4>
+                <p class="text-slate-400 text-sm mt-1">
+                  El subsistema de red predice las siguientes peticiones que la CPU solicitará al pipeline gráfico y despacha los datos computados antes de recibir la consulta síncrona.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="p-5 rounded-2xl bg-brand-card border border-brand-cardBorder hover:border-sky-500/50 transition duration-300">
+            <div class="flex items-start gap-4">
+              <div class="w-10 h-10 rounded-xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-amber-400 flex-shrink-0">
+                <span class="font-mono font-bold text-sm">04</span>
+              </div>
+              <div>
+                <h4 class="font-bold text-white text-base">Streaming de Framebuffer Comprimido por Hardware</h4>
+                <p class="text-slate-400 text-sm mt-1">
+                  La RTX 5090 renderiza y codifica el flujo final utilizando sus propios encoders dedicados NVENC para enviarlo de regreso al cliente con un payload estable de 400 Mbps.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- SECCIÓN 2: SIMULADOR INTERACTIVO DEL "BRAIN" DEEPSEEK 4.1 FLASH (MoE) -->
+  <section id="moe-visualizer" class="py-20 border-b border-slate-800/80">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="flex flex-col md:flex-row md:items-end justify-between mb-12">
+        <div>
+          <span class="text-xs font-mono uppercase tracking-widest text-emerald-400 font-semibold bg-emerald-950/60 px-3 py-1 rounded-full border border-emerald-800/50">
+            Simulador Interactivo en Tiempo Real
+          </span>
+          <h2 class="text-3xl sm:text-4xl font-bold text-white mt-4 tracking-tight">
+            Visualizador de Expertos: MoE en SSD NVMe
+          </h2>
+          <p class="text-slate-400 mt-2 max-w-2xl text-sm sm:text-base">
+            Ejecuta una consulta en el simulador para ver cómo el enrutador selecciona 6 de los 384 expertos por capa, extrayendo los pesos desde la VRAM, la memoria RAM y el SSD NVMe de 4 TB.
+          </p>
+        </div>
+
+        <!-- Live Status Pill -->
+        <div class="mt-4 md:mt-0 flex items-center gap-3 bg-slate-900 border border-slate-800 px-4 py-2.5 rounded-xl font-mono text-xs">
+          <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-ping"></span>
+          <span class="text-slate-300">GPU: <span class="text-sky-400 font-bold">RTX 5090 (32GB)</span></span>
+          <span class="text-slate-600">|</span>
+          <span class="text-slate-300">Modelo: <span class="text-emerald-400 font-bold">750B MoE</span></span>
+        </div>
+      </div>
+
+      <!-- Main Interactive Visualizer Box -->
+      <div class="bg-brand-card rounded-2xl border border-brand-cardBorder overflow-hidden shadow-2xl">
+        
+        <!-- Interactive Control Bar -->
+        <div class="p-6 bg-slate-900/90 border-b border-slate-800 flex flex-col md:flex-row gap-4 items-stretch md:items-center justify-between">
+          <div class="flex-1 flex gap-3">
+            <select id="query-selector" class="bg-slate-950 border border-slate-700 text-slate-200 text-sm rounded-xl px-4 py-3 focus:outline-none focus:border-sky-500 w-full md:w-auto font-medium">
+              <option value="coffee">Prompt 1: "Explica el proceso físico del tostado de café y caramelización"</option>
+              <option value="contract">Prompt 2: "Auditoría legal y detección de cláusulas nulas en contrato bancario"</option>
+              <option value="cyberpunk">Prompt 3: "Optimización de shaders raytracing y rasterizado en Cyberpunk"</option>
+              <option value="bio">Prompt 4: "Secuenciación genómica y plegamiento molecular en ARN"</option>
+            </select>
+            <button onclick="triggerInferenceSimulation()" id="simulate-btn" class="px-6 py-3 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-400 hover:from-emerald-400 hover:to-teal-300 text-slate-950 font-bold text-xs uppercase tracking-wider transition flex items-center gap-2 flex-shrink-0 shadow-lg shadow-emerald-500/20">
+              <i class="ph-bold ph-play"></i>
+              Simular Inferencia
+            </button>
+          </div>
+
+          <!-- Token Speed readout -->
+          <div class="flex items-center gap-6 px-4 py-2 bg-slate-950 rounded-xl border border-slate-800 text-xs font-mono">
+            <div>
+              <span class="text-slate-500 block text-[10px]">TASA DE INFERENCIA</span>
+              <span id="speed-indicator" class="text-base font-bold text-emerald-400">0.0 tokens/s</span>
+            </div>
+            <div class="h-6 w-px bg-slate-800"></div>
+            <div>
+              <span class="text-slate-500 block text-[10px]">THROUGHPUT SSD</span>
+              <span id="throughput-indicator" class="text-base font-bold text-sky-400">0.0 GB/s</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Graphical Representation of the Hardware Tiers -->
+        <div class="p-6 sm:p-8 space-y-8">
+          
+          <!-- Memory Topology Flow -->
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            
+            <!-- Tier 1: VRAM (RTX 5090) -->
+            <div class="rounded-xl bg-slate-900/90 border border-sky-500/30 p-5 relative overflow-hidden">
+              <div class="flex justify-between items-start mb-3">
+                <div>
+                  <span class="text-[11px] font-mono text-sky-400 font-bold uppercase tracking-wider">Nivel 1 • Ultrarrápido</span>
+                  <h4 class="text-lg font-bold text-white flex items-center gap-1.5 mt-0.5">
+                    <i class="ph-fill ph-lightning text-sky-400"></i> VRAM (32 GB)
+                  </h4>
+                </div>
+                <span class="text-xs font-mono text-slate-400 bg-slate-800 px-2 py-0.5 rounded">1.8 TB/s</span>
+              </div>
+              <p class="text-xs text-slate-400 mb-3">
+                Mantiene en caché caliente los 4 expertos más frecuentes y pesos de atención crítica.
+              </p>
+              
+              <!-- Active Expert Chips -->
+              <div class="space-y-1.5">
+                <span class="text-[10px] font-mono text-slate-400 uppercase">Expertos Activos en VRAM:</span>
+                <div id="vram-experts" class="flex flex-wrap gap-1.5 min-h-[32px]">
+                  <span class="px-2 py-1 rounded bg-sky-950 text-sky-300 border border-sky-800 text-xs font-mono">Exp-042 (Sintaxis)</span>
+                  <span class="px-2 py-1 rounded bg-sky-950 text-sky-300 border border-sky-800 text-xs font-mono">Exp-119 (Razonamiento)</span>
+                </div>
+              </div>
+              <div class="mt-4 pt-3 border-t border-slate-800 text-[11px] text-sky-400/90 font-mono flex items-center justify-between">
+                <span>Cálculo Tensor:</span>
+                <span class="font-bold">Tensor Cores (GPU)</span>
+              </div>
+            </div>
+
+            <!-- Tier 2: RAM DDR5 -->
+            <div class="rounded-xl bg-slate-900/90 border border-slate-800 p-5 relative overflow-hidden">
+              <div class="flex justify-between items-start mb-3">
+                <div>
+                  <span class="text-[11px] font-mono text-cyan-400 font-bold uppercase tracking-wider">Nivel 2 • Buffer Intermedio</span>
+                  <h4 class="text-lg font-bold text-white flex items-center gap-1.5 mt-0.5">
+                    <i class="ph-fill ph-memory text-cyan-400"></i> RAM DDR5 (64 GB)
+                  </h4>
+                </div>
+                <span class="text-xs font-mono text-slate-400 bg-slate-800 px-2 py-0.5 rounded">90 GB/s</span>
+              </div>
+              <p class="text-xs text-slate-400 mb-3">
+                Copia preliminar y pool de contingencia para expertos con probabilidad media de activación.
+              </p>
+              
+              <div class="space-y-1.5">
+                <span class="text-[10px] font-mono text-slate-400 uppercase">Expertos Precargados:</span>
+                <div id="ram-experts" class="flex flex-wrap gap-1.5 min-h-[32px]">
+                  <span class="px-2 py-1 rounded bg-slate-800 text-slate-300 border border-slate-700 text-xs font-mono">Exp-088 (Semántica)</span>
+                  <span class="px-2 py-1 rounded bg-slate-800 text-slate-300 border border-slate-700 text-xs font-mono">Exp-231 (Lógica)</span>
+                </div>
+              </div>
+              <div class="mt-4 pt-3 border-t border-slate-800 text-[11px] text-cyan-400/90 font-mono flex items-center justify-between">
+                <span>Cálculo Vectorial:</span>
+                <span class="font-bold">CPU AVX-512 / Host</span>
+              </div>
+            </div>
+
+            <!-- Tier 3: SSD NVMe Almacenamiento Masivo -->
+            <div class="rounded-xl bg-slate-900/90 border border-slate-800 p-5 relative overflow-hidden">
+              <div class="flex justify-between items-start mb-3">
+                <div>
+                  <span class="text-[11px] font-mono text-emerald-400 font-bold uppercase tracking-wider">Nivel 3 • Repositorio 750B</span>
+                  <h4 class="text-lg font-bold text-white flex items-center gap-1.5 mt-0.5">
+                    <i class="ph-fill ph-hard-drives text-emerald-400"></i> SSD NVMe (4 TB)
+                  </h4>
+                </div>
+                <span class="text-xs font-mono text-slate-400 bg-slate-800 px-2 py-0.5 rounded">11.5 GB/s (Ráfaga)</span>
+              </div>
+              <p class="text-xs text-slate-400 mb-3">
+                Archivos reempaquetados en bloques idénticos leídos a 64 fragmentos por batch.
+              </p>
+              
+              <div class="space-y-1.5">
+                <span class="text-[10px] font-mono text-slate-400 uppercase">15,360 Expertos Totales:</span>
+                <div id="ssd-status" class="text-xs font-mono text-emerald-400 bg-emerald-950/40 p-2 rounded border border-emerald-800/40">
+                  Listo para despacho bajo demanda (~1 GB / paso)
+                </div>
+              </div>
+              <div class="mt-4 pt-3 border-t border-slate-800 text-[11px] text-emerald-400/90 font-mono flex items-center justify-between">
+                <span>Optimización:</span>
+                <span class="font-bold">Alineación de Chunks</span>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Console Terminal Simulation Output -->
+          <div class="rounded-xl bg-slate-950 border border-slate-800 p-4 font-mono text-xs">
+            <div class="flex items-center justify-between pb-3 mb-3 border-b border-slate-800 text-slate-500 text-[11px]">
+              <span class="flex items-center gap-2">
+                <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+                Registro de Enrutamiento Dinámico (Trace Logs en Tiempo Real)
+              </span>
+              <span id="token-counter">Tokens generados: 0</span>
+            </div>
+            <div id="console-stream" class="h-32 overflow-y-auto space-y-1 text-slate-300 pr-2">
+              <span class="text-slate-500">// Selecciona un prompt y presiona "Simular Inferencia" para ver el enrutador en acción...</span>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- SECCIÓN 3: EL MOTOR SCHEDULER & MODEL PARKING -->
+  <section class="py-20 border-b border-slate-800/80 bg-slate-950/40">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+        
+        <div class="lg:col-span-5 space-y-6">
+          <span class="text-xs font-mono uppercase tracking-widest text-cyan-400 font-semibold bg-cyan-950/60 px-3 py-1 rounded-full border border-cyan-800/50">
+            Concurrencia Multi-Dispositivo
+          </span>
+          <h2 class="text-3xl sm:text-4xl font-bold text-white tracking-tight">
+            "Las GPUs no saben compartir": La Solución de Estacionamiento de Modelos
+          </h2>
+          <p class="text-slate-400 text-base leading-relaxed">
+            Una sola tarea de IA generativa (video, renderizado o chat) satura por completo los 32 GB de VRAM. Si un segundo usuario desea generar una imagen desde Figma mientras otro edita en DaVinci Resolve, el sistema colapsaría.
+          </p>
+
+          <div class="space-y-4 pt-2">
+            <div class="flex items-start gap-3">
+              <div class="w-6 h-6 rounded-full bg-rose-500/20 text-rose-400 flex items-center justify-center text-xs font-bold mt-0.5">✕</div>
+              <div>
+                <h4 class="font-bold text-slate-200 text-sm">Sin Scheduler (Tradicional)</h4>
+                <p class="text-xs text-slate-400">Tarda de 17 a 18 segundos vaciar la memoria y recargar un nuevo modelo pesado desde almacenamiento frío.</p>
+              </div>
+            </div>
+
+            <div class="flex items-start gap-3">
+              <div class="w-6 h-6 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-xs font-bold mt-0.5">✓</div>
+              <div>
+                <h4 class="font-bold text-slate-200 text-sm">Con WyseAI Scheduler (Model Parking)</h4>
+                <p class="text-xs text-slate-400">Los modelos inactivos se "estacionan" en particiones SSD ultraoptimizadas en caliente, reduciendo la conmutación a solo <strong class="text-emerald-400">4 a 8 segundos</strong>.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Interactive Context Switcher Benchmark -->
+        <div class="lg:col-span-7 bg-brand-card p-6 sm:p-8 rounded-2xl border border-brand-cardBorder">
+          <h3 class="text-lg font-bold text-white mb-2 flex items-center justify-between">
+            <span>Benchmark de Conmutación de Contextos</span>
+            <span class="text-xs font-mono text-slate-400">MacBook + Laptop Windows</span>
+          </h3>
+          <p class="text-xs text-slate-400 mb-6">
+            Compara la alternancia en tiempo real entre el LLM DeepSeek (Texto) y el Modelo de Difusión (Imágenes/Video).
+          </p>
+
+          <!-- Interactive Test Buttons -->
+          <div class="grid grid-cols-2 gap-4 mb-6">
+            <button onclick="testContextSwitch('cold')" class="p-4 rounded-xl bg-slate-900 border border-slate-800 hover:border-slate-700 text-left transition group">
+              <span class="text-[10px] font-mono text-slate-500 uppercase block mb-1">Método Convencional</span>
+              <span class="font-bold text-sm text-slate-300 group-hover:text-white">Recarga en Frío</span>
+              <span class="block text-rose-400 font-mono font-bold text-xs mt-2">~17.8 seg</span>
+            </button>
+            <button onclick="testContextSwitch('parked')" class="p-4 rounded-xl bg-sky-950/40 border border-sky-800/80 hover:border-sky-500 text-left transition group">
+              <span class="text-[10px] font-mono text-sky-400 uppercase block mb-1">Tecnología WyseAI</span>
+              <span class="font-bold text-sm text-sky-200 group-hover:text-white">Model Parking (SSD)</span>
+              <span class="block text-emerald-400 font-mono font-bold text-xs mt-2">~4.1 seg (-77%)</span>
+            </button>
+          </div>
+
+          <!-- Animated Progress Simulation Container -->
+          <div class="p-4 bg-slate-950 rounded-xl border border-slate-800 space-y-3 font-mono text-xs">
+            <div class="flex justify-between text-slate-400 text-[11px]">
+              <span id="switch-status-label">Estado: En espera de prueba</span>
+              <span id="switch-timer" class="text-white font-bold">0.00s</span>
+            </div>
+            <div class="w-full bg-slate-900 h-3 rounded-full overflow-hidden relative">
+              <div id="switch-progress-bar" class="h-full bg-gradient-to-r from-sky-500 to-emerald-400 w-0 transition-all duration-300"></div>
+            </div>
+            <div class="text-[11px] text-slate-500 flex justify-between">
+              <span>Chat LLM (VRAM)</span>
+              <span>&harr; Conmutando &harr;</span>
+              <span>Diffusion Model (Figma Plugin)</span>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- SECCIÓN 4: CALCULADORA INTERACTIVA TCO (CLOUD API VS NODO LOCAL MOE) -->
+  <section id="tco-calculator" class="py-20 border-b border-slate-800/80">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="text-center max-w-3xl mx-auto mb-16">
+        <span class="text-xs font-mono uppercase tracking-widest text-sky-400 font-semibold bg-sky-950/60 px-3 py-1 rounded-full border border-sky-800/50">
+          Evaluación Financiera Corporativa
+        </span>
+        <h2 class="text-3xl sm:text-4xl font-bold text-white mt-4 tracking-tight">
+          Calculadora de Costo Total de Propiedad (TCO)
+        </h2>
+        <p class="text-slate-400 mt-3 text-sm sm:text-base">
+          Calcula en cuánto tiempo amortiza tu empresa la inversión de un nodo local de alto poder frente al gasto recurrente de llamadas a APIs comerciales en la nube (OpenAI / Anthropic).
+        </p>
+      </div>
+
+      <div class="bg-brand-card rounded-2xl border border-brand-cardBorder p-6 sm:p-10 shadow-2xl">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+          
+          <!-- Inputs Column -->
+          <div class="lg:col-span-6 space-y-6">
+            <div>
+              <div class="flex justify-between items-center text-sm font-medium text-slate-200 mb-2">
+                <span>Tokens consumidos por mes:</span>
+                <span id="token-val-display" class="font-mono text-sky-400 font-bold">50 Millones</span>
+              </div>
+              <input type="range" id="tokens-slider" min="5" max="300" value="50" step="5" oninput="calculateTCO()" class="w-full accent-sky-400 bg-slate-800 h-2 rounded-lg cursor-pointer">
+              <div class="flex justify-between text-[10px] font-mono text-slate-500 mt-1">
+                <span>5M (Pyme)</span>
+                <span>150M (Media)</span>
+                <span>300M+ (Enterprise)</span>
+              </div>
+            </div>
+
+            <div>
+              <div class="flex justify-between items-center text-sm font-medium text-slate-200 mb-2">
+                <span>Costo promedio API por millón de tokens:</span>
+                <span id="price-val-display" class="font-mono text-emerald-400 font-bold">$12.00 USD</span>
+              </div>
+              <input type="range" id="price-slider" min="3" max="30" value="12" step="1" oninput="calculateTCO()" class="w-full accent-emerald-400 bg-slate-800 h-2 rounded-lg cursor-pointer">
+              <div class="flex justify-between text-[10px] font-mono text-slate-500 mt-1">
+                <span>$3 (Modelos Ligeros)</span>
+                <span>$15 (Modelos Medios)</span>
+                <span>$30 (Frontier Claude 3.5 / GPT-4o)</span>
+              </div>
+            </div>
+
+            <div class="p-4 rounded-xl bg-slate-900 border border-slate-800 space-y-2">
+              <span class="text-xs font-semibold text-slate-300 block">Especificaciones del Nodo Local WyseAI:</span>
+              <ul class="text-xs text-slate-400 space-y-1">
+                <li class="flex items-center gap-2"><i class="ph-bold ph-check text-sky-400"></i> Hardware: RTX 5090 (32GB) + 4TB SSD + MiniPC embebido</li>
+                <li class="flex items-center gap-2"><i class="ph-bold ph-check text-sky-400"></i> Inversión única aproximada: ~$4,500 USD (Capex)</li>
+                <li class="flex items-center gap-2"><i class="ph-bold ph-check text-sky-400"></i> Consumo eléctrico estimado: ~$35 USD / mes</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Dynamic Output Card -->
+          <div class="lg:col-span-6 bg-gradient-to-br from-slate-900 to-slate-950 p-6 sm:p-8 rounded-2xl border border-slate-800 flex flex-col justify-between">
+            <div class="space-y-6">
+              <div class="grid grid-cols-2 gap-4">
+                <div class="p-4 rounded-xl bg-slate-900/80 border border-slate-800">
+                  <span class="text-[11px] font-mono text-rose-400 uppercase block font-semibold">Costo Anual Cloud API</span>
+                  <div id="annual-cloud-cost" class="text-2xl sm:text-3xl font-mono font-bold text-white mt-1">$7,200</div>
+                  <span class="text-[10px] text-slate-500 mt-1 block">Opex recurrente infinito</span>
+                </div>
+                <div class="p-4 rounded-xl bg-slate-900/80 border border-slate-800">
+                  <span class="text-[11px] font-mono text-emerald-400 uppercase block font-semibold">Costo Anual Nodo Local</span>
+                  <div id="annual-local-cost" class="text-2xl sm:text-3xl font-mono font-bold text-white mt-1">$4,920</div>
+                  <span class="text-[10px] text-slate-500 mt-1 block">Capex amortizable + luz</span>
+                </div>
+              </div>
+
+              <!-- ROI Alert Callout -->
+              <div class="p-4 rounded-xl bg-emerald-950/30 border border-emerald-800/50 flex items-start gap-4">
+                <i class="ph-fill ph-trend-up text-2xl text-emerald-400 flex-shrink-0"></i>
+                <div>
+                  <h4 class="font-bold text-white text-sm">Punto de Retorno de Inversión (ROI)</h4>
+                  <p class="text-xs text-emerald-200/80 mt-1">
+                    Tu organización recupera el 100% de la inversión en <strong id="roi-months" class="text-emerald-300 font-mono text-sm underline">7.8 meses</strong>. A partir de ese momento, la inferencia de 750B parámetros es <span class="font-bold text-white">gratuita e ilimitada</span> dentro de tu propia red.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div class="mt-6 pt-4 border-t border-slate-800/80 flex items-center justify-between text-xs text-slate-400">
+              <span>Cumplimiento normativo: <strong class="text-white">100% On-Premise</strong></span>
+              <span class="font-mono text-sky-400">Zero-Token-Leak</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- SECCIÓN 5: EDENTIA - VENTAJAS COMPETITIVAS & MONETIZACIÓN -->
+  <section id="edentia-playbook" class="py-20 border-b border-slate-800/80 bg-slate-950/60">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="text-center max-w-3xl mx-auto mb-16">
+        <span class="text-xs font-mono uppercase tracking-widest text-emerald-400 font-semibold bg-emerald-950/60 px-3 py-1 rounded-full border border-emerald-800/50">
+          Estrategia Corporativa para Edentia
+        </span>
+        <h2 class="text-3xl sm:text-4xl font-bold text-white mt-4 tracking-tight">
+          Cómo Capitalizar esta Arquitectura en el Negocio
+        </h2>
+        <p class="text-slate-400 mt-3 text-sm sm:text-base">
+          Tres vertientes de producto y posicionamiento para crear foso defensivo (*moat*) y monetizar soluciones empresariales de IA soberana.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        
+        <!-- Opportunity 1 -->
+        <div class="p-8 rounded-2xl bg-brand-card border border-brand-cardBorder relative overflow-hidden group hover:border-sky-500/50 transition duration-300 flex flex-col justify-between">
+          <div class="space-y-4">
+            <div class="w-12 h-12 rounded-xl bg-sky-500/10 border border-sky-500/30 flex items-center justify-center text-sky-400 text-2xl">
+              <i class="ph-bold ph-lock-key"></i>
+            </div>
+            <h3 class="text-xl font-bold text-white">Edentia Local-Brain Appliance</h3>
+            <p class="text-slate-400 text-sm leading-relaxed">
+              Comercialización de cajas de cómputo preconfiguradas con modelos MoE para clientes del sector financiero, asegurador o legal con normativas estrictas de soberanía de datos (Habeas Data, GDPR).
+            </p>
+            <div class="p-3 bg-slate-900 rounded-lg text-xs font-mono text-sky-300 border border-slate-800">
+              Modelo: Renta mensual (HaaS) + SLA de afinación de modelos.
+            </div>
+          </div>
+          <div class="mt-6 pt-4 border-t border-slate-800 flex justify-between text-xs text-slate-500">
+            <span>Mercado Objetivo: Banca / Salud</span>
+            <span class="text-emerald-400 font-semibold">Alto Margen</span>
+          </div>
+        </div>
+
+        <!-- Opportunity 2 -->
+        <div class="p-8 rounded-2xl bg-brand-card border border-brand-cardBorder relative overflow-hidden group hover:border-emerald-500/50 transition duration-300 flex flex-col justify-between">
+          <div class="space-y-4">
+            <div class="w-12 h-12 rounded-xl bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-400 text-2xl">
+              <i class="ph-bold ph-users-three"></i>
+            </div>
+            <h3 class="text-xl font-bold text-white">Granja de Enjambres Multi-Agente</h3>
+            <p class="text-slate-400 text-sm leading-relaxed">
+              Aprovechamiento del algoritmo de <span class="text-slate-200 font-medium">Model Parking</span> para ejecutar swarms de agentes (investigador, redactor, auditor) sobre un solo equipo físico sin agotar la memoria.
+            </p>
+            <div class="p-3 bg-slate-900 rounded-lg text-xs font-mono text-emerald-300 border border-slate-800">
+              Ahorro: Reducción del 85% en costos de infraestructura operativa.
+            </div>
+          </div>
+          <div class="mt-6 pt-4 border-t border-slate-800 flex justify-between text-xs text-slate-500">
+            <span>Eficiencia: Swarms locales</span>
+            <span class="text-sky-400 font-semibold">Escalabilidad</span>
+          </div>
+        </div>
+
+        <!-- Opportunity 3 -->
+        <div class="p-8 rounded-2xl bg-brand-card border border-brand-cardBorder relative overflow-hidden group hover:border-cyan-500/50 transition duration-300 flex flex-col justify-between">
+          <div class="space-y-4">
+            <div class="w-12 h-12 rounded-xl bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center text-cyan-400 text-2xl">
+              <i class="ph-bold ph-headset"></i>
+            </div>
+            <h3 class="text-xl font-bold text-white">Spatial Computing & Wearables</h3>
+            <p class="text-slate-400 text-sm leading-relaxed">
+              Offloading de modelos de visión y audio en tiempo real para visores XR o dispositivos wearables corporativos, delegando el cómputo pesado sin calentar las baterías de los visores.
+            </p>
+            <div class="p-3 bg-slate-900 rounded-lg text-xs font-mono text-cyan-300 border border-slate-800">
+              Ventaja: Inferencia sub-15ms en entorno de red local 5G/Wi-Fi 7.
+            </div>
+          </div>
+          <div class="mt-6 pt-4 border-t border-slate-800 flex justify-between text-xs text-slate-500">
+            <span>Nicho: Gemelos Digitales</span>
+            <span class="text-cyan-400 font-semibold">Innovación XR</span>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- SECCIÓN 6: LEONARDO - CONSULTOR SENIOR DE IA -->
+  <section id="consultoria" class="py-20 border-b border-slate-800/80">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="bg-gradient-to-r from-sky-950/40 via-slate-900 to-emerald-950/30 rounded-3xl border border-slate-800 p-8 sm:p-12 relative overflow-hidden">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+          
+          <div class="lg:col-span-8 space-y-6">
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-sky-950 border border-sky-800 text-xs text-sky-300 font-mono">
+              <i class="ph-bold ph-identification-badge"></i> Posicionamiento Estratégico
+            </div>
+            <h2 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
+              Recomendaciones para Leonardo | Consultor Senior de IA
+            </h2>
+            <p class="text-slate-300 text-base leading-relaxed">
+              La consultoría moderna de IA no consiste en revender accesos a APIs comerciales, sino en diseñar <span class="text-white font-semibold">arquitecturas soberanas y de costo predecible</span>. Usa estos tres marcos de servicio para elevar tus honorarios y posicionarte ante Directores de Tecnología (CTOs) y Directores Financieros (CFOs):
+            </p>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
+              <div class="p-4 rounded-xl bg-slate-900/90 border border-slate-800">
+                <h4 class="text-sm font-bold text-sky-400 flex items-center gap-2">
+                  <i class="ph-bold ph-file-text"></i> Sprint de Auditoría TCO & Privacidad
+                </h4>
+                <p class="text-xs text-slate-400 mt-1">
+                  Paquete de consultoría cerrada de 4 semanas. Diagnóstico de fuga de datos en modelos comerciales y comparativa financiera Capex vs Opex.
+                </p>
+              </div>
+
+              <div class="p-4 rounded-xl bg-slate-900/90 border border-slate-800">
+                <h4 class="text-sm font-bold text-emerald-400 flex items-center gap-2">
+                  <i class="ph-bold ph-git-branch"></i> Arquitectura Híbrida de 2 Niveles
+                </h4>
+                <p class="text-xs text-slate-400 mt-1">
+                  Modelos ligeros en VRAM para enrutamiento instantáneo + modelos MoE masivos de 750B en NVMe local para síntesis profunda y RAG confidencial.
+                </p>
+              </div>
+            </div>
+
+            <div class="pt-4 flex flex-wrap gap-4 items-center">
+              <button onclick="openModalProposal()" class="px-6 py-3 rounded-xl bg-white hover:bg-slate-200 text-slate-950 font-bold text-xs uppercase tracking-wider transition shadow-lg flex items-center gap-2">
+                <i class="ph-bold ph-download-simple"></i>
+                Descargar Plantilla de Propuesta Comercial
+              </button>
+              <span class="text-xs text-slate-400">Estructura de precios: $5k a $18k USD por Sprint</span>
+            </div>
+          </div>
+
+          <!-- Senior Profile Sidebar Badge -->
+          <div class="lg:col-span-4 bg-slate-950 p-6 rounded-2xl border border-slate-800 text-center space-y-4">
+            <div class="w-20 h-20 mx-auto rounded-full bg-gradient-to-tr from-sky-400 to-emerald-400 p-1 flex items-center justify-center">
+              <div class="w-full h-full bg-slate-900 rounded-full flex items-center justify-center text-3xl text-sky-400 font-bold">
+                L
+              </div>
+            </div>
+            <div>
+              <h3 class="text-lg font-bold text-white">Leonardo</h3>
+              <p class="text-xs font-mono text-sky-400">Senior Enterprise AI Advisor</p>
+            </div>
+            <div class="text-xs text-slate-400 text-left space-y-2 pt-2 border-t border-slate-800">
+              <div class="flex items-center gap-2">
+                <i class="ph-bold ph-check-circle text-emerald-400"></i>
+                <span>Especialista en Modelos MoE & On-Premise</span>
+              </div>
+              <div class="flex items-center gap-2">
+                <i class="ph-bold ph-check-circle text-emerald-400"></i>
+                <span>Gobernanza & Cumplimiento de Datos</span>
+              </div>
+              <div class="flex items-center gap-2">
+                <i class="ph-bold ph-check-circle text-emerald-400"></i>
+                <span>Optimización de Costos de Cómputo (FinOps)</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- SECCIÓN 7: GLOSARIO TÉCNICO INTERACTIVO -->
+  <section class="py-20 bg-slate-950/80">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between mb-10 gap-4">
+        <div>
+          <span class="text-xs font-mono uppercase tracking-widest text-slate-400 font-semibold">Documentación Técnica</span>
+          <h2 class="text-2xl sm:text-3xl font-bold text-white mt-1">Glosario de Arquitectura</h2>
+        </div>
+        <!-- Search box inside glossary -->
+        <div class="relative w-full sm:w-72">
+          <i class="ph-bold ph-magnifying-glass absolute left-3 top-3 text-slate-400"></i>
+          <input type="text" id="glossary-search" oninput="filterGlossary()" placeholder="Filtrar concepto (ej. MoE, VRAM)..." class="w-full bg-slate-900 border border-slate-800 rounded-xl pl-9 pr-4 py-2 text-xs text-slate-200 focus:outline-none focus:border-sky-500">
+        </div>
+      </div>
+
+      <div id="glossary-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        
+        <div class="glossary-card p-5 rounded-xl bg-slate-900/60 border border-slate-800 space-y-2">
+          <div class="font-mono font-bold text-sky-400 text-sm">MoE (Mixture of Experts)</div>
+          <p class="text-xs text-slate-400 leading-relaxed">
+            Arquitectura neuronal donde en lugar de calcular toda la red para cada palabra, un enrutador selecciona solo los 6 expertos necesarios de 384 por capa.
+          </p>
+        </div>
+
+        <div class="glossary-card p-5 rounded-xl bg-slate-900/60 border border-slate-800 space-y-2">
+          <div class="font-mono font-bold text-emerald-400 text-sm">Model Parking</div>
+          <p class="text-xs text-slate-400 leading-relaxed">
+            Técnica del scheduler de WyseAI que congela y traslada tensores inactivos de la VRAM al disco SSD ultrarrápido, reduciendo el cambio de modelo a 4 segundos.
+          </p>
+        </div>
+
+        <div class="glossary-card p-5 rounded-xl bg-slate-900/60 border border-slate-800 space-y-2">
+          <div class="font-mono font-bold text-cyan-400 text-sm">Fake Driver (Virtual Hook)</div>
+          <p class="text-xs text-slate-400 leading-relaxed">
+            Controlador a nivel de kernel que simula una GPU PCIe local física ante el sistema operativo anfitrión mientras intercepta y reenvía comandos por red.
+          </p>
+        </div>
+
+        <div class="glossary-card p-5 rounded-xl bg-slate-900/60 border border-slate-800 space-y-2">
+          <div class="font-mono font-bold text-amber-400 text-sm">Delta Compression</div>
+          <p class="text-xs text-slate-400 leading-relaxed">
+            Mecanismo que analiza cuadros de render sucesivos para transmitir únicamente las modificaciones geométricas y de textura, bajando el consumo a 400 Mbps.
+          </p>
+        </div>
+
+        <div class="glossary-card p-5 rounded-xl bg-slate-900/60 border border-slate-800 space-y-2">
+          <div class="font-mono font-bold text-purple-400 text-sm">Split Math Execution</div>
+          <p class="text-xs text-slate-400 leading-relaxed">
+            División de carga matemática donde las operaciones de tensores en VRAM las procesa la GPU y los fragmentos provenientes de SSD/RAM los computa la CPU.
+          </p>
+        </div>
+
+        <div class="glossary-card p-5 rounded-xl bg-slate-900/60 border border-slate-800 space-y-2">
+          <div class="font-mono font-bold text-rose-400 text-sm">Aligned Chunks</div>
+          <p class="text-xs text-slate-400 leading-relaxed">
+            Reescritura de los archivos de pesos del LLM en bloques idénticos adaptados a la geometría del bus NVMe para leer ráfagas de 64 bloques concurrentes a 11.5 GB/s.
+          </p>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="border-t border-slate-800/80 bg-slate-950 py-12 text-slate-400 text-xs">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-6">
+      <div class="flex items-center gap-3">
+        <div class="w-6 h-6 rounded bg-sky-500/20 text-sky-400 flex items-center justify-center font-bold">
+          <i class="ph-bold ph-cpu"></i>
+        </div>
+        <span class="text-slate-300 font-medium">WyseAI Enterprise Playbook • Edentia Strategy</span>
+      </div>
+      <div class="text-slate-500 text-center sm:text-right">
+        Basado en el desglose técnico de NetworkChuck sobre cómputo inalámbrico de alta densidad.
+      </div>
+    </div>
+  </footer>
+
+  <!-- MODAL: PROPUESTA COMERCIAL SPRINT DE CONSULTORÍA -->
+  <div id="proposal-modal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden items-center justify-center p-4">
+    <div class="bg-slate-900 border border-slate-800 rounded-2xl max-w-lg w-full p-6 sm:p-8 space-y-6 shadow-2xl relative">
+      <button onclick="closeModalProposal()" class="absolute top-4 right-4 text-slate-400 hover:text-white text-xl">
+        <i class="ph-bold ph-x"></i>
+      </button>
+
+      <div>
+        <span class="text-xs font-mono text-emerald-400 uppercase font-semibold">Entregable para Clientes</span>
+        <h3 class="text-xl font-bold text-white mt-1">Estructura del Sprint de IA Soberana (4 Semanas)</h3>
+      </div>
+
+      <div class="space-y-3 text-xs text-slate-300">
+        <div class="p-3 bg-slate-950 rounded-lg border border-slate-800">
+          <strong class="text-sky-400 font-mono">Semana 1:</strong> Mapeo de flujos confidenciales y cálculo de consumo de tokens actual en Cloud.
+        </div>
+        <div class="p-3 bg-slate-950 rounded-lg border border-slate-800">
+          <strong class="text-sky-400 font-mono">Semana 2:</strong> Prototipo PoC con modelo MoE en hardware local optimizado (CPU + SSD NVMe).
+        </div>
+        <div class="p-3 bg-slate-950 rounded-lg border border-slate-800">
+          <strong class="text-sky-400 font-mono">Semana 3:</strong> Configuración del Scheduler multi-inquilino para compartir GPU entre departamentos.
+        </div>
+        <div class="p-3 bg-slate-950 rounded-lg border border-slate-800">
+          <strong class="text-sky-400 font-mono">Semana 4:</strong> Entrega de Matriz de TCO, Gobernanza de Datos y certificación Zero-Cloud.
+        </div>
+      </div>
+
+      <div class="pt-2 flex justify-end gap-3">
+        <button onclick="copyProposalSummary()" id="copy-btn" class="px-4 py-2.5 rounded-lg bg-sky-500 hover:bg-sky-400 text-slate-950 font-bold text-xs transition flex items-center gap-2">
+          <i class="ph-bold ph-copy"></i>
+          Copiar Resumen de Propuesta
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- JAVASCRIPT LOGIC & INTERACTIONS -->
+  <script>
+    // Smooth scroll helper
+    function scrollToSection(id) {
+      const el = document.getElementById(id);
+      if (el) el.scrollIntoView({ behavior: 'smooth' });
+    }
+
+    // Modal helpers
+    function openModalProposal() {
+      const modal = document.getElementById('proposal-modal');
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+    }
+    function closeModalProposal() {
+      const modal = document.getElementById('proposal-modal');
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+    }
+
+    // Copy to clipboard fallback for iframes
+    function copyProposalSummary() {
+      const summaryText = "Sprint de Consultoría de IA Soberana (Leonardo Senior Advisor):\n- Semana 1: Diagnóstico TCO & Fuga de Datos en Cloud APIs\n- Semana 2: PoC MoE On-Premise con SSD Caching y RTX 5090\n- Semana 3: Orquestación Multi-Inquilino con Model Parking\n- Semana 4: Gobernanza Corporativa y Entrega Final.";
+      const tempInput = document.createElement("textarea");
+      tempInput.value = summaryText;
+      document.body.appendChild(tempInput);
+      tempInput.select();
+      document.execCommand("copy");
+      document.body.removeChild(tempInput);
+
+      const btn = document.getElementById('copy-btn');
+      btn.innerHTML = `<i class="ph-bold ph-check"></i> ¡Copiado con Éxito!`;
+      setTimeout(() => {
+        btn.innerHTML = `<i class="ph-bold ph-copy"></i> Copiar Resumen de Propuesta`;
+      }, 2500);
+    }
+
+    // SIMULADOR INTERACTIVO DE EXPERTOS MoE (DEEPSEEK 4.1 FLASH)
+    let simulationRunning = false;
+    let tokenInterval = null;
+
+    const queryPresets = {
+      coffee: {
+        title: "Tostado de Café",
+        experts: [
+          { name: "Exp-014 (Química Térmica)", tier: "vram" },
+          { name: "Exp-088 (Maillard / Fusión)", tier: "vram" },
+          { name: "Exp-102 (Termodinámica)", tier: "vram" },
+          { name: "Exp-177 (Agronomía del Grano)", tier: "ram" },
+          { name: "Exp-204 (Degasificación CO2)", tier: "ram" },
+          { name: "Exp-312 (Evaluación Sensorial)", tier: "ssd" }
+        ],
+        speed: "12.4 tokens/s",
+        throughput: "10.8 GB/s",
+        sampleTokens: ["Durante", "el", "primer", "crack,", "la", "reacción", "endotérmica", "libera", "humedad", "y", "expande", "el", "grano."]
+      },
+      contract: {
+        title: "Auditoría Legal Bancaria",
+        experts: [
+          { name: "Exp-029 (Jurisprudencia)", tier: "vram" },
+          { name: "Exp-071 (Regulación Financiera)", tier: "vram" },
+          { name: "Exp-143 (Cláusulas Abusivas)", tier: "vram" },
+          { name: "Exp-199 (Habeas Data)", tier: "ram" },
+          { name: "Exp-250 (Tasas Usura)", tier: "ssd" },
+          { name: "Exp-380 (Garantías Mobiliarias)", tier: "ssd" }
+        ],
+        speed: "8.6 tokens/s",
+        throughput: "11.2 GB/s",
+        sampleTokens: ["La", "cláusula", "7.3", "vulnera", "la", "autonomía", "al", "imponer", "arbitraje", "sin", "consentimiento", "previo."]
+      },
+      cyberpunk: {
+        title: "Rasterizado & Raytracing",
+        experts: [
+          { name: "Exp-002 (Shaders DirectX 12)", tier: "vram" },
+          { name: "Exp-045 (BVH Ray Marching)", tier: "vram" },
+          { name: "Exp-111 (Delta Frames)", tier: "vram" },
+          { name: "Exp-159 (DLSS Reconstruction)", tier: "vram" },
+          { name: "Exp-240 (Buffer de Oclusión)", tier: "ram" },
+          { name: "Exp-377 (Texturas 4K Mipmap)", tier: "ssd" }
+        ],
+        speed: "14.8 tokens/s",
+        throughput: "9.4 GB/s",
+        sampleTokens: ["Cálculo", "especulativo", "enviado:", "92", "FPS", "constantes", "a", "400", "Mbps", "por", "Wi-Fi."]
+      },
+      bio: {
+        title: "Genómica y ARN",
+        experts: [
+          { name: "Exp-064 (Bases Nucleotídicas)", tier: "vram" },
+          { name: "Exp-092 (Plegamiento de Proteínas)", tier: "vram" },
+          { name: "Exp-150 (Enlaces de Hidrógeno)", tier: "ram" },
+          { name: "Exp-211 (Mutaciones Puntuales)", tier: "ram" },
+          { name: "Exp-298 (Ribosomas)", tier: "ssd" },
+          { name: "Exp-384 (Bioinformática)", tier: "ssd" }
+        ],
+        speed: "9.2 tokens/s",
+        throughput: "11.5 GB/s",
+        sampleTokens: ["Estructura", "terciaria", "resuelta", "con", "alta", "afinidad", "en", "el", "codón", "de", "iniciación."]
+      }
+    };
+
+    function triggerInferenceSimulation() {
+      if (simulationRunning) return;
+      simulationRunning = true;
+
+      const qKey = document.getElementById('query-selector').value;
+      const data = queryPresets[qKey] || queryPresets.coffee;
+      const btn = document.getElementById('simulate-btn');
+      const speedInd = document.getElementById('speed-indicator');
+      const thrInd = document.getElementById('throughput-indicator');
+      const consoleBox = document.getElementById('console-stream');
+      const tokenCounter = document.getElementById('token-counter');
+
+      btn.disabled = true;
+      btn.classList.add('opacity-50');
+      btn.innerHTML = `<i class="ph-bold ph-spinner animate-spin"></i> Enrutando...`;
+
+      // Update Active Chips
+      const vramContainer = document.getElementById('vram-experts');
+      const ramContainer = document.getElementById('ram-experts');
+      vramContainer.innerHTML = '';
+      ramContainer.innerHTML = '';
+
+      data.experts.forEach(exp => {
+        const chip = document.createElement('span');
+        chip.className = "px-2 py-1 rounded text-xs font-mono animate-pulse " + 
+          (exp.tier === 'vram' ? 'bg-sky-950 text-sky-300 border border-sky-800' : 'bg-slate-800 text-slate-300 border border-slate-700');
+        chip.textContent = exp.name;
+        if (exp.tier === 'vram') vramContainer.appendChild(chip);
+        else ramContainer.appendChild(chip);
+      });
+
+      // Stream tokens
+      consoleBox.innerHTML = `<span class="text-sky-400 font-bold">[ROUTER INITIALIZED]</span> Activando capa 1-40 con 6 expertos dinámicos...<br>`;
+      speedInd.textContent = data.speed;
+      thrInd.textContent = data.throughput;
+
+      let idx = 0;
+      tokenInterval = setInterval(() => {
+        if (idx < data.sampleTokens.length) {
+          const word = data.sampleTokens[idx];
+          consoleBox.innerHTML += `<span class="text-emerald-400 font-mono mr-1">${word}</span>`;
+          consoleBox.scrollTop = consoleBox.scrollHeight;
+          tokenCounter.textContent = `Tokens generados: ${idx + 1}`;
+          idx++;
+        } else {
+          clearInterval(tokenInterval);
+          consoleBox.innerHTML += `<br><span class="text-slate-500 text-[10px]">[PASO COMPLETADO] 61% inferido desde Tensor Cores (GPU), 39% CPU Host + Chunks SSD.</span>`;
+          btn.disabled = false;
+          btn.classList.remove('opacity-50');
+          btn.innerHTML = `<i class="ph-bold ph-play"></i> Simular Inferencia`;
+          simulationRunning = false;
+        }
+      }, 180);
+    }
+
+    // BENCHMARK DE CONMUTACIÓN DE CONTEXTOS (MODEL PARKING)
+    function testContextSwitch(type) {
+      const progressBar = document.getElementById('switch-progress-bar');
+      const statusLabel = document.getElementById('switch-status-label');
+      const timerDisplay = document.getElementById('switch-timer');
+
+      progressBar.style.width = '0%';
+      const duration = type === 'cold' ? 3000 : 800; // Simulated speed scale
+      const realSeconds = type === 'cold' ? 17.8 : 4.1;
+
+      statusLabel.textContent = type === 'cold' ? "Descargando modelo a disco frío..." : "Invocando copia estacionada (Model Parking SSD)...";
+      statusLabel.className = type === 'cold' ? "text-rose-400 font-semibold" : "text-emerald-400 font-semibold";
+
+      const start = Date.now();
+      const interval = setInterval(() => {
+        const elapsed = Date.now() - start;
+        const progress = Math.min((elapsed / duration) * 100, 100);
+        progressBar.style.width = `${progress}%`;
+        
+        const currentSec = ((progress / 100) * realSeconds).toFixed(2);
+        timerDisplay.textContent = `${currentSec}s`;
+
+        if (progress >= 100) {
+          clearInterval(interval);
+          statusLabel.textContent = type === 'cold' 
+            ? "Conmutación completada (Cuello de botella en I/O tradicional)" 
+            : "¡Listo! Contexto restaurado en VRAM con latencia imperceptible";
+        }
+      }, 30);
+    }
+
+    // CALCULADORA DE TCO DINÁMICA
+    function calculateTCO() {
+      const tokensMillion = parseFloat(document.getElementById('tokens-slider').value);
+      const pricePerMillion = parseFloat(document.getElementById('price-slider').value);
+
+      document.getElementById('token-val-display').textContent = `${tokensMillion} Millones / mes`;
+      document.getElementById('price-val-display').textContent = `$${pricePerMillion.toFixed(2)} USD`;
+
+      // Monthly Cloud Cost = (Million Tokens * Price)
+      const monthlyCloud = tokensMillion * pricePerMillion;
+      const annualCloud = monthlyCloud * 12;
+
+      // Local Appliance: Capex ~$4,500 + Electricity ~$35/mo ($420/yr)
+      const hardwareCapex = 4500;
+      const annualElectricity = 420;
+      const annualLocal = hardwareCapex + annualElectricity;
+
+      document.getElementById('annual-cloud-cost').textContent = `$${Math.round(annualCloud).toLocaleString()} USD`;
+      document.getElementById('annual-local-cost').textContent = `$${Math.round(annualLocal).toLocaleString()} USD`;
+
+      // ROI Payback in months: Capex / Monthly Savings
+      const monthlySavings = monthlyCloud - 35;
+      if (monthlySavings > 0) {
+        const paybackMonths = (hardwareCapex / monthlySavings).toFixed(1);
+        document.getElementById('roi-months').textContent = `${paybackMonths} meses`;
+      } else {
+        document.getElementById('roi-months').textContent = `Inmediato`;
+      }
+    }
+
+    // GLOSARIO DE TÉRMINOS - FILTRADO INTERACTIVO
+    function filterGlossary() {
+      const filter = document.getElementById('glossary-search').value.toLowerCase();
+      const cards = document.querySelectorAll('.glossary-card');
+
+      cards.forEach(card => {
+        const text = card.textContent.toLowerCase();
+        if (text.includes(filter)) {
+          card.style.display = 'block';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    }
+
+    // Initialize values on load
+    window.onload = function() {
+      calculateTCO();
+    };
+  </script>
+</body>
+</html>
